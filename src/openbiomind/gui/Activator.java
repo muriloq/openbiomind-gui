@@ -20,8 +20,8 @@ import org.osgi.framework.BundleContext;
  */
 public class Activator extends AbstractUIPlugin {
 
-   /** The Constant plug-in ID. */
-   public static final String PLUGIN_ID = "OpenBiomind_GUI";
+   /** The Constant Plug-in ID. */
+   public static final String PLUGIN_ID = "openbiomind.gui";
 
    /** The shared instance. */
    private static Activator plugin = null;

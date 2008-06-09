@@ -14,22 +14,37 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="RCP Perspective"
+            name="OpenBiomind"
             class="openbiomind.gui.Perspective"
-            id="OpenBiomind_GUI.perspective">
+            id="openbiomind.gui.Perspective">
       </perspective>
    </extension>
    <extension
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            application="OpenBiomind_GUI.application"
-            name="OpenBiomind">
+            application="openbiomind.gui.application"
+            name="OpenBiomind-GUI">
          <property
                name="windowImages"
                value="icons/alt_window_16.gif,icons/alt_window_32.gif">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="openbiomind.gui.views.CommandConsoleView"
+            icon="icons/alt_window_16.gif"
+            id="openbiomind.gui.views.CommandConsoleView"
+            name="Command Console">
+      </view>
+      <view
+            class="openbiomind.gui.views.FileListView"
+            icon="icons/alt_window_16.gif"
+            id="openbiomind.gui.views.FileListView"
+            name="File List">
+      </view>
    </extension>
 
 </plugin>

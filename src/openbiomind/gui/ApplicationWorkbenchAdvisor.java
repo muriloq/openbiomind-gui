@@ -7,6 +7,7 @@
  */
 package openbiomind.gui;
 
+import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
@@ -21,7 +22,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
    /** The Constant PERSPECTIVE_ID. */
-   private static final String PERSPECTIVE_ID = "OpenBiomind_GUI.perspective";
+   private static final String PERSPECTIVE_ID = "openbiomind.gui.Perspective";
 
    /*
     * @see org.eclipse.ui.application.WorkbenchAdvisor#createWorkbenchWindowAdvisor(org.eclipse.ui.application.IWorkbenchWindowConfigurer)
@@ -38,6 +39,17 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
    @Override
    public String getInitialWindowPerspectiveId() {
       return PERSPECTIVE_ID;
+   }
+
+   /*
+    * @see org.eclipse.ui.application.WorkbenchAdvisor#initialize(org.eclipse.ui.application.IWorkbenchConfigurer)
+    */
+   @Override
+   public void initialize(final IWorkbenchConfigurer configurer) {
+      super.initialize(configurer);
+
+      // persist the window location and size
+      configurer.setSaveAndRestore(true);
    }
 
 }
