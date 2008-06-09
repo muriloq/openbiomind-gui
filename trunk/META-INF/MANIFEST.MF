@@ -1,10 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: OpenBiomind_GUI Plug-in
-Bundle-SymbolicName: OpenBiomind_GUI; singleton:=true
-Bundle-Version: 0.0.1.20080601
+Bundle-Name: OpenBiomind-GUI
+Bundle-SymbolicName: openbiomind.gui; singleton:=true
+Bundle-Version: 0.0.1.20080608
 Bundle-Activator: openbiomind.gui.Activator
-Bundle-Vendor: opencog.org
+Bundle-Vendor: OpenBiomind
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.pde.runtime
 Eclipse-LazyStart: true
