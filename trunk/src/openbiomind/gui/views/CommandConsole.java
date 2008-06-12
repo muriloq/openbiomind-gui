@@ -1,7 +1,7 @@
 /**
- * CommandConsoleView.java
+ * CommandConsole.java
  *
- * The file CommandConsoleView.java.
+ * The file CommandConsole.java.
  *
  * $Id$
  */
@@ -11,21 +11,21 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
 /**
- * The class CommandConsoleView.
+ * The class CommandConsole.
  *
  * @author bsanghvi
  * @since Jun 8, 2008
  * @version Jun 8, 2008
  */
-public class CommandConsoleView extends ViewPart {
+public class CommandConsole extends ViewPart {
 
    /** The Constant ID. */
-   public static final String ID = "openbiomind.gui.views.CommandConsoleView";
+   public static final String ID = "openbiomind.gui.views.CommandConsole";
 
    /**
-    * Instantiates a new command console view.
+    * Instantiates a new command console.
     */
-   public CommandConsoleView() {
+   public CommandConsole() {
    }
 
    /*

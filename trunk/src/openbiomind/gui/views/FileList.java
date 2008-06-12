@@ -1,7 +1,7 @@
 /**
- * FileListView.java
+ * FileList.java
  *
- * The file FileListView.java.
+ * The file FileList.java.
  *
  * $Id$
  */
@@ -11,21 +11,21 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
 /**
- * The class FileListView.
+ * The class FileList.
  *
  * @author bsanghvi
  * @since Jun 8, 2008
  * @version Jun 8, 2008
  */
-public class FileListView extends ViewPart {
+public class FileList extends ViewPart {
 
    /** The Constant ID. */
-   public static final String ID = "openbiomind.gui.views.FileListView";
+   public static final String ID = "openbiomind.gui.views.FileList";
 
    /**
-    * Instantiates a new file list view.
+    * Instantiates a new file list.
     */
-   public FileListView() {
+   public FileList() {
    }
 
    /*
