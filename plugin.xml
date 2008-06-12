@@ -32,19 +32,122 @@
       </product>
    </extension>
    <extension
-         point="org.eclipse.ui.views">
-      <view
-            class="openbiomind.gui.views.CommandConsoleView"
-            icon="icons/alt_window_16.gif"
-            id="openbiomind.gui.views.CommandConsoleView"
-            name="Command Console">
-      </view>
-      <view
-            class="openbiomind.gui.views.FileListView"
-            icon="icons/alt_window_16.gif"
-            id="openbiomind.gui.views.FileListView"
-            name="File List">
-      </view>
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="openbiomind.gui.menus.File"
+               label="File"
+               mnemonic="F">
+            <command
+                  commandId="org.eclipse.ui.file.exit"
+                  id="openbiomind.gui.menus.file.Exit"
+                  mnemonic="x"
+                  style="push">
+            </command>
+         </menu>
+         <menu
+               id="openbiomind.gui.menus.Task"
+               label="Task"
+               mnemonic="T">
+            <command
+                  commandId="openbiomind.gui.commands.EnhanceDataset"
+                  icon="icons/enhance_dataset.gif"
+                  id="openbiomind.gui.menus.task.EnhanceDataset"
+                  mnemonic="E"
+                  style="push">
+            </command>
+            <command
+                  commandId="openbiomind.gui.commands.DatasetTransformer"
+                  icon="icons/dataset_transformer.gif"
+                  id="openbiomind.gui.menus.task.DatasetTransformer"
+                  mnemonic="D"
+                  style="push">
+            </command>
+         </menu>
+         <menu
+               id="openbiomind.gui.menus.Window"
+               label="Window"
+               mnemonic="W">
+            <command
+                  commandId="org.eclipse.ui.window.preferences"
+                  id="openbiomind.gui.menus.window.Preferences"
+                  mnemonic="P"
+                  style="push">
+            </command>
+         </menu>
+         <menu
+               id="openbiomind.gui.menus.Help"
+               label="Help"
+               mnemonic="H">
+            <command
+                  commandId="org.eclipse.ui.help.aboutAction"
+                  id="openbiomind.gui.menus.help.About"
+                  mnemonic="A"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="openbiomind.gui.toolbars.sampleToolbar">
+            <command
+                  commandId="openbiomind.gui.commands.EnhanceDataset"
+                  icon="icons/enhance_dataset.gif"
+                  tooltip="Enhance Dataset">
+            </command>
+            <command
+                  commandId="openbiomind.gui.commands.DatasetTransformer"
+                  icon="icons/dataset_transformer.gif"
+                  style="push"
+                  tooltip="Dataset Transformer">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="openbiomind.gui.commands.EnhanceDataset"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+1">
+      </key>
+      <key
+            commandId="openbiomind.gui.commands.DatasetTransformer"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+2">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="openbiomind.gui.commands.TaskCategory"
+            name="Tasks">
+      </category>
+      <command
+            categoryId="openbiomind.gui.commands.TaskCategory"
+            id="openbiomind.gui.commands.EnhanceDataset"
+            name="Enhance Dataset">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.TaskCategory"
+            id="openbiomind.gui.commands.DatasetTransformer"
+            name="Dataset Transformer">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="openbiomind.gui.handlers.EnhanceDatasetTaskHandler"
+            commandId="openbiomind.gui.commands.EnhanceDataset">
+      </handler>
+      <handler
+            class="openbiomind.gui.handlers.DatasetTransformerTaskHandler"
+            commandId="openbiomind.gui.commands.DatasetTransformer">
+      </handler>
    </extension>
 
 </plugin>
