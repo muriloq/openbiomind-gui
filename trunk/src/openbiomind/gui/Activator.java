@@ -24,7 +24,7 @@ public class Activator extends AbstractUIPlugin {
    public static final String PLUGIN_ID = "openbiomind.gui";
 
    /** The shared instance. */
-   private static Activator plugin = null;
+   private static Activator plugin;
 
    /**
     * The default constructor.
@@ -51,7 +51,7 @@ public class Activator extends AbstractUIPlugin {
    }
 
    /**
-    * Returns the shared instance
+    * Returns the shared instance.
     *
     * @return the shared instance
     */
@@ -60,9 +60,10 @@ public class Activator extends AbstractUIPlugin {
    }
 
    /**
-    * Returns an image descriptor for the image file at the given plug-in relative path
+    * Returns an image descriptor for the image file at the given plug-in relative path.
     *
     * @param path the path
+    *
     * @return the image descriptor
     */
    public static ImageDescriptor getImageDescriptor(final String path) {

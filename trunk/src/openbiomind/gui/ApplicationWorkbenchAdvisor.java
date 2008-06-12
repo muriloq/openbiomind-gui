@@ -21,11 +21,12 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
  */
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
-   /** The Constant PERSPECTIVE_ID. */
+   /** The Constant for Perspective ID. */
    private static final String PERSPECTIVE_ID = "openbiomind.gui.Perspective";
 
    /*
-    * @see org.eclipse.ui.application.WorkbenchAdvisor#createWorkbenchWindowAdvisor(org.eclipse.ui.application.IWorkbenchWindowConfigurer)
+    * @see org.eclipse.ui.application.WorkbenchAdvisor#createWorkbenchWindowAdvisor(org.eclipse.ui.
+    * application.IWorkbenchWindowConfigurer)
     */
    @Override
    public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(
@@ -42,7 +43,8 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
    }
 
    /*
-    * @see org.eclipse.ui.application.WorkbenchAdvisor#initialize(org.eclipse.ui.application.IWorkbenchConfigurer)
+    * @see org.eclipse.ui.application.WorkbenchAdvisor#initialize(org.eclipse.ui.application.
+    * IWorkbenchConfigurer)
     */
    @Override
    public void initialize(final IWorkbenchConfigurer configurer) {
