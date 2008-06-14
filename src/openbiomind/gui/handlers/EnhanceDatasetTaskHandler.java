@@ -7,11 +7,12 @@
  */
 package openbiomind.gui.handlers;
 
+import openbiomind.gui.wizards.EnhanceDatasetWizard;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
@@ -30,14 +31,10 @@ public class EnhanceDatasetTaskHandler extends AbstractHandler {
     */
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {
-      final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-//      System.out.println("pref: "
-//            + Activator.getDefault().getPreferenceStore().getString(
-//                  PreferenceConstants.OPENBIOMIND_JAR));
-//      System.out.println("pref: "
-//            + Activator.getDefault().getPreferenceStore().getString(
-//                  PreferenceConstants.PIPELINE_PROPERTIES));
-      MessageDialog.openInformation(window.getShell(), "OpenBiomind-GUI", "Enhance Dataset Task");
+      final EnhanceDatasetWizard enhanceDatasetWizard = new EnhanceDatasetWizard();
+      final WizardDialog wizardDialog = new WizardDialog(HandlerUtil
+            .getActiveWorkbenchWindowChecked(event).getShell(), enhanceDatasetWizard);
+      wizardDialog.open();
       return null;
    }
 
