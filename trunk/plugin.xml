@@ -178,5 +178,19 @@
             restorable="true">
       </view>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="openbiomind.gui.preferences.OpenBiomindPreferencePage"
+            id="openbiomind.gui.preferences.OpenBiomindPreferencePage"
+            name="OpenBiomind Preferences">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="openbiomind.gui.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
 
 </plugin>
