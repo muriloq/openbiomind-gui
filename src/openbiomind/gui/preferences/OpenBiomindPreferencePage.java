@@ -7,9 +7,14 @@
  */
 package openbiomind.gui.preferences;
 
-import static openbiomind.gui.util.Constants.PIPELINE_PROPERTIES_FILENAME;
+import static openbiomind.gui.util.Constants.AMPERSAND;
 import static openbiomind.gui.util.Constants.JAR_EXTENSION;
+import static openbiomind.gui.util.Constants.LABEL_SEPARATOR;
+import static openbiomind.gui.util.Constants.OPENBIOMIND_JAR_NAME;
+import static openbiomind.gui.util.Constants.PIPELINE_PROPERTIES_FILENAME;
+import static openbiomind.gui.util.Constants.WILDCARD_ANY;
 import openbiomind.gui.Activator;
+import openbiomind.gui.util.Messages;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
@@ -40,7 +45,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
    public OpenBiomindPreferencePage() {
       super(GRID);
       setPreferenceStore(Activator.getDefault().getPreferenceStore());
-      setDescription("Preference related to OpenBiomind Environment");
+      setDescription(Messages.Desc_PreferencePage);
    }
 
    /*
@@ -52,16 +57,18 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
        * openbiomind.jar
        */
       final FileFieldEditor openBiomindJarFileFieldEditor = new FileFieldEditor(
-            Preference.OPENBIOMIND_JAR, "Open&Biomind JAR:", getFieldEditorParent());
-      openBiomindJarFileFieldEditor.setFileExtensions(new String[] { "*" + JAR_EXTENSION });
+            Preference.OPENBIOMIND_JAR, AMPERSAND + OPENBIOMIND_JAR_NAME + LABEL_SEPARATOR,
+            getFieldEditorParent());
+      openBiomindJarFileFieldEditor
+            .setFileExtensions(new String[] { WILDCARD_ANY + JAR_EXTENSION });
       addField(openBiomindJarFileFieldEditor);
 
       /*
        * pipeline.properties
        */
       final FileFieldEditor pipelinePropertiesFileFieldEditor = new FileFieldEditor(
-            Preference.PIPELINE_PROPERTIES, "&" + PIPELINE_PROPERTIES_FILENAME + ":",
-            getFieldEditorParent());
+            Preference.PIPELINE_PROPERTIES, AMPERSAND + PIPELINE_PROPERTIES_FILENAME
+                  + LABEL_SEPARATOR, getFieldEditorParent());
       pipelinePropertiesFileFieldEditor
             .setFileExtensions(new String[] { PIPELINE_PROPERTIES_FILENAME });
       addField(pipelinePropertiesFileFieldEditor);
@@ -71,7 +78,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
     * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
     */
    @Override
-   public void init(IWorkbench workbench) {
+   public void init(final IWorkbench workbench) {
    }
 
    /*
@@ -94,12 +101,12 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
          if (Preference.OPENBIOMIND_JAR.equals(preferenceName)) {
             if (!Preference.isOpenBiomindJarPreferenceValid(value)) {
                valid = false;
-               setErrorMessage("OpenBiomind JAR is required for proper execution.");
+               setErrorMessage(Messages.Error_Preference_OpenBiomindJAR);
             }
          } else if (Preference.PIPELINE_PROPERTIES.equals(preferenceName)) {
             if (!Preference.isPipelinePropertiesPreferenceValid(value)) {
                valid = false;
-               setErrorMessage(PIPELINE_PROPERTIES_FILENAME + " is required for proper execution.");
+               setErrorMessage(Messages.Error_Preference_PipelineProperties);
             }
          }
       }

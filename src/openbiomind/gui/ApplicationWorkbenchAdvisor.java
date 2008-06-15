@@ -22,7 +22,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
    /** The Constant for Perspective ID. */
-   private static final String PERSPECTIVE_ID = "openbiomind.gui.Perspective";
+   private static final String PERSPECTIVE_ID = "openbiomind.gui.Perspective"; //$NON-NLS-1$
 
    /*
     * @see org.eclipse.ui.application.WorkbenchAdvisor#createWorkbenchWindowAdvisor(org.eclipse.ui.

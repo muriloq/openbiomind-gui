@@ -8,7 +8,7 @@
 package openbiomind.gui.wizards;
 
 import openbiomind.gui.tasks.EnhanceDatasetTaskData;
-
+import openbiomind.gui.util.Messages;
 
 /**
  * The class EnhanceDatasetWizard.
@@ -38,7 +38,8 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
 
    @Override
    public void addPages() {
-      this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(WIZARD_TITLE, this.enhanceDatasetTaskData.getSyntax());
+      this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(WIZARD_TITLE,
+            Messages.Desc_Wizard_EnhanceDataset);
 
       addPage(this.enhanceDatasetWizardPage);
    }

@@ -49,7 +49,6 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
       // Set marker for Action Sets to appear here onwards
       // menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-
       /*
        * Menu that must appear after the action sets must be added here
        */

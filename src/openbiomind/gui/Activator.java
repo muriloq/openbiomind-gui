@@ -21,15 +21,16 @@ import org.osgi.framework.BundleContext;
 public class Activator extends AbstractUIPlugin {
 
    /** The Constant Plug-in ID. */
-   public static final String PLUGIN_ID = "openbiomind.gui";
+   public static final String PLUGIN_ID = "openbiomind.gui"; //$NON-NLS-1$
 
    /** The shared instance. */
-   private static Activator plugin;
+   private static Activator plugin = null;
 
    /**
     * The default constructor.
     */
    public Activator() {
+      // empty constructor
    }
 
    /*

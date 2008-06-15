@@ -20,7 +20,7 @@ import org.eclipse.ui.part.ViewPart;
 public class FileList extends ViewPart {
 
    /** The Constant ID. */
-   public static final String ID = "openbiomind.gui.views.FileList";
+   public static final String ID = "openbiomind.gui.views.FileList"; //$NON-NLS-1$
 
    /**
     * Instantiates a new file list.
