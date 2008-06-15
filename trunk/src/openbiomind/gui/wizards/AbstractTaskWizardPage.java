@@ -7,10 +7,15 @@
  */
 package openbiomind.gui.wizards;
 
+import static openbiomind.gui.util.Constants.LABEL_SEPARATOR;
+
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 
 /**
  * The class AbstractTaskWizardPage.
@@ -20,6 +25,18 @@ import org.eclipse.swt.widgets.Control;
  * @version Jun 13, 2008
  */
 public abstract class AbstractTaskWizardPage extends WizardPage implements IWizardPage {
+
+   /** The Constant GRID_DATA_INFORMATION_LABEL. */
+   protected final static GridDataFactory GRID_DATA_INFORMATION_LABEL = GridDataFactory
+         .swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).span(2, 1);
+
+   /** The Constant GRID_DATA_SEPARATOR. */
+   protected final static GridDataFactory GRID_DATA_SEPARATOR = GridDataFactory.swtDefaults()
+         .align(SWT.FILL, SWT.CENTER).grab(true, false).span(2, 1);
+
+   /** The Constant GRID_DATA_COMPONENT_LABEL. */
+   protected final static GridDataFactory GRID_DATA_COMPONENT_LABEL = GridDataFactory.swtDefaults()
+         .align(SWT.BEGINNING, SWT.CENTER);
 
    /** The parent. */
    private Composite parent = null;
@@ -68,6 +85,43 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    @Override
    public Control getControl() {
       return getBaseContainer();
+   }
+
+   /**
+    * Adds the information label.
+    *
+    * @param parent the parent
+    * @param text the text
+    */
+   protected void addInformationLabel(final Composite parent, final String text) {
+      final Label label = new Label(parent, SWT.BOLD);
+      label.setText(text);
+      GRID_DATA_INFORMATION_LABEL.applyTo(label);
+   }
+
+   /**
+    * Adds the component label.
+    *
+    * @param parent the parent
+    * @param text the text
+    * @param toolTip the tool tip
+    */
+   protected void addComponentLabel(final Composite parent, final String text, final String toolTip) {
+      final Label label = new Label(parent, SWT.NULL);
+      label.setText(text + LABEL_SEPARATOR);
+      label.setToolTipText(toolTip);
+      GRID_DATA_COMPONENT_LABEL.applyTo(label);
+   }
+
+   /**
+    * Adds the separator.
+    *
+    * @param parent the parent
+    * @param alignment the alignment must be {@link SWT#HORIZONTAL} or {@link SWT#VERTICAL}.
+    */
+   protected void addSeparator(final Composite parent, final int alignment) {
+      final Label label = new Label(parent, SWT.SEPARATOR | alignment);
+      GRID_DATA_SEPARATOR.applyTo(label);
    }
 
    /**

@@ -20,7 +20,7 @@ import org.eclipse.ui.part.ViewPart;
 public class CommandConsole extends ViewPart {
 
    /** The Constant ID. */
-   public static final String ID = "openbiomind.gui.views.CommandConsole";
+   public static final String ID = "openbiomind.gui.views.CommandConsole"; //$NON-NLS-1$
 
    /**
     * Instantiates a new command console.

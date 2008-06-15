@@ -11,6 +11,7 @@ import static openbiomind.gui.util.Constants.JAR_EXTENSION;
 import static openbiomind.gui.util.Constants.PIPELINE_PROPERTIES_FILENAME;
 import openbiomind.gui.Activator;
 import openbiomind.gui.util.Constants;
+import openbiomind.gui.util.Utility;
 
 /**
  * The class Preference methods to access the plug-in preferences. It also contains constant
@@ -22,11 +23,11 @@ import openbiomind.gui.util.Constants;
  */
 public class Preference {
 
-   /** The Constant for OpenBiomind JAR. */
-   public static final String OPENBIOMIND_JAR = "openbiomind.gui.preferences.OpenBiomindJar";
+   /** The constant for OpenBiomind JAR. */
+   public static final String OPENBIOMIND_JAR = "openbiomind.gui.preferences.OpenBiomindJar"; //$NON-NLS-1$
 
-   /** The Constant for pipeline.properties. */
-   public static final String PIPELINE_PROPERTIES = "openbiomind.gui.preferences.PipelineProperties";
+   /** The constant for pipeline.properties. */
+   public static final String PIPELINE_PROPERTIES = "openbiomind.gui.preferences.PipelineProperties"; //$NON-NLS-1$
 
    /**
     * Gets the open biomind jar location.
@@ -38,13 +39,21 @@ public class Preference {
    }
 
    /**
+    * Gets the pipeline properties location.
+    *
+    * @return the pipeline properties location
+    */
+   private static String getPipelinePropertiesLocation() {
+      return Activator.getDefault().getPreferenceStore().getString(Preference.PIPELINE_PROPERTIES);
+   }
+
+   /**
     * Gets the pipeline properties home.
     *
     * @return the pipeline properties home
     */
    public static String getPipelinePropertiesHome() {
-      final String pipelinePropertiesPath = Activator.getDefault().getPreferenceStore().getString(
-            Preference.PIPELINE_PROPERTIES);
+      final String pipelinePropertiesPath = getPipelinePropertiesLocation();
       return pipelinePropertiesPath.substring(0, pipelinePropertiesPath
             .lastIndexOf(Constants.PIPELINE_PROPERTIES_FILENAME));
    }
@@ -57,7 +66,8 @@ public class Preference {
     * @return true, if is open biomind jar preference valid
     */
    public static boolean isOpenBiomindJarPreferenceValid(final String value) {
-      return (value != null && value.trim().toLowerCase().endsWith(JAR_EXTENSION));
+      return (value != null && value.trim().toLowerCase().endsWith(JAR_EXTENSION)
+            && Utility.exists(value));
    }
 
    /**
@@ -68,7 +78,8 @@ public class Preference {
     * @return true, if is pipeline properties preference valid
     */
    public static boolean isPipelinePropertiesPreferenceValid(final String value) {
-      return (value != null && value.trim().toLowerCase().endsWith(PIPELINE_PROPERTIES_FILENAME));
+      return (value != null && value.trim().toLowerCase().endsWith(PIPELINE_PROPERTIES_FILENAME)
+            && Utility.exists(value));
    }
 
    /**
@@ -77,7 +88,8 @@ public class Preference {
     * @return true, if is preference valid
     */
    public static boolean isPreferenceValid() {
-      return (isOpenBiomindJarPreferenceValid(getOpenBiomindJarLocation()) && isPipelinePropertiesPreferenceValid(getPipelinePropertiesHome()));
+      return (isOpenBiomindJarPreferenceValid(getOpenBiomindJarLocation())
+            && isPipelinePropertiesPreferenceValid(getPipelinePropertiesLocation()));
    }
 
 }

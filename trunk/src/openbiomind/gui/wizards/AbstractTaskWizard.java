@@ -10,7 +10,7 @@ package openbiomind.gui.wizards;
 import org.eclipse.jface.wizard.Wizard;
 
 /**
- * The Class AbstractTaskWizard.
+ * The class AbstractTaskWizard.
  *
  * @author bsanghvi
  * @since Jun 13, 2008

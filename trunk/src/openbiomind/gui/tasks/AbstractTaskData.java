@@ -54,20 +54,13 @@ public abstract class AbstractTaskData implements Serializable {
    }
 
    /**
-    * Gets the syntax.
-    *
-    * @return the syntax
-    */
-   public abstract String getSyntax();
-
-   /**
     * Gets the task name.
     *
     * @return the taskName
     */
    public String getTaskName() {
       if (this.taskName == null) {
-         this.taskName = "";
+         this.taskName = ""; //$NON-NLS-1$
       }
 
       return this.taskName;
@@ -183,7 +176,7 @@ public abstract class AbstractTaskData implements Serializable {
     * @return the all argument string
     */
    private String getAllArgumentString() {
-      final StringBuilder argumentStringBuilder = new StringBuilder("");
+      final StringBuilder argumentStringBuilder = new StringBuilder(""); //$NON-NLS-1$
 
       final Set<Entry<String, String>> entrySet = getArgumentMap().entrySet();
       for (final Entry<String, String> entry : entrySet) {
@@ -192,5 +185,12 @@ public abstract class AbstractTaskData implements Serializable {
 
       return argumentStringBuilder.toString();
    }
+
+//   /**
+//    * Gets the syntax.
+//    *
+//    * @return the syntax
+//    */
+//   public abstract String getSyntax();
 
 }
