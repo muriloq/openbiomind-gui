@@ -7,6 +7,21 @@
  */
 package openbiomind.gui.wizards;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+
+import openbiomind.gui.Application;
+import openbiomind.gui.main.TaskProcessBuider;
+import openbiomind.gui.tasks.AbstractTaskData;
+import openbiomind.gui.util.Constants;
+import openbiomind.gui.util.Messages;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
 
 /**
@@ -28,5 +43,98 @@ public abstract class AbstractTaskWizard extends Wizard {
       setWindowTitle(wizardTitle);
       setNeedsProgressMonitor(true);
    }
+
+   /*
+    * @see org.eclipse.jface.wizard.Wizard#performFinish()
+    */
+   @Override
+   public boolean performFinish() {
+      IRunnableWithProgress op = new IRunnableWithProgress() {
+
+         @Override
+         public void run(final IProgressMonitor monitor) throws InvocationTargetException,
+               InterruptedException {
+            try {
+               doFinish(monitor);
+            } catch (CoreException e) {
+               throw new InvocationTargetException(e);
+            } finally {
+               monitor.done();
+            }
+         }
+
+      };
+
+      try {
+         getContainer().run(false, false, op);
+      } catch (InterruptedException e) {
+         return false;
+      } catch (InvocationTargetException e) {
+         MessageDialog.openError(getShell(), Constants.Error, e.getTargetException()
+               .getLocalizedMessage());
+         return false;
+      }
+      return true;
+
+   }
+
+   /**
+    * Do finish.
+    *
+    * @param monitor the monitor
+    *
+    * @throws CoreException the core exception
+    */
+   private void doFinish(final IProgressMonitor monitor) throws CoreException {
+      monitor.beginTask(Messages.WizardProgress_PrepareTaskData, 7);
+      prepareTaskData();
+      System.out.println(this.getTaskData());
+      monitor.worked(1);
+      monitor.subTask(Messages.WizardProgress_PrepareProcess);
+
+      try {
+         final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(getTaskData());
+         monitor.worked(1);
+         monitor.subTask(Messages.WizardProgress_ExecuteTask + getTaskData());
+         Process process = taskProcessBuider.start();
+         boolean terminate = false;
+         while (!terminate) {
+            try {
+               process.exitValue();
+               terminate = true;
+            } catch (IllegalThreadStateException e) {
+               // suppress exception
+               // TODO Find alternate some way to execute the process synchronously
+            }
+         }
+         monitor.worked(2);
+      } catch (IOException e) {
+         throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, IStatus.OK, e
+               .getLocalizedMessage(), e));
+      }
+
+      monitor.subTask(Messages.WizardProgress_LoadFiles);
+      /*
+       * Load files here...
+       */
+      // final String[] filesArray = getTaskData().getFilesArray();
+      // System.out.println("Files to open:");
+      // for (String string : filesArray) {
+      // System.out.println(string);
+      // }
+      monitor.worked(3);
+   };
+
+   /**
+    * Prepare task data.
+    */
+   protected abstract void prepareTaskData();
+
+   /**
+    * Gets the task data.
+    *
+    * @return the task data
+    */
+   protected abstract AbstractTaskData getTaskData();
 
 }

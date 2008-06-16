@@ -7,6 +7,7 @@
  */
 package openbiomind.gui.wizards;
 
+import openbiomind.gui.tasks.AbstractTaskData;
 import openbiomind.gui.tasks.EnhanceDatasetTaskData;
 import openbiomind.gui.util.Messages;
 
@@ -36,6 +37,9 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
       this.enhanceDatasetTaskData = new EnhanceDatasetTaskData();
    }
 
+   /*
+    * @see org.eclipse.jface.wizard.Wizard#addPages()
+    */
    @Override
    public void addPages() {
       this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(WIZARD_TITLE,
@@ -45,11 +49,35 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
    }
 
    /*
-    * @see org.eclipse.jface.wizard.Wizard#performFinish()
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#prepareTaskData()
     */
    @Override
-   public boolean performFinish() {
-      return true;
+   protected void prepareTaskData() {
+      getEnhanceDatasetTaskData().setOriginalDataset(
+            this.enhanceDatasetWizardPage.getOriginalDatasetFile());
+      getEnhanceDatasetTaskData().setEnhancedDataset(
+            this.enhanceDatasetWizardPage.getEnhancedDatasetFile());
+      getEnhanceDatasetTaskData().setOntologyDescriptionFile(
+            this.enhanceDatasetWizardPage.getOntologyDescriptionFile());
+      getEnhanceDatasetTaskData().setOntologyAssociationFile(
+            this.enhanceDatasetWizardPage.getOntologyAssociationFile());
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
+    */
+   @Override
+   protected AbstractTaskData getTaskData() {
+      return getEnhanceDatasetTaskData();
+   }
+
+   /**
+    * Gets the enhance dataset task data.
+    *
+    * @return the enhance dataset task data
+    */
+   private EnhanceDatasetTaskData getEnhanceDatasetTaskData() {
+      return this.enhanceDatasetTaskData;
    }
 
 }

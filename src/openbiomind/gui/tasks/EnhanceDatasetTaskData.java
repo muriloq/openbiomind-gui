@@ -8,14 +8,14 @@
 package openbiomind.gui.tasks;
 
 import static openbiomind.gui.util.Constants.HYPHEN;
-import static openbiomind.gui.util.Constants.QUOTE;
+import openbiomind.gui.util.Utility;
 
 /**
  * The class EnhanceDatasetTaskData is used by the EnhanceDataset task. The syntax of this task is
  * as follows:
  *
  * <pre>
- * task.EnhanceDataset <-d original dataset> <-e enhanced dataset> [-ontologyDescriptionFile ontology description file] [-ontologyAssociationFile ontology association file]
+ * task.EnhanceDataset &lt;-d original dataset&gt; &lt;-e enhanced dataset&gt; [-ontologyDescriptionFile ontology description file] [-ontologyAssociationFile ontology association file]
  * </pre>
  *
  * @author bsanghvi
@@ -77,7 +77,9 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @param originalDataset the original dataset
     */
    public void setOriginalDataset(final String originalDataset) {
-      putArgument(ARG_D, QUOTE + originalDataset + QUOTE);
+      if (!Utility.isEmpty(originalDataset)) {
+         putArgument(ARG_D, originalDataset);
+      }
    }
 
    /**
@@ -95,7 +97,9 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @param enhancedDataset the enhnaced dataset
     */
    public void setEnhancedDataset(final String enhancedDataset) {
-      putArgument(ARG_E, QUOTE + enhancedDataset + QUOTE);
+      if (!Utility.isEmpty(enhancedDataset)) {
+         putArgument(ARG_E, enhancedDataset);
+      }
    }
 
    /**
@@ -113,7 +117,9 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @param ontologyDescriptionFile the ontology description file
     */
    public void setOntologyDescriptionFile(final String ontologyDescriptionFile) {
-      putArgument(ARG_ONTOLOGY_DESCRIPTION_FILE, QUOTE + ontologyDescriptionFile + QUOTE);
+      if (!Utility.isEmpty(ontologyDescriptionFile)) {
+         putArgument(ARG_ONTOLOGY_DESCRIPTION_FILE, ontologyDescriptionFile);
+      }
    }
 
    /**
@@ -131,39 +137,18 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @param ontologyAssociationFile the ontology association file
     */
    public void setOntologyAssociationFile(final String ontologyAssociationFile) {
-      putArgument(ARG_ONTOLOGY_ASSOCIATION_FILE, QUOTE + ontologyAssociationFile + QUOTE);
+      if (!Utility.isEmpty(ontologyAssociationFile)) {
+         putArgument(ARG_ONTOLOGY_ASSOCIATION_FILE, ontologyAssociationFile);
+      }
    }
 
-//   /** Value <code>original dataset</code> for key {@link #ARG_D}. */
-//   public static final String DESC_D = "original dataset";
-//
-//   /** Value <code>enhanced dataset</code> for key {@link #ARG_E}. */
-//   public static final String DESC_E = "enhanced dataset";
-//
-//   /** Value <code>ontology description file</code> for key {@link #ARG_ONTOLOGY_DESCRIPTION_FILE}. */
-//   public static final String DESC_ONTOLOGY_DESCRIPTION_FILE = "ontology description file";
-//
-//   /** Value <code>ontology association file</code> for key {@link #ARG_ONTOLOGY_ASSOCIATION_FILE}. */
-//   public static final String DESC_ONTOLOGY_ASSOCIATION_FILE = "ontology association file";
-//
-//   /**
-//    * The syntax (value =
-//    * <code>task.EnhanceDataset <-d original dataset> <-e enhanced dataset> [-ontologyDescriptionFile ontology description file] [-ontologyAssociationFile ontology association file]</code>
-//    * ).
-//    */
-//   private static final String SYNTAX = TASK_NAME + SPACE + ARGUMENT_REQUIRED_LEFT + ARG_D + SPACE
-//         + DESC_D + ARGUMENT_REQUIRED_RIGHT + SPACE + ARGUMENT_REQUIRED_LEFT + ARG_E + SPACE
-//         + DESC_E + ARGUMENT_REQUIRED_RIGHT + SPACE + ARGUMENT_OPTIONAL_LEFT
-//         + ARG_ONTOLOGY_DESCRIPTION_FILE + SPACE + DESC_ONTOLOGY_DESCRIPTION_FILE
-//         + ARGUMENT_OPTIONAL_RIGHT + SPACE + ARGUMENT_OPTIONAL_LEFT + ARG_ONTOLOGY_ASSOCIATION_FILE
-//         + SPACE + DESC_ONTOLOGY_ASSOCIATION_FILE + ARGUMENT_OPTIONAL_RIGHT;
-//
-//   /*
-//    * @see openbiomind.gui.tasks.AbstractTaskData#getSyntax()
-//    */
-//   @Override
-//   public String getSyntax() {
-//      return SYNTAX;
-//   }
+   /*
+    * @see openbiomind.gui.tasks.AbstractTaskData#getFilesArray()
+    */
+   @Override
+   public String[] getFilesArray() {
+      return new String[] { getEnhancedDataset(), getOriginalDataset(),
+            getOntologyDescriptionFile(), getOntologyAssociationFile() };
+   }
 
 }
