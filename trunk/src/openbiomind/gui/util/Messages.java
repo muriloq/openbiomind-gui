@@ -96,6 +96,18 @@ public class Messages extends NLS {
    /** The Warning enhanced dataset directory does not exist. */
    public static String Warning_EnhancedDatasetDirectory_DoesNotExist;
 
+   /** The Wizard progress execute task. */
+   public static String WizardProgress_ExecuteTask;
+
+   /** The Wizard progress load files. */
+   public static String WizardProgress_LoadFiles;
+
+   /** The Wizard progress prepare process. */
+   public static String WizardProgress_PrepareProcess;
+
+   /** The Wizard progress prepare task data. */
+   public static String WizardProgress_PrepareTaskData;
+
    /*
     * Initialize the messages
     */

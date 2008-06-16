@@ -7,18 +7,15 @@
  */
 package openbiomind.gui.tasks;
 
-import static openbiomind.gui.util.Constants.HYPHEN;
-import static openbiomind.gui.util.Constants.QUOTE;
 import static openbiomind.gui.util.Constants.SPACE;
 
-import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
-
-import openbiomind.gui.preferences.Preference;
 
 /**
  * The class AbstractTaskData.
@@ -31,12 +28,6 @@ public abstract class AbstractTaskData implements Serializable {
 
    /** The Constant serialVersionUID. */
    private static final long serialVersionUID = 1L;
-
-   /** The <code>java</code> command for executing Java programs. */
-   public static final String JAVA_COMMAND = "java"; //$NON-NLS-1$
-
-   /** Argument <code>-cp</code> for specifying the classpath. */
-   public static final String JAVA_ARGUMENT_CLASSPATH = HYPHEN + "cp"; //$NON-NLS-1$
 
    /** The task name. */
    private String taskName = null;
@@ -125,24 +116,6 @@ public abstract class AbstractTaskData implements Serializable {
       return getArgumentMap().get(key);
    }
 
-   /**
-    * Gets the command.
-    *
-    * @return the command
-    */
-   public String getCommand() {
-      return (JAVA_COMMAND + SPACE + JAVA_ARGUMENT_CLASSPATH + SPACE + getClasspath() + SPACE
-            + getTaskName() + SPACE + getAllArgumentString()).trim();
-   }
-
-   /*
-    * @see java.lang.Object#toString()
-    */
-   @Override
-   public String toString() {
-      return getCommand();
-   }
-
    /*
     * @see java.lang.Object#equals(java.lang.Object)
     */
@@ -160,37 +133,41 @@ public abstract class AbstractTaskData implements Serializable {
       return false;
    }
 
-   /**
-    * Gets the classpath.
-    *
-    * @return the classpath
+   /*
+    * @see java.lang.Object#toString()
     */
-   private String getClasspath() {
-      return QUOTE + Preference.getOpenBiomindJarLocation() + File.pathSeparator
-            + Preference.getPipelinePropertiesHome() + QUOTE;
+   @Override
+   public String toString() {
+      final StringBuilder stringBuilder = new StringBuilder(getTaskName());
+      List<String> allArgumentsAsList = getAllArgumentsAsList();
+      for (String string : allArgumentsAsList) {
+         stringBuilder.append(SPACE).append(string);
+      }
+      return stringBuilder.toString();
    }
 
    /**
-    * Gets the all argument string.
+    * Gets the all arguments as list.
     *
-    * @return the all argument string
+    * @return the all arguments as list
     */
-   private String getAllArgumentString() {
-      final StringBuilder argumentStringBuilder = new StringBuilder(""); //$NON-NLS-1$
-
+   public List<String> getAllArgumentsAsList() {
       final Set<Entry<String, String>> entrySet = getArgumentMap().entrySet();
+      final List<String> allArgumentList = new ArrayList<String>(entrySet.size());
+
       for (final Entry<String, String> entry : entrySet) {
-         argumentStringBuilder.append(entry.getKey() + SPACE + entry.getValue() + SPACE);
+         allArgumentList.add(entry.getKey());
+         allArgumentList.add(entry.getValue());
       }
 
-      return argumentStringBuilder.toString();
+      return allArgumentList;
    }
 
-//   /**
-//    * Gets the syntax.
-//    *
-//    * @return the syntax
-//    */
-//   public abstract String getSyntax();
+   /**
+    * Gets the files array.
+    *
+    * @return the files array
+    */
+   public abstract String[] getFilesArray();
 
 }
