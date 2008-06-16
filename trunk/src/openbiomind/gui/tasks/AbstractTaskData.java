@@ -7,11 +7,11 @@
  */
 package openbiomind.gui.tasks;
 
-import static openbiomind.gui.util.Constants.CLASSPATH_SEPARATOR;
 import static openbiomind.gui.util.Constants.HYPHEN;
 import static openbiomind.gui.util.Constants.QUOTE;
 import static openbiomind.gui.util.Constants.SPACE;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -166,7 +166,7 @@ public abstract class AbstractTaskData implements Serializable {
     * @return the classpath
     */
    private String getClasspath() {
-      return QUOTE + Preference.getOpenBiomindJarLocation() + CLASSPATH_SEPARATOR
+      return QUOTE + Preference.getOpenBiomindJarLocation() + File.pathSeparator
             + Preference.getPipelinePropertiesHome() + QUOTE;
    }
 

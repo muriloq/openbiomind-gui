@@ -8,6 +8,8 @@
 package openbiomind.gui.wizards;
 
 import static openbiomind.gui.util.Constants.LABEL_SEPARATOR;
+import static openbiomind.gui.util.Constants.SPACE;
+import openbiomind.gui.util.Utility;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -38,6 +40,9 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    protected final static GridDataFactory GRID_DATA_COMPONENT_LABEL = GridDataFactory.swtDefaults()
          .align(SWT.BEGINNING, SWT.CENTER);
 
+   /** The warning. */
+   private StringBuilder warning = null;
+
    /** The parent. */
    private Composite parent = null;
 
@@ -53,6 +58,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       super(pageName);
       setTitle(pageTitle);
       setDescription(syntax);
+      resetWarning();
    }
 
    /**
@@ -85,6 +91,75 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    @Override
    public Control getControl() {
       return getBaseContainer();
+   }
+
+   /*
+    * @see org.eclipse.jface.wizard.WizardPage#setErrorMessage(java.lang.String)
+    */
+   @Override
+   public void setErrorMessage(final String newMessage) {
+      super.setErrorMessage(newMessage);
+      setPageComplete(false);
+   }
+
+   /*
+    * @see org.eclipse.jface.wizard.WizardPage#setPageComplete(boolean)
+    */
+   @Override
+   public void setPageComplete(final boolean complete) {
+      super.setPageComplete(complete);
+      if (complete) {
+         super.setErrorMessage(null); // reset the error message, if any
+         updateWarningDisplay();
+      }
+   }
+
+   /**
+    * Checks if is warning needed.
+    *
+    * @return true, if is warning needed
+    */
+   protected boolean isWarningNeeded() {
+      return !Utility.isEmpty(getWarning());
+   }
+
+   /**
+    * Reset warning.
+    */
+   private void resetWarning() {
+      this.warning = new StringBuilder(""); //$NON-NLS-1$
+   }
+
+   /**
+    * Append warning.
+    *
+    * @param warning the warning
+    *
+    * @see java.lang.StringBuilder#append(java.lang.String)
+    */
+   protected void appendWarning(final String warning) {
+      this.warning.append(warning).append(SPACE);
+   }
+
+   /**
+    * Gets the warning.
+    *
+    * @return the warning
+    */
+   private String getWarning() {
+      return this.warning.toString();
+   }
+
+   /**
+    * Update warning display.
+    */
+   private void updateWarningDisplay() {
+      if (isWarningNeeded()) {
+         setMessage(getWarning());
+         resetWarning();
+      } else {
+         setMessage(null);
+      }
    }
 
    /**

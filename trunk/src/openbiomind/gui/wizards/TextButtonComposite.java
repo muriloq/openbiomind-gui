@@ -31,14 +31,14 @@ import org.eclipse.swt.widgets.Text;
  */
 public abstract class TextButtonComposite extends Composite {
 
-   /** The text. */
-   private Text text = null;
+   /** The textField. */
+   private Text textField = null;
 
-   /** The button. */
-   private Button button = null;
+   /** The actionButton. */
+   private Button actionButton = null;
 
    /**
-    * Instantiates a new text button composite.
+    * Instantiates a new textField actionButton composite.
     *
     * @param parent the parent
     */
@@ -55,8 +55,26 @@ public abstract class TextButtonComposite extends Composite {
       /*
        * add components
        */
-      getText();
-      getButton();
+      getTextField();
+      getActionButton();
+   }
+
+   /**
+    * Gets the text.
+    *
+    * @return the text
+    */
+   public String getText() {
+      return getTextField().getText();
+   }
+
+   /**
+    * Sets the text.
+    *
+    * @param text the new text
+    */
+   public void setText(final String text) {
+      getTextField().setText(text);
    }
 
    /**
@@ -67,24 +85,24 @@ public abstract class TextButtonComposite extends Composite {
    }
 
    /**
-    * Gets the text.
+    * Gets the textField.
     *
-    * @return the text
+    * @return the textField
     */
-   protected Text getText() {
-      if (this.text == null) {
-         this.text = new Text(this, SWT.SINGLE | SWT.BORDER);
+   private Text getTextField() {
+      if (this.textField == null) {
+         this.textField = new Text(this, SWT.SINGLE | SWT.BORDER);
 
          /*
           * apply layout information
           */
          GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(
-               this.text);
+               this.textField);
 
          /*
           * apply listeners
           */
-         this.text.addKeyListener(new KeyAdapter() {
+         this.textField.addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyReleased(final KeyEvent e) {
@@ -93,7 +111,7 @@ public abstract class TextButtonComposite extends Composite {
 
          });
 
-         this.text.addFocusListener(new FocusAdapter() {
+         this.textField.addFocusListener(new FocusAdapter() {
 
             @Override
             public void focusLost(final FocusEvent e) {
@@ -103,34 +121,34 @@ public abstract class TextButtonComposite extends Composite {
          });
       }
 
-      return this.text;
+      return this.textField;
    }
 
    /**
-    * Gets the button.
+    * Gets the actionButton.
     *
-    * @return the button
+    * @return the actionButton
     */
-   protected Button getButton() {
-      if (this.button == null) {
-         this.button = new Button(this, SWT.PUSH);
-         this.button.setText(Constants.Browse);
+   private Button getActionButton() {
+      if (this.actionButton == null) {
+         this.actionButton = new Button(this, SWT.PUSH);
+         this.actionButton.setText(Constants.Browse);
 
          /*
           * apply layout information
           */
-         GridDataFactory.swtDefaults().applyTo(this.button);
+         GridDataFactory.swtDefaults().applyTo(this.actionButton);
 
          /*
           * apply listeners
           */
-         this.button.addSelectionListener(new SelectionAdapter() {
+         this.actionButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(final SelectionEvent e) {
                final String newText = buttonSelected();
                if (newText != null) {
-                  getText().setText(newText);
+                  getTextField().setText(newText);
                }
 
                onTextChange();
@@ -139,7 +157,7 @@ public abstract class TextButtonComposite extends Composite {
          });
       }
 
-      return button;
+      return actionButton;
    }
 
    /**
@@ -155,7 +173,7 @@ public abstract class TextButtonComposite extends Composite {
    protected abstract void textKeyReleased();
 
    /**
-    * On text change.
+    * On textField change.
     */
    protected abstract void onTextChange();
 

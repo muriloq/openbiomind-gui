@@ -26,7 +26,72 @@ public final class Utility {
     * @return true, if successful
     */
    public static boolean exists(final String pathname) {
-      return new File(pathname).exists();
+      return (!isEmpty(pathname) && new File(pathname).exists());
+   }
+
+   /**
+    * File exists.
+    *
+    * @param pathname the pathname
+    *
+    * @return true, if successful
+    */
+   public static boolean fileExists(final String pathname) {
+      boolean valid = false;
+      if (!isEmpty(pathname)) {
+         final File file = new File(pathname);
+         valid = file.exists() && file.isFile();
+      }
+      return valid;
+   }
+
+   /**
+    * Directory exists.
+    *
+    * @param pathname the pathname
+    *
+    * @return true, if successful
+    */
+   public static boolean directoryExists(final String pathname) {
+      boolean valid = false;
+      if (!isEmpty(pathname)) {
+         final File file = new File(pathname);
+         valid = file.exists() && file.isDirectory();
+      }
+      return valid;
+   }
+
+   /**
+    * Checks if pathname can be a file or not?
+    *
+    * @param pathname the pathname
+    *
+    * @return true, if pathname can be a file
+    */
+   public static boolean isPossibleFile(final String pathname) {
+      return (!isEmpty(pathname) && !(new File(pathname).isDirectory()));
+   }
+
+   /**
+    * Checks if pathname can be a directory or not?
+    *
+    * @param pathname the pathname
+    *
+    * @return true, if pathname can be a directory
+    */
+   public static boolean isPossibleDirectory(final String pathname) {
+      return (!isEmpty(pathname) && !(new File(pathname).isFile()));
+   }
+
+   /**
+    * Checks if is the string empty.
+    *
+    * @param string the string
+    *
+    * @return true, if is empty
+    */
+   public static boolean isEmpty(final String string) {
+      return (string == null || string.trim().isEmpty());
    }
 
 }
