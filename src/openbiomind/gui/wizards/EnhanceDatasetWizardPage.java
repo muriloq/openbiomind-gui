@@ -7,8 +7,11 @@
  */
 package openbiomind.gui.wizards;
 
+import java.io.File;
+
 import openbiomind.gui.util.Constants;
 import openbiomind.gui.util.Messages;
+import openbiomind.gui.util.Utility;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -88,7 +91,228 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       // Required to avoid an error in the system
       setControl(getBaseContainer());
 
+      // initially page is not complete
       setPageComplete(false);
+   }
+
+   /**
+    * Validate page.
+    *
+    * @return true, if successful
+    */
+   private boolean validatePage() {
+      final boolean valid = validateOriginalDatasetFile() && validateEnhancedDatasetFile()
+            && validateOntologyDescriptionFile() && validateOntologyAssociationFile();
+      if (valid) {
+
+      }
+      setPageComplete(valid);
+      return valid;
+   }
+
+   /**
+    * Validate original dataset file.
+    *
+    * @return true, if successful
+    */
+   private boolean validateOriginalDatasetFile() {
+      boolean valid = isOriginalDatasetFileValid();
+      if (!valid) {
+         setErrorMessage(Messages.Error_OriginalDataset_MustExist);
+      }
+      return valid;
+   }
+
+   /**
+    * Checks if is original dataset file valid.
+    *
+    * @return true, if is original dataset file valid
+    */
+   private boolean isOriginalDatasetFileValid() {
+      return Utility.fileExists(getOriginalDatasetFile());
+   }
+
+   /**
+    * Gets the original dataset file.
+    *
+    * @return the original dataset file
+    */
+   public String getOriginalDatasetFile() {
+      return getOriginalDatasetTextButtonComposite().getText();
+   }
+
+   /**
+    * Validate enhanced dataset file.
+    *
+    * @return true, if successful
+    */
+   private boolean validateEnhancedDatasetFile() {
+      boolean valid = (validateEnhancedDatasetDestinationFile() && validateEnhancedDatasetDestinationDirectory());
+      if (valid) {
+         final File file = new File(getEnhancedDatasetFile());
+         if (file.isDirectory()) {
+            setErrorMessage(Messages.Error_EnhancedDataset_IsDirectory);
+            valid = false;
+         } else if (file.exists()) {
+            appendWarning(Messages.Warning_EnhancedDataset_AlreadyExists);
+         }
+      }
+      return valid;
+   }
+
+
+
+   /**
+    * Gets the enhanced dataset file.
+    *
+    * @return the enhanced dataset file
+    */
+   public String getEnhancedDatasetFile() {
+      final String directoryName = getEnhancedDatasetDestinationDirectory();
+      final String fileName = getEnhancedDatasetDestinationFile();
+      if (!Utility.exists(directoryName)) {
+         return Constants.CURRENT_DIRECTORY + File.separator + fileName;
+      } else if (directoryName.endsWith(File.separator)) {
+         return directoryName + fileName;
+      } else {
+         return directoryName + File.separator + fileName;
+      }
+   }
+
+   /**
+    * Validate enhanced dataset destination directory.
+    *
+    * @return true, if successful
+    */
+   private boolean validateEnhancedDatasetDestinationDirectory() {
+      boolean valid = true;
+
+      final String directory = getEnhancedDatasetDestinationDirectory();
+      if (!Utility.isEmpty(directory)) {
+         final File file = new File(directory);
+         if (file.isFile()) {
+            setErrorMessage(Messages.Error_EnhancedDatasetDirectory_Invalid);
+            valid = false;
+         } else if (!file.exists()) {
+            appendWarning(Messages.Warning_EnhancedDatasetDirectory_DoesNotExist);
+         }
+      }
+
+      return valid;
+   }
+
+   // /**
+   // * Checks if is enhanced dataset destination directory valid.
+   // *
+   // * @return true, if is enhanced dataset destination directory valid
+   // */
+   // private boolean isEnhancedDatasetDestinationDirectoryValid() {
+   // final String file = getEnhancedDatasetDestinationDirectory();
+   // return (Utility.isEmpty(file) || Utility.isPossibleDirectory(file));
+   // }
+
+   /**
+    * Gets the enhanced dataset destination directory.
+    *
+    * @return the enhanced dataset destination directory
+    */
+   private String getEnhancedDatasetDestinationDirectory() {
+      return getEnhancedDatasetTextButtonComposite().getText();
+   }
+
+   /**
+    * Validate enhanced dataset destination file.
+    *
+    * @return true, if successful
+    */
+   private boolean validateEnhancedDatasetDestinationFile() {
+      boolean valid = isEnhancedDatasetDestinationFileValid();
+      if (!valid) {
+         setErrorMessage(Messages.Error_EnhancedDatasetFile_Empty);
+      }
+      return valid;
+   }
+
+   /**
+    * Checks if is enhanced dataset destination file valid.
+    *
+    * @return true, if is enhanced dataset destination file valid
+    */
+   private boolean isEnhancedDatasetDestinationFileValid() {
+      return !Utility.isEmpty(getEnhancedDatasetDestinationFile());
+   }
+
+   /**
+    * Gets the enhanced dataset destination file.
+    *
+    * @return the enhanced dataset destination file
+    */
+   private String getEnhancedDatasetDestinationFile() {
+      return getEnhancedDatasetText().getText();
+   }
+
+   /**
+    * Validate ontology description file.
+    *
+    * @return true, if successful
+    */
+   private boolean validateOntologyDescriptionFile() {
+      boolean valid = isOntologyDescriptionFileValid();
+      if (!valid) {
+         setErrorMessage(Messages.Error_OntologyDescription_MustExistOrEmpty);
+      }
+      return valid;
+   }
+
+   /**
+    * Checks if is ontology description file valid.
+    *
+    * @return true, if is ontology description file exists or is not specified
+    */
+   private boolean isOntologyDescriptionFileValid() {
+      final String file = getOntologyDescriptionFile();
+      return (Utility.isEmpty(file) || Utility.fileExists(file));
+   }
+
+   /**
+    * Gets the ontology description file.
+    *
+    * @return the ontology description file
+    */
+   public String getOntologyDescriptionFile() {
+      return getOntologyDescriptionFileTextButtonComposite().getText();
+   }
+
+   /**
+    * Validate ontology association file.
+    *
+    * @return true, if successful
+    */
+   private boolean validateOntologyAssociationFile() {
+      boolean valid = isOntologyAssociationFileValid();
+      if (!valid) {
+         setErrorMessage(Messages.Error_OntologyAssociation_MustExistOrEmpty);
+      }
+      return valid;
+   }
+
+   /**
+    * Checks if is ontology association file valid.
+    *
+    * @return true, if is ontology association file valid
+    */
+   private boolean isOntologyAssociationFileValid() {
+      final String file = getOntologyAssociationFile();
+      return (Utility.isEmpty(file) || Utility.fileExists(file));
+   }
+
+   /**
+    * Gets the ontology association file.
+    *
+    * @return the ontology association file
+    */
+   public String getOntologyAssociationFile() {
+      return getOntologyAssociationFileTextButtonComposite().getText();
    }
 
    /**
@@ -173,10 +397,12 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
             @Override
             protected void textKeyReleased() {
+               validatePage();
             }
 
             @Override
             protected void onTextChange() {
+               validatePage();
             }
 
          };
@@ -205,18 +431,20 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
             @Override
             protected void textKeyReleased() {
+               validatePage();
             }
 
             @Override
             protected void onTextChange() {
+               validatePage();
             }
 
          };
 
-         this.enhancedDatasetTextButtonComposite.getText().setText(Constants.CURRENT_DIRECTORY);
+         this.enhancedDatasetTextButtonComposite.setText(Constants.CURRENT_DIRECTORY);
       }
 
-      return this.originalDatasetTextButtonComposite;
+      return this.enhancedDatasetTextButtonComposite;
    }
 
    /**
@@ -231,8 +459,8 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
          /*
           * apply layout information
           */
-         GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).applyTo(
-               this.enhancedDatasetText);
+         GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).align(SWT.FILL, SWT.CENTER)
+               .grab(true, false).applyTo(this.enhancedDatasetText);
 
          /*
           * apply listeners
@@ -241,6 +469,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
             @Override
             public void keyReleased(final KeyEvent e) {
+               validatePage();
             }
 
          });
@@ -249,6 +478,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
             @Override
             public void focusLost(final FocusEvent e) {
+               validatePage();
             }
 
          });
@@ -312,10 +542,12 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
             @Override
             protected void textKeyReleased() {
+               validatePage();
             }
 
             @Override
             protected void onTextChange() {
+               validatePage();
             }
 
          };
@@ -344,10 +576,12 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
             @Override
             protected void textKeyReleased() {
+               validatePage();
             }
 
             @Override
             protected void onTextChange() {
+               validatePage();
             }
 
          };

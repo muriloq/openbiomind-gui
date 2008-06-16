@@ -42,6 +42,24 @@ public class Messages extends NLS {
    /** The Enhance Dataset Wizard page description. */
    public static String Desc_Wizard_EnhanceDataset;
 
+   /** The Error enhanced dataset is directory. */
+   public static String Error_EnhancedDataset_IsDirectory;
+
+   /** The Error enhanced dataset directory invalid. */
+   public static String Error_EnhancedDatasetDirectory_Invalid;
+
+   /** The Error enhanced dataset file empty. */
+   public static String Error_EnhancedDatasetFile_Empty;
+
+   /** The Error ontology association must exist or empty. */
+   public static String Error_OntologyAssociation_MustExistOrEmpty;
+
+   /** The Error ontology description must exist or empty. */
+   public static String Error_OntologyDescription_MustExistOrEmpty;
+
+   /** The Error original dataset must exist. */
+   public static String Error_OriginalDataset_MustExist;
+
    /** The preference error string. */
    public static String Error_Preference;
 
@@ -71,6 +89,12 @@ public class Messages extends NLS {
 
    /** The Required arguments. */
    public static String RequiredArguments;
+
+   /** The Warning enhanced dataset already exists. */
+   public static String Warning_EnhancedDataset_AlreadyExists;
+
+   /** The Warning enhanced dataset directory does not exist. */
+   public static String Warning_EnhancedDatasetDirectory_DoesNotExist;
 
    /*
     * Initialize the messages

@@ -38,9 +38,6 @@ public final class Constants {
    /** The constant for specifying wildard for anything (value = <code>*</code>). */
    public static final String WILDCARD_ANY = "*"; //$NON-NLS-1$
 
-   /** The constant for specifying classpath separator (value = <code>;</code>). */
-   public static final String CLASSPATH_SEPARATOR = ";"; //$NON-NLS-1$
-
    /** The Constant specifying the JAR file extension (value = <code>.jar</code>). */
    public static final String JAR_EXTENSION = ".jar"; //$NON-NLS-1$
 
