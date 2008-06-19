@@ -90,6 +90,9 @@ public class Messages extends NLS {
    /** The Required arguments. */
    public static String RequiredArguments;
 
+   /** The Startup message. */
+   public static String Startup;
+
    /** The Warning enhanced dataset already exists. */
    public static String Warning_EnhancedDataset_AlreadyExists;
 

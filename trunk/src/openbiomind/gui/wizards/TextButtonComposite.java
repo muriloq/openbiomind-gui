@@ -160,6 +160,16 @@ public abstract class TextButtonComposite extends Composite {
       return actionButton;
    }
 
+   /*
+    * @see org.eclipse.swt.widgets.Control#setEnabled(boolean)
+    */
+   @Override
+   public void setEnabled(final boolean enabled) {
+      super.setEnabled(enabled);
+      getActionButton().setEnabled(enabled);
+      getTextField().setEnabled(enabled);
+   }
+
    /**
     * Button selected.
     *

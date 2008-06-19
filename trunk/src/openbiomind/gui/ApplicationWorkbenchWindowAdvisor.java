@@ -7,6 +7,8 @@
  */
 package openbiomind.gui;
 
+import openbiomind.gui.util.Messages;
+
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
@@ -50,6 +52,15 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
       configurer.setShowMenuBar(true);
       configurer.setShowCoolBar(true);       // show the toolbar
       configurer.setShowStatusLine(true);
+   }
+
+   /*
+    * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowOpen()
+    */
+   @Override
+   public void postWindowOpen() {
+      getWindowConfigurer().getActionBarConfigurer().getStatusLineManager().setMessage(
+            Messages.Startup);
    }
 
 }
