@@ -49,7 +49,10 @@ public abstract class AbstractTaskWizard extends Wizard {
     */
    @Override
    public boolean performFinish() {
-      IRunnableWithProgress op = new IRunnableWithProgress() {
+      /*
+       * create the process
+       */
+      final IRunnableWithProgress runnableWithProgress = new IRunnableWithProgress() {
 
          @Override
          public void run(final IProgressMonitor monitor) throws InvocationTargetException,
@@ -65,8 +68,11 @@ public abstract class AbstractTaskWizard extends Wizard {
 
       };
 
+      /*
+       * run the process
+       */
       try {
-         getContainer().run(false, false, op);
+         getContainer().run(false, false, runnableWithProgress);
       } catch (InterruptedException e) {
          return false;
       } catch (InvocationTargetException e) {
@@ -96,7 +102,7 @@ public abstract class AbstractTaskWizard extends Wizard {
          final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(getTaskData());
          monitor.worked(1);
          monitor.subTask(Messages.WizardProgress_ExecuteTask + getTaskData());
-         Process process = taskProcessBuider.start();
+         final Process process = taskProcessBuider.start();
          boolean terminate = false;
          while (!terminate) {
             try {

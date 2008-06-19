@@ -551,6 +551,9 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
             }
 
          };
+
+         // TODO remove this when new version of OpenBiomind is available
+         this.ontologyDescriptionFileTextButtonComposite.setEnabled(false);
       }
 
       return this.ontologyDescriptionFileTextButtonComposite;
@@ -585,6 +588,9 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
             }
 
          };
+
+         // TODO remove this when new version of OpenBiomind is available
+         this.ontologyAssociationFileTextButtonComposite.setEnabled(false);
       }
 
       return this.ontologyAssociationFileTextButtonComposite;
