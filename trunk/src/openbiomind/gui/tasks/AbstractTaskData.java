@@ -62,7 +62,7 @@ public abstract class AbstractTaskData implements Serializable {
     *
     * @param taskName the taskName to set
     */
-   public void setTaskName(String taskName) {
+   public void setTaskName(final String taskName) {
       this.taskName = taskName;
    }
 
@@ -112,7 +112,7 @@ public abstract class AbstractTaskData implements Serializable {
     *
     * @see java.util.Map#get(java.lang.Object)
     */
-   public String getArgument(String key) {
+   public String getArgument(final String key) {
       return getArgumentMap().get(key);
    }
 
@@ -139,8 +139,8 @@ public abstract class AbstractTaskData implements Serializable {
    @Override
    public String toString() {
       final StringBuilder stringBuilder = new StringBuilder(getTaskName());
-      List<String> allArgumentsAsList = getAllArgumentsAsList();
-      for (String string : allArgumentsAsList) {
+      final List<String> allArgumentsAsList = getAllArgumentsAsList();
+      for (final String string : allArgumentsAsList) {
          stringBuilder.append(SPACE).append(string);
       }
       return stringBuilder.toString();

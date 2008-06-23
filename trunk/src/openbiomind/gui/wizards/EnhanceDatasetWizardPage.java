@@ -101,8 +101,14 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * @return true, if successful
     */
    private boolean validatePage() {
-      final boolean valid = validateOriginalDatasetFile() && validateEnhancedDatasetFile()
-            && validateOntologyDescriptionFile() && validateOntologyAssociationFile();
+      /*
+       * We do not need short-circuiting here, so we call each validate separately
+       */
+      boolean valid = true;
+      valid &= validateOntologyAssociationFile();
+      valid &= validateOntologyDescriptionFile();
+      valid &= validateEnhancedDatasetFile();
+      valid &= validateOriginalDatasetFile();
       if (valid) {
 
       }
@@ -116,10 +122,11 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * @return true, if successful
     */
    private boolean validateOriginalDatasetFile() {
-      boolean valid = isOriginalDatasetFileValid();
+      final boolean valid = isOriginalDatasetFileValid();
       if (!valid) {
          setErrorMessage(Messages.Error_OriginalDataset_MustExist);
       }
+      updateBasedOnValidation(getOriginalDatasetTextButtonComposite(), valid);
       return valid;
    }
 
@@ -148,19 +155,21 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private boolean validateEnhancedDatasetFile() {
       boolean valid = (validateEnhancedDatasetDestinationFile() && validateEnhancedDatasetDestinationDirectory());
+      boolean warn = false;
       if (valid) {
          final File file = new File(getEnhancedDatasetFile());
          if (file.isDirectory()) {
-            setErrorMessage(Messages.Error_EnhancedDataset_IsDirectory);
             valid = false;
+            setErrorMessage(Messages.Error_EnhancedDataset_IsDirectory);
          } else if (file.exists()) {
+            warn = true;
             appendWarning(Messages.Warning_EnhancedDataset_AlreadyExists);
          }
       }
+
+      updateBasedOnValidation(getEnhancedDatasetText(), valid, warn);
       return valid;
    }
-
-
 
    /**
     * Gets the enhanced dataset file.
@@ -186,30 +195,23 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private boolean validateEnhancedDatasetDestinationDirectory() {
       boolean valid = true;
+      boolean warn = false;
 
       final String directory = getEnhancedDatasetDestinationDirectory();
       if (!Utility.isEmpty(directory)) {
          final File file = new File(directory);
          if (file.isFile()) {
-            setErrorMessage(Messages.Error_EnhancedDatasetDirectory_Invalid);
             valid = false;
+            setErrorMessage(Messages.Error_EnhancedDatasetDirectory_Invalid);
          } else if (!file.exists()) {
+            warn = true;
             appendWarning(Messages.Warning_EnhancedDatasetDirectory_DoesNotExist);
          }
       }
 
+      updateBasedOnValidation(getEnhancedDatasetTextButtonComposite(), valid, warn);
       return valid;
    }
-
-   // /**
-   // * Checks if is enhanced dataset destination directory valid.
-   // *
-   // * @return true, if is enhanced dataset destination directory valid
-   // */
-   // private boolean isEnhancedDatasetDestinationDirectoryValid() {
-   // final String file = getEnhancedDatasetDestinationDirectory();
-   // return (Utility.isEmpty(file) || Utility.isPossibleDirectory(file));
-   // }
 
    /**
     * Gets the enhanced dataset destination directory.
@@ -226,10 +228,11 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * @return true, if successful
     */
    private boolean validateEnhancedDatasetDestinationFile() {
-      boolean valid = isEnhancedDatasetDestinationFileValid();
+      final boolean valid = isEnhancedDatasetDestinationFileValid();
       if (!valid) {
          setErrorMessage(Messages.Error_EnhancedDatasetFile_Empty);
       }
+      updateBasedOnValidation(getEnhancedDatasetText(), valid);
       return valid;
    }
 
@@ -257,10 +260,11 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * @return true, if successful
     */
    private boolean validateOntologyDescriptionFile() {
-      boolean valid = isOntologyDescriptionFileValid();
+      final boolean valid = isOntologyDescriptionFileValid();
       if (!valid) {
          setErrorMessage(Messages.Error_OntologyDescription_MustExistOrEmpty);
       }
+      updateBasedOnValidation(getOntologyDescriptionFileTextButtonComposite(), valid);
       return valid;
    }
 
@@ -289,10 +293,11 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * @return true, if successful
     */
    private boolean validateOntologyAssociationFile() {
-      boolean valid = isOntologyAssociationFileValid();
+      final boolean valid = isOntologyAssociationFileValid();
       if (!valid) {
          setErrorMessage(Messages.Error_OntologyAssociation_MustExistOrEmpty);
       }
+      updateBasedOnValidation(getOntologyAssociationFileTextButtonComposite(), valid);
       return valid;
    }
 

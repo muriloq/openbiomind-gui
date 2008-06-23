@@ -7,7 +7,6 @@
  */
 package openbiomind.gui;
 
-import openbiomind.gui.views.CommandConsole;
 import openbiomind.gui.views.FileList;
 
 import org.eclipse.ui.IFolderLayout;
@@ -41,7 +40,6 @@ public class Perspective implements IPerspectiveFactory {
       final String bottomFolderId = "openbiomind.gui.perspective.folder.Bottom"; //$NON-NLS-1$
       final IFolderLayout bottom = layout.createFolder(bottomFolderId, IPageLayout.BOTTOM, 0.75f,
             editorArea);
-      bottom.addView(CommandConsole.ID);
       // Error Log
       bottom.addView("org.eclipse.pde.runtime.LogView"); //$NON-NLS-1$
 

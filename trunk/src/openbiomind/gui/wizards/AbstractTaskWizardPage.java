@@ -7,6 +7,9 @@
  */
 package openbiomind.gui.wizards;
 
+import static openbiomind.gui.util.Constants.COLOR_TEXT_ERROR;
+import static openbiomind.gui.util.Constants.COLOR_TEXT_NORMAL;
+import static openbiomind.gui.util.Constants.COLOR_TEXT_WARN;
 import static openbiomind.gui.util.Constants.LABEL_SEPARATOR;
 import static openbiomind.gui.util.Constants.SPACE;
 import openbiomind.gui.util.Utility;
@@ -138,7 +141,9 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @see java.lang.StringBuilder#append(java.lang.String)
     */
    protected void appendWarning(final String warning) {
-      this.warning.append(warning).append(SPACE);
+      if (this.warning.indexOf(warning) < 0) {
+         this.warning.append(warning).append(SPACE);
+      }
    }
 
    /**
@@ -205,5 +210,35 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @return the base container
     */
    protected abstract Composite getBaseContainer();
+
+   /**
+    * Update based on validation.
+    *
+    * @param control the control
+    * @param valid the valid
+    * @param warn the warn
+    */
+   protected void updateBasedOnValidation(final Control control, final boolean valid,
+         final boolean warn) {
+      if (control.isEnabled()) {
+         if (!valid) {
+            control.setBackground(COLOR_TEXT_ERROR);
+         } else if (!warn) {
+            control.setBackground(COLOR_TEXT_NORMAL);
+         } else {
+            control.setBackground(COLOR_TEXT_WARN);
+         }
+      }
+   }
+
+   /**
+    * Update based on validation.
+    *
+    * @param control the control
+    * @param valid the valid
+    */
+   protected void updateBasedOnValidation(final Control control, final boolean valid) {
+      updateBasedOnValidation(control, valid, false);
+   }
 
 }

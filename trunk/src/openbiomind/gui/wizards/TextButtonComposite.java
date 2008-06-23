@@ -18,6 +18,7 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
@@ -157,7 +158,7 @@ public abstract class TextButtonComposite extends Composite {
          });
       }
 
-      return actionButton;
+      return this.actionButton;
    }
 
    /*
@@ -168,6 +169,14 @@ public abstract class TextButtonComposite extends Composite {
       super.setEnabled(enabled);
       getActionButton().setEnabled(enabled);
       getTextField().setEnabled(enabled);
+   }
+
+   /*
+    * @see org.eclipse.swt.widgets.Control#setBackground(org.eclipse.swt.graphics.Color)
+    */
+   @Override
+   public void setBackground(final Color color) {
+      getTextField().setBackground(color);
    }
 
    /**
