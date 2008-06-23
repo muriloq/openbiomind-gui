@@ -8,12 +8,14 @@
 package openbiomind.gui.main;
 
 import static openbiomind.gui.util.Constants.HYPHEN;
+import static openbiomind.gui.util.Constants.SPACE;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import openbiomind.gui.console.Console;
 import openbiomind.gui.preferences.Preference;
 import openbiomind.gui.tasks.AbstractTaskData;
 
@@ -73,10 +75,22 @@ public class TaskProcessBuider {
       commandList.addAll(this.abstractTaskData.getAllArgumentsAsList());
 
       this.processBuilder = new ProcessBuilder(commandList);
-      List<String> command = this.processBuilder.command();
-      for (String string : command) {
-         System.out.print(string + " ");
+      this.processBuilder.redirectErrorStream(true);
+
+      logCommand(this.processBuilder.command());
+   }
+
+   /**
+    * Log command.
+    *
+    * @param commandList the command list
+    */
+   private void logCommand(final List<String> commandList) {
+      final StringBuilder commandStringBuilder = new StringBuilder(""); //$NON-NLS-1$
+      for (final String commandString : commandList) {
+         commandStringBuilder.append(commandString + SPACE);
       }
+      Console.debug(commandStringBuilder.toString());
    }
 
    /**

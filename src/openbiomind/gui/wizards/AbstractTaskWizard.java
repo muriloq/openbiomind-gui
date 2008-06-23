@@ -7,15 +7,19 @@
  */
 package openbiomind.gui.wizards;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 
 import openbiomind.gui.Application;
+import openbiomind.gui.console.Console;
 import openbiomind.gui.main.TaskProcessBuider;
 import openbiomind.gui.tasks.AbstractTaskData;
 import openbiomind.gui.util.Constants;
 import openbiomind.gui.util.Messages;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -59,7 +63,7 @@ public abstract class AbstractTaskWizard extends Wizard {
                InterruptedException {
             try {
                doFinish(monitor);
-            } catch (CoreException e) {
+            } catch (final CoreException e) {
                throw new InvocationTargetException(e);
             } finally {
                monitor.done();
@@ -73,9 +77,9 @@ public abstract class AbstractTaskWizard extends Wizard {
        */
       try {
          getContainer().run(false, false, runnableWithProgress);
-      } catch (InterruptedException e) {
+      } catch (final InterruptedException e) {
          return false;
-      } catch (InvocationTargetException e) {
+      } catch (final InvocationTargetException e) {
          MessageDialog.openError(getShell(), Constants.Error, e.getTargetException()
                .getLocalizedMessage());
          return false;
@@ -94,7 +98,7 @@ public abstract class AbstractTaskWizard extends Wizard {
    private void doFinish(final IProgressMonitor monitor) throws CoreException {
       monitor.beginTask(Messages.WizardProgress_PrepareTaskData, 7);
       prepareTaskData();
-      System.out.println(this.getTaskData());
+      Console.info(this.getTaskData().toString());
       monitor.worked(1);
       monitor.subTask(Messages.WizardProgress_PrepareProcess);
 
@@ -103,18 +107,21 @@ public abstract class AbstractTaskWizard extends Wizard {
          monitor.worked(1);
          monitor.subTask(Messages.WizardProgress_ExecuteTask + getTaskData());
          final Process process = taskProcessBuider.start();
-         boolean terminate = false;
-         while (!terminate) {
-            try {
-               process.exitValue();
-               terminate = true;
-            } catch (IllegalThreadStateException e) {
-               // suppress exception
-               // TODO Find alternate some way to execute the process synchronously
+         final BufferedReader reader = new BufferedReader(new InputStreamReader(process
+               .getInputStream()));
+         Assert.isNotNull(reader);
+         String message = null;
+
+         try {
+            while ((message = reader.readLine()) != null) {
+               Console.output(message);
             }
+         } catch (final IOException e) {
+            Console.error(e);
          }
+         reader.close();
          monitor.worked(2);
-      } catch (IOException e) {
+      } catch (final IOException e) {
          throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, IStatus.OK, e
                .getLocalizedMessage(), e));
       }

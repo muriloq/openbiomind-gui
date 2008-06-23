@@ -7,6 +7,8 @@
  */
 package openbiomind.gui;
 
+import openbiomind.gui.console.Console;
+
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
@@ -30,6 +32,9 @@ public class Application implements IApplication {
     */
    @Override
    public Object start(final IApplicationContext context) throws Exception {
+      // initialize the console
+      Console.init();
+
       final Display display = PlatformUI.createDisplay();
 
       try {
@@ -57,12 +62,14 @@ public class Application implements IApplication {
 
       final Display display = workbench.getDisplay();
       display.syncExec(new Runnable() {
+
          @Override
          public void run() {
             if (!display.isDisposed()) {
                workbench.close();
             }
          }
+
       });
    }
 

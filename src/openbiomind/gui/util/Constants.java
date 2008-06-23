@@ -10,6 +10,8 @@ package openbiomind.gui.util;
 import java.io.File;
 
 import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * The final class Constants contains various constant definitions.
@@ -19,6 +21,36 @@ import org.eclipse.jface.resource.JFaceResources;
  * @version Jun 12, 2008
  */
 public final class Constants {
+
+   /** The Constant COLOR_SYSTEM_OUT. */
+   public static final Color COLOR_SYSTEM_OUT;
+
+   /** The Constant COLOR_SYSTEM_ERR. */
+   public static final Color COLOR_SYSTEM_ERR;
+
+   /** The Constant COLOR_ERROR. */
+   public static final Color COLOR_OUTPUT;
+
+   /** The Constant COLOR_ERROR. */
+   public static final Color COLOR_ERROR;
+
+   /** The Constant COLOR_WARN. */
+   public static final Color COLOR_WARN;
+
+   /** The Constant COLOR_INFO. */
+   public static final Color COLOR_INFO;
+
+   /** The Constant COLOR_DEBUG. */
+   public static final Color COLOR_DEBUG;
+
+   /** The Constant COLOR_TEXT_NORMAL. */
+   public static final Color COLOR_TEXT_NORMAL;
+
+   /** The Constant COLOR_TEXT_ERROR. */
+   public static final Color COLOR_TEXT_ERROR;
+
+   /** The Constant COLOR_TEXT_WARN. */
+   public static final Color COLOR_TEXT_WARN;
 
    /** The constant for space (value = <i>single blank space</i>). */
    public static final String SPACE = " "; //$NON-NLS-1$
@@ -67,27 +99,32 @@ public final class Constants {
     */
    static {
       /*
+       * Define all the colors
+       */
+      final Display device = Display.getCurrent();
+      COLOR_SYSTEM_OUT = new Color(device, 0, 0, 0); // black
+      COLOR_SYSTEM_ERR = new Color(device, 255, 0, 0); // red
+      COLOR_OUTPUT = new Color(device, 135, 31, 120); // dark purple
+      COLOR_ERROR = new Color(device, 192, 0, 0); // free speech Red
+      COLOR_WARN = new Color(device, 0, 0, 255); // blue
+      COLOR_INFO = new Color(device, 0, 255, 0); // green
+      COLOR_DEBUG = new Color(device, 184, 184, 184); // grey
+
+      // TODO Find a way to read this in a better way
+      COLOR_TEXT_NORMAL = new Color(device, 255, 255, 255); // white
+      COLOR_TEXT_ERROR = new Color(device, 255, 36, 0); // orange red
+      COLOR_TEXT_WARN = new Color(device, 238, 238, 0); // yellow
+
+      /*
        * Find the current directory
        */
       String currentDirectory = "."; //$NON-NLS-1$
       try {
          currentDirectory = new File(currentDirectory).getCanonicalPath();
-      } catch (Exception e) {
+      } catch (final Exception e) {
          e.printStackTrace();
       }
       CURRENT_DIRECTORY = currentDirectory;
    }
-
-//   /** The constant for specifying left symbol for required argument (value = <code>&lt;</code>). */
-//   public static final String ARGUMENT_REQUIRED_LEFT = "<"; //$NON-NLS-1$
-//
-//   /** The constant for specifying right symbol for required argument (value = <code>&gt;</code>). */
-//   public static final String ARGUMENT_REQUIRED_RIGHT = ">"; //$NON-NLS-1$
-//
-//   /** The constant for specifying left symbol for optional argument (value = <code>[</code>). */
-//   public static final String ARGUMENT_OPTIONAL_LEFT = "["; //$NON-NLS-1$
-//
-//   /** The constant for specifying right symbol for optional argument (value = <code>]</code>). */
-//   public static final String ARGUMENT_OPTIONAL_RIGHT = "]"; //$NON-NLS-1$
 
 }

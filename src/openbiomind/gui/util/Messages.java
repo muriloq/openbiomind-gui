@@ -36,6 +36,9 @@ public class Messages extends NLS {
    /** The source file. */
    public static String Amp_SourceFile;
 
+   /** The Console title. */
+   public static String ConsoleTitle;
+
    /** The preference page description. */
    public static String Desc_PreferencePage;
 

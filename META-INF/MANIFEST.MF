@@ -2,11 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OpenBiomind-GUI
 Bundle-SymbolicName: openbiomind.gui; singleton:=true
-Bundle-Version: 0.0.1.20080612
+Bundle-Version: 0.0.0.20080622
 Bundle-Activator: openbiomind.gui.Activator
 Bundle-Vendor: OpenBiomind
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.ui.views.log;bundle-version="1.0.0"
+ org.eclipse.ui.views.log;bundle-version="1.0.0",
+ org.eclipse.ui.console;bundle-version="3.3.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

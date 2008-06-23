@@ -26,8 +26,32 @@
             application="openbiomind.gui.application"
             name="OpenBiomind-GUI">
          <property
+               name="appName"
+               value="OpenBiomind-GUI">
+         </property>
+         <property
+               name="aboutText"
+               value="GUI for OpenBiomind.&#x0D;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
+         </property>
+         <property
                name="windowImages"
                value="icons/alt_window_16.gif,icons/alt_window_32.gif">
+         </property>
+         <property
+               name="startupForegroundColor"
+               value="000000">
+         </property>
+         <property
+               name="startupMessageRect"
+               value="7,252,445,20">
+         </property>
+         <property
+               name="startupProgressRect"
+               value="5,275,445,15">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
          </property>
       </product>
    </extension>
@@ -161,14 +185,6 @@
             id="openbiomind.gui.views.category.OpenBiomind"
             name="OpenBiomind Views">
       </category>
-      <view
-            category="openbiomind.gui.views.category.OpenBiomind"
-            class="openbiomind.gui.views.CommandConsole"
-            icon="icons/command_console.gif"
-            id="openbiomind.gui.views.CommandConsole"
-            name="Command Console"
-            restorable="true">
-      </view>
       <view
             category="openbiomind.gui.views.category.OpenBiomind"
             class="openbiomind.gui.views.FileList"
