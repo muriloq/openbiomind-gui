@@ -7,6 +7,7 @@
  */
 package openbiomind.gui.main;
 
+import static openbiomind.gui.util.Constants.EMPTY;
 import static openbiomind.gui.util.Constants.HYPHEN;
 import static openbiomind.gui.util.Constants.SPACE;
 
@@ -86,7 +87,7 @@ public class TaskProcessBuider {
     * @param commandList the command list
     */
    private void logCommand(final List<String> commandList) {
-      final StringBuilder commandStringBuilder = new StringBuilder(""); //$NON-NLS-1$
+      final StringBuilder commandStringBuilder = new StringBuilder(EMPTY); //$NON-NLS-1$
       for (final String commandString : commandList) {
          commandStringBuilder.append(commandString + SPACE);
       }

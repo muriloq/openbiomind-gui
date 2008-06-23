@@ -7,6 +7,7 @@
  */
 package openbiomind.gui.tasks;
 
+import static openbiomind.gui.util.Constants.EMPTY;
 import static openbiomind.gui.util.Constants.SPACE;
 
 import java.io.Serializable;
@@ -51,7 +52,7 @@ public abstract class AbstractTaskData implements Serializable {
     */
    public String getTaskName() {
       if (this.taskName == null) {
-         this.taskName = ""; //$NON-NLS-1$
+         this.taskName = EMPTY; //$NON-NLS-1$
       }
 
       return this.taskName;

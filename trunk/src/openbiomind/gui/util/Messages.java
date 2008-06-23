@@ -36,6 +36,9 @@ public class Messages extends NLS {
    /** The source file. */
    public static String Amp_SourceFile;
 
+   /** The use original dataset directory. */
+   public static String Amp_UseOriginalDatasetDir;
+
    /** The Console title. */
    public static String ConsoleTitle;
 
