@@ -21,6 +21,9 @@ import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
@@ -53,6 +56,9 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /** The original dataset text button composite. */
    private TextButtonComposite originalDatasetTextButtonComposite = null;
+
+   /** The use original dataset directory for enhanced dataset. */
+   private Button useOriginalDatasetDirectoryForEnhancedDataset = null;
 
    /** The enhanced dataset text button composite. */
    private TextButtonComposite enhancedDatasetTextButtonComposite = null;
@@ -109,9 +115,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       valid &= validateOntologyDescriptionFile();
       valid &= validateEnhancedDatasetFile();
       valid &= validateOriginalDatasetFile();
-      if (valid) {
 
-      }
       setPageComplete(valid);
       return valid;
    }
@@ -154,7 +158,12 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * @return true, if successful
     */
    private boolean validateEnhancedDatasetFile() {
-      boolean valid = (validateEnhancedDatasetDestinationFile() && validateEnhancedDatasetDestinationDirectory());
+      /*
+       * We do not need short-circuiting here, so we call each validate separately
+       */
+      boolean valid = true;
+      valid &= validateEnhancedDatasetDestinationFile();
+      valid &= validateEnhancedDatasetDestinationDirectory();
       boolean warn = false;
       if (valid) {
          final File file = new File(getEnhancedDatasetFile());
@@ -375,6 +384,8 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
          addComponentLabel(this.requiredGroup, Messages.Amp_DestinationDirectory,
                Messages.Info_DestinationDirectory);
          getEnhancedDatasetTextButtonComposite();
+         addBlankComponentLabel(this.requiredGroup);
+         getUseOriginalDatasetDirectoryForEnhancedDataset();
          addComponentLabel(this.requiredGroup, Messages.Amp_DestinationFile,
                Messages.Info_EnhancedDataset);
          getEnhancedDatasetText();
@@ -403,17 +414,83 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
             @Override
             protected void textKeyReleased() {
                validatePage();
+               updateEnhancedDatasetDestinationDirectoryText();
             }
 
             @Override
             protected void onTextChange() {
                validatePage();
+               updateEnhancedDatasetDestinationDirectoryText();
             }
 
          };
       }
 
       return this.originalDatasetTextButtonComposite;
+   }
+
+   /**
+    * Gets the use original dataset directory for enhanced dataset.
+    *
+    * @return the useOriginalDatasetDirectoryForEnhancedDataset
+    */
+   private Button getUseOriginalDatasetDirectoryForEnhancedDataset() {
+      if (this.useOriginalDatasetDirectoryForEnhancedDataset == null) {
+         this.useOriginalDatasetDirectoryForEnhancedDataset = new Button(getRequiredGroup(),
+               SWT.CHECK);
+         this.useOriginalDatasetDirectoryForEnhancedDataset
+               .setText(Messages.Amp_UseOriginalDatasetDir);
+         /*
+          * apply layout information
+          */
+         GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).align(SWT.FILL, SWT.CENTER)
+               .grab(true, false)./* span(2, 1). */applyTo(
+                     this.useOriginalDatasetDirectoryForEnhancedDataset);
+
+         /*
+          * apply listeners
+          */
+         this.useOriginalDatasetDirectoryForEnhancedDataset
+               .addSelectionListener(new SelectionAdapter() {
+
+                  @Override
+                  public void widgetSelected(final SelectionEvent e) {
+                     if (useOriginalDatasetDirectoryForEnhancedDataset()) {
+                        updateEnhancedDatasetDestinationDirectoryText();
+                        validatePage();
+                        // set color to normal
+                        updateBasedOnValidation(getEnhancedDatasetTextButtonComposite(), true);
+                        getEnhancedDatasetTextButtonComposite().setEnabled(false);
+                     } else {
+                        getEnhancedDatasetTextButtonComposite().setEnabled(true);
+                        validatePage();
+                     }
+                  }
+
+               });
+
+      }
+
+      return this.useOriginalDatasetDirectoryForEnhancedDataset;
+   }
+
+   /**
+    * Update enhanced dataset destination directory text.
+    */
+   private void updateEnhancedDatasetDestinationDirectoryText() {
+      if (useOriginalDatasetDirectoryForEnhancedDataset()) {
+         getEnhancedDatasetTextButtonComposite().setText(
+               Utility.extractDirectoryName(getOriginalDatasetFile()));
+      }
+   }
+
+   /**
+    * Use original dataset directory for enhanced dataset.
+    *
+    * @return true, if successful
+    */
+   private boolean useOriginalDatasetDirectoryForEnhancedDataset() {
+      return getUseOriginalDatasetDirectoryForEnhancedDataset().getSelection();
    }
 
    /**

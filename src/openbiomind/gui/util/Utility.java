@@ -7,6 +7,8 @@
  */
 package openbiomind.gui.util;
 
+import static openbiomind.gui.util.Constants.EMPTY;
+
 import java.io.File;
 
 /**
@@ -27,6 +29,24 @@ public final class Utility {
     */
    public static boolean exists(final String pathname) {
       return (!isEmpty(pathname) && new File(pathname).exists());
+   }
+
+   /**
+    * Extract directory name.
+    *
+    * @param pathname the pathname
+    *
+    * @return the string
+    */
+   public static String extractDirectoryName(final String pathname) {
+      if (isEmpty(pathname)) {
+         return EMPTY;
+      }
+      if (!isPossibleDirectory(pathname)) {
+         return new File(pathname).getParent();
+      } else {
+         return pathname;
+      }
    }
 
    /**
@@ -69,7 +89,18 @@ public final class Utility {
     * @return true, if pathname can be a file
     */
    public static boolean isPossibleFile(final String pathname) {
-      return (!isEmpty(pathname) && !(new File(pathname).isDirectory()));
+      return (!isEmpty(pathname) && isPossibleFile(new File(pathname)));
+   }
+
+   /**
+    * Checks if is possible file.
+    *
+    * @param file the file
+    *
+    * @return true, if is possible file
+    */
+   public static boolean isPossibleFile(final File file) {
+      return !file.isDirectory();
    }
 
    /**
@@ -80,7 +111,18 @@ public final class Utility {
     * @return true, if pathname can be a directory
     */
    public static boolean isPossibleDirectory(final String pathname) {
-      return (!isEmpty(pathname) && !(new File(pathname).isFile()));
+      return (!isEmpty(pathname) && isPossibleDirectory(new File(pathname)));
+   }
+
+   /**
+    * Checks if is possible directory.
+    *
+    * @param file the file
+    *
+    * @return true, if is possible directory
+    */
+   public static boolean isPossibleDirectory(final File file) {
+      return !file.isFile();
    }
 
    /**

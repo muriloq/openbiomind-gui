@@ -10,6 +10,7 @@ package openbiomind.gui.wizards;
 import static openbiomind.gui.util.Constants.COLOR_TEXT_ERROR;
 import static openbiomind.gui.util.Constants.COLOR_TEXT_NORMAL;
 import static openbiomind.gui.util.Constants.COLOR_TEXT_WARN;
+import static openbiomind.gui.util.Constants.EMPTY;
 import static openbiomind.gui.util.Constants.LABEL_SEPARATOR;
 import static openbiomind.gui.util.Constants.SPACE;
 import openbiomind.gui.util.Utility;
@@ -130,7 +131,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * Reset warning.
     */
    private void resetWarning() {
-      this.warning = new StringBuilder(""); //$NON-NLS-1$
+      this.warning = new StringBuilder(EMPTY); //$NON-NLS-1$
    }
 
    /**
@@ -190,6 +191,16 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       final Label label = new Label(parent, SWT.NULL);
       label.setText(text + LABEL_SEPARATOR);
       label.setToolTipText(toolTip);
+      GRID_DATA_COMPONENT_LABEL.applyTo(label);
+   }
+
+   /**
+    * Adds the blank component label.
+    *
+    * @param parent the parent
+    */
+   protected void addBlankComponentLabel(final Composite parent) {
+      final Label label = new Label(parent, SWT.NULL);
       GRID_DATA_COMPONENT_LABEL.applyTo(label);
    }
 

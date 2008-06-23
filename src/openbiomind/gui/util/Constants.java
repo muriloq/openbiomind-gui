@@ -10,6 +10,7 @@ package openbiomind.gui.util;
 import java.io.File;
 
 import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 
@@ -51,6 +52,9 @@ public final class Constants {
 
    /** The Constant COLOR_TEXT_WARN. */
    public static final Color COLOR_TEXT_WARN;
+
+   /** The constant for empty string. */
+   public static final String EMPTY = ""; //$NON-NLS-1$
 
    /** The constant for space (value = <i>single blank space</i>). */
    public static final String SPACE = " "; //$NON-NLS-1$
@@ -99,21 +103,19 @@ public final class Constants {
     */
    static {
       /*
-       * Define all the colors
+       * Define all the colors TODO Update colors based on the default background color
        */
-      final Display device = Display.getCurrent();
-      COLOR_SYSTEM_OUT = new Color(device, 0, 0, 0); // black
-      COLOR_SYSTEM_ERR = new Color(device, 255, 0, 0); // red
-      COLOR_OUTPUT = new Color(device, 135, 31, 120); // dark purple
-      COLOR_ERROR = new Color(device, 192, 0, 0); // free speech Red
-      COLOR_WARN = new Color(device, 0, 0, 255); // blue
-      COLOR_INFO = new Color(device, 0, 255, 0); // green
-      COLOR_DEBUG = new Color(device, 184, 184, 184); // grey
-
-      // TODO Find a way to read this in a better way
-      COLOR_TEXT_NORMAL = new Color(device, 255, 255, 255); // white
-      COLOR_TEXT_ERROR = new Color(device, 255, 36, 0); // orange red
-      COLOR_TEXT_WARN = new Color(device, 238, 238, 0); // yellow
+      final Display defaultDisplay = Display.getDefault();
+      COLOR_SYSTEM_OUT = defaultDisplay.getSystemColor(SWT.COLOR_BLACK);
+      COLOR_SYSTEM_ERR = defaultDisplay.getSystemColor(SWT.COLOR_DARK_RED);
+      COLOR_OUTPUT = defaultDisplay.getSystemColor(SWT.COLOR_BLUE);
+      COLOR_ERROR = defaultDisplay.getSystemColor(SWT.COLOR_RED);
+      COLOR_WARN = defaultDisplay.getSystemColor(SWT.COLOR_DARK_YELLOW);
+      COLOR_INFO = defaultDisplay.getSystemColor(SWT.COLOR_GREEN);
+      COLOR_DEBUG = defaultDisplay.getSystemColor(SWT.COLOR_GRAY);
+      COLOR_TEXT_NORMAL = defaultDisplay.getSystemColor(SWT.COLOR_LIST_BACKGROUND);
+      COLOR_TEXT_ERROR = defaultDisplay.getSystemColor(SWT.COLOR_RED);
+      COLOR_TEXT_WARN = defaultDisplay.getSystemColor(SWT.COLOR_YELLOW);
 
       /*
        * Find the current directory
