@@ -147,8 +147,9 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     */
    @Override
    public String[] getFilesArray() {
-      return new String[] { getEnhancedDataset(), getOriginalDataset(),
-            getOntologyDescriptionFile(), getOntologyAssociationFile() };
+      return new String[] { getEnhancedDataset() };
+//      return new String[] { getEnhancedDataset(), getOriginalDataset(),
+//            getOntologyDescriptionFile(), getOntologyAssociationFile() };
    }
 
 }

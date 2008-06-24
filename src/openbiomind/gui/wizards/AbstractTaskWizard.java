@@ -3,6 +3,8 @@
  *
  * The file AbstractTaskWizard.java.
  *
+ * TODO THIS CLASS ANF ITS SUBCLASSES NEED TO BE REFACTORED AND REDESIGNED.
+ *
  * $Id$
  */
 package openbiomind.gui.wizards;
@@ -14,6 +16,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import openbiomind.gui.Application;
 import openbiomind.gui.console.Console;
+import openbiomind.gui.editors.DefaultTextEditor;
+import openbiomind.gui.editors.DefaultTextEditorInput;
 import openbiomind.gui.main.TaskProcessBuider;
 import openbiomind.gui.tasks.AbstractTaskData;
 import openbiomind.gui.util.Constants;
@@ -27,6 +31,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * The class AbstractTaskWizard.
@@ -59,8 +65,7 @@ public abstract class AbstractTaskWizard extends Wizard {
       final IRunnableWithProgress runnableWithProgress = new IRunnableWithProgress() {
 
          @Override
-         public void run(final IProgressMonitor monitor) throws InvocationTargetException,
-               InterruptedException {
+         public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
             try {
                doFinish(monitor);
             } catch (final CoreException e) {
@@ -80,8 +85,7 @@ public abstract class AbstractTaskWizard extends Wizard {
       } catch (final InterruptedException e) {
          return false;
       } catch (final InvocationTargetException e) {
-         MessageDialog.openError(getShell(), Constants.Error, e.getTargetException()
-               .getLocalizedMessage());
+         MessageDialog.openError(getShell(), Constants.Error, e.getTargetException().getLocalizedMessage());
          return false;
       }
       return true;
@@ -107,8 +111,7 @@ public abstract class AbstractTaskWizard extends Wizard {
          monitor.worked(1);
          monitor.subTask(Messages.WizardProgress_ExecuteTask + getTaskData());
          final Process process = taskProcessBuider.start();
-         final BufferedReader reader = new BufferedReader(new InputStreamReader(process
-               .getInputStream()));
+         final BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
          Assert.isNotNull(reader);
          String message = null;
 
@@ -122,20 +125,34 @@ public abstract class AbstractTaskWizard extends Wizard {
          reader.close();
          monitor.worked(2);
       } catch (final IOException e) {
-         throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, IStatus.OK, e
-               .getLocalizedMessage(), e));
+         throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, IStatus.OK, e.getLocalizedMessage(),
+               e));
       }
 
       monitor.subTask(Messages.WizardProgress_LoadFiles);
       /*
        * Load files here...
        */
-      // final String[] filesArray = getTaskData().getFilesArray();
-      // System.out.println("Files to open:");
-      // for (String string : filesArray) {
-      // System.out.println(string);
-      // }
+      String[] filesArray = getTaskData().getFilesArray();
+      for (final String filepath : filesArray) {
+         loadFile(filepath);
+         Console.info("Opened: " + filepath);
+      }
       monitor.worked(3);
+   }
+
+   /**
+    * Load file.
+    *
+    * @param filepath the filepath
+    */
+   private void loadFile(final String filepath) {
+      final DefaultTextEditorInput input = new DefaultTextEditorInput(filepath);
+      try {
+         PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, DefaultTextEditor.ID);
+      } catch (final PartInitException e) {
+         Console.error(e);
+      }
    };
 
    /**

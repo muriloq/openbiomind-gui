@@ -3,6 +3,8 @@
  *
  * The file AbstractTaskData.java.
  *
+ * TODO THIS CLASS ANF ITS SUBCLASSES NEED TO BE REFACTORED AND REDESIGNED.
+ *
  * $Id$
  */
 package openbiomind.gui.tasks;
