@@ -208,5 +208,15 @@
             class="openbiomind.gui.preferences.PreferenceInitializer">
       </initializer>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="openbiomind.gui.editors.DefaultTextEditor"
+            default="false"
+            icon="icons/default_text_editor.gif"
+            id="openbiomind.gui.editors.DefaultTextEditor"
+            name="Text Editor">
+      </editor>
+   </extension>
 
 </plugin>

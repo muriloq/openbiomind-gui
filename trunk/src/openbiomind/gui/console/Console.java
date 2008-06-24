@@ -166,14 +166,14 @@ public class Console {
       write(message, COLOR_ERROR);
    }
 
-   /**
-    * Error.
-    *
-    * @param inputStream the input stream
-    */
-   public synchronized static void error(final InputStream inputStream) {
-      write(inputStream, COLOR_ERROR);
-   }
+//   /**
+//    * Error.
+//    *
+//    * @param inputStream the input stream
+//    */
+//   public synchronized static void error(final InputStream inputStream) {
+//      write(inputStream, COLOR_ERROR);
+//   }
 
    /**
     * Error.
@@ -181,6 +181,17 @@ public class Console {
     * @param e the e
     */
    public synchronized static void error(final Throwable e) {
+      write(e, COLOR_ERROR);
+   }
+
+   /**
+    * Error.
+    *
+    * @param message the message
+    * @param e the e
+    */
+   public synchronized static void error(final String message, final Throwable e) {
+      write(message, COLOR_ERROR);
       write(e, COLOR_ERROR);
    }
 
@@ -202,14 +213,14 @@ public class Console {
       write(message, COLOR_INFO);
    }
 
-   /**
-    * Info.
-    *
-    * @param inputStream the input stream
-    */
-   public synchronized static void info(final InputStream inputStream) {
-      write(inputStream, COLOR_INFO);
-   }
+//   /**
+//    * Info.
+//    *
+//    * @param inputStream the input stream
+//    */
+//   public synchronized static void info(final InputStream inputStream) {
+//      write(inputStream, COLOR_INFO);
+//   }
 
    /**
     * Debug.
