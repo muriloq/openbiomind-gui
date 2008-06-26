@@ -153,8 +153,8 @@ public abstract class AbstractTaskWizard extends Wizard {
          IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(),
                (IEditorInput) new FileStoreEditorInput(EFS.getLocalFileSystem().getStore(file.toURI())),
                Constants.DEFAULT_TEXT_EDITOR_ID);
-      // } catch (final PartInitException e) {
-      // Console.error(e);
+         // } catch (final PartInitException e) {
+         // Console.error(e);
       } catch (final Exception e) {
          Console.error(e.getMessage());
          Console.debug(e);

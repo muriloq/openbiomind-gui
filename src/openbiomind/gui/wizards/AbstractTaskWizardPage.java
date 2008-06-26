@@ -33,16 +33,16 @@ import org.eclipse.swt.widgets.Label;
 public abstract class AbstractTaskWizardPage extends WizardPage implements IWizardPage {
 
    /** The Constant GRID_DATA_INFORMATION_LABEL. */
-   protected final static GridDataFactory GRID_DATA_INFORMATION_LABEL = GridDataFactory
-         .swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).span(2, 1);
+   protected final static GridDataFactory GRID_DATA_INFORMATION_LABEL = GridDataFactory.swtDefaults().align(SWT.FILL,
+         SWT.CENTER).grab(true, false).span(2, 1);
 
    /** The Constant GRID_DATA_SEPARATOR. */
-   protected final static GridDataFactory GRID_DATA_SEPARATOR = GridDataFactory.swtDefaults()
-         .align(SWT.FILL, SWT.CENTER).grab(true, false).span(2, 1);
+   protected final static GridDataFactory GRID_DATA_SEPARATOR = GridDataFactory.swtDefaults().align(SWT.FILL,
+         SWT.CENTER).grab(true, false).span(2, 1);
 
    /** The Constant GRID_DATA_COMPONENT_LABEL. */
-   protected final static GridDataFactory GRID_DATA_COMPONENT_LABEL = GridDataFactory.swtDefaults()
-         .align(SWT.BEGINNING, SWT.CENTER);
+   protected final static GridDataFactory GRID_DATA_COMPONENT_LABEL = GridDataFactory.swtDefaults().align(
+         SWT.BEGINNING, SWT.CENTER);
 
    /** The warning. */
    private StringBuilder warning = null;
@@ -57,8 +57,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @param pageTitle the page title
     * @param syntax the syntax
     */
-   protected AbstractTaskWizardPage(final String pageName, final String pageTitle,
-         final String syntax) {
+   protected AbstractTaskWizardPage(final String pageName, final String pageTitle, final String syntax) {
       super(pageName);
       setTitle(pageTitle);
       setDescription(syntax);
@@ -229,8 +228,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @param valid the valid
     * @param warn the warn
     */
-   protected void updateBasedOnValidation(final Control control, final boolean valid,
-         final boolean warn) {
+   protected void updateBasedOnValidation(final Control control, final boolean valid, final boolean warn) {
       if (control.isEnabled()) {
          if (!valid) {
             control.setBackground(COLOR_TEXT_ERROR);

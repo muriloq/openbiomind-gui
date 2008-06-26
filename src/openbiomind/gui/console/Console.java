@@ -50,8 +50,7 @@ public class Console {
     */
    public static void init() {
       ConsolePlugin.getDefault().getConsoleManager().showConsoleView(Console.console);
-      ConsolePlugin.getDefault().getConsoleManager()
-            .addConsoles(new IConsole[] { Console.console });
+      ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { Console.console });
       initSystemOut();
       initSystemErr();
       setDebug(true);
@@ -166,14 +165,14 @@ public class Console {
       write(message, COLOR_ERROR);
    }
 
-//   /**
-//    * Error.
-//    *
-//    * @param inputStream the input stream
-//    */
-//   public synchronized static void error(final InputStream inputStream) {
-//      write(inputStream, COLOR_ERROR);
-//   }
+   // /**
+   // * Error.
+   // *
+   // * @param inputStream the input stream
+   // */
+   // public synchronized static void error(final InputStream inputStream) {
+   // write(inputStream, COLOR_ERROR);
+   // }
 
    /**
     * Error.
@@ -213,14 +212,14 @@ public class Console {
       write(message, COLOR_INFO);
    }
 
-//   /**
-//    * Info.
-//    *
-//    * @param inputStream the input stream
-//    */
-//   public synchronized static void info(final InputStream inputStream) {
-//      write(inputStream, COLOR_INFO);
-//   }
+   // /**
+   // * Info.
+   // *
+   // * @param inputStream the input stream
+   // */
+   // public synchronized static void info(final InputStream inputStream) {
+   // write(inputStream, COLOR_INFO);
+   // }
 
    /**
     * Debug.

@@ -38,8 +38,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
    }
 
    /*
-    * @see
-    * org.eclipse.ui.application.ActionBarAdvisor#fillMenuBar(org.eclipse.jface.action.IMenuManager)
+    * @see org.eclipse.ui.application.ActionBarAdvisor#fillMenuBar(org.eclipse.jface.action.IMenuManager)
     */
    @Override
    protected void fillMenuBar(final IMenuManager menuBar) {

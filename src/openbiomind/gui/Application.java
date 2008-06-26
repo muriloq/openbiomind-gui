@@ -38,8 +38,7 @@ public class Application implements IApplication {
       final Display display = PlatformUI.createDisplay();
 
       try {
-         final int returnCode = PlatformUI.createAndRunWorkbench(display,
-               new ApplicationWorkbenchAdvisor());
+         final int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
          if (returnCode == PlatformUI.RETURN_RESTART) {
             return IApplication.EXIT_RESTART;
          } else {

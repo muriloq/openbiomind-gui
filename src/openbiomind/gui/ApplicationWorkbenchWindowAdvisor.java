@@ -50,7 +50,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
       final IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
       configurer.setInitialSize(new Point(800, 600));
       configurer.setShowMenuBar(true);
-      configurer.setShowCoolBar(true);       // show the toolbar
+      configurer.setShowCoolBar(true); // show the toolbar
       configurer.setShowStatusLine(true);
    }
 
@@ -59,8 +59,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     */
    @Override
    public void postWindowOpen() {
-      getWindowConfigurer().getActionBarConfigurer().getStatusLineManager().setMessage(
-            Messages.Startup);
+      getWindowConfigurer().getActionBarConfigurer().getStatusLineManager().setMessage(Messages.Startup);
    }
 
 }

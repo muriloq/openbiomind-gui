@@ -23,21 +23,18 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
- * The class OpenBiomindPreferencePage represents a preference page that is contributed to the
- * Preferences dialog.
+ * The class OpenBiomindPreferencePage represents a preference page that is contributed to the Preferences dialog.
  *
  * <p>
- * This page is used to modify preferences only. They are stored in the preference store that
- * belongs to the main plug-in class. That way, preferences can be accessed directly via the
- * preference store.
+ * This page is used to modify preferences only. They are stored in the preference store that belongs to the main
+ * plug-in class. That way, preferences can be accessed directly via the preference store.
  * </p>
  *
  * @author bsanghvi
  * @since Jun 9, 2008
  * @version Jun 9, 2008
  */
-public class OpenBiomindPreferencePage extends FieldEditorPreferencePage implements
-      IWorkbenchPreferencePage {
+public class OpenBiomindPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
    /**
     * Instantiates a new OpenBiomind preference page.
@@ -56,21 +53,17 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
       /*
        * openbiomind.jar
        */
-      final FileFieldEditor openBiomindJarFileFieldEditor = new FileFieldEditor(
-            Preference.OPENBIOMIND_JAR, AMPERSAND + OPENBIOMIND_JAR_NAME + LABEL_SEPARATOR,
-            getFieldEditorParent());
-      openBiomindJarFileFieldEditor
-            .setFileExtensions(new String[] { WILDCARD_ANY + JAR_EXTENSION });
+      final FileFieldEditor openBiomindJarFileFieldEditor = new FileFieldEditor(Preference.OPENBIOMIND_JAR, AMPERSAND
+            + OPENBIOMIND_JAR_NAME + LABEL_SEPARATOR, getFieldEditorParent());
+      openBiomindJarFileFieldEditor.setFileExtensions(new String[] { WILDCARD_ANY + JAR_EXTENSION });
       addField(openBiomindJarFileFieldEditor);
 
       /*
        * pipeline.properties
        */
-      final FileFieldEditor pipelinePropertiesFileFieldEditor = new FileFieldEditor(
-            Preference.PIPELINE_PROPERTIES, AMPERSAND + PIPELINE_PROPERTIES_FILENAME
-                  + LABEL_SEPARATOR, getFieldEditorParent());
-      pipelinePropertiesFileFieldEditor
-            .setFileExtensions(new String[] { PIPELINE_PROPERTIES_FILENAME });
+      final FileFieldEditor pipelinePropertiesFileFieldEditor = new FileFieldEditor(Preference.PIPELINE_PROPERTIES,
+            AMPERSAND + PIPELINE_PROPERTIES_FILENAME + LABEL_SEPARATOR, getFieldEditorParent());
+      pipelinePropertiesFileFieldEditor.setFileExtensions(new String[] { PIPELINE_PROPERTIES_FILENAME });
       addField(pipelinePropertiesFileFieldEditor);
    }
 
@@ -82,8 +75,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
    }
 
    /*
-    * @see
-    * org.eclipse.jface.preference.FieldEditorPreferencePage#propertyChange(org.eclipse.jface.util
+    * @see org.eclipse.jface.preference.FieldEditorPreferencePage#propertyChange(org.eclipse.jface.util
     * .PropertyChangeEvent)
     */
    @Override

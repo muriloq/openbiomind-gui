@@ -42,8 +42,7 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
-      this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(WIZARD_TITLE,
-            Messages.Desc_Wizard_EnhanceDataset);
+      this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(WIZARD_TITLE, Messages.Desc_Wizard_EnhanceDataset);
 
       addPage(this.enhanceDatasetWizardPage);
    }
@@ -53,14 +52,10 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
-      getEnhanceDatasetTaskData().setOriginalDataset(
-            this.enhanceDatasetWizardPage.getOriginalDatasetFile());
-      getEnhanceDatasetTaskData().setEnhancedDataset(
-            this.enhanceDatasetWizardPage.getEnhancedDatasetFile());
-      getEnhanceDatasetTaskData().setOntologyDescriptionFile(
-            this.enhanceDatasetWizardPage.getOntologyDescriptionFile());
-      getEnhanceDatasetTaskData().setOntologyAssociationFile(
-            this.enhanceDatasetWizardPage.getOntologyAssociationFile());
+      getEnhanceDatasetTaskData().setOriginalDataset(this.enhanceDatasetWizardPage.getOriginalDatasetFile());
+      getEnhanceDatasetTaskData().setEnhancedDataset(this.enhanceDatasetWizardPage.getEnhancedDatasetFile());
+      getEnhanceDatasetTaskData().setOntologyDescriptionFile(this.enhanceDatasetWizardPage.getOntologyDescriptionFile());
+      getEnhanceDatasetTaskData().setOntologyAssociationFile(this.enhanceDatasetWizardPage.getOntologyAssociationFile());
    }
 
    /*

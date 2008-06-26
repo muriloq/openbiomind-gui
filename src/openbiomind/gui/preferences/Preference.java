@@ -14,8 +14,7 @@ import openbiomind.gui.util.Constants;
 import openbiomind.gui.util.Utility;
 
 /**
- * The class Preference methods to access the plug-in preferences. It also contains constant
- * definitions.
+ * The class Preference methods to access the plug-in preferences. It also contains constant definitions.
  *
  * @author bsanghvi
  * @since Jun 9, 2008
@@ -66,8 +65,7 @@ public class Preference {
     * @return true, if is open biomind jar preference valid
     */
    public static boolean isOpenBiomindJarPreferenceValid(final String value) {
-      return (value != null && value.trim().toLowerCase().endsWith(JAR_EXTENSION)
-            && Utility.exists(value));
+      return (value != null && value.trim().toLowerCase().endsWith(JAR_EXTENSION) && Utility.exists(value));
    }
 
    /**
@@ -78,8 +76,8 @@ public class Preference {
     * @return true, if is pipeline properties preference valid
     */
    public static boolean isPipelinePropertiesPreferenceValid(final String value) {
-      return (value != null && value.trim().toLowerCase().endsWith(PIPELINE_PROPERTIES_FILENAME)
-            && Utility.exists(value));
+      return (value != null && value.trim().toLowerCase().endsWith(PIPELINE_PROPERTIES_FILENAME) && Utility
+            .exists(value));
    }
 
    /**
@@ -88,8 +86,7 @@ public class Preference {
     * @return true, if is preference valid
     */
    public static boolean isPreferenceValid() {
-      return (isOpenBiomindJarPreferenceValid(getOpenBiomindJarLocation())
-            && isPipelinePropertiesPreferenceValid(getPipelinePropertiesLocation()));
+      return (isOpenBiomindJarPreferenceValid(getOpenBiomindJarLocation()) && isPipelinePropertiesPreferenceValid(getPipelinePropertiesLocation()));
    }
 
 }

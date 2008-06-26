@@ -29,8 +29,7 @@ public class DatasetTransformerTaskHandler extends AbstractHandler {
    @Override
    public Object execute(ExecutionEvent event) throws ExecutionException {
       final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-      MessageDialog.openInformation(window.getShell(), "OpenBiomind-GUI",
-            "Dataset Transformer Task");
+      MessageDialog.openInformation(window.getShell(), "OpenBiomind-GUI", "Dataset Transformer Task");
       return null;
    }
 

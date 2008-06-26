@@ -40,8 +40,7 @@ import org.eclipse.swt.widgets.Text;
 public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
    /**
-    * The constant for page name (value =
-    * <code>openbiomind.gui.wizards.EnhanceDatasetWizardPage</code>).
+    * The constant for page name (value = <code>openbiomind.gui.wizards.EnhanceDatasetWizardPage</code>).
     */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.EnhanceDatasetWizardPage"; //$NON-NLS-1$
 
@@ -367,27 +366,22 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
          /*
           * apply layout information
           */
-         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(
-               this.requiredGroup);
-         GridLayoutFactory.swtDefaults().numColumns(2).margins(10, 10).equalWidth(false).applyTo(
-               this.requiredGroup);
+         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(this.requiredGroup);
+         GridLayoutFactory.swtDefaults().numColumns(2).margins(10, 10).equalWidth(false).applyTo(this.requiredGroup);
 
          /*
           * add components
           */
          addInformationLabel(this.requiredGroup, Messages.Info_OriginalDataset);
-         addComponentLabel(this.requiredGroup, Messages.Amp_SourceFile,
-               Messages.Info_OriginalDataset);
+         addComponentLabel(this.requiredGroup, Messages.Amp_SourceFile, Messages.Info_OriginalDataset);
          getOriginalDatasetTextButtonComposite();
          addSeparator(this.requiredGroup, SWT.HORIZONTAL);
          addInformationLabel(this.requiredGroup, Messages.Info_EnhancedDataset);
-         addComponentLabel(this.requiredGroup, Messages.Amp_DestinationDirectory,
-               Messages.Info_DestinationDirectory);
+         addComponentLabel(this.requiredGroup, Messages.Amp_DestinationDirectory, Messages.Info_DestinationDirectory);
          getEnhancedDatasetTextButtonComposite();
          addBlankComponentLabel(this.requiredGroup);
          getUseOriginalDatasetDirectoryForEnhancedDataset();
-         addComponentLabel(this.requiredGroup, Messages.Amp_DestinationFile,
-               Messages.Info_EnhancedDataset);
+         addComponentLabel(this.requiredGroup, Messages.Amp_DestinationFile, Messages.Info_EnhancedDataset);
          getEnhancedDatasetText();
       }
 
@@ -436,38 +430,34 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private Button getUseOriginalDatasetDirectoryForEnhancedDataset() {
       if (this.useOriginalDatasetDirectoryForEnhancedDataset == null) {
-         this.useOriginalDatasetDirectoryForEnhancedDataset = new Button(getRequiredGroup(),
-               SWT.CHECK);
-         this.useOriginalDatasetDirectoryForEnhancedDataset
-               .setText(Messages.Amp_UseOriginalDatasetDir);
+         this.useOriginalDatasetDirectoryForEnhancedDataset = new Button(getRequiredGroup(), SWT.CHECK);
+         this.useOriginalDatasetDirectoryForEnhancedDataset.setText(Messages.Amp_UseOriginalDatasetDir);
          /*
           * apply layout information
           */
-         GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).align(SWT.FILL, SWT.CENTER)
-               .grab(true, false)./* span(2, 1). */applyTo(
-                     this.useOriginalDatasetDirectoryForEnhancedDataset);
+         GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).align(SWT.FILL, SWT.CENTER).grab(true, false)
+               .applyTo(this.useOriginalDatasetDirectoryForEnhancedDataset);
 
          /*
           * apply listeners
           */
-         this.useOriginalDatasetDirectoryForEnhancedDataset
-               .addSelectionListener(new SelectionAdapter() {
+         this.useOriginalDatasetDirectoryForEnhancedDataset.addSelectionListener(new SelectionAdapter() {
 
-                  @Override
-                  public void widgetSelected(final SelectionEvent e) {
-                     if (useOriginalDatasetDirectoryForEnhancedDataset()) {
-                        updateEnhancedDatasetDestinationDirectoryText();
-                        validatePage();
-                        // set color to normal
-                        updateBasedOnValidation(getEnhancedDatasetTextButtonComposite(), true);
-                        getEnhancedDatasetTextButtonComposite().setEnabled(false);
-                     } else {
-                        getEnhancedDatasetTextButtonComposite().setEnabled(true);
-                        validatePage();
-                     }
-                  }
+            @Override
+            public void widgetSelected(final SelectionEvent e) {
+               if (useOriginalDatasetDirectoryForEnhancedDataset()) {
+                  updateEnhancedDatasetDestinationDirectoryText();
+                  validatePage();
+                  // set color to normal
+                  updateBasedOnValidation(getEnhancedDatasetTextButtonComposite(), true);
+                  getEnhancedDatasetTextButtonComposite().setEnabled(false);
+               } else {
+                  getEnhancedDatasetTextButtonComposite().setEnabled(true);
+                  validatePage();
+               }
+            }
 
-               });
+         });
 
       }
 
@@ -479,8 +469,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private void updateEnhancedDatasetDestinationDirectoryText() {
       if (useOriginalDatasetDirectoryForEnhancedDataset()) {
-         getEnhancedDatasetTextButtonComposite().setText(
-               Utility.extractDirectoryName(getOriginalDatasetFile()));
+         getEnhancedDatasetTextButtonComposite().setText(Utility.extractDirectoryName(getOriginalDatasetFile()));
       }
    }
 
@@ -503,8 +492,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
          this.enhancedDatasetTextButtonComposite = new TextButtonComposite(getRequiredGroup()) {
 
             /** The directory dialog. */
-            private final DirectoryDialog directoryDialog = new DirectoryDialog(getParent()
-                  .getShell());
+            private final DirectoryDialog directoryDialog = new DirectoryDialog(getParent().getShell());
 
             @Override
             protected String buttonSelected() {
@@ -541,8 +529,8 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
          /*
           * apply layout information
           */
-         GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).align(SWT.FILL, SWT.CENTER)
-               .grab(true, false).applyTo(this.enhancedDatasetText);
+         GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).align(SWT.FILL, SWT.CENTER).grab(true, false)
+               .applyTo(this.enhancedDatasetText);
 
          /*
           * apply listeners
@@ -582,22 +570,18 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
          /*
           * apply layout information
           */
-         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(
-               this.optionalGroup);
-         GridLayoutFactory.swtDefaults().numColumns(2).margins(10, 10).equalWidth(false).applyTo(
-               this.optionalGroup);
+         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(this.optionalGroup);
+         GridLayoutFactory.swtDefaults().numColumns(2).margins(10, 10).equalWidth(false).applyTo(this.optionalGroup);
 
          /*
           * add components
           */
          addInformationLabel(this.optionalGroup, Messages.Info_OntologyDescription);
-         addComponentLabel(this.optionalGroup, Messages.Amp_DescriptionFile,
-               Messages.Info_OntologyDescription);
+         addComponentLabel(this.optionalGroup, Messages.Amp_DescriptionFile, Messages.Info_OntologyDescription);
          getOntologyDescriptionFileTextButtonComposite();
          addSeparator(this.optionalGroup, SWT.HORIZONTAL);
          addInformationLabel(this.optionalGroup, Messages.Info_AssociationDescription);
-         addComponentLabel(this.optionalGroup, Messages.Amp_AssociationFile,
-               Messages.Info_AssociationDescription);
+         addComponentLabel(this.optionalGroup, Messages.Amp_AssociationFile, Messages.Info_AssociationDescription);
          getOntologyAssociationFileTextButtonComposite();
       }
 
@@ -611,8 +595,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private TextButtonComposite getOntologyDescriptionFileTextButtonComposite() {
       if (this.ontologyDescriptionFileTextButtonComposite == null) {
-         this.ontologyDescriptionFileTextButtonComposite = new TextButtonComposite(
-               getOptionalGroup()) {
+         this.ontologyDescriptionFileTextButtonComposite = new TextButtonComposite(getOptionalGroup()) {
 
             /** The file dialog. */
             private final FileDialog fileDialog = new FileDialog(getParent().getShell());
@@ -648,8 +631,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private TextButtonComposite getOntologyAssociationFileTextButtonComposite() {
       if (this.ontologyAssociationFileTextButtonComposite == null) {
-         this.ontologyAssociationFileTextButtonComposite = new TextButtonComposite(
-               getOptionalGroup()) {
+         this.ontologyAssociationFileTextButtonComposite = new TextButtonComposite(getOptionalGroup()) {
 
             /** The file dialog. */
             private final FileDialog fileDialog = new FileDialog(getParent().getShell());
