@@ -97,8 +97,7 @@ public abstract class TextButtonComposite extends Composite {
          /*
           * apply layout information
           */
-         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(
-               this.textField);
+         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(this.textField);
 
          /*
           * apply listeners

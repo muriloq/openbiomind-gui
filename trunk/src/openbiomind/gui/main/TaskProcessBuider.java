@@ -100,8 +100,7 @@ public class TaskProcessBuider {
     * @return the classpath
     */
    private String getClasspath() {
-      return Preference.getOpenBiomindJarLocation() + File.pathSeparator
-            + Preference.getPipelinePropertiesHome();
+      return Preference.getOpenBiomindJarLocation() + File.pathSeparator + Preference.getPipelinePropertiesHome();
    }
 
 }

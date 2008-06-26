@@ -33,19 +33,15 @@ public class Perspective implements IPerspectiveFactory {
       // layout.setEditorAreaVisible(true);
 
       /*
-       * Bottom
-       * - Command Console
-       * - Error Log
+       * Bottom - Command Console - Error Log
        */
       final String bottomFolderId = "openbiomind.gui.perspective.folder.Bottom"; //$NON-NLS-1$
-      final IFolderLayout bottom = layout.createFolder(bottomFolderId, IPageLayout.BOTTOM, 0.75f,
-            editorArea);
+      final IFolderLayout bottom = layout.createFolder(bottomFolderId, IPageLayout.BOTTOM, 0.75f, editorArea);
       // Error Log
       bottom.addView("org.eclipse.pde.runtime.LogView"); //$NON-NLS-1$
 
       /*
-       * Left
-       * - File List
+       * Left - File List
        */
       layout.addView(FileList.ID, IPageLayout.LEFT, 0.25f, editorArea);
    }

@@ -97,8 +97,8 @@ public abstract class AbstractTaskData implements Serializable {
     * @param key the key
     * @param value the value
     *
-    * @return previous value associated with the <code>key</code>, or <code>null</code> if there was
-    * no mapping (or <code>null</code> mapping)
+    * @return previous value associated with the <code>key</code>, or <code>null</code> if there was no mapping (or
+    * <code>null</code> mapping)
     *
     * @see java.util.Map#put(java.lang.Object, java.lang.Object)
     */

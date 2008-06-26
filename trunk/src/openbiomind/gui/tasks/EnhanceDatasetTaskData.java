@@ -11,8 +11,7 @@ import static openbiomind.gui.util.Constants.HYPHEN;
 import openbiomind.gui.util.Utility;
 
 /**
- * The class EnhanceDatasetTaskData is used by the EnhanceDataset task. The syntax of this task is
- * as follows:
+ * The class EnhanceDatasetTaskData is used by the EnhanceDataset task. The syntax of this task is as follows:
  *
  * <pre>
  * task.EnhanceDataset &lt;-d original dataset&gt; &lt;-e enhanced dataset&gt; [-ontologyDescriptionFile ontology description file] [-ontologyAssociationFile ontology association file]
@@ -38,20 +37,17 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
    public static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
 
    /**
-    * Argument <code>-e</code> for specifying name of the name of enhanced dataset (i.e. the output
-    * dataset).
+    * Argument <code>-e</code> for specifying name of the name of enhanced dataset (i.e. the output dataset).
     */
    public static final String ARG_E = HYPHEN + "e"; //$NON-NLS-1$
 
    /**
-    * Argument <code>-ontologyDescriptionFile</code> for specifying the name of ontology association
-    * file.
+    * Argument <code>-ontologyDescriptionFile</code> for specifying the name of ontology association file.
     */
    public static final String ARG_ONTOLOGY_DESCRIPTION_FILE = HYPHEN + "ontologyDescriptionFile"; //$NON-NLS-1$
 
    /**
-    * Argument <code>-ontologyAssociationFile</code> for specifying the name of the ontology
-    * description file.
+    * Argument <code>-ontologyAssociationFile</code> for specifying the name of the ontology description file.
     */
    public static final String ARG_ONTOLOGY_ASSOCIATION_FILE = HYPHEN + "ontologyAssociationFile"; //$NON-NLS-1$
 
@@ -148,8 +144,8 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
    @Override
    public String[] getFilesArray() {
       return new String[] { getEnhancedDataset() };
-//      return new String[] { getEnhancedDataset(), getOriginalDataset(),
-//            getOntologyDescriptionFile(), getOntologyAssociationFile() };
+      // return new String[] { getEnhancedDataset(), getOriginalDataset(),
+      // getOntologyDescriptionFile(), getOntologyAssociationFile() };
    }
 
 }
