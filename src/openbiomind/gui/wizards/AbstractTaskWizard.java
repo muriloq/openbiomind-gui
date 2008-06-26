@@ -10,19 +10,19 @@
 package openbiomind.gui.wizards;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 
 import openbiomind.gui.Application;
 import openbiomind.gui.console.Console;
-import openbiomind.gui.editors.DefaultTextEditor;
-import openbiomind.gui.editors.DefaultTextEditorInput;
 import openbiomind.gui.main.TaskProcessBuider;
 import openbiomind.gui.tasks.AbstractTaskData;
 import openbiomind.gui.util.Constants;
 import openbiomind.gui.util.Messages;
 
+import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -31,8 +31,10 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.FileStoreEditorInput;
+import org.eclipse.ui.ide.IDE;
 
 /**
  * The class AbstractTaskWizard.
@@ -133,10 +135,9 @@ public abstract class AbstractTaskWizard extends Wizard {
       /*
        * Load files here...
        */
-      String[] filesArray = getTaskData().getFilesArray();
+      final String[] filesArray = getTaskData().getFilesArray();
       for (final String filepath : filesArray) {
          loadFile(filepath);
-         Console.info("Opened: " + filepath);
       }
       monitor.worked(3);
    }
@@ -144,14 +145,19 @@ public abstract class AbstractTaskWizard extends Wizard {
    /**
     * Load file.
     *
-    * @param filepath the filepath
+    * @param filepath the file path
     */
    private void loadFile(final String filepath) {
-      final DefaultTextEditorInput input = new DefaultTextEditorInput(filepath);
       try {
-         PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, DefaultTextEditor.ID);
-      } catch (final PartInitException e) {
-         Console.error(e);
+         final File file = new File(filepath);
+         IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(),
+               (IEditorInput) new FileStoreEditorInput(EFS.getLocalFileSystem().getStore(file.toURI())),
+               Constants.DEFAULT_TEXT_EDITOR_ID);
+      // } catch (final PartInitException e) {
+      // Console.error(e);
+      } catch (final Exception e) {
+         Console.error(e.getMessage());
+         Console.debug(e);
       }
    };
 

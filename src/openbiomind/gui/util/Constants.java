@@ -9,6 +9,8 @@ package openbiomind.gui.util;
 
 import java.io.File;
 
+import openbiomind.gui.console.Console;
+
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -22,6 +24,9 @@ import org.eclipse.swt.widgets.Display;
  * @version Jun 12, 2008
  */
 public final class Constants {
+
+   /** The default text editor ID. */
+   public static final String DEFAULT_TEXT_EDITOR_ID = "org.eclipse.ui.DefaultTextEditor";
 
    /** The Constant COLOR_SYSTEM_OUT. */
    public static final Color COLOR_SYSTEM_OUT;
@@ -71,7 +76,7 @@ public final class Constants {
    /** The constant that separates label from field (value = <code>:</code>). */
    public static final String LABEL_SEPARATOR = ":"; //$NON-NLS-1$
 
-   /** The constant for specifying wildard for anything (value = <code>*</code>). */
+   /** The constant for specifying wild card for anything (value = <code>*</code>). */
    public static final String WILDCARD_ANY = "*"; //$NON-NLS-1$
 
    /** The Constant specifying the JAR file extension (value = <code>.jar</code>). */
@@ -81,8 +86,7 @@ public final class Constants {
    public static final String OPENBIOMIND_JAR_NAME = "OpenBiomind JAR"; //$NON-NLS-1$
 
    /**
-    * The constant specifying the name of the pipeline properties file (value =
-    * <code>pipeline.properties</code>).
+    * The constant specifying the name of the pipeline properties file (value = <code>pipeline.properties</code>).
     */
    public static final String PIPELINE_PROPERTIES_FILENAME = "pipeline.properties"; //$NON-NLS-1$
 
@@ -103,8 +107,9 @@ public final class Constants {
     */
    static {
       /*
-       * Define all the colors TODO Update colors based on the default background color
+       * Define all the colors
        */
+      // TODO Update colors based on the default background color
       final Display defaultDisplay = Display.getDefault();
       COLOR_SYSTEM_OUT = defaultDisplay.getSystemColor(SWT.COLOR_BLACK);
       COLOR_SYSTEM_ERR = defaultDisplay.getSystemColor(SWT.COLOR_DARK_RED);
@@ -124,7 +129,7 @@ public final class Constants {
       try {
          currentDirectory = new File(currentDirectory).getCanonicalPath();
       } catch (final Exception e) {
-         e.printStackTrace();
+         Console.error(e);
       }
       CURRENT_DIRECTORY = currentDirectory;
    }
