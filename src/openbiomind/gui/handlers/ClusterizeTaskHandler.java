@@ -1,7 +1,7 @@
 /**
- * DatasetTransformerTaskHandler.java
+ * ClusterizeTaskHandler.java
  *
- * The file DatasetTransformerTaskHandler.java.
+ * The file ClusterizeTaskHandler.java.
  *
  * $Id$
  */
@@ -14,13 +14,13 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
- * The class DatasetTransformerHandler.
+ * The class ClusterizeTaskHandler.
  *
  * @author bsanghvi
- * @since Jun 9, 2008
- * @version Jun 9, 2008
+ * @since Jun 27, 2008
+ * @version Jun 27, 2008
  */
-public class DatasetTransformerTaskHandler extends AbstractTaskHandler {
+public class ClusterizeTaskHandler extends AbstractTaskHandler {
 
    /*
     * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
@@ -28,7 +28,7 @@ public class DatasetTransformerTaskHandler extends AbstractTaskHandler {
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {
       final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-      MessageDialog.openInformation(window.getShell(), "OpenBiomind-GUI", "Dataset Transformer Task");
+      MessageDialog.openInformation(window.getShell(), "OpenBiomind-GUI", "Clusterize Task");
       return null;
    }
 
