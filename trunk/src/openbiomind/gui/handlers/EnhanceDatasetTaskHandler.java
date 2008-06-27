@@ -27,7 +27,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 public class EnhanceDatasetTaskHandler extends AbstractTaskHandler {
 
    /*
-    * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
+    * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
     */
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {
