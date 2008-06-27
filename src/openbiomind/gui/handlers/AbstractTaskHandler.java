@@ -20,9 +20,9 @@ import org.eclipse.swt.widgets.Shell;
  *
  * @author bsanghvi
  * @since Jun 14, 2008
- * @version Jun 14, 2008
+ * @version Jun 27, 2008
  */
-public abstract class AbstractTaskHandler extends AbstractHandler {
+public abstract class AbstractTaskHandler extends AbstractHandler implements Constants {
 
    /**
     * Validate the initial settings.
@@ -33,7 +33,7 @@ public abstract class AbstractTaskHandler extends AbstractHandler {
     */
    protected boolean validate(final Shell shell) {
       if (!Preference.isPreferenceValid()) {
-         MessageDialog.openError(shell, Constants.Error, Messages.Error_Preference);
+         MessageDialog.openError(shell, Resources.ERROR, Messages.Error_Preference);
          return false;
       }
 

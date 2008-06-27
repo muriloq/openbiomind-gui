@@ -9,24 +9,22 @@ package openbiomind.gui.wizards;
 
 import java.io.File;
 
-import openbiomind.gui.util.Constants;
 import openbiomind.gui.util.Messages;
 import openbiomind.gui.util.Utility;
+import openbiomind.gui.widgets.TextButtonComposite;
+import openbiomind.gui.widgets.WidgetHelper;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.DirectoryDialog;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 
@@ -35,7 +33,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jun 13, 2008
+ * @version Jun 27, 2008
  */
 public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -44,32 +42,38 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.EnhanceDatasetWizardPage"; //$NON-NLS-1$
 
+   /** The number of columns in various groups. */
+   private final int NUM_COLUMN_IN_GROUP = 2;
+
    /** The base container. */
    private Composite baseContainer = null;
 
-   /** The required group. */
-   private Group requiredGroup = null;
-
-   /** The optional group. */
-   private Group optionalGroup = null;
-
    /** The original dataset text button composite. */
-   private TextButtonComposite originalDatasetTextButtonComposite = null;
+   private TextButtonComposite originalDatasetTBC = null;
+
+   /** The enhanced dataset file path text. */
+   private Text enhancedDatasetFilePathText = null;
+
+   /** The enhanced dataset destination directory text button composite. */
+   private TextButtonComposite enhancedDatasetDestDirTBC = null;
 
    /** The use original dataset directory for enhanced dataset. */
-   private Button useOriginalDatasetDirectoryForEnhancedDataset = null;
+   private Button useOriginalDatasetDir = null;
 
-   /** The enhanced dataset text button composite. */
-   private TextButtonComposite enhancedDatasetTextButtonComposite = null;
-
-   /** The enhanced dataset text. */
-   private Text enhancedDatasetText = null;
+   /** The enhanced dataset destination file text. */
+   private Text enhancedDatasetDestFileText = null;
 
    /** The ontology description file text button composite. */
-   private TextButtonComposite ontologyDescriptionFileTextButtonComposite = null;
+   private TextButtonComposite ontologyDescriptionFileTBC = null;
 
    /** The ontology association file text button composite. */
-   private TextButtonComposite ontologyAssociationFileTextButtonComposite = null;
+   private TextButtonComposite ontologyAssociationFileTBC = null;
+
+   /** The valid enhanced dataset file name. */
+   private boolean validEnhancedDatasetFileName = false;
+
+   /** The valid enhanced dataset file path. */
+   private boolean validEnhancedDatasetFilePath = false;
 
    /**
     * Instantiates a new enhance dataset wizard page.
@@ -88,9 +92,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    public void createControl(final Composite parent) {
       setParent(parent);
 
-      /*
-       * add components
-       */
+      // add components
       getBaseContainer();
 
       // Required to avoid an error in the system
@@ -100,157 +102,413 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       setPageComplete(false);
    }
 
-   /**
-    * Validate page.
-    *
-    * @return true, if successful
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#getBaseContainer()
     */
-   private boolean validatePage() {
-      /*
-       * We do not need short-circuiting here, so we call each validate separately
-       */
-      boolean valid = true;
-      valid &= validateOntologyAssociationFile();
-      valid &= validateOntologyDescriptionFile();
-      valid &= validateEnhancedDatasetFile();
-      valid &= validateOriginalDatasetFile();
+   @Override
+   protected Composite getBaseContainer() {
+      if (this.baseContainer == null) {
+         this.baseContainer = new Composite(getParent(), SWT.NULL);
 
-      setPageComplete(valid);
-      return valid;
-   }
+         // apply layout
+         GridLayoutFactory.swtDefaults().numColumns(1).applyTo(this.baseContainer);
 
-   /**
-    * Validate original dataset file.
-    *
-    * @return true, if successful
-    */
-   private boolean validateOriginalDatasetFile() {
-      final boolean valid = isOriginalDatasetFileValid();
-      if (!valid) {
-         setErrorMessage(Messages.Error_OriginalDataset_MustExist);
+         // add components
+         createRequiredGroup(getBaseContainer());
+         createOptionalGroup(getBaseContainer());
       }
-      updateBasedOnValidation(getOriginalDatasetTextButtonComposite(), valid);
-      return valid;
+
+      return this.baseContainer;
    }
 
    /**
-    * Checks if is original dataset file valid.
+    * Creates the required group.
     *
-    * @return true, if is original dataset file valid
+    * @param parent the parent
+    *
+    * @return the group
     */
-   private boolean isOriginalDatasetFileValid() {
-      return Utility.fileExists(getOriginalDatasetFile());
+   private Group createRequiredGroup(final Composite parent) {
+      final Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
+      group.setText(Messages.RequiredArguments);
+
+      // apply layout
+      GUI.WIZARD_GROUP_GRID_DATA.applyTo(group);
+      GUI.WIZARD_GROUP_GRID_LAYOUT.numColumns(this.NUM_COLUMN_IN_GROUP).applyTo(group);
+
+      // add components
+      WidgetHelper.createNewInformationLabel(group, Messages.Info_OriginalDataset, this.NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewComponentLabel(group, Messages.Amp_SourceFile, Messages.Info_OriginalDataset, true);
+      this.originalDatasetTBC = createOriginalDatasetTBC(group);
+      WidgetHelper.createNewSeparator(group, SWT.HORIZONTAL, this.NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewInformationLabel(group, Messages.Info_EnhancedDataset, this.NUM_COLUMN_IN_GROUP);
+      this.enhancedDatasetFilePathText = createEnhancedDatasetFilePathText(group);
+      WidgetHelper
+            .createNewComponentLabel(group, Messages.Amp_DestinationDirectory, Messages.Info_DestinationDirectory);
+      this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(group);
+      WidgetHelper.createNewBlankComponentLabel(group);
+      this.useOriginalDatasetDir = createUseOriginalDatasetDir(group);
+      WidgetHelper.createNewComponentLabel(group, Messages.Amp_DestinationFile, Messages.Info_EnhancedDataset, true);
+      this.enhancedDatasetDestFileText = createEnhancedDatasetDestFileText(group);
+
+      return group;
    }
 
    /**
-    * Gets the original dataset file.
+    * Creates the original dataset text button composite.
+    *
+    * @param parent the parent
+    *
+    * @return the text button composite
+    */
+   private TextButtonComposite createOriginalDatasetTBC(final Composite parent) {
+      final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
+
+         @Override
+         protected String buttonSelected() {
+            return getFileDialog().open();
+         }
+
+      };
+      textButtonComposite.setValid(false);
+
+      // apply layout
+      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(textButtonComposite);
+
+      // create decorations
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
+            Messages.Error_FileNotExist);
+      errorDecoration.show();
+
+      // apply listeners
+      textButtonComposite.addModifyListener(new ModifyListener() {
+
+         @Override
+         public void modifyText(final ModifyEvent e) {
+            textButtonComposite.setValid(Utility.fileExists(getOriginalDatasetFilePath()));
+            if (textButtonComposite.isValid()) {
+               errorDecoration.hide();
+            } else {
+               errorDecoration.show();
+               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
+            }
+
+            if (useOriginalDatasetDir()) {
+               updateEnhancedDatasetDestDirText();
+            }
+
+            validatePage();
+         }
+
+      });
+
+      return textButtonComposite;
+   }
+
+   /**
+    * Gets the enhanced dataset file path text.
+    *
+    * @param parent the parent
+    *
+    * @return the enhanced dataset file path text
+    */
+   private Text createEnhancedDatasetFilePathText(final Composite parent) {
+      final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
+      text.setToolTipText(Messages.Tip_EnhancedDataset);
+      setValidEnhancedDatasetFileName(false);
+
+      // apply layout
+      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).span(this.NUM_COLUMN_IN_GROUP, 1)
+            .applyTo(text);
+
+      // create decorations
+      final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
+            Messages.Warn_FileAlreadyExists);
+      warningDecoration.hide();
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, Messages.Error_InvalidFile);
+      errorDecoration.show();
+
+      // apply listeners
+      text.addModifyListener(new ModifyListener() {
+
+         @Override
+         public void modifyText(final ModifyEvent e) {
+            boolean inError = false;
+            boolean inWarning = false;
+            final File file = new File(getEnhancedDatasetFilePath());
+
+            if (file.isDirectory()) {
+               inError = true;
+            } else if (file.exists()) {
+               inWarning = true;
+            }
+
+            setValidEnhancedDatasetFilePath(!inError);
+            showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration);
+            validatePage();
+         }
+
+      });
+
+      return text;
+   }
+
+   /**
+    * Creates the enhanced dataset destination directory text button composite.
+    *
+    * @param parent the parent
+    *
+    * @return the text button composite
+    */
+   private TextButtonComposite createEnhancedDatasetDestDirTBC(final Composite parent) {
+      final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
+
+         @Override
+         protected String buttonSelected() {
+            return getDirectoryDialog().open();
+         }
+
+      };
+      textButtonComposite.setText(Properties.CURRENT_DIRECTORY);
+      textButtonComposite.setValid(true);
+
+      // apply layout
+      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(textButtonComposite);
+
+      // create decorations
+      final Text textField = textButtonComposite.getTextField();
+      WidgetHelper.createNewInformationDecoration(textField, Messages.Info_DestinationDirectory).show();
+      final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
+            Messages.Warn_DirectoryNotExist);
+      warningDecoration.hide();
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
+            Messages.Error_InvalidDirectory);
+      errorDecoration.hide();
+
+      // apply listeners
+      textButtonComposite.addModifyListener(new ModifyListener() {
+
+         @Override
+         public void modifyText(final ModifyEvent e) {
+            boolean inError = false;
+            boolean inWarning = false;
+            final String directoryPath = getEnhancedDatasetDestDirPath();
+
+            if (!Utility.isEmpty(directoryPath)) {
+               final File directory = new File(directoryPath);
+               if (directory.isFile()) {
+                  inError = true;
+               } else if (!directory.exists()) {
+                  inWarning = true;
+               }
+            }
+
+            textButtonComposite.setValid(!inError);
+            showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration);
+
+            getEnhancedDatasetFilePathText().setText(getEnhancedDatasetFilePath());
+
+            validatePage();
+         }
+
+      });
+
+      return textButtonComposite;
+   }
+
+   /**
+    * Creates the use original dataset directory for enhanced dataset.
+    *
+    * @param parent the parent
+    *
+    * @return the button
+    */
+   private Button createUseOriginalDatasetDir(final Composite parent) {
+      final Button button = new Button(parent, SWT.CHECK);
+      button.setText(Messages.Amp_UseOriginalDatasetDir);
+
+      // apply layout
+      GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).align(SWT.FILL, SWT.CENTER).grab(true, false)
+            .applyTo(button);
+
+      // apply listeners
+      button.addSelectionListener(new SelectionAdapter() {
+
+         @Override
+         public void widgetSelected(final SelectionEvent e) {
+            if (useOriginalDatasetDir()) {
+               getEnhancedDatasetDestDirTBC().setEnabled(false);
+               updateEnhancedDatasetDestDirText();
+            } else {
+               getEnhancedDatasetDestDirTBC().setEnabled(true);
+            }
+         }
+
+      });
+
+      return button;
+   }
+
+   /**
+    * Creates the enhanced dataset destination file text.
+    *
+    * @param parent the parent
+    *
+    * @return the text
+    */
+   private Text createEnhancedDatasetDestFileText(final Composite parent) {
+      final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
+      setValidEnhancedDatasetFileName(false);
+
+      // apply layout
+      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(text);
+
+      // create decorations
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, Messages.Error_InvalidFile);
+      errorDecoration.show();
+
+      // apply listeners
+      text.addModifyListener(new ModifyListener() {
+
+         @Override
+         public void modifyText(final ModifyEvent e) {
+            setValidEnhancedDatasetFileName(!Utility.isEmpty(getEnhancedDatasetDestFileName()));
+            if (isValidEnhancedDatasetFileName()) {
+               errorDecoration.hide();
+            } else {
+               errorDecoration.show();
+               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
+            }
+
+            getEnhancedDatasetFilePathText().setText(getEnhancedDatasetFilePath());
+
+            validatePage();
+         }
+
+      });
+
+      return text;
+   }
+
+   /**
+    * Creates the optional group.
+    *
+    * @param parent the parent
+    *
+    * @return the group
+    */
+   private Group createOptionalGroup(final Composite parent) {
+      final Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
+      group.setText(Messages.OptionalArguments);
+
+      // apply layout
+      GUI.WIZARD_GROUP_GRID_DATA.applyTo(group);
+      GUI.WIZARD_GROUP_GRID_LAYOUT.numColumns(this.NUM_COLUMN_IN_GROUP).applyTo(group);
+
+      // add components
+      WidgetHelper.createNewInformationLabel(group, Messages.Info_OntologyDescription, this.NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewComponentLabel(group, Messages.Amp_DescriptionFile, Messages.Info_OntologyDescription);
+      this.ontologyDescriptionFileTBC = createNewOptionalFileTextButtonComposite(group);
+      WidgetHelper.createNewSeparator(group, SWT.HORIZONTAL, this.NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewInformationLabel(group, Messages.Info_AssociationDescription, this.NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewComponentLabel(group, Messages.Amp_AssociationFile, Messages.Info_AssociationDescription);
+      this.ontologyAssociationFileTBC = createNewOptionalFileTextButtonComposite(group);
+
+      return group;
+   }
+
+   /**
+    * Checks if is valid enhanced dataset file name.
+    *
+    * @return the validEnhancedDataset
+    */
+   private boolean isValidEnhancedDatasetFileName() {
+      return this.validEnhancedDatasetFileName;
+   }
+
+   /**
+    * Sets the valid enhanced dataset file name.
+    *
+    * @param validEnhancedDatasetFileName the new valid enhanced dataset file name
+    */
+   private void setValidEnhancedDatasetFileName(final boolean validEnhancedDatasetFileName) {
+      this.validEnhancedDatasetFileName = validEnhancedDatasetFileName;
+   }
+
+   /**
+    * Checks if is valid enhanced dataset file path.
+    *
+    * @return the validEnhancedDatasetFilePath
+    */
+   private boolean isValidEnhancedDatasetFilePath() {
+      return this.validEnhancedDatasetFilePath;
+   }
+
+   /**
+    * Sets the valid enhanced dataset file path.
+    *
+    * @param validEnhancedDatasetFilePath the validEnhancedDatasetFilePath to set
+    */
+   private void setValidEnhancedDatasetFilePath(final boolean validEnhancedDatasetFilePath) {
+      this.validEnhancedDatasetFilePath = validEnhancedDatasetFilePath;
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#validatePage()
+    */
+   @Override
+   protected void validatePage() {
+      final boolean valid = getOriginalDatasetTBC().isValid() && getEnhancedDatasetDestDirTBC().isValid()
+            && isValidEnhancedDatasetFileName() && isValidEnhancedDatasetFilePath()
+            && getOntologyDescriptionFileTBC().isValid() && getOntologyAssociationFileTBC().isValid();
+      setPageComplete(valid);
+      if (!valid) {
+         setErrorMessage(Messages.Error_FixToContinue);
+      } else {
+         setErrorMessage(null);
+      }
+   }
+
+   /**
+    * Update enhanced dataset destination directory text.
+    */
+   private void updateEnhancedDatasetDestDirText() {
+      getEnhancedDatasetDestDirTBC().setText(Utility.extractDirectoryName(getOriginalDatasetFilePath()));
+   }
+
+   /**
+    * Gets the original dataset file path.
     *
     * @return the original dataset file
     */
-   public String getOriginalDatasetFile() {
-      return getOriginalDatasetTextButtonComposite().getText();
+   public String getOriginalDatasetFilePath() {
+      return getOriginalDatasetTBC().getText();
    }
 
    /**
-    * Validate enhanced dataset file.
-    *
-    * @return true, if successful
-    */
-   private boolean validateEnhancedDatasetFile() {
-      /*
-       * We do not need short-circuiting here, so we call each validate separately
-       */
-      boolean valid = true;
-      valid &= validateEnhancedDatasetDestinationFile();
-      valid &= validateEnhancedDatasetDestinationDirectory();
-      boolean warn = false;
-      if (valid) {
-         final File file = new File(getEnhancedDatasetFile());
-         if (file.isDirectory()) {
-            valid = false;
-            setErrorMessage(Messages.Error_EnhancedDataset_IsDirectory);
-         } else if (file.exists()) {
-            warn = true;
-            appendWarning(Messages.Warning_EnhancedDataset_AlreadyExists);
-         }
-      }
-
-      updateBasedOnValidation(getEnhancedDatasetText(), valid, warn);
-      return valid;
-   }
-
-   /**
-    * Gets the enhanced dataset file.
+    * Gets the enhanced dataset file path.
     *
     * @return the enhanced dataset file
     */
-   public String getEnhancedDatasetFile() {
-      final String directoryName = getEnhancedDatasetDestinationDirectory();
-      final String fileName = getEnhancedDatasetDestinationFile();
-      if (!Utility.exists(directoryName)) {
-         return Constants.CURRENT_DIRECTORY + File.separator + fileName;
-      } else if (directoryName.endsWith(File.separator)) {
-         return directoryName + fileName;
+   public String getEnhancedDatasetFilePath() {
+      final String directoryPath = getEnhancedDatasetDestDirPath();
+      final String fileName = getEnhancedDatasetDestFileName();
+      if (!Utility.exists(directoryPath)) {
+         return Properties.CURRENT_DIRECTORY + File.separator + fileName;
+      } else if (directoryPath.endsWith(File.separator)) {
+         return directoryPath + fileName;
       } else {
-         return directoryName + File.separator + fileName;
+         return directoryPath + File.separator + fileName;
       }
    }
 
    /**
-    * Validate enhanced dataset destination directory.
-    *
-    * @return true, if successful
-    */
-   private boolean validateEnhancedDatasetDestinationDirectory() {
-      boolean valid = true;
-      boolean warn = false;
-
-      final String directory = getEnhancedDatasetDestinationDirectory();
-      if (!Utility.isEmpty(directory)) {
-         final File file = new File(directory);
-         if (file.isFile()) {
-            valid = false;
-            setErrorMessage(Messages.Error_EnhancedDatasetDirectory_Invalid);
-         } else if (!file.exists()) {
-            warn = true;
-            appendWarning(Messages.Warning_EnhancedDatasetDirectory_DoesNotExist);
-         }
-      }
-
-      updateBasedOnValidation(getEnhancedDatasetTextButtonComposite(), valid, warn);
-      return valid;
-   }
-
-   /**
-    * Gets the enhanced dataset destination directory.
+    * Gets the enhanced dataset destination directory path.
     *
     * @return the enhanced dataset destination directory
     */
-   private String getEnhancedDatasetDestinationDirectory() {
-      return getEnhancedDatasetTextButtonComposite().getText();
-   }
-
-   /**
-    * Validate enhanced dataset destination file.
-    *
-    * @return true, if successful
-    */
-   private boolean validateEnhancedDatasetDestinationFile() {
-      final boolean valid = isEnhancedDatasetDestinationFileValid();
-      if (!valid) {
-         setErrorMessage(Messages.Error_EnhancedDatasetFile_Empty);
-      }
-      updateBasedOnValidation(getEnhancedDatasetText(), valid);
-      return valid;
-   }
-
-   /**
-    * Checks if is enhanced dataset destination file valid.
-    *
-    * @return true, if is enhanced dataset destination file valid
-    */
-   private boolean isEnhancedDatasetDestinationFileValid() {
-      return !Utility.isEmpty(getEnhancedDatasetDestinationFile());
+   private String getEnhancedDatasetDestDirPath() {
+      return getEnhancedDatasetDestDirTBC().getText();
    }
 
    /**
@@ -258,219 +516,8 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     *
     * @return the enhanced dataset destination file
     */
-   private String getEnhancedDatasetDestinationFile() {
-      return getEnhancedDatasetText().getText();
-   }
-
-   /**
-    * Validate ontology description file.
-    *
-    * @return true, if successful
-    */
-   private boolean validateOntologyDescriptionFile() {
-      final boolean valid = isOntologyDescriptionFileValid();
-      if (!valid) {
-         setErrorMessage(Messages.Error_OntologyDescription_MustExistOrEmpty);
-      }
-      updateBasedOnValidation(getOntologyDescriptionFileTextButtonComposite(), valid);
-      return valid;
-   }
-
-   /**
-    * Checks if is ontology description file valid.
-    *
-    * @return true, if is ontology description file exists or is not specified
-    */
-   private boolean isOntologyDescriptionFileValid() {
-      final String file = getOntologyDescriptionFile();
-      return (Utility.isEmpty(file) || Utility.fileExists(file));
-   }
-
-   /**
-    * Gets the ontology description file.
-    *
-    * @return the ontology description file
-    */
-   public String getOntologyDescriptionFile() {
-      return getOntologyDescriptionFileTextButtonComposite().getText();
-   }
-
-   /**
-    * Validate ontology association file.
-    *
-    * @return true, if successful
-    */
-   private boolean validateOntologyAssociationFile() {
-      final boolean valid = isOntologyAssociationFileValid();
-      if (!valid) {
-         setErrorMessage(Messages.Error_OntologyAssociation_MustExistOrEmpty);
-      }
-      updateBasedOnValidation(getOntologyAssociationFileTextButtonComposite(), valid);
-      return valid;
-   }
-
-   /**
-    * Checks if is ontology association file valid.
-    *
-    * @return true, if is ontology association file valid
-    */
-   private boolean isOntologyAssociationFileValid() {
-      final String file = getOntologyAssociationFile();
-      return (Utility.isEmpty(file) || Utility.fileExists(file));
-   }
-
-   /**
-    * Gets the ontology association file.
-    *
-    * @return the ontology association file
-    */
-   public String getOntologyAssociationFile() {
-      return getOntologyAssociationFileTextButtonComposite().getText();
-   }
-
-   /**
-    * Gets the base container.
-    *
-    * @return the baseContainer
-    */
-   @Override
-   protected Composite getBaseContainer() {
-      if (this.baseContainer == null) {
-         this.baseContainer = new Composite(getParent(), SWT.NULL);
-
-         /*
-          * apply layout information
-          */
-         GridLayoutFactory.swtDefaults().numColumns(1).applyTo(this.baseContainer);
-
-         /*
-          * add components
-          */
-         getRequiredGroup();
-         getOptionalGroup();
-      }
-
-      return this.baseContainer;
-   }
-
-   /**
-    * Gets the required group.
-    *
-    * @return the requiredGroup
-    */
-   private Group getRequiredGroup() {
-      if (this.requiredGroup == null) {
-         this.requiredGroup = new Group(getBaseContainer(), SWT.SHADOW_ETCHED_IN);
-         this.requiredGroup.setText(Messages.RequiredArguments);
-
-         /*
-          * apply layout information
-          */
-         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(this.requiredGroup);
-         GridLayoutFactory.swtDefaults().numColumns(2).margins(10, 10).equalWidth(false).applyTo(this.requiredGroup);
-
-         /*
-          * add components
-          */
-         addInformationLabel(this.requiredGroup, Messages.Info_OriginalDataset);
-         addComponentLabel(this.requiredGroup, Messages.Amp_SourceFile, Messages.Info_OriginalDataset);
-         getOriginalDatasetTextButtonComposite();
-         addSeparator(this.requiredGroup, SWT.HORIZONTAL);
-         addInformationLabel(this.requiredGroup, Messages.Info_EnhancedDataset);
-         addComponentLabel(this.requiredGroup, Messages.Amp_DestinationDirectory, Messages.Info_DestinationDirectory);
-         getEnhancedDatasetTextButtonComposite();
-         addBlankComponentLabel(this.requiredGroup);
-         getUseOriginalDatasetDirectoryForEnhancedDataset();
-         addComponentLabel(this.requiredGroup, Messages.Amp_DestinationFile, Messages.Info_EnhancedDataset);
-         getEnhancedDatasetText();
-      }
-
-      return this.requiredGroup;
-   }
-
-   /**
-    * Gets the original dataset text button composite.
-    *
-    * @return the originalDatasetTextButtonComposite
-    */
-   private TextButtonComposite getOriginalDatasetTextButtonComposite() {
-      if (this.originalDatasetTextButtonComposite == null) {
-         this.originalDatasetTextButtonComposite = new TextButtonComposite(getRequiredGroup()) {
-
-            /** The file dialog. */
-            private final FileDialog fileDialog = new FileDialog(getParent().getShell());
-
-            @Override
-            protected String buttonSelected() {
-               return this.fileDialog.open();
-            }
-
-            @Override
-            protected void textKeyReleased() {
-               validatePage();
-               updateEnhancedDatasetDestinationDirectoryText();
-            }
-
-            @Override
-            protected void onTextChange() {
-               validatePage();
-               updateEnhancedDatasetDestinationDirectoryText();
-            }
-
-         };
-      }
-
-      return this.originalDatasetTextButtonComposite;
-   }
-
-   /**
-    * Gets the use original dataset directory for enhanced dataset.
-    *
-    * @return the useOriginalDatasetDirectoryForEnhancedDataset
-    */
-   private Button getUseOriginalDatasetDirectoryForEnhancedDataset() {
-      if (this.useOriginalDatasetDirectoryForEnhancedDataset == null) {
-         this.useOriginalDatasetDirectoryForEnhancedDataset = new Button(getRequiredGroup(), SWT.CHECK);
-         this.useOriginalDatasetDirectoryForEnhancedDataset.setText(Messages.Amp_UseOriginalDatasetDir);
-         /*
-          * apply layout information
-          */
-         GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).align(SWT.FILL, SWT.CENTER).grab(true, false)
-               .applyTo(this.useOriginalDatasetDirectoryForEnhancedDataset);
-
-         /*
-          * apply listeners
-          */
-         this.useOriginalDatasetDirectoryForEnhancedDataset.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(final SelectionEvent e) {
-               if (useOriginalDatasetDirectoryForEnhancedDataset()) {
-                  updateEnhancedDatasetDestinationDirectoryText();
-                  validatePage();
-                  // set color to normal
-                  updateBasedOnValidation(getEnhancedDatasetTextButtonComposite(), true);
-                  getEnhancedDatasetTextButtonComposite().setEnabled(false);
-               } else {
-                  getEnhancedDatasetTextButtonComposite().setEnabled(true);
-                  validatePage();
-               }
-            }
-
-         });
-
-      }
-
-      return this.useOriginalDatasetDirectoryForEnhancedDataset;
-   }
-
-   /**
-    * Update enhanced dataset destination directory text.
-    */
-   private void updateEnhancedDatasetDestinationDirectoryText() {
-      if (useOriginalDatasetDirectoryForEnhancedDataset()) {
-         getEnhancedDatasetTextButtonComposite().setText(Utility.extractDirectoryName(getOriginalDatasetFile()));
-      }
+   private String getEnhancedDatasetDestFileName() {
+      return getEnhancedDatasetDestFileText().getText();
    }
 
    /**
@@ -478,186 +525,114 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     *
     * @return true, if successful
     */
-   private boolean useOriginalDatasetDirectoryForEnhancedDataset() {
-      return getUseOriginalDatasetDirectoryForEnhancedDataset().getSelection();
+   private boolean useOriginalDatasetDir() {
+      return getUseOriginalDatasetDir().getSelection();
    }
 
    /**
-    * Gets the enhanced dataset text button composite.
+    * Gets the ontology description file path.
     *
-    * @return the enhanced dataset text button composite
+    * @return the ontology description file path
     */
-   private TextButtonComposite getEnhancedDatasetTextButtonComposite() {
-      if (this.enhancedDatasetTextButtonComposite == null) {
-         this.enhancedDatasetTextButtonComposite = new TextButtonComposite(getRequiredGroup()) {
-
-            /** The directory dialog. */
-            private final DirectoryDialog directoryDialog = new DirectoryDialog(getParent().getShell());
-
-            @Override
-            protected String buttonSelected() {
-               return this.directoryDialog.open();
-            }
-
-            @Override
-            protected void textKeyReleased() {
-               validatePage();
-            }
-
-            @Override
-            protected void onTextChange() {
-               validatePage();
-            }
-
-         };
-
-         this.enhancedDatasetTextButtonComposite.setText(Constants.CURRENT_DIRECTORY);
-      }
-
-      return this.enhancedDatasetTextButtonComposite;
+   public String getOntologyDescriptionFilePath() {
+      return getOntologyDescriptionFileTBC().getText();
    }
 
    /**
-    * Gets the enhanced dataset text.
+    * Gets the ontology association file path.
     *
-    * @return the enhancedDatasetText
+    * @return the ontology association file path
     */
-   private Text getEnhancedDatasetText() {
-      if (this.enhancedDatasetText == null) {
-         this.enhancedDatasetText = new Text(getRequiredGroup(), SWT.SINGLE | SWT.BORDER);
-
-         /*
-          * apply layout information
-          */
-         GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).align(SWT.FILL, SWT.CENTER).grab(true, false)
-               .applyTo(this.enhancedDatasetText);
-
-         /*
-          * apply listeners
-          */
-         this.enhancedDatasetText.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyReleased(final KeyEvent e) {
-               validatePage();
-            }
-
-         });
-
-         this.enhancedDatasetText.addFocusListener(new FocusAdapter() {
-
-            @Override
-            public void focusLost(final FocusEvent e) {
-               validatePage();
-            }
-
-         });
-      }
-
-      return this.enhancedDatasetText;
+   public String getOntologyAssociationFilePath() {
+      return getOntologyAssociationFileTBC().getText();
    }
 
    /**
-    * Gets the optional group.
+    * Gets the original dataset text button composite.
     *
-    * @return the optionalGroup
+    * @return the original dataset text button composite
     */
-   private Group getOptionalGroup() {
-      if (this.optionalGroup == null) {
-         this.optionalGroup = new Group(getBaseContainer(), SWT.SHADOW_ETCHED_IN);
-         this.optionalGroup.setText(Messages.OptionalArguments);
+   private TextButtonComposite getOriginalDatasetTBC() {
+      return this.originalDatasetTBC;
+   }
 
-         /*
-          * apply layout information
-          */
-         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(this.optionalGroup);
-         GridLayoutFactory.swtDefaults().numColumns(2).margins(10, 10).equalWidth(false).applyTo(this.optionalGroup);
+   /**
+    * Gets the enhanced dataset file path text.
+    *
+    * @return the enhancedDatasetFilePathText
+    */
+   private Text getEnhancedDatasetFilePathText() {
+      return this.enhancedDatasetFilePathText;
+   }
 
-         /*
-          * add components
-          */
-         addInformationLabel(this.optionalGroup, Messages.Info_OntologyDescription);
-         addComponentLabel(this.optionalGroup, Messages.Amp_DescriptionFile, Messages.Info_OntologyDescription);
-         getOntologyDescriptionFileTextButtonComposite();
-         addSeparator(this.optionalGroup, SWT.HORIZONTAL);
-         addInformationLabel(this.optionalGroup, Messages.Info_AssociationDescription);
-         addComponentLabel(this.optionalGroup, Messages.Amp_AssociationFile, Messages.Info_AssociationDescription);
-         getOntologyAssociationFileTextButtonComposite();
-      }
+   /**
+    * Gets the enhanced dataset destination directory text button composite.
+    *
+    * @return the enhanced dataset destination directory text button composite
+    */
+   private TextButtonComposite getEnhancedDatasetDestDirTBC() {
+      return this.enhancedDatasetDestDirTBC;
+   }
 
-      return this.optionalGroup;
+   /**
+    * Gets the use original dataset directory for enhanced dataset.
+    *
+    * @return the use original dataset directory for enhanced dataset
+    */
+   private Button getUseOriginalDatasetDir() {
+      return this.useOriginalDatasetDir;
+   }
+
+   /**
+    * Gets the enhanced dataset destination file text.
+    *
+    * @return the enhanced dataset destination file text
+    */
+   private Text getEnhancedDatasetDestFileText() {
+      return this.enhancedDatasetDestFileText;
    }
 
    /**
     * Gets the ontology description file text button composite.
     *
-    * @return the ontologyDescriptionFileTextButtonComposite
+    * @return the ontology description file text button composite
     */
-   private TextButtonComposite getOntologyDescriptionFileTextButtonComposite() {
-      if (this.ontologyDescriptionFileTextButtonComposite == null) {
-         this.ontologyDescriptionFileTextButtonComposite = new TextButtonComposite(getOptionalGroup()) {
-
-            /** The file dialog. */
-            private final FileDialog fileDialog = new FileDialog(getParent().getShell());
-
-            @Override
-            protected String buttonSelected() {
-               return this.fileDialog.open();
-            }
-
-            @Override
-            protected void textKeyReleased() {
-               validatePage();
-            }
-
-            @Override
-            protected void onTextChange() {
-               validatePage();
-            }
-
-         };
-
-         // TODO remove this when new version of OpenBiomind is available
-         this.ontologyDescriptionFileTextButtonComposite.setEnabled(false);
-      }
-
-      return this.ontologyDescriptionFileTextButtonComposite;
+   private TextButtonComposite getOntologyDescriptionFileTBC() {
+      return this.ontologyDescriptionFileTBC;
    }
 
    /**
     * Gets the ontology association file text button composite.
     *
-    * @return the ontologyAssociationFileTextButtonComposite
+    * @return the ontology association file text button composite
     */
-   private TextButtonComposite getOntologyAssociationFileTextButtonComposite() {
-      if (this.ontologyAssociationFileTextButtonComposite == null) {
-         this.ontologyAssociationFileTextButtonComposite = new TextButtonComposite(getOptionalGroup()) {
+   private TextButtonComposite getOntologyAssociationFileTBC() {
+      return this.ontologyAssociationFileTBC;
+   }
 
-            /** The file dialog. */
-            private final FileDialog fileDialog = new FileDialog(getParent().getShell());
+   /**
+    * Show error or warning.
+    *
+    * @param errorDecoration the error decoration
+    * @param warningDecoration the warning decoration
+    * @param inError the in error
+    * @param inWarning the in warning
+    */
+   private void showErrorOrWarning(final boolean inError, final ControlDecoration errorDecoration,
+         final boolean inWarning, final ControlDecoration warningDecoration) {
+      if (inError) {
+         errorDecoration.show();
+         errorDecoration.showHoverText(errorDecoration.getDescriptionText());
+      } else {
+         errorDecoration.hide();
 
-            @Override
-            protected String buttonSelected() {
-               return this.fileDialog.open();
-            }
-
-            @Override
-            protected void textKeyReleased() {
-               validatePage();
-            }
-
-            @Override
-            protected void onTextChange() {
-               validatePage();
-            }
-
-         };
-
-         // TODO remove this when new version of OpenBiomind is available
-         this.ontologyAssociationFileTextButtonComposite.setEnabled(false);
+         if (inWarning) {
+            warningDecoration.show();
+            warningDecoration.showHoverText(warningDecoration.getDescriptionText());
+         } else {
+            warningDecoration.hide();
+         }
       }
-
-      return this.ontologyAssociationFileTextButtonComposite;
    }
 
 }

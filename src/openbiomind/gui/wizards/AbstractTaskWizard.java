@@ -41,9 +41,9 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jun 13, 2008
+ * @version Jun 27, 2008
  */
-public abstract class AbstractTaskWizard extends Wizard {
+public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /**
     * Instantiates a new enhance dataset wizard.
@@ -87,7 +87,7 @@ public abstract class AbstractTaskWizard extends Wizard {
       } catch (final InterruptedException e) {
          return false;
       } catch (final InvocationTargetException e) {
-         MessageDialog.openError(getShell(), Constants.Error, e.getTargetException().getLocalizedMessage());
+         MessageDialog.openError(getShell(), Resources.ERROR, e.getTargetException().getLocalizedMessage());
          return false;
       }
       return true;
@@ -152,7 +152,7 @@ public abstract class AbstractTaskWizard extends Wizard {
          final File file = new File(filepath);
          IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(),
                (IEditorInput) new FileStoreEditorInput(EFS.getLocalFileSystem().getStore(file.toURI())),
-               Constants.DEFAULT_TEXT_EDITOR_ID);
+               Properties.DEFAULT_TEXT_EDITOR_ID);
          // } catch (final PartInitException e) {
          // Console.error(e);
       } catch (final Exception e) {

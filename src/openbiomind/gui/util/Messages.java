@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jun 14, 2008
- * @version Jun 14, 2008
+ * @version Jun 27, 2008
  */
 public class Messages extends NLS {
 
@@ -48,23 +48,17 @@ public class Messages extends NLS {
    /** The Enhance Dataset Wizard page description. */
    public static String Desc_Wizard_EnhanceDataset;
 
-   /** The Error enhanced dataset is directory. */
-   public static String Error_EnhancedDataset_IsDirectory;
+   /** The Error file not exist. */
+   public static String Error_FileNotExist;
 
-   /** The Error enhanced dataset directory invalid. */
-   public static String Error_EnhancedDatasetDirectory_Invalid;
+   /** The Error fix to continue. */
+   public static String Error_FixToContinue;
 
-   /** The Error enhanced dataset file empty. */
-   public static String Error_EnhancedDatasetFile_Empty;
+   /** The Error invalid directory. */
+   public static String Error_InvalidDirectory;
 
-   /** The Error ontology association must exist or empty. */
-   public static String Error_OntologyAssociation_MustExistOrEmpty;
-
-   /** The Error ontology description must exist or empty. */
-   public static String Error_OntologyDescription_MustExistOrEmpty;
-
-   /** The Error original dataset must exist. */
-   public static String Error_OriginalDataset_MustExist;
+   /** The Error invalid file. */
+   public static String Error_InvalidFile;
 
    /** The preference error string. */
    public static String Error_Preference;
@@ -84,6 +78,9 @@ public class Messages extends NLS {
    /** The enhanced dataset information. */
    public static String Info_EnhancedDataset;
 
+   /** The leave blank or specify file information. */
+   public static String Info_LeaveBlankOrSpecifyFile;
+
    /** The ontology description information. */
    public static String Info_OntologyDescription;
 
@@ -99,11 +96,14 @@ public class Messages extends NLS {
    /** The Startup message. */
    public static String Startup;
 
-   /** The Warning enhanced dataset already exists. */
-   public static String Warning_EnhancedDataset_AlreadyExists;
+   /** The tool-tip for enhanced dataset. */
+   public static String Tip_EnhancedDataset;
 
-   /** The Warning enhanced dataset directory does not exist. */
-   public static String Warning_EnhancedDatasetDirectory_DoesNotExist;
+   /** The Warning directory not exist. */
+   public static String Warn_DirectoryNotExist;
+
+   /** The Warning file already exists. */
+   public static String Warn_FileAlreadyExists;
 
    /** The Wizard progress execute task. */
    public static String WizardProgress_ExecuteTask;

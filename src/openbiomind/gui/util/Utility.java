@@ -7,8 +7,6 @@
  */
 package openbiomind.gui.util;
 
-import static openbiomind.gui.util.Constants.EMPTY;
-
 import java.io.File;
 
 /**
@@ -16,37 +14,30 @@ import java.io.File;
  *
  * @author bsanghvi
  * @since Jun 14, 2008
- * @version Jun 14, 2008
+ * @version Jun 26, 2008
  */
-public final class Utility {
+public final class Utility implements Constants {
 
    /**
-    * Specifies if a file or directory specified by pathname exists or not?
+    * Checks if is the string empty.
     *
-    * @param pathname the pathname
+    * @param string the string
     *
-    * @return true, if successful
+    * @return true, if is empty
     */
-   public static boolean exists(final String pathname) {
-      return (!isEmpty(pathname) && new File(pathname).exists());
+   public static boolean isEmpty(final String string) {
+      return (string == null || string.trim().isEmpty());
    }
 
    /**
-    * Extract directory name.
+    * Specifies if a file or directory specified by pathname exists or not?.
     *
-    * @param pathname the pathname
+    * @param pathName the path name
     *
-    * @return the string
+    * @return true, if successful
     */
-   public static String extractDirectoryName(final String pathname) {
-      if (isEmpty(pathname)) {
-         return EMPTY;
-      }
-      if (!isPossibleDirectory(pathname)) {
-         return new File(pathname).getParent();
-      } else {
-         return pathname;
-      }
+   public static boolean exists(final String pathName) {
+      return (!isEmpty(pathName) && new File(pathName).exists());
    }
 
    /**
@@ -126,14 +117,32 @@ public final class Utility {
    }
 
    /**
-    * Checks if is the string empty.
+    * Extract directory name.
     *
-    * @param string the string
+    * @param pathName the path name
     *
-    * @return true, if is empty
+    * @return the string
     */
-   public static boolean isEmpty(final String string) {
-      return (string == null || string.trim().isEmpty());
+   public static String extractDirectoryName(final String pathName) {
+      if (isEmpty(pathName)) {
+         return EMPTY;
+      }
+      if (!isPossibleDirectory(pathName)) {
+         return new File(pathName).getParent();
+      } else {
+         return pathName;
+      }
+   }
+
+   /**
+    * Checks if is empty or existing file.
+    *
+    * @param filePath the file path
+    *
+    * @return true, if is empty or existing file
+    */
+   public static boolean isEmptyOrExistingFile(final String filePath) {
+      return (isEmpty(filePath) || fileExists(filePath));
    }
 
 }
