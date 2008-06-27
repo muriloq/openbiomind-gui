@@ -7,13 +7,8 @@
  */
 package openbiomind.gui.preferences;
 
-import static openbiomind.gui.util.Constants.AMPERSAND;
-import static openbiomind.gui.util.Constants.JAR_EXTENSION;
-import static openbiomind.gui.util.Constants.LABEL_SEPARATOR;
-import static openbiomind.gui.util.Constants.OPENBIOMIND_JAR_NAME;
-import static openbiomind.gui.util.Constants.PIPELINE_PROPERTIES_FILENAME;
-import static openbiomind.gui.util.Constants.WILDCARD_ANY;
 import openbiomind.gui.Activator;
+import openbiomind.gui.util.Constants;
 import openbiomind.gui.util.Messages;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -32,9 +27,9 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  *
  * @author bsanghvi
  * @since Jun 9, 2008
- * @version Jun 9, 2008
+ * @version Jun 27, 2008
  */
-public class OpenBiomindPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
+public class OpenBiomindPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage, Constants {
 
    /**
     * Instantiates a new OpenBiomind preference page.
@@ -54,16 +49,16 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
        * openbiomind.jar
        */
       final FileFieldEditor openBiomindJarFileFieldEditor = new FileFieldEditor(Preference.OPENBIOMIND_JAR, AMPERSAND
-            + OPENBIOMIND_JAR_NAME + LABEL_SEPARATOR, getFieldEditorParent());
-      openBiomindJarFileFieldEditor.setFileExtensions(new String[] { WILDCARD_ANY + JAR_EXTENSION });
+            + Resources.OPENBIOMIND_JAR_NAME + LABEL_SEPARATOR, getFieldEditorParent());
+      openBiomindJarFileFieldEditor.setFileExtensions(new String[] { WILDCARD_ANY + Resources.JAR_EXTENSION });
       addField(openBiomindJarFileFieldEditor);
 
       /*
        * pipeline.properties
        */
       final FileFieldEditor pipelinePropertiesFileFieldEditor = new FileFieldEditor(Preference.PIPELINE_PROPERTIES,
-            AMPERSAND + PIPELINE_PROPERTIES_FILENAME + LABEL_SEPARATOR, getFieldEditorParent());
-      pipelinePropertiesFileFieldEditor.setFileExtensions(new String[] { PIPELINE_PROPERTIES_FILENAME });
+            AMPERSAND + Resources.PIPELINE_PROPERTIES_FILENAME + LABEL_SEPARATOR, getFieldEditorParent());
+      pipelinePropertiesFileFieldEditor.setFileExtensions(new String[] { Resources.PIPELINE_PROPERTIES_FILENAME });
       addField(pipelinePropertiesFileFieldEditor);
    }
 

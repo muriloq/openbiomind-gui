@@ -16,7 +16,7 @@ import openbiomind.gui.util.Messages;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jun 13, 2008
+ * @version Jun 27, 2008
  */
 public class EnhanceDatasetWizard extends AbstractTaskWizard {
 
@@ -52,10 +52,12 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
-      getEnhanceDatasetTaskData().setOriginalDataset(this.enhanceDatasetWizardPage.getOriginalDatasetFile());
-      getEnhanceDatasetTaskData().setEnhancedDataset(this.enhanceDatasetWizardPage.getEnhancedDatasetFile());
-      getEnhanceDatasetTaskData().setOntologyDescriptionFile(this.enhanceDatasetWizardPage.getOntologyDescriptionFile());
-      getEnhanceDatasetTaskData().setOntologyAssociationFile(this.enhanceDatasetWizardPage.getOntologyAssociationFile());
+      getEnhanceDatasetTaskData().setOriginalDataset(this.enhanceDatasetWizardPage.getOriginalDatasetFilePath());
+      getEnhanceDatasetTaskData().setEnhancedDataset(this.enhanceDatasetWizardPage.getEnhancedDatasetFilePath());
+      getEnhanceDatasetTaskData().setOntologyDescriptionFile(
+            this.enhanceDatasetWizardPage.getOntologyDescriptionFilePath());
+      getEnhanceDatasetTaskData().setOntologyAssociationFile(
+            this.enhanceDatasetWizardPage.getOntologyAssociationFilePath());
    }
 
    /*

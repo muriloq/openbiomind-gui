@@ -7,8 +7,6 @@
  */
 package openbiomind.gui.preferences;
 
-import static openbiomind.gui.util.Constants.JAR_EXTENSION;
-import static openbiomind.gui.util.Constants.PIPELINE_PROPERTIES_FILENAME;
 import openbiomind.gui.Activator;
 import openbiomind.gui.util.Constants;
 import openbiomind.gui.util.Utility;
@@ -18,9 +16,9 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jun 9, 2008
- * @version Jun 9, 2008
+ * @version Jun 27, 2008
  */
-public class Preference {
+public class Preference implements Constants {
 
    /** The constant for OpenBiomind JAR. */
    public static final String OPENBIOMIND_JAR = "openbiomind.gui.preferences.OpenBiomindJar"; //$NON-NLS-1$
@@ -54,7 +52,7 @@ public class Preference {
    public static String getPipelinePropertiesHome() {
       final String pipelinePropertiesPath = getPipelinePropertiesLocation();
       return pipelinePropertiesPath.substring(0, pipelinePropertiesPath
-            .lastIndexOf(Constants.PIPELINE_PROPERTIES_FILENAME));
+            .lastIndexOf(Resources.PIPELINE_PROPERTIES_FILENAME));
    }
 
    /**
@@ -65,7 +63,7 @@ public class Preference {
     * @return true, if is open biomind jar preference valid
     */
    public static boolean isOpenBiomindJarPreferenceValid(final String value) {
-      return (value != null && value.trim().toLowerCase().endsWith(JAR_EXTENSION) && Utility.exists(value));
+      return (value != null && value.trim().toLowerCase().endsWith(Resources.JAR_EXTENSION) && Utility.exists(value));
    }
 
    /**
@@ -76,7 +74,7 @@ public class Preference {
     * @return true, if is pipeline properties preference valid
     */
    public static boolean isPipelinePropertiesPreferenceValid(final String value) {
-      return (value != null && value.trim().toLowerCase().endsWith(PIPELINE_PROPERTIES_FILENAME) && Utility
+      return (value != null && value.trim().toLowerCase().endsWith(Resources.PIPELINE_PROPERTIES_FILENAME) && Utility
             .exists(value));
    }
 

@@ -9,9 +9,6 @@
  */
 package openbiomind.gui.tasks;
 
-import static openbiomind.gui.util.Constants.EMPTY;
-import static openbiomind.gui.util.Constants.SPACE;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,14 +17,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import openbiomind.gui.util.Constants;
+
 /**
  * The class AbstractTaskData.
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jun 12, 2008
+ * @version Jun 27, 2008
  */
-public abstract class AbstractTaskData implements Serializable {
+public abstract class AbstractTaskData implements Serializable, Constants {
 
    /** The Constant serialVersionUID. */
    private static final long serialVersionUID = 1L;
@@ -54,7 +53,7 @@ public abstract class AbstractTaskData implements Serializable {
     */
    public String getTaskName() {
       if (this.taskName == null) {
-         this.taskName = EMPTY; //$NON-NLS-1$
+         this.taskName = EMPTY;
       }
 
       return this.taskName;

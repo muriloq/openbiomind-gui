@@ -7,7 +7,6 @@
  */
 package openbiomind.gui.tasks;
 
-import static openbiomind.gui.util.Constants.HYPHEN;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -19,7 +18,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jun 12, 2008
+ * @version Jun 27, 2008
  */
 public class EnhanceDatasetTaskData extends AbstractTaskData {
 
