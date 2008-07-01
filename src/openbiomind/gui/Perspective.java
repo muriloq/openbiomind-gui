@@ -7,8 +7,6 @@
  */
 package openbiomind.gui;
 
-import openbiomind.gui.views.FileList;
-
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
@@ -29,21 +27,27 @@ public class Perspective implements IPerspectiveFactory {
    public void createInitialLayout(final IPageLayout layout) {
       final String editorArea = layout.getEditorArea();
 
-      // // display the editor view
-      // layout.setEditorAreaVisible(true);
+      // display the editor view
+      layout.setEditorAreaVisible(true);
+      // layout.setFixed(true);
 
       /*
-       * Bottom - Command Console - Error Log
+       * Left
+       * - Executed Tasks
+       */
+      layout.addView("openbiomind.gui.views.ExecutedTasks", IPageLayout.LEFT, 0.25f, editorArea);
+
+      /*
+       * Bottom
+       * - Console
+       * - Error Log
        */
       final String bottomFolderId = "openbiomind.gui.perspective.folder.Bottom"; //$NON-NLS-1$
-      final IFolderLayout bottom = layout.createFolder(bottomFolderId, IPageLayout.BOTTOM, 0.75f, editorArea);
+      final IFolderLayout bottom = layout.createFolder(bottomFolderId, IPageLayout.BOTTOM, 0.65f, editorArea);
+      // Console
+      bottom.addView("org.eclipse.ui.console.ConsoleView"); //$NON-NLS-1$
       // Error Log
-      bottom.addView("org.eclipse.pde.runtime.LogView"); //$NON-NLS-1$
-
-      /*
-       * Left - File List
-       */
-      layout.addView(FileList.ID, IPageLayout.LEFT, 0.25f, editorArea);
+      // bottom.addView("org.eclipse.pde.runtime.LogView"); //$NON-NLS-1$
    }
 
 }

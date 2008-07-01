@@ -142,8 +142,8 @@ public abstract class AbstractTaskData implements Serializable, Constants {
    public String toString() {
       final StringBuilder stringBuilder = new StringBuilder(getTaskName());
       final List<String> allArgumentsAsList = getAllArgumentsAsList();
-      for (final String string : allArgumentsAsList) {
-         stringBuilder.append(SPACE).append(string);
+      for (final String argument : allArgumentsAsList) {
+         stringBuilder.append(SPACE).append(argument);
       }
       return stringBuilder.toString();
    }
@@ -166,10 +166,10 @@ public abstract class AbstractTaskData implements Serializable, Constants {
    }
 
    /**
-    * Gets the files array.
+    * Creates the task data project.
     *
-    * @return the files array
+    * @return the task data project
     */
-   public abstract String[] getFilesArray();
+   public abstract TaskDataProject createTaskDataProject();
 
 }

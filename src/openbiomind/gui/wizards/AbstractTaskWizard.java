@@ -14,15 +14,25 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
+import java.util.Set;
 
 import openbiomind.gui.Application;
 import openbiomind.gui.console.Console;
 import openbiomind.gui.main.TaskProcessBuider;
 import openbiomind.gui.tasks.AbstractTaskData;
+import openbiomind.gui.tasks.TaskDataFile;
+import openbiomind.gui.tasks.TaskDataFolder;
+import openbiomind.gui.tasks.TaskDataProject;
 import openbiomind.gui.util.Constants;
 import openbiomind.gui.util.Messages;
 
-import org.eclipse.core.filesystem.EFS;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -31,9 +41,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.FileStoreEditorInput;
 import org.eclipse.ui.ide.IDE;
 
 /**
@@ -133,33 +141,63 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
       monitor.subTask(Messages.WizardProgress_LoadFiles);
       /*
-       * Load files here...
+       * Create the project
        */
-      final String[] filesArray = getTaskData().getFilesArray();
-      for (final String filepath : filesArray) {
-         loadFile(filepath);
-      }
+      createProject(getTaskData().createTaskDataProject(), monitor);
+
       monitor.worked(3);
    }
 
    /**
-    * Load file.
+    * Creates the project.
     *
-    * @param filepath the file path
+    * @param taskDataProject the task data project
+    * @param monitor the monitor
+    *
+    * @return true, if successful
     */
-   private void loadFile(final String filepath) {
+   private boolean createProject(final TaskDataProject taskDataProject, final IProgressMonitor monitor) {
+      boolean created = false;
+
+      final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+      final IWorkspaceRoot workspaceRoot = workspace.getRoot();
+      final IProject project = workspaceRoot.getProject(taskDataProject.getName());
+
       try {
-         final File file = new File(filepath);
-         IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(),
-               (IEditorInput) new FileStoreEditorInput(EFS.getLocalFileSystem().getStore(file.toURI())),
-               Properties.DEFAULT_TEXT_EDITOR_ID);
-         // } catch (final PartInitException e) {
-         // Console.error(e);
-      } catch (final Exception e) {
-         Console.error(e.getMessage());
-         Console.debug(e);
+         project.create(monitor);
+         project.open(monitor);
+
+         if (project.isOpen()) {
+            final Set<TaskDataFolder> taskDataFolderSet = taskDataProject.getTaskDataFolderSet();
+            for (final TaskDataFolder taskDataFolder : taskDataFolderSet) {
+               final IFolder iFolder = project.getFolder(taskDataFolder.getName());
+               iFolder.create(true, true, monitor);
+               final Set<TaskDataFile> taskDataFileSet = taskDataFolder.getTaskDataFileSet();
+               for (final TaskDataFile taskDataFile : taskDataFileSet) {
+                  final String pathname = taskDataFile.getPathname();
+                  final File file = new File(pathname);
+                  final IFile iFile = iFolder.getFile(file.getName());
+                  final URI uri = file.toURI();
+                  iFile.createLink(uri, 0, monitor);
+
+                  if (taskDataFile.isAutoOpen()) {
+                     IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), iFile,
+                           Properties.DEFAULT_TEXT_EDITOR_ID);
+                  }
+               }
+            }
+         }
+
+         created = true;
+
+         // workspace.save(false, monitor);
+      } catch (final CoreException e) {
+         Console.error(e);
       }
-   };
+
+
+      return created;
+   }
 
    /**
     * Prepare task data.

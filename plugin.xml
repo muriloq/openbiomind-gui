@@ -31,7 +31,7 @@
          </property>
          <property
                name="aboutText"
-               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0D;&#x0A;Version: 0.0.0.20080627&#x0D;&#x0A;Development build&#x0D;&#x0A;&#x0D;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
+               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0A;Version: 0.0.0.20080627&#x0A;Development build&#x0A;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
          </property>
          <property
                name="aboutImage"
@@ -438,14 +438,13 @@
          point="org.eclipse.ui.views">
       <category
             id="openbiomind.gui.views.category.OpenBiomind"
-            name="OpenBiomind Views">
+            name="OpenBiomind">
       </category>
       <view
             category="openbiomind.gui.views.category.OpenBiomind"
-            class="openbiomind.gui.views.FileList"
-            icon="icons/file_list.gif"
-            id="openbiomind.gui.views.FileList"
-            name="File List"
+            class="org.eclipse.ui.navigator.CommonNavigator"
+            id="openbiomind.gui.views.ExecutedTasks"
+            name="Executed Tasks"
             restorable="true">
       </view>
    </extension>
@@ -462,6 +461,33 @@
       <initializer
             class="openbiomind.gui.preferences.PreferenceInitializer">
       </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerActionBinding
+            viewerId="openbiomind.gui.views.ExecutedTasks">
+         <includes>
+            <actionExtension
+                  pattern="org.eclipse.ui.navigator.resources.*">
+            </actionExtension></includes>
+      </viewerActionBinding>
+      <viewerContentBinding
+            viewerId="openbiomind.gui.views.ExecutedTasks">
+         <includes>
+            <contentExtension
+                  pattern="org.eclipse.ui.navigator.resourceContent">
+            </contentExtension>
+            <contentExtension
+                  pattern="org.eclipse.ui.navigator.resources.filters.*">
+            </contentExtension>
+            <contentExtension
+                  pattern="org.eclipse.ui.navigator.resources.linkHelper">
+            </contentExtension>
+            <contentExtension
+                  pattern="OpenBiomind-GUI.contentExtension4">
+            </contentExtension>
+         </includes>
+      </viewerContentBinding>
    </extension>
 
 </plugin>

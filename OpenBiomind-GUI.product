@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.4"?>
 
-<product name="OpenBiomind-GUI" id="openbiomind.gui.product" application="openbiomind.gui.application" version="0.0.0.20080627" useFeatures="false">
+<product name="OpenBiomind-GUI" id="openbiomind.gui.product" application="openbiomind.gui.application" version="0.0.1.20080701" useFeatures="false">
 
    <aboutInfo>
       <image path="/OpenBiomind-GUI/icons/alt_about.gif"/>
@@ -33,7 +33,6 @@ For latest releast please visit http://code.google.com/p/openbiomind-gui/ and ht
          <bmp/>
       </win>
    </launcher>
-
 
    <vm>
    </vm>
@@ -70,8 +69,13 @@ For latest releast please visit http://code.google.com/p/openbiomind-gui/ and ht
       <plugin id="org.eclipse.ui"/>
       <plugin id="org.eclipse.ui.console"/>
       <plugin id="org.eclipse.ui.editors"/>
+      <plugin id="org.eclipse.ui.forms"/>
       <plugin id="org.eclipse.ui.ide"/>
+      <plugin id="org.eclipse.ui.navigator"/>
+      <plugin id="org.eclipse.ui.navigator.resources"/>
+      <plugin id="org.eclipse.ui.views"/>
       <plugin id="org.eclipse.ui.views.log"/>
+      <plugin id="org.eclipse.ui.views.properties.tabbed"/>
       <plugin id="org.eclipse.ui.win32" fragment="true"/>
       <plugin id="org.eclipse.ui.workbench"/>
       <plugin id="org.eclipse.ui.workbench.texteditor"/>

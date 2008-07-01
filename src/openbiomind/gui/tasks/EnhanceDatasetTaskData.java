@@ -26,7 +26,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
    private static final long serialVersionUID = 1L;
 
    /**
-    * Argument <code>-d</code> for specifying the name of original dataset (i.e. the input dataset).
+    * Name of this task is <code>task.EnhanceDataset</code>.
     */
    public static final String TASK_NAME = "task.EnhanceDataset"; //$NON-NLS-1$
 
@@ -138,13 +138,36 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
    }
 
    /*
-    * @see openbiomind.gui.tasks.AbstractTaskData#getFilesArray()
+    * @see openbiomind.gui.tasks.AbstractTaskData#createTaskDataProject()
     */
    @Override
-   public String[] getFilesArray() {
-      return new String[] { getEnhancedDataset() };
-      // return new String[] { getEnhancedDataset(), getOriginalDataset(),
-      // getOntologyDescriptionFile(), getOntologyAssociationFile() };
+   public TaskDataProject createTaskDataProject() {
+      final TaskDataProject taskDataProject = new TaskDataProject(getTaskName() + SPACE + System.currentTimeMillis());
+      taskDataProject.add(createTaskDataFolder(ARG_D, getOriginalDataset(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_E, getEnhancedDataset(), true));
+      taskDataProject.add(createTaskDataFolder(ARG_ONTOLOGY_ASSOCIATION_FILE, getOntologyAssociationFile(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_ONTOLOGY_DESCRIPTION_FILE, getOntologyDescriptionFile(), false));
+      return taskDataProject;
+   }
+
+   /**
+    * Creates the task data folder.
+    *
+    * @param folderName the folder name
+    * @param filepath the filepath
+    * @param autoOpen the auto open
+    *
+    * @return the task data folder
+    */
+   private TaskDataFolder createTaskDataFolder(final String folderName, final String filepath, final boolean autoOpen) {
+      if (Utility.isEmpty(filepath)) {
+         return null;
+      } else {
+         final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
+         final TaskDataFile taskDataFile = new TaskDataFile(filepath, autoOpen);
+         taskDataFolder.add(taskDataFile);
+         return taskDataFolder;
+      }
    }
 
 }
