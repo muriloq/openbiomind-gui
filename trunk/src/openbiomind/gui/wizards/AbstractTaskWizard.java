@@ -25,7 +25,6 @@ import openbiomind.gui.tasks.TaskDataFile;
 import openbiomind.gui.tasks.TaskDataFolder;
 import openbiomind.gui.tasks.TaskDataProject;
 import openbiomind.gui.util.Constants;
-import openbiomind.gui.util.Messages;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -110,16 +109,16 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     * @throws CoreException the core exception
     */
    private void doFinish(final IProgressMonitor monitor) throws CoreException {
-      monitor.beginTask(Messages.WizardProgress_PrepareTaskData, 7);
+      monitor.beginTask(WizardMessages.AbstractTaskWizard_PreparingTaskData, 7);
       prepareTaskData();
-      Console.info(this.getTaskData().toString());
+      Console.info(getTaskData().toString());
       monitor.worked(1);
-      monitor.subTask(Messages.WizardProgress_PrepareProcess);
+      monitor.subTask(WizardMessages.AbstractTaskWizard_PreparingProcess);
 
       try {
          final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(getTaskData());
          monitor.worked(1);
-         monitor.subTask(Messages.WizardProgress_ExecuteTask + getTaskData());
+         monitor.subTask(WizardMessages.AbstractTaskWizard_ExecutingTask);
          final Process process = taskProcessBuider.start();
          final BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
          Assert.isNotNull(reader);
@@ -139,7 +138,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
                e));
       }
 
-      monitor.subTask(Messages.WizardProgress_LoadFiles);
+      monitor.subTask(WizardMessages.AbstractTaskWizard_LoadingFiles);
       /*
        * Create the project
        */
@@ -157,6 +156,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     * @return true, if successful
     */
    private boolean createProject(final TaskDataProject taskDataProject, final IProgressMonitor monitor) {
+      // TODO Update to put a file named executedCommand.txt with the executed command
       boolean created = false;
 
       final IWorkspace workspace = ResourcesPlugin.getWorkspace();

@@ -92,7 +92,7 @@ public interface Constants {
       public static final String CURRENT_DIRECTORY;
 
       /** The default text editor ID. */
-      public static final String DEFAULT_TEXT_EDITOR_ID = "org.eclipse.ui.DefaultTextEditor";
+      public static final String DEFAULT_TEXT_EDITOR_ID = "org.eclipse.ui.DefaultTextEditor"; //$NON-NLS-1$
 
       /*
        * Static block to initialize various properties

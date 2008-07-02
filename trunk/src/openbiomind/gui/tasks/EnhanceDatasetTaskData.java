@@ -22,9 +22,6 @@ import openbiomind.gui.util.Utility;
  */
 public class EnhanceDatasetTaskData extends AbstractTaskData {
 
-   /** The Constant serialVersionUID. */
-   private static final long serialVersionUID = 1L;
-
    /**
     * Name of this task is <code>task.EnhanceDataset</code>.
     */

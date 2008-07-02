@@ -7,8 +7,8 @@
  */
 package openbiomind.gui.wizards;
 
+import openbiomind.gui.util.CommonMessages;
 import openbiomind.gui.util.Constants;
-import openbiomind.gui.util.Messages;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.widgets.TextButtonComposite;
 import openbiomind.gui.widgets.WidgetHelper;
@@ -143,8 +143,8 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       GUI.WIZARD_GROUP_GRID_LAYOUT.numColumns(2).applyTo(composite);
 
       // add components
-      WidgetHelper.createNewInformationLabel(composite, Messages.Info_ProjectDetails, 2);
-      WidgetHelper.createNewComponentLabel(composite, Messages.Amp_ExecutionName, Messages.Tip_ProjectName);
+      WidgetHelper.createNewInformationLabel(composite, WizardMessages.AbstractTaskWizardPage_Detail_ExecutionDetails, 2);
+      WidgetHelper.createNewComponentLabel(composite, WizardMessages.AbstractTaskWizardPage_Label_ProjectName, WizardMessages.AbstractTaskWizardPage_Tip_ProjectName);
       this.executionNameText = createProjectNameText(composite);
 
       return composite;
@@ -159,14 +159,14 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     */
    private Text createProjectNameText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(Messages.Info_ProjectName);
+      text.setToolTipText(WizardMessages.AbstractTaskWizardPage_Info_ProjectName);
 
       // apply layout
       GridDataFactory.swtDefaults().align(SWT.FILL, SWT.TOP).grab(true, false).span(1, 2).applyTo(text);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
-            Messages.Info_ProjectName);
+            WizardMessages.AbstractTaskWizardPage_Info_ProjectName);
       infoDecoration.show();
 
       return text;
@@ -213,16 +213,16 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
       };
       textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText(Messages.Info_LeaveBlankOrSpecifyFile);
+      textButtonComposite.setToolTipText(CommonMessages.Info_LeaveBlankOrSpecifyFile);
 
       // apply layout
       GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(textButtonComposite);
 
       // create decorations
       WidgetHelper.createNewInformationDecoration(textButtonComposite.getTextField(),
-            Messages.Info_LeaveBlankOrSpecifyFile).show();
+            CommonMessages.Info_LeaveBlankOrSpecifyFile).show();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            Messages.Error_FileNotExist);
+            CommonMessages.Error_FileNotExist);
       errorDecoration.hide();
 
       // apply listeners

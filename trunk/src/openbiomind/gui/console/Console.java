@@ -10,7 +10,7 @@ package openbiomind.gui.console;
 import java.io.PrintStream;
 
 import openbiomind.gui.util.Constants;
-import openbiomind.gui.util.Messages;
+import openbiomind.gui.util.CommonMessages;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
@@ -29,7 +29,7 @@ import org.eclipse.ui.console.MessageConsoleStream;
 public class Console implements Constants {
 
    /** The console. */
-   private static MessageConsole console = new MessageConsole(Messages.ConsoleTitle, null);
+   private static MessageConsole console = new MessageConsole(CommonMessages.ConsoleTitle, null);
 
    /** The debug. */
    private static boolean debug = true;

@@ -35,7 +35,7 @@ public class Perspective implements IPerspectiveFactory {
        * Left
        * - Executed Tasks
        */
-      layout.addView("openbiomind.gui.views.ExecutedTasks", IPageLayout.LEFT, 0.25f, editorArea);
+      layout.addView("openbiomind.gui.views.ExecutedTasks", IPageLayout.LEFT, 0.25f, editorArea); //$NON-NLS-1$
 
       /*
        * Bottom

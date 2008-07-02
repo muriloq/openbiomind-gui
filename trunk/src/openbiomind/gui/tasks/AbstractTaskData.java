@@ -9,7 +9,6 @@
  */
 package openbiomind.gui.tasks;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +25,7 @@ import openbiomind.gui.util.Constants;
  * @since Jun 12, 2008
  * @version Jun 27, 2008
  */
-public abstract class AbstractTaskData implements Serializable, Constants {
+public abstract class AbstractTaskData implements Constants {
 
    /** The Constant serialVersionUID. */
    private static final long serialVersionUID = 1L;
@@ -137,6 +136,19 @@ public abstract class AbstractTaskData implements Serializable, Constants {
     */
    public String getArgument(final String key) {
       return getArgumentMap().get(key);
+   }
+
+   /**
+    * Removes the mapping for the given <code>key</code>.
+    *
+    * @param key the key
+    *
+    * @return the string
+    *
+    * @see java.util.Map#remove(java.lang.Object)
+    */
+   public String remove(final String key) {
+      return getArgumentMap().remove(key);
    }
 
    /*
