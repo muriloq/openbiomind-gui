@@ -142,7 +142,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     */
    @Override
    public TaskDataProject createTaskDataProject() {
-      final TaskDataProject taskDataProject = new TaskDataProject(getTaskName() + SPACE + System.currentTimeMillis());
+      final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
       taskDataProject.add(createTaskDataFolder(ARG_D, getOriginalDataset(), false));
       taskDataProject.add(createTaskDataFolder(ARG_E, getEnhancedDataset(), true));
       taskDataProject.add(createTaskDataFolder(ARG_ONTOLOGY_ASSOCIATION_FILE, getOntologyAssociationFile(), false));

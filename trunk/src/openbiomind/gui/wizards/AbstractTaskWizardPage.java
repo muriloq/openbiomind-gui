@@ -15,6 +15,7 @@ import openbiomind.gui.widgets.WidgetHelper;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -24,6 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Text;
 
 /**
  * The class AbstractTaskWizardPage.
@@ -36,6 +38,12 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /** The parent. */
    private Composite parent = null;
+
+   /** The control container. */
+   private Composite controlContainer = null;
+
+   /** The execution name text. */
+   private Text executionNameText = null;
 
    /** The file dialog. */
    private FileDialog fileDialog = null;
@@ -56,6 +64,20 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       setDescription(syntax);
    }
 
+   /*
+    * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+    */
+   @Override
+   public void createControl(final Composite parent) {
+      setParent(parent);
+
+      // Required to avoid an error in the system
+      setControl(getControl());
+
+      // initially page is not complete
+      setPageComplete(false);
+   }
+
    /**
     * Returns the top level control of this dialog page.
     *
@@ -67,7 +89,10 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     */
    @Override
    public Control getControl() {
-      return getBaseContainer();
+      if (this.controlContainer == null) {
+         this.controlContainer = createBaseComposite(getParent());
+      }
+      return this.controlContainer;
    }
 
    /**
@@ -89,16 +114,87 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    }
 
    /**
-    * Gets the base container.
+    * Creates the arguments composite.
     *
-    * @return the base container
+    * @param parent the parent
+    *
+    * @return the composite
     */
-   protected abstract Composite getBaseContainer();
+   protected abstract Composite createArgumentsComposite(final Composite parent);
+
+   private Composite createBaseComposite(final Composite parent) {
+      final Composite composite = new Composite(parent, SWT.NULL);
+
+      // apply layout
+      GridLayoutFactory.swtDefaults().numColumns(1).applyTo(composite);
+
+      // add components
+      createProjectInformationComposite(composite);
+      createArgumentsComposite(composite);
+
+      return composite;
+   }
+
+   private Composite createProjectInformationComposite(final Composite parent) {
+      final Composite composite = new Composite(parent, SWT.NULL);
+
+      // apply layout
+      GUI.WIZARD_GROUP_GRID_DATA.applyTo(composite);
+      GUI.WIZARD_GROUP_GRID_LAYOUT.numColumns(2).applyTo(composite);
+
+      // add components
+      WidgetHelper.createNewInformationLabel(composite, Messages.Info_ProjectDetails, 2);
+      WidgetHelper.createNewComponentLabel(composite, Messages.Amp_ExecutionName, Messages.Tip_ProjectName);
+      this.executionNameText = createProjectNameText(composite);
+
+      return composite;
+   }
 
    /**
-    * Validate page.
+    * Creates the project name text.
+    *
+    * @param parent the parent
+    *
+    * @return the text
     */
-   protected abstract void validatePage();
+   private Text createProjectNameText(final Composite parent) {
+      final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
+      text.setToolTipText(Messages.Info_ProjectName);
+
+      // apply layout
+      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.TOP).grab(true, false).span(1, 2).applyTo(text);
+
+      // create decorations
+      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
+            Messages.Info_ProjectName);
+      infoDecoration.show();
+
+      return text;
+   }
+
+   /**
+    * Gets the execution name text.
+    *
+    * @return the execution name text
+    */
+   private Text getExecutionNameText() {
+      return this.executionNameText;
+   }
+
+   /**
+    * Gets the project name.
+    *
+    * @return the project name
+    */
+   public String getProjectName() {
+      final String text = getExecutionNameText().getText();
+      final String currentTimeMillis = Long.toString(System.currentTimeMillis());
+      if (Utility.isEmpty(text)) {
+         return currentTimeMillis;
+      } else {
+         return text + SPACE + currentTimeMillis;
+      }
+   }
 
    /**
     * Creates the new optional file text button composite.
@@ -117,6 +213,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
       };
       textButtonComposite.setValid(true);
+      textButtonComposite.setToolTipText(Messages.Info_LeaveBlankOrSpecifyFile);
 
       // apply layout
       GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(textButtonComposite);
@@ -174,5 +271,10 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
       return this.fileDialog;
    }
+
+   /**
+    * Validate page.
+    */
+   protected abstract void validatePage();
 
 }

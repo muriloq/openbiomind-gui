@@ -52,6 +52,7 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
+      getEnhanceDatasetTaskData().setProjectName(this.enhanceDatasetWizardPage.getProjectName());
       getEnhanceDatasetTaskData().setOriginalDataset(this.enhanceDatasetWizardPage.getOriginalDatasetFilePath());
       getEnhanceDatasetTaskData().setEnhancedDataset(this.enhanceDatasetWizardPage.getEnhancedDatasetFilePath());
       getEnhanceDatasetTaskData().setOntologyDescriptionFile(

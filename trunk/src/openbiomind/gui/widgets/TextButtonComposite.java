@@ -165,6 +165,14 @@ public abstract class TextButtonComposite extends Composite implements Constants
       getActionButton().setEnabled(enabled);
    }
 
+   /*
+    * @see org.eclipse.swt.widgets.Control#setToolTipText(java.lang.String)
+    */
+   @Override
+   public void setToolTipText(final String string) {
+      getTextField().setToolTipText(string);
+   }
+
    /**
     * Checks if is valid.
     *
