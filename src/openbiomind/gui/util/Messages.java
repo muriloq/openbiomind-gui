@@ -33,6 +33,12 @@ public class Messages extends NLS {
    /** The destination file. */
    public static String Amp_DestinationFile;
 
+   /** The enhanced dataset path. */
+   public static String Amp_EnhancedDatasetPath;
+
+   /** The execution name. */
+   public static String Amp_ExecutionName;
+
    /** The source file. */
    public static String Amp_SourceFile;
 
@@ -87,6 +93,12 @@ public class Messages extends NLS {
    /** The original dataset information. */
    public static String Info_OriginalDataset;
 
+   /** The project details information. */
+   public static String Info_ProjectDetails;
+
+   /** The project name information. */
+   public static String Info_ProjectName;
+
    /** The Optional arguments. */
    public static String OptionalArguments;
 
@@ -98,6 +110,9 @@ public class Messages extends NLS {
 
    /** The tool-tip for enhanced dataset. */
    public static String Tip_EnhancedDataset;
+
+   /** The tip for project name. */
+   public static String Tip_ProjectName;
 
    /** The Warning directory not exist. */
    public static String Warn_DirectoryNotExist;

@@ -45,14 +45,11 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    /** The number of columns in various groups. */
    private final int NUM_COLUMN_IN_GROUP = 2;
 
-   /** The base container. */
-   private Composite baseContainer = null;
-
    /** The original dataset text button composite. */
    private TextButtonComposite originalDatasetTBC = null;
 
-   /** The enhanced dataset file path text. */
-   private Text enhancedDatasetFilePathText = null;
+   /** The enhanced dataset destination file text. */
+   private Text enhancedDatasetDestFileText = null;
 
    /** The enhanced dataset destination directory text button composite. */
    private TextButtonComposite enhancedDatasetDestDirTBC = null;
@@ -60,8 +57,8 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    /** The use original dataset directory for enhanced dataset. */
    private Button useOriginalDatasetDir = null;
 
-   /** The enhanced dataset destination file text. */
-   private Text enhancedDatasetDestFileText = null;
+   /** The enhanced dataset file path text. */
+   private Text enhancedDatasetFilePathText = null;
 
    /** The ontology description file text button composite. */
    private TextButtonComposite ontologyDescriptionFileTBC = null;
@@ -86,39 +83,20 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    }
 
    /*
-    * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
-    */
-   @Override
-   public void createControl(final Composite parent) {
-      setParent(parent);
-
-      // add components
-      getBaseContainer();
-
-      // Required to avoid an error in the system
-      setControl(getBaseContainer());
-
-      // initially page is not complete
-      setPageComplete(false);
-   }
-
-   /*
     * @see openbiomind.gui.wizards.AbstractTaskWizardPage#getBaseContainer()
     */
    @Override
-   protected Composite getBaseContainer() {
-      if (this.baseContainer == null) {
-         this.baseContainer = new Composite(getParent(), SWT.NULL);
+   protected Composite createArgumentsComposite(final Composite parent) {
+      final Composite composite = new Composite(parent, SWT.NULL);
 
-         // apply layout
-         GridLayoutFactory.swtDefaults().numColumns(1).applyTo(this.baseContainer);
+      // apply layout
+      GridLayoutFactory.swtDefaults().numColumns(1).applyTo(composite);
 
-         // add components
-         createRequiredGroup(getBaseContainer());
-         createOptionalGroup(getBaseContainer());
-      }
+      // add components
+      createRequiredGroup(composite);
+      createOptionalGroup(composite);
 
-      return this.baseContainer;
+      return composite;
    }
 
    /**
@@ -142,14 +120,15 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       this.originalDatasetTBC = createOriginalDatasetTBC(group);
       WidgetHelper.createNewSeparator(group, SWT.HORIZONTAL, this.NUM_COLUMN_IN_GROUP);
       WidgetHelper.createNewInformationLabel(group, Messages.Info_EnhancedDataset, this.NUM_COLUMN_IN_GROUP);
-      this.enhancedDatasetFilePathText = createEnhancedDatasetFilePathText(group);
+      WidgetHelper.createNewComponentLabel(group, Messages.Amp_DestinationFile, Messages.Info_EnhancedDataset, true);
+      this.enhancedDatasetDestFileText = createEnhancedDatasetDestFileText(group);
       WidgetHelper
             .createNewComponentLabel(group, Messages.Amp_DestinationDirectory, Messages.Info_DestinationDirectory);
       this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(group);
       WidgetHelper.createNewBlankComponentLabel(group);
       this.useOriginalDatasetDir = createUseOriginalDatasetDir(group);
-      WidgetHelper.createNewComponentLabel(group, Messages.Amp_DestinationFile, Messages.Info_EnhancedDataset, true);
-      this.enhancedDatasetDestFileText = createEnhancedDatasetDestFileText(group);
+      WidgetHelper.createNewComponentLabel(group, Messages.Amp_EnhancedDatasetPath, Messages.Tip_EnhancedDataset);
+      this.enhancedDatasetFilePathText = createEnhancedDatasetFilePathText(group);
 
       return group;
    }
@@ -218,8 +197,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       setValidEnhancedDatasetFileName(false);
 
       // apply layout
-      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).span(this.NUM_COLUMN_IN_GROUP, 1)
-            .applyTo(text);
+      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(text);
 
       // create decorations
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
@@ -271,6 +249,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       };
       textButtonComposite.setText(Properties.CURRENT_DIRECTORY);
       textButtonComposite.setValid(true);
+      textButtonComposite.setToolTipText(Messages.Info_DestinationDirectory);
 
       // apply layout
       GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(textButtonComposite);

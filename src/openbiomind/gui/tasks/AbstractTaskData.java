@@ -34,6 +34,9 @@ public abstract class AbstractTaskData implements Serializable, Constants {
    /** The task name. */
    private String taskName = null;
 
+   /** The project name. */
+   private String projectName = null;
+
    /** The argument map. */
    private Map<String, String> argumentMap = null;
 
@@ -66,6 +69,24 @@ public abstract class AbstractTaskData implements Serializable, Constants {
     */
    public void setTaskName(final String taskName) {
       this.taskName = taskName;
+   }
+
+   /**
+    * Gets the project name.
+    *
+    * @return the project name
+    */
+   public String getProjectName() {
+      return this.projectName;
+   }
+
+   /**
+    * Sets the project name.
+    *
+    * @param projectName the new project name
+    */
+   public void setProjectName(final String projectName) {
+      this.projectName = projectName;
    }
 
    /**

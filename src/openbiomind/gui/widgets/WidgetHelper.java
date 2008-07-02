@@ -98,13 +98,39 @@ public final class WidgetHelper implements Constants {
     * Creates the new blank component label.
     *
     * @param parent the parent
+    * @param horizontalSpan the horizontal span
+    * @param verticalSpan the vertical span
+    *
+    * @return the label
+    */
+   public static Label createNewBlankComponentLabel(final Composite parent, final int horizontalSpan,
+         final int verticalSpan) {
+      final Label label = new Label(parent, SWT.NULL);
+      GUI.WIZARD_COMPONENT_LABEL_GRID_DATA.span(horizontalSpan, verticalSpan).applyTo(label);
+      return label;
+   }
+
+   /**
+    * Creates the new blank component label.
+    *
+    * @param parent the parent
+    * @param horizontalSpan the horizontal span
+    *
+    * @return the label
+    */
+   public static Label createNewBlankComponentLabel(final Composite parent, final int horizontalSpan) {
+      return createNewBlankComponentLabel(parent, horizontalSpan, 1);
+   }
+
+   /**
+    * Creates the new blank component label.
+    *
+    * @param parent the parent
     *
     * @return the label
     */
    public static Label createNewBlankComponentLabel(final Composite parent) {
-      final Label label = new Label(parent, SWT.NULL);
-      GUI.WIZARD_COMPONENT_LABEL_GRID_DATA.applyTo(label);
-      return label;
+      return createNewBlankComponentLabel(parent, 1, 1);
    }
 
    /**
