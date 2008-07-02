@@ -9,7 +9,7 @@ package openbiomind.gui.wizards;
 
 import java.io.File;
 
-import openbiomind.gui.util.Messages;
+import openbiomind.gui.util.CommonMessages;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.widgets.TextButtonComposite;
 import openbiomind.gui.widgets.WidgetHelper;
@@ -108,26 +108,26 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private Group createRequiredGroup(final Composite parent) {
       final Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
-      group.setText(Messages.RequiredArguments);
+      group.setText(WizardMessages.GroupLabel_RequiredArguments);
 
       // apply layout
       GUI.WIZARD_GROUP_GRID_DATA.applyTo(group);
       GUI.WIZARD_GROUP_GRID_LAYOUT.numColumns(this.NUM_COLUMN_IN_GROUP).applyTo(group);
 
       // add components
-      WidgetHelper.createNewInformationLabel(group, Messages.Info_OriginalDataset, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewComponentLabel(group, Messages.Amp_SourceFile, Messages.Info_OriginalDataset, true);
+      WidgetHelper.createNewInformationLabel(group, WizardMessages.Detail_OriginalDataset, this.NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewComponentLabel(group, WizardMessages.Label_OriginalDataset, WizardMessages.Detail_OriginalDataset, true);
       this.originalDatasetTBC = createOriginalDatasetTBC(group);
       WidgetHelper.createNewSeparator(group, SWT.HORIZONTAL, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewInformationLabel(group, Messages.Info_EnhancedDataset, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewComponentLabel(group, Messages.Amp_DestinationFile, Messages.Info_EnhancedDataset, true);
+      WidgetHelper.createNewInformationLabel(group, WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset, this.NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewComponentLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationFile, WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDataset, true);
       this.enhancedDatasetDestFileText = createEnhancedDatasetDestFileText(group);
       WidgetHelper
-            .createNewComponentLabel(group, Messages.Amp_DestinationDirectory, Messages.Info_DestinationDirectory);
+            .createNewComponentLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationDirectory, "Leave blank to use current directory or specify an existing directory"); //$NON-NLS-1$
       this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(group);
       WidgetHelper.createNewBlankComponentLabel(group);
       this.useOriginalDatasetDir = createUseOriginalDatasetDir(group);
-      WidgetHelper.createNewComponentLabel(group, Messages.Amp_EnhancedDatasetPath, Messages.Tip_EnhancedDataset);
+      WidgetHelper.createNewComponentLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDatasetPath, WizardMessages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
       this.enhancedDatasetFilePathText = createEnhancedDatasetFilePathText(group);
 
       return group;
@@ -156,7 +156,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            Messages.Error_FileNotExist);
+            CommonMessages.Error_FileNotExist);
       errorDecoration.show();
 
       // apply listeners
@@ -193,7 +193,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private Text createEnhancedDatasetFilePathText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
-      text.setToolTipText(Messages.Tip_EnhancedDataset);
+      text.setToolTipText(WizardMessages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
       setValidEnhancedDatasetFileName(false);
 
       // apply layout
@@ -201,9 +201,9 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
       // create decorations
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
-            Messages.Warn_FileAlreadyExists);
+            CommonMessages.Warn_FileAlreadyExists);
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, Messages.Error_InvalidFile);
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, CommonMessages.Error_InvalidFile);
       errorDecoration.show();
 
       // apply listeners
@@ -249,19 +249,19 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       };
       textButtonComposite.setText(Properties.CURRENT_DIRECTORY);
       textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText(Messages.Info_DestinationDirectory);
+      textButtonComposite.setToolTipText(CommonMessages.Info_DestinationDirectory);
 
       // apply layout
       GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(textButtonComposite);
 
       // create decorations
       final Text textField = textButtonComposite.getTextField();
-      WidgetHelper.createNewInformationDecoration(textField, Messages.Info_DestinationDirectory).show();
+      WidgetHelper.createNewInformationDecoration(textField, CommonMessages.Info_DestinationDirectory).show();
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
-            Messages.Warn_DirectoryNotExist);
+            CommonMessages.Warn_DirectoryNotExist);
       warningDecoration.hide();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
-            Messages.Error_InvalidDirectory);
+            CommonMessages.Error_InvalidDirectory);
       errorDecoration.hide();
 
       // apply listeners
@@ -304,7 +304,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private Button createUseOriginalDatasetDir(final Composite parent) {
       final Button button = new Button(parent, SWT.CHECK);
-      button.setText(Messages.Amp_UseOriginalDatasetDir);
+      button.setText(WizardMessages.EnhanceDatasetWizardPage_UseOriginalDatasetDir);
 
       // apply layout
       GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).align(SWT.FILL, SWT.CENTER).grab(true, false)
@@ -343,7 +343,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(text);
 
       // create decorations
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, Messages.Error_InvalidFile);
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, CommonMessages.Error_InvalidFile);
       errorDecoration.show();
 
       // apply listeners
@@ -378,19 +378,19 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private Group createOptionalGroup(final Composite parent) {
       final Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
-      group.setText(Messages.OptionalArguments);
+      group.setText(WizardMessages.GroupLabel_OptionalArguments);
 
       // apply layout
       GUI.WIZARD_GROUP_GRID_DATA.applyTo(group);
       GUI.WIZARD_GROUP_GRID_LAYOUT.numColumns(this.NUM_COLUMN_IN_GROUP).applyTo(group);
 
       // add components
-      WidgetHelper.createNewInformationLabel(group, Messages.Info_OntologyDescription, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewComponentLabel(group, Messages.Amp_DescriptionFile, Messages.Info_OntologyDescription);
+      WidgetHelper.createNewInformationLabel(group, WizardMessages.EnhanceDatasetWizardPage_Detail_OntologyDescription, this.NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewComponentLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DescriptionFile, WizardMessages.EnhanceDatasetWizardPage_Detail_OntologyDescription);
       this.ontologyDescriptionFileTBC = createNewOptionalFileTextButtonComposite(group);
       WidgetHelper.createNewSeparator(group, SWT.HORIZONTAL, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewInformationLabel(group, Messages.Info_AssociationDescription, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewComponentLabel(group, Messages.Amp_AssociationFile, Messages.Info_AssociationDescription);
+      WidgetHelper.createNewInformationLabel(group, WizardMessages.EnhanceDatasetWizardPage_Detail_AssociationDescription, this.NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewComponentLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_AssociationFile, WizardMessages.EnhanceDatasetWizardPage_Detail_AssociationDescription);
       this.ontologyAssociationFileTBC = createNewOptionalFileTextButtonComposite(group);
 
       return group;
@@ -442,7 +442,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
             && getOntologyDescriptionFileTBC().isValid() && getOntologyAssociationFileTBC().isValid();
       setPageComplete(valid);
       if (!valid) {
-         setErrorMessage(Messages.Error_FixToContinue);
+         setErrorMessage(CommonMessages.Error_FixToContinue);
       } else {
          setErrorMessage(null);
       }

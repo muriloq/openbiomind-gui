@@ -9,7 +9,6 @@ package openbiomind.gui.preferences;
 
 import openbiomind.gui.Activator;
 import openbiomind.gui.util.Constants;
-import openbiomind.gui.util.Messages;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
@@ -37,7 +36,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
    public OpenBiomindPreferencePage() {
       super(GRID);
       setPreferenceStore(Activator.getDefault().getPreferenceStore());
-      setDescription(Messages.Desc_PreferencePage);
+      setDescription(PreferenceMessages.Description);
    }
 
    /*
@@ -88,12 +87,12 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
          if (Preference.OPENBIOMIND_JAR.equals(preferenceName)) {
             if (!Preference.isOpenBiomindJarPreferenceValid(value)) {
                valid = false;
-               setErrorMessage(Messages.Error_Preference_OpenBiomindJAR);
+               setErrorMessage(PreferenceMessages.Error_OpenBiomindJAR);
             }
          } else if (Preference.PIPELINE_PROPERTIES.equals(preferenceName)) {
             if (!Preference.isPipelinePropertiesPreferenceValid(value)) {
                valid = false;
-               setErrorMessage(Messages.Error_Preference_PipelineProperties);
+               setErrorMessage(PreferenceMessages.Error_PipelineProperties);
             }
          }
       }

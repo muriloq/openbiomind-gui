@@ -9,7 +9,6 @@ package openbiomind.gui.wizards;
 
 import openbiomind.gui.tasks.AbstractTaskData;
 import openbiomind.gui.tasks.EnhanceDatasetTaskData;
-import openbiomind.gui.util.Messages;
 
 /**
  * The class EnhanceDatasetWizard.
@@ -19,9 +18,6 @@ import openbiomind.gui.util.Messages;
  * @version Jun 27, 2008
  */
 public class EnhanceDatasetWizard extends AbstractTaskWizard {
-
-   /** The constant for page title (value = <code>Enhance Dataset Task</code>). */
-   public static final String WIZARD_TITLE = "Enhance Dataset Task"; //$NON-NLS-1$
 
    /** The enhance dataset task data. */
    private EnhanceDatasetTaskData enhanceDatasetTaskData = null;
@@ -33,7 +29,7 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     * Instantiates a new enhance dataset wizard.
     */
    public EnhanceDatasetWizard() {
-      super(WIZARD_TITLE);
+      super(WizardMessages.EnhanceDatasetWizard_Name);
       this.enhanceDatasetTaskData = new EnhanceDatasetTaskData();
    }
 
@@ -42,7 +38,7 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
-      this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(WIZARD_TITLE, Messages.Desc_Wizard_EnhanceDataset);
+      this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(WizardMessages.EnhanceDatasetWizard_Name, WizardMessages.EnhanceDatasetWizard_Description);
 
       addPage(this.enhanceDatasetWizardPage);
    }
