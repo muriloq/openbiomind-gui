@@ -32,6 +32,52 @@ import org.eclipse.swt.widgets.Label;
 public final class WidgetHelper implements Constants {
 
    /**
+    * Creates the new section label.
+    *
+    * @param parent the parent
+    * @param text the text
+    * @param horizontalSpan the horizontal span
+    * @param verticalSpan the vertical span
+    *
+    * @return the label
+    */
+   public static Label createNewSectionLabel(final Composite parent, final String text, final int horizontalSpan,
+         final int verticalSpan) {
+      final Label label = new Label(parent, SWT.CENTER);
+      label.setText(text);
+
+      changeToDisposableBoldFold(label, 1);
+
+      return label;
+   }
+
+   /**
+    * Creates the new section label. This is similar to
+    * <code>createNewSectionLabel(parent, text, horizontalSpan, 1)</code>.
+    *
+    * @param parent the parent
+    * @param text the text
+    * @param horizontalSpan the horizontal span
+    *
+    * @return the label
+    */
+   public static Label createNewSectionLabel(final Composite parent, final String text, final int horizontalSpan) {
+      return createNewSectionLabel(parent, text, horizontalSpan, 1);
+   }
+
+   /**
+    * Creates the new section label. This is similar to <code>createNewSectionLabel(parent, text, 1, 1)</code>.
+    *
+    * @param parent the parent
+    * @param text the text
+    *
+    * @return the label
+    */
+   public static Label createNewSectionLabel(final Composite parent, final String text) {
+      return createNewSectionLabel(parent, text, 1, 1);
+   }
+
+   /**
     * Creates the new details label.
     *
     * @param parent the parent
@@ -46,22 +92,10 @@ public final class WidgetHelper implements Constants {
       final Label label = new Label(parent, SWT.NULL);
       label.setText(text);
       label.setToolTipText(text);
-
-      final Font font = getBoldFont(label);
-      label.setFont(font);
+      changeToDisposableBoldFold(label);
 
       // apply layout
-      GUI.GRID_DATA_DEFAULT.copy().span(horizontalSpan, verticalSpan).applyTo(label);
-
-      // add listeners
-      label.addDisposeListener(new DisposeListener() {
-
-         @Override
-         public void widgetDisposed(final DisposeEvent e) {
-            font.dispose();
-         }
-
-      });
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(horizontalSpan, verticalSpan).applyTo(label);
 
       return label;
    }
@@ -137,7 +171,7 @@ public final class WidgetHelper implements Constants {
 
    /**
     * Creates the new field label. This is similar to
-    * <code>createNewFieldLabel(parent, text, null, requiredField)</code>.
+    * <code>createNewFieldLabel(parent, text, text, requiredField)</code>.
     *
     * @param parent the parent
     * @param text the text
@@ -146,11 +180,11 @@ public final class WidgetHelper implements Constants {
     * @return the label
     */
    public static Label createNewFieldLabel(final Composite parent, final String text, final boolean requiredField) {
-      return createNewFieldLabel(parent, text, null, requiredField);
+      return createNewFieldLabel(parent, text, text, requiredField);
    }
 
    /**
-    * Creates the new field label. This is similar to <code>createNewFieldLabel(parent, text, null, false)</code>.
+    * Creates the new field label. This is similar to <code>createNewFieldLabel(parent, text, text, false)</code>.
     *
     * @param parent the parent
     * @param text the text
@@ -158,7 +192,7 @@ public final class WidgetHelper implements Constants {
     * @return the label
     */
    public static Label createNewFieldLabel(final Composite parent, final String text) {
-      return createNewFieldLabel(parent, text, null, false);
+      return createNewFieldLabel(parent, text, text, false);
    }
 
    /**
@@ -214,9 +248,9 @@ public final class WidgetHelper implements Constants {
       final Label label = new Label(parent, SWT.SEPARATOR | alignment);
 
       // apply layout
-      if ((SWT.HORIZONTAL & alignment) == SWT.HORIZONTAL) {
+      if ((SWT.HORIZONTAL & alignment) != 0) {
          GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(span, 1).applyTo(label);
-      } else if ((SWT.VERTICAL & alignment) == SWT.VERTICAL) {
+      } else if ((SWT.VERTICAL & alignment) != 0) {
          GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(1, span).applyTo(label);
       } else {
          GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(label);
@@ -235,6 +269,55 @@ public final class WidgetHelper implements Constants {
     */
    public static Label createNewSeparator(final Composite parent, final int alignment) {
       return createNewSeparator(parent, alignment, 1);
+   }
+
+   /**
+    * Creates the new horizontal separator. This is similar to
+    * <code>createNewSeparator(parent, SWT.HORIZONTAL, span)</code>.
+    *
+    * @param parent the parent
+    * @param span the span
+    *
+    * @return the label
+    */
+   public static Label createNewSeparatorH(final Composite parent, final int span) {
+      return createNewSeparator(parent, SWT.HORIZONTAL, span);
+   }
+
+   /**
+    * Creates the new horizontal separator. This is similar to
+    * <code>createNewSeparator(parent, SWT.HORIZONTAL, 1)</code>.
+    *
+    * @param parent the parent
+    *
+    * @return the label
+    */
+   public static Label createNewSeparatorH(final Composite parent) {
+      return createNewSeparatorH(parent, 1);
+   }
+
+   /**
+    * Creates the new vertical separator. This is similar to <code>createNewSeparator(parent, SWT.VERTICAL, span)</code>
+    * .
+    *
+    * @param parent the parent
+    * @param span the span
+    *
+    * @return the label
+    */
+   public static Label createNewSeparatorV(final Composite parent, final int span) {
+      return createNewSeparator(parent, SWT.VERTICAL, span);
+   }
+
+   /**
+    * Creates the new vertical separator. This is similar to <code>createNewSeparatorV(parent, 1)</code>.
+    *
+    * @param parent the parent
+    *
+    * @return the label
+    */
+   public static Label createNewSeparatorV(final Composite parent) {
+      return createNewSeparatorV(parent, 1);
    }
 
    /**
@@ -304,16 +387,106 @@ public final class WidgetHelper implements Constants {
    }
 
    /**
-    * Gets the bold font for the given control. It is the responsibility of the accessor to dispose the font after use.
+    * Change font style and height. A DisposeListener will be added to the control to dispose the font.
     *
     * @param control the control
-    *
-    * @return the bold font
+    * @param fontStyle the font style must be a combination of {@link SWT#NORMAL}, {@link SWT#ITALIC}, or
+    * {@link SWT#BOLD}
+    * @param heightVariation the height variation can be positive or negative to increase or decrease the font height
     */
-   public static Font getBoldFont(final Control control) {
+   public static void changeToDisposableFont(final Control control, final int fontStyle, final int heightVariation) {
       final FontData fontData = control.getFont().getFontData()[0];
-      fontData.setStyle(SWT.BOLD);
-      return new Font(Display.getDefault(), fontData);
+      fontData.setStyle(fontStyle);
+      if (heightVariation != 0) {
+         fontData.setHeight(fontData.getHeight() + heightVariation);
+      }
+      final Font font = new Font(Display.getDefault(), fontData);
+      control.setFont(font);
+
+      // apply listener to dispose the font when the control is disposed
+      control.addDisposeListener(new DisposeListener() {
+
+         @Override
+         public void widgetDisposed(final DisposeEvent event) {
+            font.dispose();
+         }
+
+      });
+   }
+
+   /**
+    * Change font style. A DisposeListener will be added to the control to dispose the font. This is similar to calling
+    * <code>changeToDisposableFont(control, fontStyle, 0)</code>.
+    *
+    * @param control the control
+    * @param fontStyle the font style must be a combination of {@link SWT#NORMAL}, {@link SWT#ITALIC}, or
+    * {@link SWT#BOLD}
+    */
+   public static void changeToDisposableFont(final Control control, final int fontStyle) {
+      changeToDisposableFont(control, fontStyle, 0);
+   }
+
+   /**
+    * Change font style to Bold. A DisposeListener will be added to the control to dispose the font. This is similar to
+    * calling <code>changeToDisposableFont(control, SWT.BOLD, 0)</code>.
+    *
+    * @param control the control
+    * @param heightVariation the height variation
+    */
+   public static void changeToDisposableBoldFold(final Control control, final int heightVariation) {
+      changeToDisposableFont(control, SWT.BOLD, heightVariation);
+   }
+
+   /**
+    * Change font style to Bold. A DisposeListener will be added to the control to dispose the font. This is similar to
+    * calling <code>changeToDisposableBoldFold(control, 0)</code>.
+    *
+    * @param control the control
+    */
+   public static void changeToDisposableBoldFold(final Control control) {
+      changeToDisposableBoldFold(control, 0);
+   }
+
+   /**
+    * Change font style to Italic. A DisposeListener will be added to the control to dispose the font. This is similar
+    * to calling <code>changeToDisposableFont(control, SWT.ITALIC, 0)</code>.
+    *
+    * @param control the control
+    * @param heightVariation the height variation
+    */
+   public static void changeToDisposableItalicFold(final Control control, final int heightVariation) {
+      changeToDisposableFont(control, SWT.ITALIC, heightVariation);
+   }
+
+   /**
+    * Change font style to Italic. A DisposeListener will be added to the control to dispose the font. This is similar
+    * to calling <code>changeToDisposableItalicFold(control, 0)</code>.
+    *
+    * @param control the control
+    */
+   public static void changeToDisposableItalicFold(final Control control) {
+      changeToDisposableItalicFold(control, 0);
+   }
+
+   /**
+    * Change font style to Bold and Italic. A DisposeListener will be added to the control to dispose the font. This is
+    * similar to calling <code>changeToDisposableFont(control, SWT.BOLD | SWT.ITALIC, 0)</code>.
+    *
+    * @param control the control
+    * @param heightVariation the height variation
+    */
+   public static void changeToDisposableBoldItalicFold(final Control control, final int heightVariation) {
+      changeToDisposableFont(control, SWT.BOLD | SWT.ITALIC, heightVariation);
+   }
+
+   /**
+    * Change font style to Bold and Italic. A DisposeListener will be added to the control to dispose the font. This is
+    * similar to calling <code>changeToDisposableBoldItalicFold(control, 0)</code>.
+    *
+    * @param control the control
+    */
+   public static void changeToDisposableBoldItalicFold(final Control control) {
+      changeToDisposableBoldItalicFold(control, 0);
    }
 
 }

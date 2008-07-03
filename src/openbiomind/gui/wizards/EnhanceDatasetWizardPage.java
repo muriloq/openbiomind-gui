@@ -17,13 +17,14 @@ import openbiomind.gui.widgets.WidgetHelper;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 
 /**
@@ -41,7 +42,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    public static final String PAGE_NAME = "openbiomind.gui.wizards.EnhanceDatasetWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
-   private final int NUM_COLUMN_IN_GROUP = 2;
+   private static final int NUM_COLUMN_IN_GROUP = 2;
 
    /** The original dataset text button composite. */
    private TextButtonComposite originalDatasetTBC = null;
@@ -53,7 +54,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    private TextButtonComposite enhancedDatasetDestDirTBC = null;
 
    /** The use original dataset directory for enhanced dataset. */
-   private Button useOriginalDatasetDir = null;
+   private Button useOriginalDatasetDirButton = null;
 
    /** The enhanced dataset file path text. */
    private Text enhancedDatasetFilePathText = null;
@@ -81,19 +82,19 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#getBaseContainer()
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#createBaseComposite(org.eclipse.swt.widgets.Composite)
     */
    @Override
-   protected Composite createArgumentsComposite(final Composite parent) {
+   protected Composite createBaseComposite(final Composite parent) {
       final Composite composite = new Composite(parent, SWT.NULL);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(composite);
-      GUI.GRID_LAYOUT_DEFAULT.applyTo(composite);
+      GUI.GRID_LAYOUT_WITH_MARGIN.copy().numColumns(NUM_COLUMN_IN_GROUP).applyTo(composite);
 
       // add components
+      addProjectInformationFields(composite, NUM_COLUMN_IN_GROUP);
       createRequiredGroup(composite);
-      WidgetHelper.createNewBlankLabel(composite);
       createOptionalGroup(composite);
 
       return composite;
@@ -103,38 +104,31 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * Creates the required group.
     *
     * @param parent the parent
-    *
-    * @return the group
     */
-   private Group createRequiredGroup(final Composite parent) {
-      final Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
-      group.setText(WizardMessages.GroupLabel_RequiredArguments);
+   private void createRequiredGroup(final Composite parent) {
+      // Required Arguments
+      addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
-      // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(group);
-      GUI.GRID_LAYOUT_WITH_MARGIN.copy().numColumns(NUM_COLUMN_IN_GROUP).applyTo(group);
-
-      // add components
-      WidgetHelper.createNewFieldLabel(group, WizardMessages.Label_OriginalDataset,
+      // Original dataset
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OriginalDataset,
             WizardMessages.Detail_OriginalDataset, true);
-      this.originalDatasetTBC = createOriginalDatasetTBC(group);
+      this.originalDatasetTBC = createOriginalDatasetTBC(parent);
+      WidgetHelper.createNewBlankLabel(parent, NUM_COLUMN_IN_GROUP);
 
-      WidgetHelper.createNewBlankLabel(group, NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewDetailsLabel(group, WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset,
-            this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewFieldLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationFile,
+      // Enhanced dataset
+      WidgetHelper.createNewDetailsLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset,
+            NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationFile,
             WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDataset, true);
-      this.enhancedDatasetDestFileText = createEnhancedDatasetDestFileText(group);
-      WidgetHelper.createNewFieldLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationDirectory,
+      this.enhancedDatasetDestFileText = createEnhancedDatasetDestFileText(parent);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationDirectory,
             CommonMessages.Info_DestinationDirectory);
-      this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(group);
-      WidgetHelper.createNewBlankLabel(group);
-      this.useOriginalDatasetDir = createUseOriginalDatasetDir(group);
-      WidgetHelper.createNewFieldLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDatasetPath,
+      this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(parent);
+      WidgetHelper.createNewBlankLabel(parent);
+      this.useOriginalDatasetDirButton = createUseOriginalDatasetDirButton(parent);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDatasetPath,
             WizardMessages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
-      this.enhancedDatasetFilePathText = createEnhancedDatasetFilePathText(group);
-
-      return group;
+      this.enhancedDatasetFilePathText = createEnhancedDatasetFilePathText(parent);
    }
 
    /**
@@ -154,6 +148,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
       };
       textButtonComposite.setValid(false);
+      textButtonComposite.setToolTipText(WizardMessages.Detail_OriginalDataset);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
@@ -164,11 +159,11 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       errorDecoration.show();
 
       // apply listeners
-      textButtonComposite.addModifyListener(new ModifyListener() {
+      textButtonComposite.addModifyListenerOnTextField(new ModifyListener() {
 
          @Override
-         public void modifyText(final ModifyEvent e) {
-            textButtonComposite.setValid(Utility.fileExists(getOriginalDatasetFilePath()));
+         public void modifyText(final ModifyEvent event) {
+            textButtonComposite.setValid(Utility.fileExists(textButtonComposite.getText()));
             if (textButtonComposite.isValid()) {
                errorDecoration.hide();
             } else {
@@ -189,24 +184,21 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    }
 
    /**
-    * Gets the enhanced dataset file path text.
+    * Creates the enhanced dataset destination file text.
     *
     * @param parent the parent
     *
-    * @return the enhanced dataset file path text
+    * @return the text
     */
-   private Text createEnhancedDatasetFilePathText(final Composite parent) {
-      final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
-      text.setToolTipText(WizardMessages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
+   private Text createEnhancedDatasetDestFileText(final Composite parent) {
+      final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
+      text.setToolTipText(WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDataset);
       setValidEnhancedDatasetFileName(false);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(text);
+      GUI.GRID_DATA_DEFAULT.applyTo(text);
 
       // create decorations
-      final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
-            CommonMessages.Warn_FileAlreadyExists);
-      warningDecoration.hide();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
             CommonMessages.Error_InvalidFile);
       errorDecoration.show();
@@ -215,19 +207,17 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       text.addModifyListener(new ModifyListener() {
 
          @Override
-         public void modifyText(final ModifyEvent e) {
-            boolean inError = false;
-            boolean inWarning = false;
-            final File file = new File(getEnhancedDatasetFilePath());
-
-            if (file.isDirectory()) {
-               inError = true;
-            } else if (file.exists()) {
-               inWarning = true;
+         public void modifyText(final ModifyEvent event) {
+            setValidEnhancedDatasetFileName(!Utility.isEmpty(text.getText()));
+            if (isValidEnhancedDatasetFileName()) {
+               errorDecoration.hide();
+            } else {
+               errorDecoration.show();
+               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
             }
 
-            setValidEnhancedDatasetFilePath(!inError);
-            showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration);
+            getEnhancedDatasetFilePathText().setText(getEnhancedDatasetFilePath());
+
             validatePage();
          }
 
@@ -261,7 +251,9 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
       // create decorations
       final Text textField = textButtonComposite.getTextField();
-      WidgetHelper.createNewInformationDecoration(textField, CommonMessages.Info_DestinationDirectory).show();
+      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textField,
+            CommonMessages.Info_DestinationDirectory);
+      infoDecoration.hide();
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
             CommonMessages.Warn_DirectoryNotExist);
       warningDecoration.hide();
@@ -270,13 +262,28 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       errorDecoration.hide();
 
       // apply listeners
-      textButtonComposite.addModifyListener(new ModifyListener() {
+      textButtonComposite.addFocusListenerOnTextField(new FocusListener() {
 
          @Override
-         public void modifyText(final ModifyEvent e) {
+         public void focusGained(final FocusEvent event) {
+            infoDecoration.show();
+            infoDecoration.showHoverText(infoDecoration.getDescriptionText());
+         }
+
+         @Override
+         public void focusLost(final FocusEvent event) {
+            infoDecoration.hide();
+         }
+
+      });
+
+      textButtonComposite.addModifyListenerOnTextField(new ModifyListener() {
+
+         @Override
+         public void modifyText(final ModifyEvent event) {
             boolean inError = false;
             boolean inWarning = false;
-            final String directoryPath = getEnhancedDatasetDestDirPath();
+            final String directoryPath = textButtonComposite.getText();
 
             if (!Utility.isEmpty(directoryPath)) {
                final File directory = new File(directoryPath);
@@ -288,7 +295,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
             }
 
             textButtonComposite.setValid(!inError);
-            showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration);
+            showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration, infoDecoration);
 
             getEnhancedDatasetFilePathText().setText(getEnhancedDatasetFilePath());
 
@@ -307,9 +314,10 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     *
     * @return the button
     */
-   private Button createUseOriginalDatasetDir(final Composite parent) {
+   private Button createUseOriginalDatasetDirButton(final Composite parent) {
       final Button button = new Button(parent, SWT.CHECK);
       button.setText(WizardMessages.EnhanceDatasetWizardPage_UseOriginalDatasetDir);
+      button.setToolTipText(WizardMessages.EnhanceDatasetWizardPage_UseOriginalDatasetDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(button);
@@ -318,8 +326,8 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       button.addSelectionListener(new SelectionAdapter() {
 
          @Override
-         public void widgetSelected(final SelectionEvent e) {
-            if (useOriginalDatasetDir()) {
+         public void widgetSelected(final SelectionEvent event) {
+            if (button.getSelection()) {
                getEnhancedDatasetDestDirTBC().setEnabled(false);
                updateEnhancedDatasetDestDirText();
             } else {
@@ -333,39 +341,45 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    }
 
    /**
-    * Creates the enhanced dataset destination file text.
+    * Gets the enhanced dataset file path text. This method uses {@link #getEnhancedDatasetFilePath()}.
     *
     * @param parent the parent
     *
-    * @return the text
+    * @return the enhanced dataset file path text
     */
-   private Text createEnhancedDatasetDestFileText(final Composite parent) {
-      final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
+   private Text createEnhancedDatasetFilePathText(final Composite parent) {
+      final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
+      text.setToolTipText(WizardMessages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
       setValidEnhancedDatasetFileName(false);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(text);
 
       // create decorations
+      final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
+            CommonMessages.Warn_FileAlreadyExists);
+      warningDecoration.hide();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
             CommonMessages.Error_InvalidFile);
-      errorDecoration.show();
+      errorDecoration.hide();
 
       // apply listeners
       text.addModifyListener(new ModifyListener() {
 
          @Override
-         public void modifyText(final ModifyEvent e) {
-            setValidEnhancedDatasetFileName(!Utility.isEmpty(getEnhancedDatasetDestFileName()));
-            if (isValidEnhancedDatasetFileName()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
+         public void modifyText(final ModifyEvent event) {
+            boolean inError = false;
+            boolean inWarning = false;
+            final File file = new File(getEnhancedDatasetFilePath());
+
+            if (file.isDirectory()) {
+               inError = true;
+            } else if (file.exists()) {
+               inWarning = true;
             }
 
-            getEnhancedDatasetFilePathText().setText(getEnhancedDatasetFilePath());
-
+            setValidEnhancedDatasetFilePath(!inError);
+            showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration);
             validatePage();
          }
 
@@ -378,26 +392,37 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * Creates the optional group.
     *
     * @param parent the parent
-    *
-    * @return the group
     */
-   private Group createOptionalGroup(final Composite parent) {
-      final Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
-      group.setText(WizardMessages.GroupLabel_OptionalArguments);
+   private void createOptionalGroup(final Composite parent) {
+      // Optional Arguments
+      addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
-      // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(group);
-      GUI.GRID_LAYOUT_WITH_MARGIN.copy().numColumns(NUM_COLUMN_IN_GROUP).applyTo(group);
-
-      // add components
-      WidgetHelper.createNewFieldLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DescriptionFile,
+      // Ontology description file
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DescriptionFile,
             WizardMessages.EnhanceDatasetWizardPage_Detail_OntologyDescription);
-      this.ontologyDescriptionFileTBC = createNewOptionalFileTextButtonComposite(group);
-      WidgetHelper.createNewFieldLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_AssociationFile,
-            WizardMessages.EnhanceDatasetWizardPage_Detail_AssociationDescription);
-      this.ontologyAssociationFileTBC = createNewOptionalFileTextButtonComposite(group);
+      this.ontologyDescriptionFileTBC = createNewOptionalFileTextButtonComposite(parent);
 
-      return group;
+      // Ontology association file
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_AssociationFile,
+            WizardMessages.EnhanceDatasetWizardPage_Detail_AssociationDescription);
+      this.ontologyAssociationFileTBC = createNewOptionalFileTextButtonComposite(parent);
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#validatePage()
+    */
+   @Override
+   protected void validatePage() {
+      final boolean valid = isProjectInformationValid() && getOriginalDatasetTBC().isValid()
+            && isValidEnhancedDatasetFileName() && getEnhancedDatasetDestDirTBC().isValid()
+            && isValidEnhancedDatasetFilePath() && getOntologyDescriptionFileTBC().isValid()
+            && getOntologyAssociationFileTBC().isValid();
+      setPageComplete(valid);
+      if (!valid) {
+         setErrorMessage(CommonMessages.Error_FixToContinue);
+      } else {
+         setErrorMessage(null);
+      }
    }
 
    /**
@@ -434,22 +459,6 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private void setValidEnhancedDatasetFilePath(final boolean validEnhancedDatasetFilePath) {
       this.validEnhancedDatasetFilePath = validEnhancedDatasetFilePath;
-   }
-
-   /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#validatePage()
-    */
-   @Override
-   protected void validatePage() {
-      final boolean valid = getOriginalDatasetTBC().isValid() && getEnhancedDatasetDestDirTBC().isValid()
-            && isValidEnhancedDatasetFileName() && isValidEnhancedDatasetFilePath()
-            && getOntologyDescriptionFileTBC().isValid() && getOntologyAssociationFileTBC().isValid();
-      setPageComplete(valid);
-      if (!valid) {
-         setErrorMessage(CommonMessages.Error_FixToContinue);
-      } else {
-         setErrorMessage(null);
-      }
    }
 
    /**
@@ -509,7 +518,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * @return true, if successful
     */
    private boolean useOriginalDatasetDir() {
-      return getUseOriginalDatasetDir().getSelection();
+      return getUseOriginalDatasetDirButton().getSelection();
    }
 
    /**
@@ -562,8 +571,8 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     *
     * @return the use original dataset directory for enhanced dataset
     */
-   private Button getUseOriginalDatasetDir() {
-      return this.useOriginalDatasetDir;
+   private Button getUseOriginalDatasetDirButton() {
+      return this.useOriginalDatasetDirButton;
    }
 
    /**
@@ -600,22 +609,43 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * @param warningDecoration the warning decoration
     * @param inError the in error
     * @param inWarning the in warning
+    * @param infoDecoration the info decoration
     */
    private void showErrorOrWarning(final boolean inError, final ControlDecoration errorDecoration,
-         final boolean inWarning, final ControlDecoration warningDecoration) {
+         final boolean inWarning, final ControlDecoration warningDecoration, final ControlDecoration infoDecoration) {
+      boolean shown = false;
       if (inError) {
          errorDecoration.show();
          errorDecoration.showHoverText(errorDecoration.getDescriptionText());
+         shown = true;
       } else {
          errorDecoration.hide();
 
          if (inWarning) {
             warningDecoration.show();
             warningDecoration.showHoverText(warningDecoration.getDescriptionText());
+            shown = true;
          } else {
             warningDecoration.hide();
          }
       }
+
+      if (shown && infoDecoration != null) {
+         infoDecoration.hideHover();
+      }
+   }
+
+   /**
+    * Show error or warning.
+    *
+    * @param inError the in error
+    * @param errorDecoration the error decoration
+    * @param inWarning the in warning
+    * @param warningDecoration the warning decoration
+    */
+   private void showErrorOrWarning(final boolean inError, final ControlDecoration errorDecoration,
+         final boolean inWarning, final ControlDecoration warningDecoration) {
+      showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration, null);
    }
 
 }
