@@ -33,9 +33,6 @@ public class WizardMessages extends NLS {
    /** The Abstract task wizard preparing task data. */
    public static String AbstractTaskWizard_PreparingTaskData;
 
-   /** The Abstract task wizard page detail execution details. */
-   public static String AbstractTaskWizardPage_Detail_ExecutionDetails;
-
    /** The Abstract task wizard page info project name. */
    public static String AbstractTaskWizardPage_Info_ProjectName;
 

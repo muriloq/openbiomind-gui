@@ -177,8 +177,11 @@ public interface Constants {
     */
    public final class GUI {
 
-      /** The Constant MARGIN. */
-      public static final int MARGIN = 10;
+      /** The Constant MARGIN_WIDTH. */
+      public static final int MARGIN_WIDTH = 15;
+
+      /** The Constant MARGIN_HEIGHT. */
+      public static final int MARGIN_HEIGHT = 10;
 
       /** The Constant SPACING_V. */
       public static final int SPACING_V = 5;
@@ -186,29 +189,26 @@ public interface Constants {
       /** The Constant SPACING_H. */
       public static final int SPACING_H = 15;
 
-      /** The Constant DEFAULT_GLF. */
-      public final static GridLayoutFactory DEFAULT_GRID_LAYOUT = GridLayoutFactory.swtDefaults().spacing(SPACING_H,
-            SPACING_V).equalWidth(false);
+      /** The Constant GRID_LAYOUT_DEFAULT. */
+      public final static GridLayoutFactory GRID_LAYOUT_DEFAULT = GridLayoutFactory.swtDefaults().spacing(SPACING_H,
+            SPACING_V);
 
-      /** The Constant WIZARD_GROUP_GLF. */
-      public final static GridLayoutFactory WIZARD_GROUP_GRID_LAYOUT = GridLayoutFactory.swtDefaults().spacing(
-            SPACING_H, SPACING_V).equalWidth(false).margins(MARGIN, MARGIN);
+      /** The Constant GRID_LAYOUT_WITH_MARGIN. */
+      public final static GridLayoutFactory GRID_LAYOUT_WITH_MARGIN = GridLayoutFactory.swtDefaults().spacing(
+            SPACING_H, SPACING_V).margins(MARGIN_WIDTH, MARGIN_HEIGHT);
 
-      /** The Constant WIZARD_GROUP_GDF. */
-      public final static GridDataFactory WIZARD_GROUP_GRID_DATA = GridDataFactory.swtDefaults().align(SWT.FILL,
+      /** The Constant GRID_DATA_DEFAULT. */
+      public final static GridDataFactory GRID_DATA_DEFAULT = GridDataFactory.swtDefaults();
+
+      /** The Constant GRID_DATA_FILL_H_GRAB_H. */
+      public final static GridDataFactory GRID_DATA_FILL_H_GRAB_H = GridDataFactory.swtDefaults().align(SWT.FILL,
             SWT.CENTER).grab(true, false);
 
-      /** The Constant GRID_DATA_INFORMATION_LABEL. */
-      public final static GridDataFactory WIZARD_INFORMATION_LABEL_GRID_DATA = GridDataFactory.swtDefaults().align(
-            SWT.FILL, SWT.CENTER).grab(true, false);
+      /** The Constant GRID_DATA_FILL_H. */
+      public final static GridDataFactory GRID_DATA_FILL_H = GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER);
 
-      /** The Constant GRID_DATA_COMPONENT_LABEL. */
-      public final static GridDataFactory WIZARD_COMPONENT_LABEL_GRID_DATA = GridDataFactory.swtDefaults().align(
-            SWT.BEGINNING, SWT.CENTER);
-
-      /** The Constant GRID_DATA_SEPARATOR. */
-      public final static GridDataFactory WIZARD_SEPARATOR_GRID_DATA = GridDataFactory.swtDefaults().align(SWT.FILL,
-            SWT.CENTER).grab(true, false);
+      /** The Constant GRID_DATA_GRAB_H. */
+      public final static GridDataFactory GRID_DATA_GRAB_H = GridDataFactory.swtDefaults().grab(true, false);
 
       /** The image for required field decoration. */
       public final static Image FIELD_DECORATION_REQUIRED_IMAGE;
