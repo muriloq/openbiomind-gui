@@ -14,8 +14,6 @@ import openbiomind.gui.widgets.TextButtonComposite;
 import openbiomind.gui.widgets.WidgetHelper;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
-import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -126,7 +124,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       final Composite composite = new Composite(parent, SWT.NULL);
 
       // apply layout
-      GridLayoutFactory.swtDefaults().numColumns(1).applyTo(composite);
+      GUI.GRID_LAYOUT_WITH_MARGIN.applyTo(composite);
 
       // add components
       createProjectInformationComposite(composite);
@@ -135,16 +133,23 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       return composite;
    }
 
+   /**
+    * Creates the project information composite.
+    *
+    * @param parent the parent
+    *
+    * @return the composite
+    */
    private Composite createProjectInformationComposite(final Composite parent) {
       final Composite composite = new Composite(parent, SWT.NULL);
 
       // apply layout
-      GUI.WIZARD_GROUP_GRID_DATA.applyTo(composite);
-      GUI.WIZARD_GROUP_GRID_LAYOUT.numColumns(2).applyTo(composite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(composite);
+      GUI.GRID_LAYOUT_DEFAULT.copy().numColumns(2).applyTo(composite);
 
       // add components
-      WidgetHelper.createNewInformationLabel(composite, WizardMessages.AbstractTaskWizardPage_Detail_ExecutionDetails, 2);
-      WidgetHelper.createNewComponentLabel(composite, WizardMessages.AbstractTaskWizardPage_Label_ProjectName, WizardMessages.AbstractTaskWizardPage_Tip_ProjectName);
+      WidgetHelper.createNewFieldLabel(composite, WizardMessages.AbstractTaskWizardPage_Label_ProjectName,
+            WizardMessages.AbstractTaskWizardPage_Tip_ProjectName);
       this.executionNameText = createProjectNameText(composite);
 
       return composite;
@@ -162,12 +167,10 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       text.setToolTipText(WizardMessages.AbstractTaskWizardPage_Info_ProjectName);
 
       // apply layout
-      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.TOP).grab(true, false).span(1, 2).applyTo(text);
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(text);
 
       // create decorations
-      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
-            WizardMessages.AbstractTaskWizardPage_Info_ProjectName);
-      infoDecoration.show();
+      WidgetHelper.createNewInformationDecoration(text, WizardMessages.AbstractTaskWizardPage_Info_ProjectName).show();
 
       return text;
    }
@@ -216,7 +219,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       textButtonComposite.setToolTipText(CommonMessages.Info_LeaveBlankOrSpecifyFile);
 
       // apply layout
-      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
 
       // create decorations
       WidgetHelper.createNewInformationDecoration(textButtonComposite.getTextField(),

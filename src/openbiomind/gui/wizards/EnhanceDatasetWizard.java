@@ -38,9 +38,7 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
-      this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(WizardMessages.EnhanceDatasetWizard_Name, WizardMessages.EnhanceDatasetWizard_Description);
-
-      addPage(this.enhanceDatasetWizardPage);
+      addPage(getEnhanceDatasetWizardPage());
    }
 
    /*
@@ -48,13 +46,13 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
-      getEnhanceDatasetTaskData().setProjectName(this.enhanceDatasetWizardPage.getProjectName());
-      getEnhanceDatasetTaskData().setOriginalDataset(this.enhanceDatasetWizardPage.getOriginalDatasetFilePath());
-      getEnhanceDatasetTaskData().setEnhancedDataset(this.enhanceDatasetWizardPage.getEnhancedDatasetFilePath());
+      getEnhanceDatasetTaskData().setProjectName(getEnhanceDatasetWizardPage().getProjectName());
+      getEnhanceDatasetTaskData().setOriginalDataset(getEnhanceDatasetWizardPage().getOriginalDatasetFilePath());
+      getEnhanceDatasetTaskData().setEnhancedDataset(getEnhanceDatasetWizardPage().getEnhancedDatasetFilePath());
       getEnhanceDatasetTaskData().setOntologyDescriptionFile(
-            this.enhanceDatasetWizardPage.getOntologyDescriptionFilePath());
+            getEnhanceDatasetWizardPage().getOntologyDescriptionFilePath());
       getEnhanceDatasetTaskData().setOntologyAssociationFile(
-            this.enhanceDatasetWizardPage.getOntologyAssociationFilePath());
+            getEnhanceDatasetWizardPage().getOntologyAssociationFilePath());
    }
 
    /*
@@ -72,6 +70,20 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    private EnhanceDatasetTaskData getEnhanceDatasetTaskData() {
       return this.enhanceDatasetTaskData;
+   }
+
+   /**
+    * Gets the enhance dataset wizard page.
+    *
+    * @return the enhance dataset wizard page
+    */
+   private EnhanceDatasetWizardPage getEnhanceDatasetWizardPage() {
+      if (this.enhanceDatasetWizardPage == null) {
+         this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(WizardMessages.EnhanceDatasetWizard_Name,
+               WizardMessages.EnhanceDatasetWizard_Description);
+      }
+
+      return this.enhanceDatasetWizardPage;
    }
 
 }

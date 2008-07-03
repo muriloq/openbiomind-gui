@@ -1,7 +1,7 @@
 /**
- * EnhanceDatasetWizardPage1.java
+ * EnhanceDatasetWizardPage.java
  *
- * The file EnhanceDatasetWizardPage1.java.
+ * The file EnhanceDatasetWizardPage.java.
  *
  * $Id$
  */
@@ -15,8 +15,6 @@ import openbiomind.gui.widgets.TextButtonComposite;
 import openbiomind.gui.widgets.WidgetHelper;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
-import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -90,10 +88,12 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       final Composite composite = new Composite(parent, SWT.NULL);
 
       // apply layout
-      GridLayoutFactory.swtDefaults().numColumns(1).applyTo(composite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(composite);
+      GUI.GRID_LAYOUT_DEFAULT.applyTo(composite);
 
       // add components
       createRequiredGroup(composite);
+      WidgetHelper.createNewBlankLabel(composite);
       createOptionalGroup(composite);
 
       return composite;
@@ -111,23 +111,27 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       group.setText(WizardMessages.GroupLabel_RequiredArguments);
 
       // apply layout
-      GUI.WIZARD_GROUP_GRID_DATA.applyTo(group);
-      GUI.WIZARD_GROUP_GRID_LAYOUT.numColumns(this.NUM_COLUMN_IN_GROUP).applyTo(group);
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(group);
+      GUI.GRID_LAYOUT_WITH_MARGIN.copy().numColumns(NUM_COLUMN_IN_GROUP).applyTo(group);
 
       // add components
-      WidgetHelper.createNewInformationLabel(group, WizardMessages.Detail_OriginalDataset, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewComponentLabel(group, WizardMessages.Label_OriginalDataset, WizardMessages.Detail_OriginalDataset, true);
+      WidgetHelper.createNewFieldLabel(group, WizardMessages.Label_OriginalDataset,
+            WizardMessages.Detail_OriginalDataset, true);
       this.originalDatasetTBC = createOriginalDatasetTBC(group);
-      WidgetHelper.createNewSeparator(group, SWT.HORIZONTAL, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewInformationLabel(group, WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewComponentLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationFile, WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDataset, true);
+
+      WidgetHelper.createNewBlankLabel(group, NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewDetailsLabel(group, WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset,
+            this.NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewFieldLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationFile,
+            WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDataset, true);
       this.enhancedDatasetDestFileText = createEnhancedDatasetDestFileText(group);
-      WidgetHelper
-            .createNewComponentLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationDirectory, "Leave blank to use current directory or specify an existing directory"); //$NON-NLS-1$
+      WidgetHelper.createNewFieldLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationDirectory,
+            CommonMessages.Info_DestinationDirectory);
       this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(group);
-      WidgetHelper.createNewBlankComponentLabel(group);
+      WidgetHelper.createNewBlankLabel(group);
       this.useOriginalDatasetDir = createUseOriginalDatasetDir(group);
-      WidgetHelper.createNewComponentLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDatasetPath, WizardMessages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
+      WidgetHelper.createNewFieldLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDatasetPath,
+            WizardMessages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
       this.enhancedDatasetFilePathText = createEnhancedDatasetFilePathText(group);
 
       return group;
@@ -152,7 +156,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       textButtonComposite.setValid(false);
 
       // apply layout
-      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
@@ -197,13 +201,14 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       setValidEnhancedDatasetFileName(false);
 
       // apply layout
-      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(text);
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(text);
 
       // create decorations
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
             CommonMessages.Warn_FileAlreadyExists);
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, CommonMessages.Error_InvalidFile);
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
+            CommonMessages.Error_InvalidFile);
       errorDecoration.show();
 
       // apply listeners
@@ -252,7 +257,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       textButtonComposite.setToolTipText(CommonMessages.Info_DestinationDirectory);
 
       // apply layout
-      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, false).applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
 
       // create decorations
       final Text textField = textButtonComposite.getTextField();
@@ -307,8 +312,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       button.setText(WizardMessages.EnhanceDatasetWizardPage_UseOriginalDatasetDir);
 
       // apply layout
-      GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).align(SWT.FILL, SWT.CENTER).grab(true, false)
-            .applyTo(button);
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(button);
 
       // apply listeners
       button.addSelectionListener(new SelectionAdapter() {
@@ -340,10 +344,11 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       setValidEnhancedDatasetFileName(false);
 
       // apply layout
-      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(text);
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(text);
 
       // create decorations
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, CommonMessages.Error_InvalidFile);
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
+            CommonMessages.Error_InvalidFile);
       errorDecoration.show();
 
       // apply listeners
@@ -381,16 +386,15 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       group.setText(WizardMessages.GroupLabel_OptionalArguments);
 
       // apply layout
-      GUI.WIZARD_GROUP_GRID_DATA.applyTo(group);
-      GUI.WIZARD_GROUP_GRID_LAYOUT.numColumns(this.NUM_COLUMN_IN_GROUP).applyTo(group);
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(group);
+      GUI.GRID_LAYOUT_WITH_MARGIN.copy().numColumns(NUM_COLUMN_IN_GROUP).applyTo(group);
 
       // add components
-      WidgetHelper.createNewInformationLabel(group, WizardMessages.EnhanceDatasetWizardPage_Detail_OntologyDescription, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewComponentLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DescriptionFile, WizardMessages.EnhanceDatasetWizardPage_Detail_OntologyDescription);
+      WidgetHelper.createNewFieldLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_DescriptionFile,
+            WizardMessages.EnhanceDatasetWizardPage_Detail_OntologyDescription);
       this.ontologyDescriptionFileTBC = createNewOptionalFileTextButtonComposite(group);
-      WidgetHelper.createNewSeparator(group, SWT.HORIZONTAL, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewInformationLabel(group, WizardMessages.EnhanceDatasetWizardPage_Detail_AssociationDescription, this.NUM_COLUMN_IN_GROUP);
-      WidgetHelper.createNewComponentLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_AssociationFile, WizardMessages.EnhanceDatasetWizardPage_Detail_AssociationDescription);
+      WidgetHelper.createNewFieldLabel(group, WizardMessages.EnhanceDatasetWizardPage_Label_AssociationFile,
+            WizardMessages.EnhanceDatasetWizardPage_Detail_AssociationDescription);
       this.ontologyAssociationFileTBC = createNewOptionalFileTextButtonComposite(group);
 
       return group;

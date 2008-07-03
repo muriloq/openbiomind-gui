@@ -9,7 +9,6 @@ package openbiomind.gui.widgets;
 
 import openbiomind.gui.util.Constants;
 
-import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -45,14 +44,10 @@ public abstract class TextButtonComposite extends Composite implements Constants
       super(parent, SWT.NONE);
       init();
 
-      /*
-       * apply layout information
-       */
-      GUI.DEFAULT_GRID_LAYOUT.margins(0, 0).numColumns(2).applyTo(this);
+      // apply layout
+      GUI.GRID_LAYOUT_DEFAULT.copy().numColumns(2).margins(0, 0).applyTo(this);
 
-      /*
-       * add components
-       */
+      // add components
       this.textField = createTextField(this);
       this.actionButton = createActionButton(this);
    }
@@ -74,8 +69,8 @@ public abstract class TextButtonComposite extends Composite implements Constants
    private Text createTextField(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
 
-      // apply layout information
-      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(text);
+      // apply layout
+      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(text);
 
       return text;
    }
@@ -102,8 +97,10 @@ public abstract class TextButtonComposite extends Composite implements Constants
       final Button button = new Button(this, SWT.PUSH);
       button.setText(Resources.BROWSE);
 
-      GridDataFactory.swtDefaults().applyTo(button);
+      // apply layout
+      GUI.GRID_DATA_DEFAULT.applyTo(button);
 
+      // apply listeners
       button.addSelectionListener(new SelectionAdapter() {
 
          @Override
