@@ -178,7 +178,7 @@ public interface Constants {
    public final class GUI {
 
       /** The Constant MARGIN_WIDTH. */
-      public static final int MARGIN_WIDTH = 15;
+      public static final int MARGIN_WIDTH = 10;
 
       /** The Constant MARGIN_HEIGHT. */
       public static final int MARGIN_HEIGHT = 10;

@@ -17,6 +17,8 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
@@ -40,8 +42,8 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    /** The control container. */
    private Composite controlContainer = null;
 
-   /** The execution name text. */
-   private Text executionNameText = null;
+   /** The project name text. */
+   private Text projectNameText = null;
 
    /** The file dialog. */
    private FileDialog fileDialog = null;
@@ -112,76 +114,73 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    }
 
    /**
-    * Creates the arguments composite.
+    * Creates the base composite.
     *
     * @param parent the parent
     *
     * @return the composite
     */
-   protected abstract Composite createArgumentsComposite(final Composite parent);
-
-   private Composite createBaseComposite(final Composite parent) {
-      final Composite composite = new Composite(parent, SWT.NULL);
-
-      // apply layout
-      GUI.GRID_LAYOUT_WITH_MARGIN.applyTo(composite);
-
-      // add components
-      createProjectInformationComposite(composite);
-      createArgumentsComposite(composite);
-
-      return composite;
-   }
+   protected abstract Composite createBaseComposite(final Composite parent);
 
    /**
-    * Creates the project information composite.
+    * Adds the project information fields.
     *
     * @param parent the parent
-    *
-    * @return the composite
+    * @param numberOfColumns the number of columns
     */
-   private Composite createProjectInformationComposite(final Composite parent) {
-      final Composite composite = new Composite(parent, SWT.NULL);
-
-      // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(composite);
-      GUI.GRID_LAYOUT_DEFAULT.copy().numColumns(2).applyTo(composite);
-
-      // add components
-      WidgetHelper.createNewFieldLabel(composite, WizardMessages.AbstractTaskWizardPage_Label_ProjectName,
+   protected void addProjectInformationFields(final Composite parent, final int numberOfColumns) {
+      // Execution Name (optional)
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.AbstractTaskWizardPage_Label_ProjectName,
             WizardMessages.AbstractTaskWizardPage_Tip_ProjectName);
-      this.executionNameText = createProjectNameText(composite);
-
-      return composite;
+      this.projectNameText = createProjectNameText(parent, numberOfColumns - 1);
    }
 
    /**
     * Creates the project name text.
     *
     * @param parent the parent
+    * @param numberOfColumns the number of columns
     *
     * @return the text
     */
-   private Text createProjectNameText(final Composite parent) {
+   private Text createProjectNameText(final Composite parent, final int numberOfColumns) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
       text.setToolTipText(WizardMessages.AbstractTaskWizardPage_Info_ProjectName);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(text);
+      GUI.GRID_DATA_DEFAULT.copy().span(numberOfColumns, 1).applyTo(text);
 
       // create decorations
-      WidgetHelper.createNewInformationDecoration(text, WizardMessages.AbstractTaskWizardPage_Info_ProjectName).show();
+      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
+            WizardMessages.AbstractTaskWizardPage_Info_ProjectName);
+       infoDecoration.hide();
+
+      // apply listeners
+      text.addFocusListener(new FocusListener() {
+
+         @Override
+         public void focusGained(final FocusEvent event) {
+            infoDecoration.show();
+            infoDecoration.showHoverText(infoDecoration.getDescriptionText());
+         }
+
+         @Override
+         public void focusLost(final FocusEvent event) {
+            infoDecoration.hide();
+         }
+
+      });
 
       return text;
    }
 
    /**
-    * Gets the execution name text.
+    * Gets the project name text.
     *
-    * @return the execution name text
+    * @return the project name text
     */
-   private Text getExecutionNameText() {
-      return this.executionNameText;
+   protected Text getProjectNameText() {
+      return this.projectNameText;
    }
 
    /**
@@ -190,13 +189,26 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @return the project name
     */
    public String getProjectName() {
-      final String text = getExecutionNameText().getText();
+      final String text = getProjectNameText().getText();
       final String currentTimeMillis = Long.toString(System.currentTimeMillis());
       if (Utility.isEmpty(text)) {
          return currentTimeMillis;
       } else {
          return text + SPACE + currentTimeMillis;
       }
+   }
+
+   /**
+    * Adds the section.
+    *
+    * @param parent the parent
+    * @param text the text
+    * @param numOfColumns the num of columns
+    */
+   protected void addSection(final Composite parent, final String text, final int numOfColumns) {
+      WidgetHelper.createNewBlankLabel(parent, numOfColumns);
+      WidgetHelper.createNewSectionLabel(parent, text, numOfColumns);
+      WidgetHelper.createNewSeparatorH(parent, numOfColumns);
    }
 
    /**
@@ -222,21 +234,38 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
 
       // create decorations
-      WidgetHelper.createNewInformationDecoration(textButtonComposite.getTextField(),
-            CommonMessages.Info_LeaveBlankOrSpecifyFile).show();
+      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textButtonComposite
+            .getTextField(), CommonMessages.Info_LeaveBlankOrSpecifyFile);
+      infoDecoration.hide();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
             CommonMessages.Error_FileNotExist);
       errorDecoration.hide();
 
       // apply listeners
-      textButtonComposite.addModifyListener(new ModifyListener() {
+      textButtonComposite.addFocusListenerOnTextField(new FocusListener() {
 
          @Override
-         public void modifyText(final ModifyEvent e) {
+         public void focusGained(final FocusEvent event) {
+            infoDecoration.show();
+            infoDecoration.showHoverText(infoDecoration.getDescriptionText());
+         }
+
+         @Override
+         public void focusLost(final FocusEvent event) {
+            infoDecoration.hide();
+         }
+
+      });
+
+      textButtonComposite.addModifyListenerOnTextField(new ModifyListener() {
+
+         @Override
+         public void modifyText(final ModifyEvent event) {
             textButtonComposite.setValid(Utility.isEmptyOrExistingFile(textButtonComposite.getText()));
             if (textButtonComposite.isValid()) {
                errorDecoration.hide();
             } else {
+               infoDecoration.hideHover();
                errorDecoration.show();
                errorDecoration.showHoverText(errorDecoration.getDescriptionText());
             }
@@ -279,5 +308,14 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * Validate page.
     */
    protected abstract void validatePage();
+
+   /**
+    * Checks if is project information valid.
+    *
+    * @return true, if is project information valid
+    */
+   protected boolean isProjectInformationValid() {
+      return true;
+   }
 
 }

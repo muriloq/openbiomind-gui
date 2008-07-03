@@ -10,6 +10,7 @@ package openbiomind.gui.widgets;
 import openbiomind.gui.util.Constants;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -76,14 +77,25 @@ public abstract class TextButtonComposite extends Composite implements Constants
    }
 
    /**
-    * Adds the modify listener.
+    * Adds the modify listener on text field.
     *
     * @param listener the listener
     *
     * @see org.eclipse.swt.widgets.Text#addModifyListener(org.eclipse.swt.events.ModifyListener)
     */
-   public void addModifyListener(final ModifyListener listener) {
-      this.textField.addModifyListener(listener);
+   public void addModifyListenerOnTextField(final ModifyListener listener) {
+      getTextField().addModifyListener(listener);
+   }
+
+   /**
+    * Adds the focus listener on text field.
+    *
+    * @param listener the listener
+    *
+    * @see org.eclipse.swt.widgets.Control#addFocusListener(org.eclipse.swt.events.FocusListener)
+    */
+   public void addFocusListenerOnTextField(final FocusListener listener) {
+      getTextField().addFocusListener(listener);
    }
 
    /**
@@ -108,6 +120,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
             final String absolutePath = buttonSelected();
             if (absolutePath != null) {
                setText(absolutePath);
+               getTextField().setFocus();
             }
          }
 
