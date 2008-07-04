@@ -117,13 +117,14 @@ public final class Utility implements Constants {
    }
 
    /**
-    * Extract directory name.
+    * Extract directory. If the given <code>pathName</code> is a possible directory then it is returned. If it is a
+    * file, then its parent is returned.
     *
     * @param pathName the path name
     *
     * @return the string
     */
-   public static String extractDirectoryName(final String pathName) {
+   public static String extractDirectory(final String pathName) {
       if (isEmpty(pathName)) {
          return EMPTY;
       }
@@ -132,6 +133,20 @@ public final class Utility implements Constants {
       } else {
          return pathName;
       }
+   }
+
+   /**
+    * Extract name of the fire of the directory from the path.
+    *
+    * @param pathName the path name
+    *
+    * @return the string
+    */
+   public static String extractName(final String pathName) {
+      if (isEmpty(pathName)) {
+         return EMPTY;
+      }
+      return new File(pathName).getName();
    }
 
    /**

@@ -160,9 +160,14 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
       if (Utility.isEmpty(filepath)) {
          return null;
       } else {
+         final TaskDataFile taskDataFile = new TaskDataFile();
+         taskDataFile.setPath(filepath);
+         taskDataFile.setLinked(true);
+         taskDataFile.setAutoOpen(autoOpen);
+
          final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
-         final TaskDataFile taskDataFile = new TaskDataFile(filepath, autoOpen);
          taskDataFolder.add(taskDataFile);
+
          return taskDataFolder;
       }
    }
