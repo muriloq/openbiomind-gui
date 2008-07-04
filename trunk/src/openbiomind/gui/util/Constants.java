@@ -66,6 +66,12 @@ public interface Constants {
       /** The Browse. */
       public static final String BROWSE = JFaceResources.getString("openBrowse"); //$NON-NLS-1$
 
+      /** The OpenBiomind homepage. */
+      public static final String OPENBIOMIND_HOMEPAGE = "http://code.google.com/p/openbiomind/";
+
+      /** The OpenBiomind-GUI homepage. */
+      public static final String OPENBIOMIND_GUI_HOMEPAGE = "http://code.google.com/p/openbiomind-gui/";
+
       /** The Constant specifying the JAR file extension (value = <code>.jar</code>). */
       public static final String JAR_EXTENSION = ".jar"; //$NON-NLS-1$
 
