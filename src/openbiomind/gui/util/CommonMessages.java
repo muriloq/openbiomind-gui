@@ -51,6 +51,9 @@ public class CommonMessages extends NLS {
    /** The Startup message. */
    public static String Startup;
 
+   /** The Error unable to open. */
+   public static String Error_UnableToOpen;
+
    /** The Warning directory already exist. */
    public static String Warn_DirAlreadyExist;
 

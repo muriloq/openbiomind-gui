@@ -31,7 +31,7 @@
          </property>
          <property
                name="aboutText"
-               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0A;Version: 0.0.0.20080627&#x0A;Development build&#x0A;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
+               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0A;Version: 0.0.2.20080704&#x0A;Development build&#x0A;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
          </property>
          <property
                name="aboutImage"
@@ -109,6 +109,22 @@
             categoryId="openbiomind.gui.commands.category.Tasks"
             id="openbiomind.gui.commands.CompletePipeline"
             name="Complete Pipeline">
+      </command>
+      <category
+            id="openbiomind.gui.commands.category.MenuHyperlinks"
+            name="Menu Hyperlinks">
+      </category>
+      <command
+            categoryId="openbiomind.gui.commands.category.MenuHyperlinks"
+            defaultHandler="openbiomind.gui.handlers.VisitOpenBiomindHandler"
+            id="openbiomind.gui.commands.VisitOpenBiomind"
+            name="Visit OpenBiomind">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.MenuHyperlinks"
+            defaultHandler="openbiomind.gui.handlers.VisitOpenBiomindGUIHandler"
+            id="openbiomind.gui.commands.VisitOpenBiomindGUI"
+            name="Visit OpenBiomind-GUI">
       </command>
    </extension>
    <extension
@@ -189,7 +205,8 @@
                   style="push">
             </command>
             <separator
-                  name="openbiomind.gui.menus.file.separator1">
+                  name="openbiomind.gui.menus.file.separator1"
+                  visible="true">
             </separator>
             <command
                   commandId="org.eclipse.ui.file.close"
@@ -204,7 +221,8 @@
                   style="push">
             </command>
             <separator
-                  name="openbiomind.gui.menus.file.separator2">
+                  name="openbiomind.gui.menus.file.separator2"
+                  visible="true">
             </separator>
             <command
                   commandId="org.eclipse.ui.file.exit"
@@ -310,6 +328,24 @@
                id="openbiomind.gui.menus.Help"
                label="Help"
                mnemonic="H">
+            <command
+                  commandId="openbiomind.gui.commands.VisitOpenBiomind"
+                  id="openbiomind.gui.menus.help.VisitOpenBiomind"
+                  mnemonic="B"
+                  style="push"
+                  tooltip="Visit OpenBiomind Homepage">
+            </command>
+            <command
+                  commandId="openbiomind.gui.commands.VisitOpenBiomindGUI"
+                  id="openbiomind.gui.menus.help.VisitOpenBiomindGUI"
+                  mnemonic="G"
+                  style="push"
+                  tooltip="Visit OpenBiomind-GUI Homepage">
+            </command>
+            <separator
+                  name="openbiomind.gui.menus.help.separator1"
+                  visible="true">
+            </separator>
             <command
                   commandId="org.eclipse.ui.help.aboutAction"
                   id="openbiomind.gui.menus.help.About"
