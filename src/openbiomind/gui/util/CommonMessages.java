@@ -31,7 +31,7 @@ public class CommonMessages extends NLS {
    public static String Error_FixToContinue;
 
    /** The Error invalid directory. */
-   public static String Error_InvalidDirectory;
+   public static String Error_InvalidDir;
 
    /** The Error invalid file. */
    public static String Error_InvalidFile;
@@ -40,7 +40,10 @@ public class CommonMessages extends NLS {
    public static String Error_Preference;
 
    /** The destination directory information. */
-   public static String Info_DestinationDirectory;
+   public static String Info_DestinationDir;
+
+   /** The leave blank information. */
+   public static String Info_LeaveBlank;
 
    /** The leave blank or specify file information. */
    public static String Info_LeaveBlankOrSpecifyFile;
@@ -48,8 +51,11 @@ public class CommonMessages extends NLS {
    /** The Startup message. */
    public static String Startup;
 
+   /** The Warning directory already exist. */
+   public static String Warn_DirAlreadyExist;
+
    /** The Warning directory not exist. */
-   public static String Warn_DirectoryNotExist;
+   public static String Warn_DirNotExist;
 
    /** The Warning file already exists. */
    public static String Warn_FileAlreadyExists;

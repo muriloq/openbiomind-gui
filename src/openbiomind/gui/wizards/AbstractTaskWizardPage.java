@@ -21,6 +21,8 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
@@ -96,6 +98,20 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    }
 
    /**
+    * Creates the base composite.
+    *
+    * @param parent the parent
+    *
+    * @return the composite
+    */
+   protected abstract Composite createBaseComposite(final Composite parent);
+
+   /**
+    * Validate page.
+    */
+   protected abstract void validatePage();
+
+   /**
     * Gets the parent.
     *
     * @return the parent
@@ -114,15 +130,6 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    }
 
    /**
-    * Creates the base composite.
-    *
-    * @param parent the parent
-    *
-    * @return the composite
-    */
-   protected abstract Composite createBaseComposite(final Composite parent);
-
-   /**
     * Adds the project information fields.
     *
     * @param parent the parent
@@ -133,6 +140,15 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.AbstractTaskWizardPage_Label_ProjectName,
             WizardMessages.AbstractTaskWizardPage_Tip_ProjectName);
       this.projectNameText = createProjectNameText(parent, numberOfColumns - 1);
+   }
+
+   /**
+    * Checks if is project information valid.
+    *
+    * @return true, if is project information valid
+    */
+   protected boolean isProjectInformationValid() {
+      return true;
    }
 
    /**
@@ -153,7 +169,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
             WizardMessages.AbstractTaskWizardPage_Info_ProjectName);
-       infoDecoration.hide();
+      infoDecoration.hide();
 
       // apply listeners
       text.addFocusListener(new FocusListener() {
@@ -171,16 +187,9 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
       });
 
-      return text;
-   }
+      text.setFocus();
 
-   /**
-    * Gets the project name text.
-    *
-    * @return the project name text
-    */
-   protected Text getProjectNameText() {
-      return this.projectNameText;
+      return text;
    }
 
    /**
@@ -196,6 +205,15 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       } else {
          return text + SPACE + currentTimeMillis;
       }
+   }
+
+   /**
+    * Gets the project name text.
+    *
+    * @return the project name text
+    */
+   protected Text getProjectNameText() {
+      return this.projectNameText;
    }
 
    /**
@@ -279,6 +297,65 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    }
 
    /**
+    * Creates the new number only text.
+    *
+    * @param parent the parent
+    *
+    * @return the text
+    */
+   protected Text createNewNumberOnlyText(final Composite parent) {
+      final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
+      text.setToolTipText(WizardMessages.AbstractTaskWizard_LeaveBlank_Number);
+
+      // apply layout
+      GUI.GRID_DATA_DEFAULT.applyTo(text);
+
+      // create decorations
+      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
+            WizardMessages.AbstractTaskWizard_LeaveBlank_Number);
+      infoDecoration.hide();
+
+      // apply listeners
+      text.addVerifyListener(new VerifyListener() {
+
+         @Override
+         public void verifyText(final VerifyEvent event) {
+            switch (event.keyCode) {
+               case SWT.BS: // Backspace
+               case SWT.DEL: // Delete
+               case SWT.HOME: // Home
+               case SWT.END: // End
+               case SWT.ARROW_LEFT: // Left arrow
+               case SWT.ARROW_RIGHT: // Right arrow
+                  return;
+            }
+
+            if (!Character.isDigit(event.character)) {
+               event.doit = false;
+            }
+         }
+
+      });
+
+      text.addFocusListener(new FocusListener() {
+
+         @Override
+         public void focusGained(final FocusEvent event) {
+            infoDecoration.show();
+            infoDecoration.showHoverText(infoDecoration.getDescriptionText());
+         }
+
+         @Override
+         public void focusLost(final FocusEvent event) {
+            infoDecoration.hide();
+         }
+
+      });
+
+      return text;
+   }
+
+   /**
     * Gets the directory dialog.
     *
     * @return the directoryDialog
@@ -305,17 +382,49 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    }
 
    /**
-    * Validate page.
+    * Show error or warning.
+    *
+    * @param errorDecoration the error decoration
+    * @param warningDecoration the warning decoration
+    * @param inError the in error
+    * @param inWarning the in warning
+    * @param infoDecoration the info decoration
     */
-   protected abstract void validatePage();
+   protected void showErrorOrWarning(final boolean inError, final ControlDecoration errorDecoration,
+         final boolean inWarning, final ControlDecoration warningDecoration, final ControlDecoration infoDecoration) {
+      boolean shown = false;
+      if (inError) {
+         errorDecoration.show();
+         errorDecoration.showHoverText(errorDecoration.getDescriptionText());
+         shown = true;
+      } else {
+         errorDecoration.hide();
+
+         if (inWarning) {
+            warningDecoration.show();
+            warningDecoration.showHoverText(warningDecoration.getDescriptionText());
+            shown = true;
+         } else {
+            warningDecoration.hide();
+         }
+      }
+
+      if (shown && infoDecoration != null) {
+         infoDecoration.hideHover();
+      }
+   }
 
    /**
-    * Checks if is project information valid.
+    * Show error or warning.
     *
-    * @return true, if is project information valid
+    * @param inError the in error
+    * @param errorDecoration the error decoration
+    * @param inWarning the in warning
+    * @param warningDecoration the warning decoration
     */
-   protected boolean isProjectInformationValid() {
-      return true;
+   protected void showErrorOrWarning(final boolean inError, final ControlDecoration errorDecoration,
+         final boolean inWarning, final ControlDecoration warningDecoration) {
+      showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration, null);
    }
 
 }

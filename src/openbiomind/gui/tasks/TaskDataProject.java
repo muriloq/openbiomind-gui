@@ -27,31 +27,25 @@ public class TaskDataProject {
    /** The task data folder set. */
    private Set<TaskDataFolder> taskDataFolderSet = null;
 
+   /** The task data file set. */
+   private Set<TaskDataFile> taskDataFileSet = null;
+
    /**
     * Instantiates a new task data project.
     */
    public TaskDataProject() {
-      this(EMPTY, null);
+      this(EMPTY);
    }
 
    /**
     * Instantiates a new task data project.
     *
-    * @param name the name
+    * @param name the name of the project
     */
    public TaskDataProject(final String name) {
-      this(name, null);
-   }
-
-   /**
-    * The constructor.
-    *
-    * @param name the name
-    * @param taskDataFolderSet the task data folder set
-    */
-   public TaskDataProject(final String name, final Set<TaskDataFolder> taskDataFolderSet) {
       setName(name);
-      setTaskDataFolderSet(taskDataFolderSet);
+      setTaskDataFolderSet(null);
+      setTaskDataFileSet(null);
    }
 
    /**
@@ -77,6 +71,8 @@ public class TaskDataProject {
    }
 
    /**
+    * Gets the task data folder set.
+    *
     * @return the taskDataFolderSet
     */
    public Set<TaskDataFolder> getTaskDataFolderSet() {
@@ -97,6 +93,28 @@ public class TaskDataProject {
    }
 
    /**
+    * Gets the task data file set.
+    *
+    * @return the task data file set
+    */
+   public Set<TaskDataFile> getTaskDataFileSet() {
+      return this.taskDataFileSet;
+   }
+
+   /**
+    * Sets the task data file set.
+    *
+    * @param taskDataFileSet the task data file set
+    */
+   public void setTaskDataFileSet(final Set<TaskDataFile> taskDataFileSet) {
+      if (taskDataFileSet != null) {
+         this.taskDataFileSet = taskDataFileSet;
+      } else {
+         this.taskDataFileSet = new HashSet<TaskDataFile>();
+      }
+   }
+
+   /**
     * Adds the task data folder.
     *
     * @param taskDataFolder the task data folder
@@ -113,18 +131,29 @@ public class TaskDataProject {
       }
    }
 
+   /**
+    * Adds the task data file.
+    *
+    * @param taskDataFile the task data file
+    *
+    * @return true, if add is successful
+    *
+    * @see java.util.Set#add(java.lang.Object)
+    */
+   public boolean add(final TaskDataFile taskDataFile) {
+      if (taskDataFile != null) {
+         return getTaskDataFileSet().add(taskDataFile);
+      } else {
+         return false;
+      }
+   }
+
    /*
     * @see java.lang.Object#toString()
     */
    @Override
    public String toString() {
-      final StringBuilder stringBuilder = new StringBuilder(getName());
-      final String separator = "\n\t - "; //$NON-NLS-1$
-      Set<TaskDataFolder> folderSet = getTaskDataFolderSet();
-      for (final TaskDataFolder taskDataFolder : folderSet) {
-         stringBuilder.append(separator + taskDataFolder);
-      }
-      return stringBuilder.toString();
+      return getName();
    }
 
    /*
@@ -135,7 +164,8 @@ public class TaskDataProject {
       if (otherObject != null && otherObject instanceof TaskDataProject) {
          final TaskDataProject otherTaskDataProject = (TaskDataProject) otherObject;
          return (getName().equals(otherTaskDataProject.getName())
-               && getTaskDataFolderSet().equals(otherTaskDataProject.getTaskDataFolderSet()));
+               && getTaskDataFolderSet().equals(otherTaskDataProject.getTaskDataFolderSet()) && getTaskDataFileSet()
+               .equals(otherTaskDataProject.getTaskDataFileSet()));
       }
 
       return false;

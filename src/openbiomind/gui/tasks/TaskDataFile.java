@@ -18,8 +18,14 @@ import static openbiomind.gui.util.Constants.EMPTY;
  */
 public class TaskDataFile {
 
-   /** The pathname. */
-   private String pathname = null;
+   /** The name. */
+   private String name = null;
+
+   /** The path. */
+   private String path = null;
+
+   /** The linked. */
+   private boolean linked = false;
 
    /** The auto open. */
    private boolean autoOpen = false;
@@ -28,49 +34,81 @@ public class TaskDataFile {
     * Instantiates a new task data file.
     */
    public TaskDataFile() {
-      this(EMPTY, false);
+      this(EMPTY);
    }
 
    /**
-    * Instantiates a new task data file and sets autoOpen to <code>false</code>.
+    * Instantiates a new task data file.
     *
-    * @param pathname the pathname
+    * @param name the name
     */
-   public TaskDataFile(final String pathname) {
-      this(pathname, false);
+   public TaskDataFile(final String name) {
+      setName(name);
+      setPath(EMPTY);
+      setAutoOpen(false);
+      setLinked(false);
    }
 
    /**
-    * The constructor.
+    * Gets the name.
     *
-    * @param pathname the pathname
-    * @param autoOpen the auto open
+    * @return the name
     */
-   public TaskDataFile(final String pathname, final boolean autoOpen) {
-      setPathname(pathname);
-      this.autoOpen = autoOpen;
+   public String getName() {
+      return this.name;
    }
 
    /**
-    * Gets the pathname.
+    * Sets the name.
     *
-    * @return the pathname
+    * @param name the new name
     */
-   public String getPathname() {
-      return this.pathname;
-   }
-
-   /**
-    * Sets the pathname.
-    *
-    * @param pathname the pathname to set
-    */
-   public void setPathname(final String pathname) {
-      if (pathname != null) {
-         this.pathname = pathname;
+   public void setName(final String name) {
+      if (name != null) {
+         this.name = name;
       } else {
-         this.pathname = EMPTY;
+         this.name = EMPTY;
       }
+   }
+
+   /**
+    * Gets the path.
+    *
+    * @return the path
+    */
+   public String getPath() {
+      return this.path;
+   }
+
+   /**
+    * Sets the path
+    *
+    * @param path the path to set
+    */
+   public void setPath(final String path) {
+      if (path != null) {
+         this.path = path;
+      } else {
+         this.path = EMPTY;
+      }
+   }
+
+   /**
+    * Checks if the file must be linked.
+    *
+    * @return true, if is linked
+    */
+   public boolean isLinked() {
+      return this.linked;
+   }
+
+   /**
+    * Sets if the file must be linked.
+    *
+    * @param linked the new linked
+    */
+   public void setLinked(final boolean linked) {
+      this.linked = linked;
    }
 
    /**
@@ -96,7 +134,7 @@ public class TaskDataFile {
     */
    @Override
    public String toString() {
-      return getPathname();
+      return getName();
    }
 
    /*
@@ -105,7 +143,8 @@ public class TaskDataFile {
    @Override
    public boolean equals(final Object otherObject) {
       if (otherObject != null && otherObject instanceof TaskDataFile) {
-         return getPathname().equals(((TaskDataFile) otherObject).getPathname());
+         final TaskDataFile otherTaskDataFile = (TaskDataFile) otherObject;
+         return getName().equals(otherTaskDataFile.getName()) && getPath().equals(otherTaskDataFile.getPath());
       }
 
       return false;

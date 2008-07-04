@@ -164,7 +164,7 @@ public interface Constants {
          ERROR = defaultDisplay.getSystemColor(SWT.COLOR_RED);
          WARN = defaultDisplay.getSystemColor(SWT.COLOR_DARK_YELLOW);
          INFO = defaultDisplay.getSystemColor(SWT.COLOR_GREEN);
-         DEBUG = defaultDisplay.getSystemColor(SWT.COLOR_GRAY);
+         DEBUG = defaultDisplay.getSystemColor(SWT.COLOR_DARK_GRAY);
          TEXT_NORMAL = defaultDisplay.getSystemColor(SWT.COLOR_LIST_BACKGROUND);
          TEXT_ERROR = defaultDisplay.getSystemColor(SWT.COLOR_RED);
          TEXT_WARN = defaultDisplay.getSystemColor(SWT.COLOR_YELLOW);

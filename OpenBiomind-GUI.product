@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.4"?>
 
-<product name="OpenBiomind-GUI" id="openbiomind.gui.product" application="openbiomind.gui.application" version="0.0.1.20080701" useFeatures="false">
+<product name="OpenBiomind-GUI" id="openbiomind.gui.product" application="openbiomind.gui.application" version="0.0.2.20080704" useFeatures="false">
 
    <aboutInfo>
       <image path="/OpenBiomind-GUI/icons/alt_about.gif"/>

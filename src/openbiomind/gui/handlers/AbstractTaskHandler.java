@@ -8,8 +8,8 @@
 package openbiomind.gui.handlers;
 
 import openbiomind.gui.preferences.Preference;
-import openbiomind.gui.util.Constants;
 import openbiomind.gui.util.CommonMessages;
+import openbiomind.gui.util.Constants;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.jface.dialogs.MessageDialog;

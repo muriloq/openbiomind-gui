@@ -24,6 +24,9 @@ public class WizardMessages extends NLS {
    /** The Abstract task wizard executing task. */
    public static String AbstractTaskWizard_ExecutingTask;
 
+   /** The Abstract task wizard leave blank or specify a number. */
+   public static String AbstractTaskWizard_LeaveBlank_Number;
+
    /** The Abstract task wizard loading files. */
    public static String AbstractTaskWizard_LoadingFiles;
 
@@ -42,23 +45,56 @@ public class WizardMessages extends NLS {
    /** The Abstract task wizard page tip project name. */
    public static String AbstractTaskWizardPage_Tip_ProjectName;
 
+   /** The Dataset transformer wizard description. */
+   public static String DatasetTransformerWizard_Desc;
+
+   /** The Dataset transformer wizard name. */
+   public static String DatasetTransformerWizard_Name;
+
+   /** The Dataset transformer wizard page detail number of selected features. */
+   public static String DatasetTransformerWizardPage_Detail_NumOfSelectedFeatures;
+
+   /** The Dataset transformer wizard page detail target category. */
+   public static String DatasetTransformerWizardPage_Detail_TargetCategory;
+
+   /** The Dataset transformer wizard page label feature selection method. */
+   public static String DatasetTransformerWizardPage_Label_FeatureSelectionMethod;
+
+   /** The Dataset transformer wizard page label number of folds. */
+   public static String DatasetTransformerWizardPage_Label_NumOfFolds;
+
+   /** The Dataset transformer wizard page label number of selected features. */
+   public static String DatasetTransformerWizardPage_Label_NumOfSelectedFeatures;
+
+   /** The Dataset transformer wizard page label target category. */
+   public static String DatasetTransformerWizardPage_Label_TargetCategory;
+
+   /** The Dataset transformer wizard page label test dataset. */
+   public static String DatasetTransformerWizardPage_Label_TestDataset;
+
    /** The Detail original dataset. */
    public static String Detail_OriginalDataset;
 
+   /** The Detail output directory. */
+   public static String Detail_OutputDir;
+
+   /** The Detail select one of these. */
+   public static String Detail_SelectOne;
+
    /** The Enhance dataset wizard description. */
-   public static String EnhanceDatasetWizard_Description;
+   public static String EnhanceDatasetWizard_Desc;
 
    /** The Enhance dataset wizard name. */
    public static String EnhanceDatasetWizard_Name;
 
    /** The Enhance dataset wizard page detail association description. */
-   public static String EnhanceDatasetWizardPage_Detail_AssociationDescription;
+   public static String EnhanceDatasetWizardPage_Detail_AssociationDesc;
 
    /** The Enhance dataset wizard page detail enhanced dataset. */
    public static String EnhanceDatasetWizardPage_Detail_EnhancedDataset;
 
    /** The Enhance dataset wizard page detail ontology description. */
-   public static String EnhanceDatasetWizardPage_Detail_OntologyDescription;
+   public static String EnhanceDatasetWizardPage_Detail_OntologyDesc;
 
    /** The Enhance dataset wizard page label association file. */
    public static String EnhanceDatasetWizardPage_Label_AssociationFile;
@@ -67,13 +103,10 @@ public class WizardMessages extends NLS {
    public static String EnhanceDatasetWizardPage_Label_DescriptionFile;
 
    /** The Enhance dataset wizard page label destination directory. */
-   public static String EnhanceDatasetWizardPage_Label_DestinationDirectory;
+   public static String EnhanceDatasetWizardPage_Label_DestinationDir;
 
    /** The Enhance dataset wizard page label destination file. */
    public static String EnhanceDatasetWizardPage_Label_DestinationFile;
-
-   /** The Enhance dataset wizard page label enhanced dataset. */
-   public static String EnhanceDatasetWizardPage_Label_EnhancedDataset;
 
    /** The Enhance dataset wizard page label enhanced dataset path. */
    public static String EnhanceDatasetWizardPage_Label_EnhancedDatasetPath;
@@ -81,7 +114,7 @@ public class WizardMessages extends NLS {
    /** The Enhance dataset wizard page tip enhanced dataset. */
    public static String EnhanceDatasetWizardPage_Tip_EnhancedDataset;
 
-   /** The Enhance dataset wizard page use original dataset dir. */
+   /** The Enhance dataset wizard page use original dataset directory. */
    public static String EnhanceDatasetWizardPage_UseOriginalDatasetDir;
 
    /** The Group label optional arguments. */
@@ -90,8 +123,14 @@ public class WizardMessages extends NLS {
    /** The Group label required arguments. */
    public static String GroupLabel_RequiredArguments;
 
+   /** The Label none. */
+   public static String Label_None;
+
    /** The label original dataset. */
    public static String Label_OriginalDataset;
+
+   /** The label output dataset. */
+   public static String Label_OutputDataset;
 
    /*
     * Initialize the messages

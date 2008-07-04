@@ -80,7 +80,7 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
    private EnhanceDatasetWizardPage getEnhanceDatasetWizardPage() {
       if (this.enhanceDatasetWizardPage == null) {
          this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(WizardMessages.EnhanceDatasetWizard_Name,
-               WizardMessages.EnhanceDatasetWizard_Description);
+               WizardMessages.EnhanceDatasetWizard_Desc);
       }
 
       return this.enhanceDatasetWizardPage;

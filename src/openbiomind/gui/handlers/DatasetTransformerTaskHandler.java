@@ -7,10 +7,12 @@
  */
 package openbiomind.gui.handlers;
 
+import openbiomind.gui.wizards.DatasetTransformerWizard;
+
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
@@ -27,8 +29,14 @@ public class DatasetTransformerTaskHandler extends AbstractTaskHandler {
     */
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {
-      final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-      MessageDialog.openInformation(window.getShell(), "OpenBiomind-GUI", "Dataset Transformer Task");
+      final Shell shell = HandlerUtil.getActiveWorkbenchWindowChecked(event).getShell();
+
+      if (validate(shell)) {
+         final DatasetTransformerWizard datasetTransformerWizard = new DatasetTransformerWizard();
+         final WizardDialog wizardDialog = new WizardDialog(shell, datasetTransformerWizard);
+         wizardDialog.open();
+      }
+
       return null;
    }
 

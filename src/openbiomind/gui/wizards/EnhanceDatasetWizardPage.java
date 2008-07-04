@@ -119,10 +119,10 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       WidgetHelper.createNewDetailsLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset,
             NUM_COLUMN_IN_GROUP);
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationFile,
-            WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDataset, true);
+            WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset, true);
       this.enhancedDatasetDestFileText = createEnhancedDatasetDestFileText(parent);
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationDirectory,
-            CommonMessages.Info_DestinationDirectory);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationDir,
+            CommonMessages.Info_DestinationDir);
       this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(parent);
       WidgetHelper.createNewBlankLabel(parent);
       this.useOriginalDatasetDirButton = createUseOriginalDatasetDirButton(parent);
@@ -192,7 +192,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private Text createEnhancedDatasetDestFileText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDataset);
+      text.setToolTipText(WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset);
       setValidEnhancedDatasetFileName(false);
 
       // apply layout
@@ -244,7 +244,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       };
       textButtonComposite.setText(Properties.CURRENT_DIRECTORY);
       textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText(CommonMessages.Info_DestinationDirectory);
+      textButtonComposite.setToolTipText(CommonMessages.Info_DestinationDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
@@ -252,13 +252,13 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       // create decorations
       final Text textField = textButtonComposite.getTextField();
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textField,
-            CommonMessages.Info_DestinationDirectory);
+            CommonMessages.Info_DestinationDir);
       infoDecoration.hide();
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
-            CommonMessages.Warn_DirectoryNotExist);
+            CommonMessages.Warn_DirNotExist);
       warningDecoration.hide();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
-            CommonMessages.Error_InvalidDirectory);
+            CommonMessages.Error_InvalidDir);
       errorDecoration.hide();
 
       // apply listeners
@@ -399,12 +399,12 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
       // Ontology description file
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DescriptionFile,
-            WizardMessages.EnhanceDatasetWizardPage_Detail_OntologyDescription);
+            WizardMessages.EnhanceDatasetWizardPage_Detail_OntologyDesc);
       this.ontologyDescriptionFileTBC = createNewOptionalFileTextButtonComposite(parent);
 
       // Ontology association file
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_AssociationFile,
-            WizardMessages.EnhanceDatasetWizardPage_Detail_AssociationDescription);
+            WizardMessages.EnhanceDatasetWizardPage_Detail_AssociationDesc);
       this.ontologyAssociationFileTBC = createNewOptionalFileTextButtonComposite(parent);
    }
 
@@ -465,7 +465,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * Update enhanced dataset destination directory text.
     */
    private void updateEnhancedDatasetDestDirText() {
-      getEnhancedDatasetDestDirTBC().setText(Utility.extractDirectoryName(getOriginalDatasetFilePath()));
+      getEnhancedDatasetDestDirTBC().setText(Utility.extractDirectory(getOriginalDatasetFilePath()));
    }
 
    /**
@@ -600,52 +600,6 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private TextButtonComposite getOntologyAssociationFileTBC() {
       return this.ontologyAssociationFileTBC;
-   }
-
-   /**
-    * Show error or warning.
-    *
-    * @param errorDecoration the error decoration
-    * @param warningDecoration the warning decoration
-    * @param inError the in error
-    * @param inWarning the in warning
-    * @param infoDecoration the info decoration
-    */
-   private void showErrorOrWarning(final boolean inError, final ControlDecoration errorDecoration,
-         final boolean inWarning, final ControlDecoration warningDecoration, final ControlDecoration infoDecoration) {
-      boolean shown = false;
-      if (inError) {
-         errorDecoration.show();
-         errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-         shown = true;
-      } else {
-         errorDecoration.hide();
-
-         if (inWarning) {
-            warningDecoration.show();
-            warningDecoration.showHoverText(warningDecoration.getDescriptionText());
-            shown = true;
-         } else {
-            warningDecoration.hide();
-         }
-      }
-
-      if (shown && infoDecoration != null) {
-         infoDecoration.hideHover();
-      }
-   }
-
-   /**
-    * Show error or warning.
-    *
-    * @param inError the in error
-    * @param errorDecoration the error decoration
-    * @param inWarning the in warning
-    * @param warningDecoration the warning decoration
-    */
-   private void showErrorOrWarning(final boolean inError, final ControlDecoration errorDecoration,
-         final boolean inWarning, final ControlDecoration warningDecoration) {
-      showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration, null);
    }
 
 }
