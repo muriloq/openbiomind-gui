@@ -1,7 +1,7 @@
 /**
  * VisitOpenBiomindHandler.java
  *
- * The file VisitOpenBiomindHandler.java.
+ * The file VisitOpenBiomindHandler.java is used to open OpenBiomind homepage in external browser.
  *
  * $Id$
  */
@@ -18,7 +18,7 @@ import org.eclipse.swt.program.Program;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
- * The class VisitOpenBiomindHandler.
+ * The class VisitOpenBiomindHandler is used to open OpenBiomind homepage in external browser.
  *
  * @author bsanghvi
  * @since Jul 4, 2008
