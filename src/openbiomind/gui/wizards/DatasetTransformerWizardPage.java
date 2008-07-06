@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 2, 2008
+ * @version Jul 6, 2008
  */
 public class DatasetTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -246,8 +246,8 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
       // Target category
       // TODO Find out if there is a list of category to choose from
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.DatasetTransformerWizardPage_Label_TargetCategory,
-            WizardMessages.DatasetTransformerWizardPage_Detail_TargetCategory);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
+            WizardMessages.Detail_TargetCategory);
       this.targetCategoryText = createTargetCategoryText(parent);
 
       // Number of selected features
