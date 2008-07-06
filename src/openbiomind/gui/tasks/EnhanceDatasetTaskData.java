@@ -27,24 +27,16 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     */
    public static final String TASK_NAME = "task.EnhanceDataset"; //$NON-NLS-1$
 
-   /**
-    * Argument <code>-d</code> for specifying the name of original dataset (i.e. the input dataset).
-    */
+   /** Argument <code>-d</code> for specifying the name of original dataset (i.e. the input dataset). */
    public static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
 
-   /**
-    * Argument <code>-e</code> for specifying name of the name of enhanced dataset (i.e. the output dataset).
-    */
+   /** Argument <code>-e</code> for specifying name of the name of enhanced dataset (i.e. the output dataset). */
    public static final String ARG_E = HYPHEN + "e"; //$NON-NLS-1$
 
-   /**
-    * Argument <code>-ontologyDescriptionFile</code> for specifying the name of ontology association file.
-    */
+   /** Argument <code>-ontologyDescriptionFile</code> for specifying the name of ontology association file. */
    public static final String ARG_ONTOLOGY_DESCRIPTION_FILE = HYPHEN + "ontologyDescriptionFile"; //$NON-NLS-1$
 
-   /**
-    * Argument <code>-ontologyAssociationFile</code> for specifying the name of the ontology description file.
-    */
+   /** Argument <code>-ontologyAssociationFile</code> for specifying the name of the ontology description file. */
    public static final String ARG_ONTOLOGY_ASSOCIATION_FILE = HYPHEN + "ontologyAssociationFile"; //$NON-NLS-1$
 
    /**

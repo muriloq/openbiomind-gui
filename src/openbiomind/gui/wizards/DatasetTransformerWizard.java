@@ -14,8 +14,8 @@ import openbiomind.gui.tasks.DatasetTransformerTaskData;
  * The class DatasetTransformerWizard.
  *
  * @author bsanghvi
- * @since Jun 13, 2008
- * @version Jun 27, 2008
+ * @since Jul 2, 2008
+ * @version Jul 2, 2008
  */
 public class DatasetTransformerWizard extends AbstractTaskWizard {
 
@@ -87,7 +87,7 @@ public class DatasetTransformerWizard extends AbstractTaskWizard {
    private DatasetTransformerWizardPage getDatasetTransformerWizardPage() {
       if (this.datasetTransformerWizardPage == null) {
          this.datasetTransformerWizardPage = new DatasetTransformerWizardPage(
-               WizardMessages.DatasetTransformerWizard_Name, WizardMessages.DatasetTransformerWizard_Desc);
+               WizardMessages.DatasetTransformerWizard_Name, WizardMessages.DatasetTransformerWizard_Description);
       }
 
       return this.datasetTransformerWizardPage;

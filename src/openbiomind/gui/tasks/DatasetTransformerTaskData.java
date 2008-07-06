@@ -7,6 +7,8 @@
  */
 package openbiomind.gui.tasks;
 
+import java.io.File;
+
 import openbiomind.gui.util.Utility;
 
 /**
@@ -22,39 +24,25 @@ import openbiomind.gui.util.Utility;
  */
 public class DatasetTransformerTaskData extends AbstractTaskData {
 
-   /**
-    * Name of this task is <code>task.DatasetTransformer</code>.
-    */
+   /** Name of this task is <code>task.DatasetTransformer</code>. */
    public static final String TASK_NAME = "task.DatasetTransformer"; //$NON-NLS-1$
 
-   /**
-    * Argument <code>-d</code> for specifying the name of original dataset (i.e. the input dataset).
-    */
+   /** Argument <code>-d</code> for specifying the name of original dataset (i.e. the input dataset). */
    public static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
 
-   /**
-    * Argument <code>-o</code> for specifying name of the name of the output directory.
-    */
+   /** Argument <code>-o</code> for specifying name of the name of the output directory. */
    public static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
 
-   /**
-    * Argument <code>-targetCategory</code> for specifying the category.
-    */
+   /** Argument <code>-targetCategory</code> for specifying the category. */
    public static final String ARG_TARGET_CATEGORY = HYPHEN + "targetCategory"; //$NON-NLS-1$
 
-   /**
-    * Argument <code>-numberOfFolds</code> for specifying the number of folds.
-    */
+   /** Argument <code>-numberOfFolds</code> for specifying the number of folds. */
    public static final String ARG_NUMBER_OF_FOLDS = HYPHEN + "numberOfFolds"; //$NON-NLS-1$
 
-   /**
-    * Argument <code>-testDataset</code> for specifying the name of test dataset.
-    */
+   /** Argument <code>-testDataset</code> for specifying the name of test dataset. */
    public static final String ARG_TEST_DATASET = HYPHEN + "testDataset"; //$NON-NLS-1$
 
-   /**
-    * Argument <code>-numberOfSelectedFeatures</code> for specifying the number of selected features.
-    */
+   /** Argument <code>-numberOfSelectedFeatures</code> for specifying the number of selected features. */
    public static final String ARG_NUMBER_OF_SELECTED_FEATURES = HYPHEN + "numberOfSelectedFeatures"; //$NON-NLS-1$
 
    /**
@@ -70,10 +58,10 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     */
    public enum FeatureSelectionMethodEnum {
 
-      /** The differentiation method. */
+      /** The <code>differentiation</code> method. */
       DIFFERENTIATION("differentiation"), //$NON-NLS-1$
 
-      /** The SAM method. */
+      /** The <code>SAM</code> method. */
       SAM("SAM"); //$NON-NLS-1$
 
       /** The name. */
@@ -272,27 +260,76 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
    public TaskDataProject createTaskDataProject() {
       final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
       taskDataProject.add(createTaskDataFolder(ARG_D, getOriginalDataset(), false));
-      taskDataProject.add(createOutputDirectoryTaskDataFolder(ARG_O, getOutputDirectory()));
+      taskDataProject.add(createTaskDataFolderWithAllFilesLinked(ARG_O, getOutputDirectory()));
       taskDataProject.add(createTaskDataFolder(ARG_TEST_DATASET, getTestDataset(), false));
       return taskDataProject;
    }
 
    /**
-    * Creates the output directory task data folder.
+    * Creates task data folder and links the files inside.
     *
     * @param folderName the folder name
-    * @param linkedFolderPath the folder path for the folder to be linked
+    * @param folderPath the path of the folder whose files are to be linked
     *
     * @return the task data folder
     */
-   private TaskDataFolder createOutputDirectoryTaskDataFolder(final String folderName, final String linkedFolderPath) {
-      final TaskDataFolder linkedTaskDataFolder = new TaskDataFolder(Utility.extractName(linkedFolderPath));
-      linkedTaskDataFolder.setLinked(true);
-      linkedTaskDataFolder.setPath(linkedFolderPath);
+   private TaskDataFolder createTaskDataFolderWithAllFilesLinked(final String folderName, final String folderPath) {
+      final File directory = new File(folderPath);
+      final String directoryPath = directory.getAbsolutePath();
+      final String[] trainFiles = Utility.listFileNames(directory, Resources.TRAIN_FILE_STARTS_WITH,
+            Resources.TAB_EXTENSION);
+      final String[] testFiles = Utility.listFileNames(directory, Resources.TEST_FILE_STARTS_WITH,
+            Resources.TAB_EXTENSION);
 
-      final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
-      taskDataFolder.add(linkedTaskDataFolder);
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName + SPACE + HYPHEN + HYPHEN + SPACE
+            + directory.getName());
+      final int size = trainFiles.length < testFiles.length ? trainFiles.length : testFiles.length;
+
+      if (size >= 0) {
+         taskDataFolder.add(createTrainTestPairTaskDataFolder("0", directoryPath, trainFiles[0], testFiles[0], true));
+         for (int i = 1; i < size; i++) {
+            taskDataFolder.add(createTrainTestPairTaskDataFolder(Integer.toString(i), directoryPath, trainFiles[i],
+                  testFiles[i], false));
+         }
+      }
+
       return taskDataFolder;
+   }
+
+   /**
+    * Creates the train test pair task data folder.
+    *
+    * @param directoryName the directory name
+    * @param directoryPath the directory path
+    * @param trainFileName the train file name
+    * @param testFileName the test file name
+    * @param autoOpen the auto open
+    *
+    * @return the task data folder
+    */
+   private TaskDataFolder createTrainTestPairTaskDataFolder(final String directoryName, final String directoryPath,
+         final String trainFileName, final String testFileName, final boolean autoOpen) {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(directoryName);
+      taskDataFolder.add(createTaskDataFile(trainFileName, directoryPath, autoOpen));
+      taskDataFolder.add(createTaskDataFile(testFileName, directoryPath, autoOpen));
+      return taskDataFolder;
+   }
+
+   /**
+    * Creates the task data file.
+    *
+    * @param fileName the file name
+    * @param filePath the file path
+    * @param autoOpen the auto open
+    *
+    * @return the task data file
+    */
+   private TaskDataFile createTaskDataFile(final String fileName, final String filePath, final boolean autoOpen) {
+      final TaskDataFile taskDataFile = new TaskDataFile(fileName);
+      taskDataFile.setPath(filePath + File.separator + fileName);
+      taskDataFile.setLinked(true);
+      taskDataFile.setAutoOpen(autoOpen);
+      return taskDataFile;
    }
 
    /**

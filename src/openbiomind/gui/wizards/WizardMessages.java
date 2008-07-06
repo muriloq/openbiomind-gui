@@ -46,7 +46,7 @@ public class WizardMessages extends NLS {
    public static String AbstractTaskWizardPage_Tip_ProjectName;
 
    /** The Dataset transformer wizard description. */
-   public static String DatasetTransformerWizard_Desc;
+   public static String DatasetTransformerWizard_Description;
 
    /** The Dataset transformer wizard name. */
    public static String DatasetTransformerWizard_Name;
@@ -82,7 +82,7 @@ public class WizardMessages extends NLS {
    public static String Detail_SelectOne;
 
    /** The Enhance dataset wizard description. */
-   public static String EnhanceDatasetWizard_Desc;
+   public static String EnhanceDatasetWizard_Description;
 
    /** The Enhance dataset wizard name. */
    public static String EnhanceDatasetWizard_Name;
@@ -131,6 +131,13 @@ public class WizardMessages extends NLS {
 
    /** The label output dataset. */
    public static String Label_OutputDataset;
+
+   /** The Meta task wizard description. */
+   public static String MetaTaskWizard_Description;
+
+   /** The Meta task wizard name. */
+   public static String MetaTaskWizard_Name;
+
 
    /*
     * Initialize the messages

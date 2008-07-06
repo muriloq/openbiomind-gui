@@ -1,7 +1,7 @@
 /**
  * DatasetTransformerWizardPage.java
  *
- * The file EnhanceDatasetWizardPage1.java.
+ * The file DatasetTransformerWizardPage.java.
  *
  * $Id$
  */
@@ -24,8 +24,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
@@ -55,6 +55,15 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
    /** The target category text. */
    private Text targetCategoryText = null;
 
+   /** The number of selected features text. */
+   private Text numberOfSelectedFeaturesText = null;
+
+   /** The feature selection method combo. */
+   private Combo featureSelectionMethodCombo = null;
+
+   /** The feature selection method array. */
+   private String[] featureSelectionMethodArray = null;
+
    /** The number of folds button. */
    private Button numberOfFoldsButton = null;
 
@@ -66,15 +75,6 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /** The test dataset text button composite. */
    private TextButtonComposite testDatasetTBC = null;
-
-   /** The number of selected features text. */
-   private Text numberOfSelectedFeaturesText = null;
-
-   /** The feature selection method differentiation button. */
-   private Button featureSelectionMethodDifferentiationButton = null;
-
-   /** The feature selection method SAM button. */
-   private Button featureSelectionMethodSAMButton = null;
 
    /**
     * Instantiates a new dataset transformer wizard page.
@@ -258,7 +258,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       // Feature selection method
       WidgetHelper
             .createNewFieldLabel(parent, WizardMessages.DatasetTransformerWizardPage_Label_FeatureSelectionMethod);
-      createFeatureSelectionMethodComposite(parent);
+      this.featureSelectionMethodCombo = createDefaultCombo(parent, getFeatureSelectionMethodArray());
 
       // Select one of these
       WidgetHelper.createNewDetailsLabel(parent, WizardMessages.Detail_SelectOne, NUM_COLUMN_IN_GROUP);
@@ -299,7 +299,6 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
          @Override
          public void focusGained(final FocusEvent event) {
             infoDecoration.show();
-            infoDecoration.showHoverText(infoDecoration.getDescriptionText());
          }
 
          @Override
@@ -310,46 +309,6 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       });
 
       return text;
-   }
-
-   /**
-    * Creates the feature selection method composite.
-    *
-    * @param parent the parent
-    *
-    * @return the composite
-    */
-   private Composite createFeatureSelectionMethodComposite(final Composite parent) {
-      final Composite composite = new Composite(parent, SWT.NULL);
-
-      // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(composite);
-      final RowLayout rowLayout = new RowLayout();
-      rowLayout.type = SWT.HORIZONTAL;
-      rowLayout.spacing = GUI.SPACING_H;
-      composite.setLayout(rowLayout);
-
-      createRadioButton(composite, WizardMessages.Label_None).setSelection(true);
-      this.featureSelectionMethodDifferentiationButton = createRadioButton(composite,
-            FeatureSelectionMethodEnum.DIFFERENTIATION.toString());
-      this.featureSelectionMethodSAMButton = createRadioButton(composite, FeatureSelectionMethodEnum.SAM.toString());
-
-      return composite;
-   }
-
-   /**
-    * Creates the radio button.
-    *
-    * @param parent the parent
-    * @param text the text
-    *
-    * @return the button
-    */
-   private Button createRadioButton(final Composite parent, final String text) {
-      final Button button = new Button(parent, SWT.RADIO);
-      button.setText(text);
-      button.setToolTipText(text);
-      return button;
    }
 
    /**
@@ -500,31 +459,31 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
     * @return the feature selection method
     */
    public FeatureSelectionMethodEnum getFeatureSelectionMethod() {
-      if (getFeatureSelectionMethodDifferentiationButton().getSelection()) {
-         return FeatureSelectionMethodEnum.DIFFERENTIATION;
-      } else if (getFeatureSelectionMethodSAMButton().getSelection()) {
-         return FeatureSelectionMethodEnum.SAM;
-      } else {
-         return null;
+      return FeatureSelectionMethodEnum.parse(getFeatureSelectionMethodArray()[getFeatureSelectionMethodCombo()
+            .getSelectionIndex()]);
+   }
+
+   /**
+    * Gets the feature selection method combo.
+    *
+    * @return the feature selection method combo
+    */
+   private Combo getFeatureSelectionMethodCombo() {
+      return this.featureSelectionMethodCombo;
+   }
+
+   /**
+    * Gets the feature selection method array.
+    *
+    * @return the feature selection method array
+    */
+   private String[] getFeatureSelectionMethodArray() {
+      if (this.featureSelectionMethodArray == null) {
+         this.featureSelectionMethodArray = new String[] { EMPTY,
+               FeatureSelectionMethodEnum.DIFFERENTIATION.toString(), FeatureSelectionMethodEnum.SAM.toString() };
       }
-   }
 
-   /**
-    * Gets the feature selection method differentiation button.
-    *
-    * @return the feature selection method differentiation button
-    */
-   private Button getFeatureSelectionMethodDifferentiationButton() {
-      return this.featureSelectionMethodDifferentiationButton;
-   }
-
-   /**
-    * Gets the feature selection method sam button.
-    *
-    * @return the feature selection method sam button
-    */
-   private Button getFeatureSelectionMethodSAMButton() {
-      return this.featureSelectionMethodSAMButton;
+      return this.featureSelectionMethodArray;
    }
 
    /**

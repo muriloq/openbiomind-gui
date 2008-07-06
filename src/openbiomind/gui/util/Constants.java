@@ -56,7 +56,7 @@ public interface Constants {
     *
     * @author bsanghvi
     * @since Jun 26, 2008
-    * @version Jun 26, 2008
+    * @version Jul 6, 2008
     */
    public final class Resources {
 
@@ -67,12 +67,12 @@ public interface Constants {
       public static final String BROWSE = JFaceResources.getString("openBrowse"); //$NON-NLS-1$
 
       /** The OpenBiomind homepage. */
-      public static final String OPENBIOMIND_HOMEPAGE = "http://code.google.com/p/openbiomind/";
+      public static final String OPENBIOMIND_HOMEPAGE = "http://code.google.com/p/openbiomind/"; //$NON-NLS-1$
 
       /** The OpenBiomind-GUI homepage. */
-      public static final String OPENBIOMIND_GUI_HOMEPAGE = "http://code.google.com/p/openbiomind-gui/";
+      public static final String OPENBIOMIND_GUI_HOMEPAGE = "http://code.google.com/p/openbiomin-gui/"; //$NON-NLS-1$
 
-      /** The Constant specifying the JAR file extension (value = <code>.jar</code>). */
+      /** The Constant specifying the jar file extension (value = <code>.jar</code>). */
       public static final String JAR_EXTENSION = ".jar"; //$NON-NLS-1$
 
       /** The constant specifying the label for OpenBiomind JAR file. */
@@ -82,6 +82,15 @@ public interface Constants {
        * The constant specifying the name of the pipeline properties file (value = <code>pipeline.properties</code>).
        */
       public static final String PIPELINE_PROPERTIES_FILENAME = "pipeline.properties"; //$NON-NLS-1$
+
+      /** The Constant specifying the tab file extension (value = <code>.tab</code>). */
+      public static final String TAB_EXTENSION = ".tab"; //$NON-NLS-1$
+
+      /** The Constant specifying the string that test file name starts with (value = <code>test</code>). */
+      public static final String TEST_FILE_STARTS_WITH = "test"; //$NON-NLS-1$
+
+      /** The Constant specifying the string that train file name starts with (value = <code>train</code>). */
+      public static final String TRAIN_FILE_STARTS_WITH = "train"; //$NON-NLS-1$
 
    }
 

@@ -267,7 +267,6 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
          @Override
          public void focusGained(final FocusEvent event) {
             infoDecoration.show();
-            infoDecoration.showHoverText(infoDecoration.getDescriptionText());
          }
 
          @Override

@@ -23,6 +23,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
@@ -177,7 +178,6 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
          @Override
          public void focusGained(final FocusEvent event) {
             infoDecoration.show();
-            infoDecoration.showHoverText(infoDecoration.getDescriptionText());
          }
 
          @Override
@@ -265,7 +265,6 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
          @Override
          public void focusGained(final FocusEvent event) {
             infoDecoration.show();
-            infoDecoration.showHoverText(infoDecoration.getDescriptionText());
          }
 
          @Override
@@ -342,7 +341,6 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
          @Override
          public void focusGained(final FocusEvent event) {
             infoDecoration.show();
-            infoDecoration.showHoverText(infoDecoration.getDescriptionText());
          }
 
          @Override
@@ -353,6 +351,26 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       });
 
       return text;
+   }
+
+   /**
+    * Creates the default combo.
+    *
+    * @param parent the parent
+    * @param items the items
+    *
+    * @return the combo
+    */
+   protected Combo createDefaultCombo(final Composite parent, final String[] items) {
+      final Combo combo = new Combo(parent, SWT.READ_ONLY);
+      combo.setItems(items);
+
+      // apply layout
+      GUI.GRID_DATA_DEFAULT.applyTo(combo);
+
+      combo.select(0);
+
+      return combo;
    }
 
    /**
