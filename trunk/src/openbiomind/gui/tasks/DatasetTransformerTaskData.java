@@ -20,7 +20,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 2, 2008
+ * @version Jul 6, 2008
  */
 public class DatasetTransformerTaskData extends AbstractTaskData {
 
@@ -260,29 +260,28 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
    public TaskDataProject createTaskDataProject() {
       final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
       taskDataProject.add(createTaskDataFolder(ARG_D, getOriginalDataset(), false));
-      taskDataProject.add(createTaskDataFolderWithAllFilesLinked(ARG_O, getOutputDirectory()));
+      taskDataProject.add(createTrainTestPairTaskDataFolder(ARG_O, getOutputDirectory()));
       taskDataProject.add(createTaskDataFolder(ARG_TEST_DATASET, getTestDataset(), false));
       return taskDataProject;
    }
 
    /**
-    * Creates task data folder and links the files inside.
+    * Creates task data folder and links the train and test files as pairs.
     *
     * @param folderName the folder name
     * @param folderPath the path of the folder whose files are to be linked
     *
     * @return the task data folder
     */
-   private TaskDataFolder createTaskDataFolderWithAllFilesLinked(final String folderName, final String folderPath) {
+   private TaskDataFolder createTrainTestPairTaskDataFolder(final String folderName, final String folderPath) {
       final File directory = new File(folderPath);
       final String directoryPath = directory.getAbsolutePath();
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
       final String[] trainFiles = Utility.listFileNames(directory, Resources.TRAIN_FILE_STARTS_WITH,
             Resources.TAB_EXTENSION);
       final String[] testFiles = Utility.listFileNames(directory, Resources.TEST_FILE_STARTS_WITH,
             Resources.TAB_EXTENSION);
 
-      final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName + SPACE + HYPHEN + HYPHEN + SPACE
-            + directory.getName());
       final int size = trainFiles.length < testFiles.length ? trainFiles.length : testFiles.length;
 
       if (size >= 0) {

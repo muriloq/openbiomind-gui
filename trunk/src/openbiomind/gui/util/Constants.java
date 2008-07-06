@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Display;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jun 26, 2008
+ * @version Jul 6, 2008
  */
 public interface Constants {
 
@@ -38,6 +38,9 @@ public interface Constants {
 
    /** The constant for hyphen (value = <code>-</code>). */
    public static final String HYPHEN = "-"; //$NON-NLS-1$
+
+   /** The constant for dot (value = <code>.</code>). */
+   public static final String DOT = "."; //$NON-NLS-1$
 
    /** The constant for quote (value = <code>"</code>). */
    public static final String QUOTE = "\""; //$NON-NLS-1$
@@ -73,7 +76,7 @@ public interface Constants {
       public static final String OPENBIOMIND_GUI_HOMEPAGE = "http://code.google.com/p/openbiomin-gui/"; //$NON-NLS-1$
 
       /** The Constant specifying the jar file extension (value = <code>.jar</code>). */
-      public static final String JAR_EXTENSION = ".jar"; //$NON-NLS-1$
+      public static final String JAR_EXTENSION = DOT + "jar"; //$NON-NLS-1$
 
       /** The constant specifying the label for OpenBiomind JAR file. */
       public static final String OPENBIOMIND_JAR_NAME = "OpenBiomind JAR"; //$NON-NLS-1$
@@ -81,16 +84,25 @@ public interface Constants {
       /**
        * The constant specifying the name of the pipeline properties file (value = <code>pipeline.properties</code>).
        */
-      public static final String PIPELINE_PROPERTIES_FILENAME = "pipeline.properties"; //$NON-NLS-1$
+      public static final String PIPELINE_PROPERTIES_FILENAME = "pipeline" + DOT + "properties"; //$NON-NLS-1$
 
       /** The Constant specifying the tab file extension (value = <code>.tab</code>). */
-      public static final String TAB_EXTENSION = ".tab"; //$NON-NLS-1$
+      public static final String TAB_EXTENSION = DOT + "tab"; //$NON-NLS-1$
+
+      /** The Constant specifying the txt file extension (value = <code>.txt</code>). */
+      public static final String TXT_EXTENSION = DOT + "txt"; //$NON-NLS-1$
 
       /** The Constant specifying the string that test file name starts with (value = <code>test</code>). */
       public static final String TEST_FILE_STARTS_WITH = "test"; //$NON-NLS-1$
 
       /** The Constant specifying the string that train file name starts with (value = <code>train</code>). */
       public static final String TRAIN_FILE_STARTS_WITH = "train"; //$NON-NLS-1$
+
+      /** The Constant specifying the string that out file name starts with (value = <code>out</code>). */
+      public static final String OUT_FILE_STARTS_WITH = "out"; //$NON-NLS-1$
+
+      /** The Constant specifying the string that out file name starts with (value = <code>out</code>). */
+      public static final String OUT_FILE = "outfinal" + TXT_EXTENSION; //$NON-NLS-1$
 
    }
 

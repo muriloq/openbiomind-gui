@@ -7,10 +7,12 @@
  */
 package openbiomind.gui.handlers;
 
+import openbiomind.gui.wizards.MetaTaskWizard;
+
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
@@ -18,7 +20,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
  *
  * @author bsanghvi
  * @since Jun 27, 2008
- * @version Jun 27, 2008
+ * @version Jul 6, 2008
  */
 public class MetaTaskTaskHandler extends AbstractTaskHandler {
 
@@ -27,8 +29,14 @@ public class MetaTaskTaskHandler extends AbstractTaskHandler {
     */
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {
-      final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-      MessageDialog.openInformation(window.getShell(), "OpenBiomind-GUI", "Meta Task");
+      final Shell shell = HandlerUtil.getActiveWorkbenchWindowChecked(event).getShell();
+
+      if (validate(shell)) {
+         final MetaTaskWizard metaTaskWizard = new MetaTaskWizard();
+         final WizardDialog wizardDialog = new WizardDialog(shell, metaTaskWizard);
+         wizardDialog.open();
+      }
+
       return null;
    }
 

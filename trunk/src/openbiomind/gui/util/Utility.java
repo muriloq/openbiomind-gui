@@ -15,7 +15,7 @@ import java.io.FilenameFilter;
  *
  * @author bsanghvi
  * @since Jun 14, 2008
- * @version Jun 26, 2008
+ * @version Jul 6, 2008
  */
 public final class Utility implements Constants {
 
@@ -79,9 +79,20 @@ public final class Utility implements Constants {
       boolean valid = false;
       if (!isEmpty(pathname)) {
          final File file = new File(pathname);
-         valid = file.exists() && file.isDirectory();
+         valid = directoryExists(file);
       }
       return valid;
+   }
+
+   /**
+    * Directory exists.
+    *
+    * @param directory the directory
+    *
+    * @return true, if successful
+    */
+   public static boolean directoryExists(final File directory) {
+      return directory.exists() && directory.isDirectory();
    }
 
    /**

@@ -50,7 +50,7 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jun 27, 2008
+ * @version Jul 6, 2008
  */
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
@@ -125,6 +125,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
    private void doFinish(final IProgressMonitor monitor) throws CoreException {
       monitor.beginTask(WizardMessages.AbstractTaskWizard_PreparingTaskData, 7);
       prepareTaskData();
+      // TODO Save the command as command.log in the project
       Console.info(getTaskData().toString());
       monitor.worked(1);
       monitor.subTask(WizardMessages.AbstractTaskWizard_PreparingProcess);
@@ -140,6 +141,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
          try {
             while ((message = reader.readLine()) != null) {
+               // TODO Save the message as output.log in the project
                Console.output(message);
             }
          } catch (final IOException e) {

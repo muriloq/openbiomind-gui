@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 2, 2008
+ * @version Jul 6, 2008
  */
 public class WizardMessages extends NLS {
 
@@ -54,9 +54,6 @@ public class WizardMessages extends NLS {
    /** The Dataset transformer wizard page detail number of selected features. */
    public static String DatasetTransformerWizardPage_Detail_NumOfSelectedFeatures;
 
-   /** The Dataset transformer wizard page detail target category. */
-   public static String DatasetTransformerWizardPage_Detail_TargetCategory;
-
    /** The Dataset transformer wizard page label feature selection method. */
    public static String DatasetTransformerWizardPage_Label_FeatureSelectionMethod;
 
@@ -65,9 +62,6 @@ public class WizardMessages extends NLS {
 
    /** The Dataset transformer wizard page label number of selected features. */
    public static String DatasetTransformerWizardPage_Label_NumOfSelectedFeatures;
-
-   /** The Dataset transformer wizard page label target category. */
-   public static String DatasetTransformerWizardPage_Label_TargetCategory;
 
    /** The Dataset transformer wizard page label test dataset. */
    public static String DatasetTransformerWizardPage_Label_TestDataset;
@@ -80,6 +74,9 @@ public class WizardMessages extends NLS {
 
    /** The Detail select one of these. */
    public static String Detail_SelectOne;
+
+   /** The detail target category. */
+   public static String Detail_TargetCategory;
 
    /** The Enhance dataset wizard description. */
    public static String EnhanceDatasetWizard_Description;
@@ -132,12 +129,29 @@ public class WizardMessages extends NLS {
    /** The label output dataset. */
    public static String Label_OutputDataset;
 
+   /** The Dataset transformer wizard page label target category. */
+   public static String Label_TargetCategory;
+
    /** The Meta task wizard description. */
    public static String MetaTaskWizard_Description;
 
    /** The Meta task wizard name. */
    public static String MetaTaskWizard_Name;
 
+   /** The Meta task wizard page label classification method. */
+   public static String MetaTaskWizardPage_Label_ClassificationMethod;
+
+   /** The Meta task wizard page label dataset directory. */
+   public static String MetaTaskWizardPage_Label_DatasetDir;
+
+   /** The Meta task wizard page label number of tasks. */
+   public static String MetaTaskWizardPage_Label_NumOfTasks;
+
+   /** The Meta task wizard page_ tip_ dataset directory. */
+   public static String MetaTaskWizardPage_Tip_DatasetDir;
+
+   /** The Meta task wizard page tip number of tasks. */
+   public static String MetaTaskWizardPage_Tip_NumOfTasks;
 
    /*
     * Initialize the messages
