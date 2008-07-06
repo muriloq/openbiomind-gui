@@ -8,6 +8,7 @@
 package openbiomind.gui.util;
 
 import java.io.File;
+import java.io.FilenameFilter;
 
 /**
  * The class Utility.
@@ -27,6 +28,17 @@ public final class Utility implements Constants {
     */
    public static boolean isEmpty(final String string) {
       return (string == null || string.trim().isEmpty());
+   }
+
+   /**
+    * Checks if is empty or existing file.
+    *
+    * @param filePath the file path
+    *
+    * @return true, if is empty or existing file
+    */
+   public static boolean isEmptyOrExistingFile(final String filePath) {
+      return (isEmpty(filePath) || fileExists(filePath));
    }
 
    /**
@@ -150,14 +162,25 @@ public final class Utility implements Constants {
    }
 
    /**
-    * Checks if is empty or existing file.
+    * List the names of file in the given <code>directory</code> such that the names of the files begin with <code>startsWith</code> and ends with <code>endsWith</code>.
     *
-    * @param filePath the file path
+    * @param directory the directory
+    * @param startsWith the starts with
+    * @param endsWith the ends with
     *
-    * @return true, if is empty or existing file
+    * @return the string[]
     */
-   public static boolean isEmptyOrExistingFile(final String filePath) {
-      return (isEmpty(filePath) || fileExists(filePath));
+   public static String[] listFileNames(final File directory, final String startsWith, final String endsWith) {
+      // TODO Check if a check directory.isDirectory() required?
+      return directory.list(new FilenameFilter() {
+
+         @Override
+         public boolean accept(final File dir, final String name) {
+            return (name.startsWith(startsWith) && name.endsWith(endsWith));
+         }
+
+      });
+
    }
 
 }
