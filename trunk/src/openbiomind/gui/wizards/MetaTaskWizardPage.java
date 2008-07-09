@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.Text;
 public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
    /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.DatasetTransformerWizardPage</code>).
+    * The constant for page name (value = <code>openbiomind.gui.wizards.MetaTaskWizardPage</code>).
     */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.MetaTaskWizardPage"; //$NON-NLS-1$
 
