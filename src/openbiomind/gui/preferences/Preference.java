@@ -40,7 +40,7 @@ public class Preference implements Constants {
     *
     * @return the pipeline properties location
     */
-   private static String getPipelinePropertiesLocation() {
+   public static String getPipelinePropertiesLocation() {
       return Activator.getDefault().getPreferenceStore().getString(Preference.PIPELINE_PROPERTIES);
    }
 

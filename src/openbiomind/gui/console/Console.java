@@ -9,8 +9,8 @@ package openbiomind.gui.console;
 
 import java.io.PrintStream;
 
-import openbiomind.gui.util.Constants;
 import openbiomind.gui.util.CommonMessages;
+import openbiomind.gui.util.Constants;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;

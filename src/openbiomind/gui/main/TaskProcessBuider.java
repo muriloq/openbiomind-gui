@@ -87,7 +87,7 @@ public class TaskProcessBuider {
     * @param commandList the command list
     */
    private void logCommand(final List<String> commandList) {
-      final StringBuilder commandStringBuilder = new StringBuilder(EMPTY); //$NON-NLS-1$
+      final StringBuilder commandStringBuilder = new StringBuilder(EMPTY);
       for (final String commandString : commandList) {
          commandStringBuilder.append(commandString + SPACE);
       }

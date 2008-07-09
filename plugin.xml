@@ -31,7 +31,7 @@
          </property>
          <property
                name="aboutText"
-               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0A;Version: 0.0.3.20080706&#x0A;Development build&#x0A;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
+               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0D;&#x0A;Version: 0.0.3.20080708&#x0D;&#x0A;Development build&#x0D;&#x0A;&#x0D;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
          </property>
          <property
                name="aboutImage"
@@ -61,6 +61,10 @@
    </extension>
    <extension
          point="org.eclipse.ui.commands">
+      <command
+            id="openbiomind.gui.commands.OpenPipelineProperties"
+            name="Open pipeline.properties">
+      </command>
       <category
             id="openbiomind.gui.commands.category.Tasks"
             name="Tasks">
@@ -130,6 +134,12 @@
    <extension
          point="org.eclipse.ui.bindings">
       <key
+            commandId="openbiomind.gui.commands.OpenPipelineProperties"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+P">
+      </key>
+      <key
             commandId="openbiomind.gui.commands.EnhanceDataset"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
@@ -191,7 +201,26 @@
          <menu
                id="openbiomind.gui.menus.File"
                label="File"
-               mnemonic="F">
+               mnemonic="F"
+               sibling_order="&lt;separator&#x0A;                  name=&quot;openbiomind.gui.menus.file.separator1&quot;&#x0A;                  visible=&quot;true&quot;&gt;&#x0A;            &lt;/separator&gt;">
+            <command
+                  commandId="org.eclipse.ui.edit.text.openLocalFile"
+                  id="openbiomind.gui.menus.file.OpenFile"
+                  mnemonic="."
+                  style="push">
+            </command>
+            <command
+                  commandId="openbiomind.gui.commands.OpenPipelineProperties"
+                  icon="icons/open_pipeline_properties.gif"
+                  id="openbiomind.gui.menus.file.OpenPipelineProperties"
+                  mnemonic="O"
+                  style="push"
+                  tooltip="Open pipeline.properties file to edit">
+            </command>
+            <separator
+                  name="openbiomind.gui.menus.file.separator1"
+                  visible="true">
+            </separator>
             <command
                   commandId="org.eclipse.ui.file.save"
                   id="openbiomind.gui.menus.file.Save"
@@ -205,7 +234,7 @@
                   style="push">
             </command>
             <separator
-                  name="openbiomind.gui.menus.file.separator1"
+                  name="openbiomind.gui.menus.file.separator2"
                   visible="true">
             </separator>
             <command
@@ -221,13 +250,94 @@
                   style="push">
             </command>
             <separator
-                  name="openbiomind.gui.menus.file.separator2"
+                  name="openbiomind.gui.menus.file.separator3"
                   visible="true">
             </separator>
+            <command
+                  commandId="org.eclipse.ui.file.print"
+                  id="openbiomind.gui.menus.file.Print"
+                  mnemonic="P"
+                  style="push">
+            </command>
+            <separator
+                  name="openbiomind.gui.menus.file.separator4"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  id="openbiomind.gui.menus.file.Restart"
+                  mnemonic="t"
+                  style="push">
+            </command>
             <command
                   commandId="org.eclipse.ui.file.exit"
                   id="openbiomind.gui.menus.file.Exit"
                   mnemonic="x"
+                  style="push">
+            </command>
+         </menu>
+         <menu
+               id="openbiomind.gui.menus.Edit"
+               label="Edit"
+               mnemonic="E">
+            <command
+                  commandId="org.eclipse.ui.edit.undo"
+                  id="openbiomind.gui.menus.edit.Undo"
+                  mnemonic="U"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.redo"
+                  id="openbiomind.gui.menus.edit.Redo"
+                  mnemonic="R"
+                  style="push">
+            </command>
+            <separator
+                  name="openbiomind.gui.menus.edit.separator1"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.ui.edit.cut"
+                  id="openbiomind.gui.menus.edit.Cut"
+                  mnemonic="t"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.copy"
+                  id="openbiomind.gui.menus.edit.Copy"
+                  mnemonic="C"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.paste"
+                  id="openbiomind.gui.menus.edit.Paste"
+                  mnemonic="P"
+                  style="push">
+            </command>
+            <separator
+                  name="openbiomind.gui.menus.edit.separator2"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.ui.edit.delete"
+                  id="openbiomind.gui.menus.edit.Delete"
+                  mnemonic="D"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.selectAll"
+                  id="openbiomind.gui.menus.edit.SelectAll"
+                  mnemonic="A"
+                  style="push">
+            </command>
+            <separator
+                  name="openbiomind.gui.menus.edit.separator3"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.ui.edit.findReplace"
+                  id="openbiomind.gui.menus.edit.FindReplace"
+                  mnemonic="F"
                   style="push">
             </command>
          </menu>
@@ -365,6 +475,38 @@
             </command>
          </toolbar>
          <toolbar
+               id="openbiomind.gui.toolbars.Edit">
+            <command
+                  commandId="org.eclipse.ui.edit.undo"
+                  id="openbiomind.gui.toolbars.edit.Undo"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.redo"
+                  id="openbiomind.gui.toolbars.edit.Redo"
+                  style="push">
+            </command>
+            <separator
+                  name="openbiomind.gui.toolbars.edit.separator1"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.ui.edit.cut"
+                  id="openbiomind.gui.toolbars.edit.Cut"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.copy"
+                  id="openbiomind.gui.toolbars.edit.Copy"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.paste"
+                  id="openbiomind.gui.toolbars.edit.Paste"
+                  style="push">
+            </command>
+         </toolbar>
+         <toolbar
                id="openbiomind.gui.toolbars.Task">
             <command
                   commandId="openbiomind.gui.commands.EnhanceDataset"
@@ -433,6 +575,10 @@
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
+      <handler
+            class="openbiomind.gui.handlers.OpenPipelineProperties"
+            commandId="openbiomind.gui.commands.OpenPipelineProperties">
+      </handler>
       <handler
             class="openbiomind.gui.handlers.EnhanceDatasetTaskHandler"
             commandId="openbiomind.gui.commands.EnhanceDataset">
