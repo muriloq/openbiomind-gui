@@ -202,9 +202,6 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
          }
 
          created = true;
-
-         // TODO Find out, how to save workspace, so that there is no warning at the start of application
-         // workspace.save(false, monitor);
       } catch (final CoreException e) {
          Console.error(e);
       }

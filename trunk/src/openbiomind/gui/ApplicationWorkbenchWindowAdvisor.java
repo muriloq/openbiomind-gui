@@ -7,8 +7,11 @@
  */
 package openbiomind.gui;
 
+import openbiomind.gui.console.Console;
 import openbiomind.gui.util.CommonMessages;
 
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
@@ -60,6 +63,21 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
    @Override
    public void postWindowOpen() {
       getWindowConfigurer().getActionBarConfigurer().getStatusLineManager().setMessage(CommonMessages.Startup);
+   }
+
+   /*
+    * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#preWindowShellClose()
+    */
+   @Override
+   public boolean preWindowShellClose() {
+      try {
+         // save the full workspace before quit
+         ResourcesPlugin.getWorkspace().save(true, null);
+      } catch (final CoreException e) {
+         Console.debug(e);
+      }
+
+      return true;
    }
 
 }
