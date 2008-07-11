@@ -120,13 +120,12 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       // - Detail row: Specify the enhanced dataset file
       WidgetHelper.createNewDetailsLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset,
             NUM_COLUMN_IN_GROUP);
-      // - Destination file name
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationFile,
+      // - File name
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationFile,
             WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset, true);
       this.enhancedDatasetDestFileNameText = createEnhancedDatasetDestFileNameText(parent);
       // - Destination directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationDir,
-            CommonMessages.Info_DestinationDir);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationDir, CommonMessages.Info_DestinationDir);
       this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(parent);
       // - Use original dataset directory check box
       WidgetHelper.createNewBlankLabel(parent);

@@ -103,7 +103,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       this.datasetDirectoryTBC = createDatasetDirectoryTBC(parent);
 
       // Output directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputDataset, WizardMessages.Detail_OutputDir,
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputDir, WizardMessages.Detail_OutputDir,
             true);
       this.outputDirectoryTBC = createOutputDirTBC(parent);
    }
