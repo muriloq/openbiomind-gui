@@ -18,26 +18,24 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jun 27, 2008
+ * @version Jul 10, 2008
  */
 public class EnhanceDatasetTaskData extends AbstractTaskData {
 
-   /**
-    * Name of this task is <code>task.EnhanceDataset</code>.
-    */
-   public static final String TASK_NAME = "task.EnhanceDataset"; //$NON-NLS-1$
+   /** Name of this task is <code>task.EnhanceDataset</code>. */
+   private static final String TASK_NAME = "task.EnhanceDataset"; //$NON-NLS-1$
 
    /** Argument <code>-d</code> for specifying the name of original dataset (i.e. the input dataset). */
-   public static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
+   private static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
 
    /** Argument <code>-e</code> for specifying name of the name of enhanced dataset (i.e. the output dataset). */
-   public static final String ARG_E = HYPHEN + "e"; //$NON-NLS-1$
+   private static final String ARG_E = HYPHEN + "e"; //$NON-NLS-1$
 
    /** Argument <code>-ontologyDescriptionFile</code> for specifying the name of ontology association file. */
-   public static final String ARG_ONTOLOGY_DESCRIPTION_FILE = HYPHEN + "ontologyDescriptionFile"; //$NON-NLS-1$
+   private static final String ARG_ONTOLOGY_DESCRIPTION_FILE = HYPHEN + "ontologyDescriptionFile"; //$NON-NLS-1$
 
    /** Argument <code>-ontologyAssociationFile</code> for specifying the name of the ontology description file. */
-   public static final String ARG_ONTOLOGY_ASSOCIATION_FILE = HYPHEN + "ontologyAssociationFile"; //$NON-NLS-1$
+   private static final String ARG_ONTOLOGY_ASSOCIATION_FILE = HYPHEN + "ontologyAssociationFile"; //$NON-NLS-1$
 
    /**
     * Instantiates a new enhance dataset task.
@@ -78,7 +76,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
    /**
     * Sets the enhanced dataset (argument = <code>-e</code>).
     *
-    * @param enhancedDataset the enhnaced dataset
+    * @param enhancedDataset the enhanced dataset
     */
    public void setEnhancedDataset(final String enhancedDataset) {
       if (!Utility.isEmpty(enhancedDataset)) {
@@ -143,7 +141,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * Creates the task data folder.
     *
     * @param folderName the folder name
-    * @param filepath the filepath
+    * @param filepath the file path
     * @param autoOpen the auto open
     *
     * @return the task data folder

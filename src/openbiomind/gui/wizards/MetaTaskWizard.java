@@ -15,7 +15,7 @@ import openbiomind.gui.tasks.MetaTaskTaskData;
  *
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Jul 6, 2008
+ * @version Jul 10, 2008
  */
 public class MetaTaskWizard extends AbstractTaskWizard {
 
@@ -47,7 +47,7 @@ public class MetaTaskWizard extends AbstractTaskWizard {
    @Override
    protected void prepareTaskData() {
       getMetaTaskTaskData().setProjectName(getMetaTaskWizardPage().getProjectName());
-      getMetaTaskTaskData().setDatasetDirectory(getMetaTaskWizardPage().getDatasetDirectoryFilePath());
+      getMetaTaskTaskData().setDatasetDirectory(getMetaTaskWizardPage().getDatasetDirectoryPath());
       getMetaTaskTaskData().setOutputDirectory(getMetaTaskWizardPage().getOutputDirectory());
       getMetaTaskTaskData().setNumberOfTasks(getMetaTaskWizardPage().getNumberTasks());
       getMetaTaskTaskData().setTargetCategory(getMetaTaskWizardPage().getTargetCategory());
@@ -78,8 +78,8 @@ public class MetaTaskWizard extends AbstractTaskWizard {
     */
    private MetaTaskWizardPage getMetaTaskWizardPage() {
       if (this.metaTaskWizardPage == null) {
-         this.metaTaskWizardPage = new MetaTaskWizardPage(
-               WizardMessages.MetaTaskWizard_Name, WizardMessages.MetaTaskWizard_Description);
+         this.metaTaskWizardPage = new MetaTaskWizardPage(WizardMessages.MetaTaskWizard_Name,
+               WizardMessages.MetaTaskWizard_Description);
       }
 
       return this.metaTaskWizardPage;

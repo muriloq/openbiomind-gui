@@ -18,8 +18,6 @@ import openbiomind.gui.widgets.WidgetHelper;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Combo;
@@ -31,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Jul 6, 2008
+ * @version Jul 10, 2008
  */
 public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -127,8 +125,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite
-            .setToolTipText(WizardMessages.MetaTaskWizardPage_Tip_DatasetDir);
+      textButtonComposite.setToolTipText(WizardMessages.MetaTaskWizardPage_Tip_DatasetDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
@@ -144,7 +141,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            final File directory = new File(getDatasetDirectoryFilePath());
+            final File directory = new File(getDatasetDirectoryPath());
             textButtonComposite
                   .setValid(Utility.directoryExists(directory)
                         && Utility.listFileNames(directory, Resources.TRAIN_FILE_STARTS_WITH, Resources.TAB_EXTENSION).length > 0
@@ -236,14 +233,15 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
       // Number of tasks
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_NumOfTasks, WizardMessages.MetaTaskWizardPage_Tip_NumOfTasks);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_NumOfTasks,
+            WizardMessages.MetaTaskWizardPage_Tip_NumOfTasks);
       this.numberOfTasks = createNewNumberOnlyText(parent);
 
       // Target category
       // TODO Find out if there is a list of category to choose from
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
             WizardMessages.Detail_TargetCategory);
-      this.targetCategoryText = createTargetCategoryText(parent);
+      this.targetCategoryText = createDefaultText(parent);
 
       // Classification method
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_ClassificationMethod);
@@ -251,48 +249,11 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
    }
 
    /**
-    * Creates the target category text.
+    * Gets the dataset directory path.
     *
-    * @param parent the parent
-    *
-    * @return the text
+    * @return the dataset directory path
     */
-   private Text createTargetCategoryText(final Composite parent) {
-      final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(CommonMessages.Info_LeaveBlank);
-
-      // apply layout
-      GUI.GRID_DATA_DEFAULT.applyTo(text);
-
-      // create decorations
-      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
-            CommonMessages.Info_LeaveBlank);
-      infoDecoration.hide();
-
-      // apply listeners
-      text.addFocusListener(new FocusListener() {
-
-         @Override
-         public void focusGained(final FocusEvent event) {
-            infoDecoration.show();
-         }
-
-         @Override
-         public void focusLost(final FocusEvent event) {
-            infoDecoration.hide();
-         }
-
-      });
-
-      return text;
-   }
-
-   /**
-    * Gets the dataset directory file path.
-    *
-    * @return the dataset directory file path
-    */
-   public String getDatasetDirectoryFilePath() {
+   public String getDatasetDirectoryPath() {
       return getDatasetDirectoryTBC().getText();
    }
 

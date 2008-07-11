@@ -20,24 +20,24 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 6, 2008
+ * @version Jul 10, 2008
  */
 public class MetaTaskTaskData extends AbstractTaskData {
 
    /** Name of this task is <code>task.DatasetTransformer</code>. */
-   public static final String TASK_NAME = "task.MetaTask"; //$NON-NLS-1$
+   private static final String TASK_NAME = "task.MetaTask"; //$NON-NLS-1$
 
    /** Argument <code>-d</code> for specifying the name of original dataset (i.e. the input dataset). */
-   public static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
+   private static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
 
    /** Argument <code>-o</code> for specifying name of the name of the output directory. */
-   public static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
+   private static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
 
    /** Argument <code>-numberOfTasks</code> for specifying the number of TASKS. */
-   public static final String ARG_NUMBER_OF_TASKS = HYPHEN + "numberOfTasks"; //$NON-NLS-1$
+   private static final String ARG_NUMBER_OF_TASKS = HYPHEN + "numberOfTasks"; //$NON-NLS-1$
 
    /** Argument <code>-targetCategory</code> for specifying the category. */
-   public static final String ARG_TARGET_CATEGORY = HYPHEN + "targetCategory"; //$NON-NLS-1$
+   private static final String ARG_TARGET_CATEGORY = HYPHEN + "targetCategory"; //$NON-NLS-1$
 
    /**
     * Argument <code>-classificationMethod</code> for specifying the feature selection method. Must be one of
@@ -46,7 +46,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
     *
     * @see ClassificationMethodEnum
     */
-   public static final String ARG_CLASSIFICATION_METHOD = HYPHEN + "classificationMethod"; //$NON-NLS-1$
+   private static final String ARG_CLASSIFICATION_METHOD = HYPHEN + "classificationMethod"; //$NON-NLS-1$
 
    /**
     * The enum ClassificationMethodEnum.
@@ -234,8 +234,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
    private TaskDataFolder createTrainTestPairTaskDataFolder(final String folderName, final String folderPath) {
       final File directory = new File(folderPath);
       final String directoryPath = directory.getAbsolutePath();
-      final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName + SPACE + HYPHEN + HYPHEN + SPACE
-            + directory.getName());
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
       final String[] trainFiles = Utility.listFileNames(directory, Resources.TRAIN_FILE_STARTS_WITH,
             Resources.TAB_EXTENSION);
       final String[] testFiles = Utility.listFileNames(directory, Resources.TEST_FILE_STARTS_WITH,
@@ -290,11 +289,18 @@ public class MetaTaskTaskData extends AbstractTaskData {
       return taskDataFile;
    }
 
+   /**
+    * Creates the output task data folder.
+    *
+    * @param folderName the folder name
+    * @param folderPath the folder path
+    *
+    * @return the task data folder
+    */
    private TaskDataFolder createOutputTaskDataFolder(final String folderName, final String folderPath) {
       final File directory = new File(folderPath);
       final String directoryPath = directory.getAbsolutePath();
-      final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName + SPACE + HYPHEN + HYPHEN + SPACE
-            + directory.getName());
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
       final String[] outFilesArray = Utility.listFileNames(directory, Resources.OUT_FILE_STARTS_WITH,
             Resources.TXT_EXTENSION);
 
