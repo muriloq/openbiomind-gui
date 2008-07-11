@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 6, 2008
+ * @version Jul 10, 2008
  */
 public class WizardMessages extends NLS {
 
@@ -99,12 +99,6 @@ public class WizardMessages extends NLS {
    /** The Enhance dataset wizard page label description file. */
    public static String EnhanceDatasetWizardPage_Label_DescriptionFile;
 
-   /** The Enhance dataset wizard page label destination directory. */
-   public static String EnhanceDatasetWizardPage_Label_DestinationDir;
-
-   /** The Enhance dataset wizard page label destination file. */
-   public static String EnhanceDatasetWizardPage_Label_DestinationFile;
-
    /** The Enhance dataset wizard page label enhanced dataset path. */
    public static String EnhanceDatasetWizardPage_Label_EnhancedDatasetPath;
 
@@ -120,6 +114,12 @@ public class WizardMessages extends NLS {
    /** The Group label required arguments. */
    public static String GroupLabel_RequiredArguments;
 
+   /** The Label destination directory. */
+   public static String Label_DestinationDir;
+
+   /** The Enhance dataset wizard page label destination file. */
+   public static String Label_DestinationFile;
+
    /** The Label none. */
    public static String Label_None;
 
@@ -127,7 +127,7 @@ public class WizardMessages extends NLS {
    public static String Label_OriginalDataset;
 
    /** The label output dataset. */
-   public static String Label_OutputDataset;
+   public static String Label_OutputDir;
 
    /** The Dataset transformer wizard page label target category. */
    public static String Label_TargetCategory;
@@ -147,11 +147,38 @@ public class WizardMessages extends NLS {
    /** The Meta task wizard page label number of tasks. */
    public static String MetaTaskWizardPage_Label_NumOfTasks;
 
-   /** The Meta task wizard page_ tip_ dataset directory. */
+   /** The Meta task wizard page tip dataset directory. */
    public static String MetaTaskWizardPage_Tip_DatasetDir;
 
    /** The Meta task wizard page tip number of tasks. */
    public static String MetaTaskWizardPage_Tip_NumOfTasks;
+
+   /** The Utility computer wizard description. */
+   public static String UtilityComputerWizard_Description;
+
+   /** The Utility computer wizard name. */
+   public static String UtilityComputerWizard_Name;
+
+   /** The Utility computer wizard page detail base dataset. */
+   public static String UtilityComputerWizardPage_Detail_BaseDataset;
+
+   /** The Utility computer wizard page detail output file. */
+   public static String UtilityComputerWizardPage_Detail_OutputFile;
+
+   /** The Utility computer wizard page detail output file path. */
+   public static String UtilityComputerWizardPage_Detail_OutputFilePath;
+
+   /** The Utility computer wizard page detail result directory. */
+   public static String UtilityComputerWizardPage_Detail_ResultDir;
+
+   /** The Utility computer wizard page label base dataset. */
+   public static String UtilityComputerWizardPage_Label_BaseDataset;
+
+   /** The Utility computer wizard page label output file path. */
+   public static String UtilityComputerWizardPage_Label_OutputFilePath;
+
+   /** The Utility computer wizard page label result directory. */
+   public static String UtilityComputerWizardPage_Label_ResultDir;
 
    /*
     * Initialize the messages

@@ -7,18 +7,17 @@
  */
 package openbiomind.gui.handlers;
 
+import openbiomind.gui.wizards.UtilityComputerWizard;
+
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
  * The class UtilityComputerTaskHandler.
  *
  * @author bsanghvi
  * @since Jun 27, 2008
- * @version Jun 27, 2008
+ * @version Jul 10, 2008
  */
 public class UtilityComputerTaskHandler extends AbstractTaskHandler {
 
@@ -27,9 +26,7 @@ public class UtilityComputerTaskHandler extends AbstractTaskHandler {
     */
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {
-      final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-      MessageDialog.openInformation(window.getShell(), "OpenBiomind-GUI", "Utility Computer Task");
-      return null;
+      return execute(event, new UtilityComputerWizard());
    }
 
 }

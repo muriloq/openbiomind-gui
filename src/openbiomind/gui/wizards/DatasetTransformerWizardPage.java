@@ -118,7 +118,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       this.originalDatasetTBC = createOriginalDatasetTBC(parent);
 
       // Output directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputDataset, WizardMessages.Detail_OutputDir,
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputDir, WizardMessages.Detail_OutputDir,
             true);
       this.outputDirectoryTBC = createOutputDirTBC(parent);
    }
