@@ -20,30 +20,30 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 6, 2008
+ * @version Jul 10, 2008
  */
 public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /** Name of this task is <code>task.DatasetTransformer</code>. */
-   public static final String TASK_NAME = "task.DatasetTransformer"; //$NON-NLS-1$
+   private static final String TASK_NAME = "task.DatasetTransformer"; //$NON-NLS-1$
 
    /** Argument <code>-d</code> for specifying the name of original dataset (i.e. the input dataset). */
-   public static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
+   private static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
 
    /** Argument <code>-o</code> for specifying name of the name of the output directory. */
-   public static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
+   private static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
 
    /** Argument <code>-targetCategory</code> for specifying the category. */
-   public static final String ARG_TARGET_CATEGORY = HYPHEN + "targetCategory"; //$NON-NLS-1$
+   private static final String ARG_TARGET_CATEGORY = HYPHEN + "targetCategory"; //$NON-NLS-1$
 
    /** Argument <code>-numberOfFolds</code> for specifying the number of folds. */
-   public static final String ARG_NUMBER_OF_FOLDS = HYPHEN + "numberOfFolds"; //$NON-NLS-1$
+   private static final String ARG_NUMBER_OF_FOLDS = HYPHEN + "numberOfFolds"; //$NON-NLS-1$
 
    /** Argument <code>-testDataset</code> for specifying the name of test dataset. */
-   public static final String ARG_TEST_DATASET = HYPHEN + "testDataset"; //$NON-NLS-1$
+   private static final String ARG_TEST_DATASET = HYPHEN + "testDataset"; //$NON-NLS-1$
 
    /** Argument <code>-numberOfSelectedFeatures</code> for specifying the number of selected features. */
-   public static final String ARG_NUMBER_OF_SELECTED_FEATURES = HYPHEN + "numberOfSelectedFeatures"; //$NON-NLS-1$
+   private static final String ARG_NUMBER_OF_SELECTED_FEATURES = HYPHEN + "numberOfSelectedFeatures"; //$NON-NLS-1$
 
    /**
     * Argument <code>-featureSelectionMethod</code> for specifying the feature selection method. Must be one of
@@ -51,7 +51,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     *
     * @see FeatureSelectionMethodEnum
     */
-   public static final String ARG_FEATURE_SELECTION_METHOD = HYPHEN + "featureSelectionMethod"; //$NON-NLS-1$
+   private static final String ARG_FEATURE_SELECTION_METHOD = HYPHEN + "featureSelectionMethod"; //$NON-NLS-1$
 
    /**
     * The enum FeatureSelectionMethodEnum.

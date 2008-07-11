@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jun 27, 2008
+ * @version Jul 10, 2008
  */
 public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -47,8 +47,11 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    /** The original dataset text button composite. */
    private TextButtonComposite originalDatasetTBC = null;
 
-   /** The enhanced dataset destination file text. */
-   private Text enhancedDatasetDestFileText = null;
+   /** The enhanced dataset destination file name text. */
+   private Text enhancedDatasetDestFileNameText = null;
+
+   /** The valid enhanced dataset destination file name. */
+   private boolean validEnhancedDatasetDestFileName = false;
 
    /** The enhanced dataset destination directory text button composite. */
    private TextButtonComposite enhancedDatasetDestDirTBC = null;
@@ -56,17 +59,14 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    /** The use original dataset directory for enhanced dataset. */
    private Button useOriginalDatasetDirButton = null;
 
-   /** The enhanced dataset file path text. */
-   private Text enhancedDatasetFilePathText = null;
+   /** The enhanced dataset path text. */
+   private Text enhancedDatasetPathText = null;
 
    /** The ontology description file text button composite. */
    private TextButtonComposite ontologyDescriptionFileTBC = null;
 
    /** The ontology association file text button composite. */
    private TextButtonComposite ontologyAssociationFileTBC = null;
-
-   /** The valid enhanced dataset file name. */
-   private boolean validEnhancedDatasetFileName = false;
 
    /** The valid enhanced dataset file path. */
    private boolean validEnhancedDatasetFilePath = false;
@@ -113,22 +113,28 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OriginalDataset,
             WizardMessages.Detail_OriginalDataset, true);
       this.originalDatasetTBC = createOriginalDatasetTBC(parent);
-      WidgetHelper.createNewBlankLabel(parent, NUM_COLUMN_IN_GROUP);
 
       // Enhanced dataset
+      // - leave a blank row
+      WidgetHelper.createNewBlankLabel(parent, NUM_COLUMN_IN_GROUP);
+      // - Detail row: Specify the enhanced dataset file
       WidgetHelper.createNewDetailsLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset,
             NUM_COLUMN_IN_GROUP);
+      // - Destination file name
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationFile,
             WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset, true);
-      this.enhancedDatasetDestFileText = createEnhancedDatasetDestFileText(parent);
+      this.enhancedDatasetDestFileNameText = createEnhancedDatasetDestFileNameText(parent);
+      // - Destination directory
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DestinationDir,
             CommonMessages.Info_DestinationDir);
       this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(parent);
+      // - Use original dataset directory check box
       WidgetHelper.createNewBlankLabel(parent);
       this.useOriginalDatasetDirButton = createUseOriginalDatasetDirButton(parent);
+      // - Enhanced dataset path - read only
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_EnhancedDatasetPath,
             WizardMessages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
-      this.enhancedDatasetFilePathText = createEnhancedDatasetFilePathText(parent);
+      this.enhancedDatasetPathText = createEnhancedDatasetPathText(parent);
    }
 
    /**
@@ -184,16 +190,16 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    }
 
    /**
-    * Creates the enhanced dataset destination file text.
+    * Creates the enhanced dataset destination file name text.
     *
     * @param parent the parent
     *
     * @return the text
     */
-   private Text createEnhancedDatasetDestFileText(final Composite parent) {
+   private Text createEnhancedDatasetDestFileNameText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
       text.setToolTipText(WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset);
-      setValidEnhancedDatasetFileName(false);
+      setValidEnhancedDatasetDestFileName(false);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(text);
@@ -208,15 +214,15 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            setValidEnhancedDatasetFileName(!Utility.isEmpty(text.getText()));
-            if (isValidEnhancedDatasetFileName()) {
+            setValidEnhancedDatasetDestFileName(!Utility.isEmpty(text.getText()));
+            if (isValidEnhancedDatasetDestFileName()) {
                errorDecoration.hide();
             } else {
                errorDecoration.show();
                errorDecoration.showHoverText(errorDecoration.getDescriptionText());
             }
 
-            getEnhancedDatasetFilePathText().setText(getEnhancedDatasetFilePath());
+            getEnhancedDatasetPathText().setText(getEnhancedDataset());
 
             validatePage();
          }
@@ -296,7 +302,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
             textButtonComposite.setValid(!inError);
             showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration, infoDecoration);
 
-            getEnhancedDatasetFilePathText().setText(getEnhancedDatasetFilePath());
+            getEnhancedDatasetPathText().setText(getEnhancedDataset());
 
             validatePage();
          }
@@ -340,16 +346,15 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    }
 
    /**
-    * Gets the enhanced dataset file path text. This method uses {@link #getEnhancedDatasetFilePath()}.
+    * Gets the enhanced dataset path text. This method uses {@link #getEnhancedDataset()}.
     *
     * @param parent the parent
     *
-    * @return the enhanced dataset file path text
+    * @return the enhanced dataset path text
     */
-   private Text createEnhancedDatasetFilePathText(final Composite parent) {
+   private Text createEnhancedDatasetPathText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
       text.setToolTipText(WizardMessages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
-      setValidEnhancedDatasetFileName(false);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(text);
@@ -369,7 +374,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
          public void modifyText(final ModifyEvent event) {
             boolean inError = false;
             boolean inWarning = false;
-            final File file = new File(getEnhancedDatasetFilePath());
+            final File file = new File(getEnhancedDataset());
 
             if (file.isDirectory()) {
                inError = true;
@@ -407,39 +412,127 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       this.ontologyAssociationFileTBC = createNewOptionalFileTextButtonComposite(parent);
    }
 
-   /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#validatePage()
+   /**
+    * Gets the original dataset.
+    *
+    * @return the original dataset
     */
-   @Override
-   protected void validatePage() {
-      final boolean valid = isProjectInformationValid() && getOriginalDatasetTBC().isValid()
-            && isValidEnhancedDatasetFileName() && getEnhancedDatasetDestDirTBC().isValid()
-            && isValidEnhancedDatasetFilePath() && getOntologyDescriptionFileTBC().isValid()
-            && getOntologyAssociationFileTBC().isValid();
-      setPageComplete(valid);
-      if (!valid) {
-         setErrorMessage(CommonMessages.Error_FixToContinue);
+   public String getOriginalDataset() {
+      return getOriginalDatasetTBC().getText();
+   }
+
+   /**
+    * Gets the original dataset text button composite.
+    *
+    * @return the original dataset text button composite
+    */
+   private TextButtonComposite getOriginalDatasetTBC() {
+      return this.originalDatasetTBC;
+   }
+
+   /**
+    * Gets the enhanced dataset destination file name.
+    *
+    * @return the enhanced dataset destination file name
+    */
+   private String getEnhancedDatasetDestFileName() {
+      return getEnhancedDatasetDestFileNameText().getText();
+   }
+
+   /**
+    * Gets the enhanced dataset destination file name text.
+    *
+    * @return the enhanced dataset destination file name text
+    */
+   private Text getEnhancedDatasetDestFileNameText() {
+      return this.enhancedDatasetDestFileNameText;
+   }
+
+   /**
+    * Checks if is valid enhanced dataset destination file name.
+    *
+    * @return true, if checks if is valid enhanced dataset destination file name
+    */
+   private boolean isValidEnhancedDatasetDestFileName() {
+      return this.validEnhancedDatasetDestFileName;
+   }
+
+   /**
+    * Sets the valid enhanced dataset destination file name.
+    *
+    * @param validEnhancedDatasetDestFileName the valid enhanced dataset destination file name
+    */
+   private void setValidEnhancedDatasetDestFileName(final boolean validEnhancedDatasetDestFileName) {
+      this.validEnhancedDatasetDestFileName = validEnhancedDatasetDestFileName;
+   }
+
+   /**
+    * Gets the enhanced dataset destination directory path.
+    *
+    * @return the enhanced dataset destination directory
+    */
+   private String getEnhancedDatasetDestDirPath() {
+      return getEnhancedDatasetDestDirTBC().getText();
+   }
+
+   /**
+    * Gets the enhanced dataset destination directory text button composite.
+    *
+    * @return the enhanced dataset destination directory text button composite
+    */
+   private TextButtonComposite getEnhancedDatasetDestDirTBC() {
+      return this.enhancedDatasetDestDirTBC;
+   }
+
+   /**
+    * Update enhanced dataset destination directory text.
+    */
+   private void updateEnhancedDatasetDestDirText() {
+      getEnhancedDatasetDestDirTBC().setText(Utility.extractDirectory(getOriginalDataset()));
+   }
+
+   /**
+    * Use original dataset directory for enhanced dataset.
+    *
+    * @return true, if successful
+    */
+   private boolean useOriginalDatasetDir() {
+      return getUseOriginalDatasetDirButton().getSelection();
+   }
+
+   /**
+    * Gets the use original dataset directory for enhanced dataset.
+    *
+    * @return the use original dataset directory for enhanced dataset
+    */
+   private Button getUseOriginalDatasetDirButton() {
+      return this.useOriginalDatasetDirButton;
+   }
+
+   /**
+    * Gets the enhanced dataset.
+    *
+    * @return the enhanced dataset
+    */
+   public String getEnhancedDataset() {
+      final String directoryPath = getEnhancedDatasetDestDirPath();
+      final String fileName = getEnhancedDatasetDestFileName();
+      if (!Utility.exists(directoryPath)) {
+         return Properties.CURRENT_DIRECTORY + File.separator + fileName;
+      } else if (directoryPath.endsWith(File.separator)) {
+         return directoryPath + fileName;
       } else {
-         setErrorMessage(null);
+         return directoryPath + File.separator + fileName;
       }
    }
 
    /**
-    * Checks if is valid enhanced dataset file name.
+    * Gets the enhanced dataset file path text.
     *
-    * @return the validEnhancedDataset
+    * @return the enhancedDatasetPathText
     */
-   private boolean isValidEnhancedDatasetFileName() {
-      return this.validEnhancedDatasetFileName;
-   }
-
-   /**
-    * Sets the valid enhanced dataset file name.
-    *
-    * @param validEnhancedDatasetFileName the new valid enhanced dataset file name
-    */
-   private void setValidEnhancedDatasetFileName(final boolean validEnhancedDatasetFileName) {
-      this.validEnhancedDatasetFileName = validEnhancedDatasetFileName;
+   private Text getEnhancedDatasetPathText() {
+      return this.enhancedDatasetPathText;
    }
 
    /**
@@ -461,126 +554,12 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    }
 
    /**
-    * Update enhanced dataset destination directory text.
-    */
-   private void updateEnhancedDatasetDestDirText() {
-      getEnhancedDatasetDestDirTBC().setText(Utility.extractDirectory(getOriginalDatasetFilePath()));
-   }
-
-   /**
-    * Gets the original dataset file path.
+    * Gets the ontology description file.
     *
-    * @return the original dataset file
+    * @return the ontology description file
     */
-   public String getOriginalDatasetFilePath() {
-      return getOriginalDatasetTBC().getText();
-   }
-
-   /**
-    * Gets the enhanced dataset file path.
-    *
-    * @return the enhanced dataset file
-    */
-   public String getEnhancedDatasetFilePath() {
-      final String directoryPath = getEnhancedDatasetDestDirPath();
-      final String fileName = getEnhancedDatasetDestFileName();
-      if (!Utility.exists(directoryPath)) {
-         return Properties.CURRENT_DIRECTORY + File.separator + fileName;
-      } else if (directoryPath.endsWith(File.separator)) {
-         return directoryPath + fileName;
-      } else {
-         return directoryPath + File.separator + fileName;
-      }
-   }
-
-   /**
-    * Gets the enhanced dataset destination directory path.
-    *
-    * @return the enhanced dataset destination directory
-    */
-   private String getEnhancedDatasetDestDirPath() {
-      return getEnhancedDatasetDestDirTBC().getText();
-   }
-
-   /**
-    * Gets the enhanced dataset destination file.
-    *
-    * @return the enhanced dataset destination file
-    */
-   private String getEnhancedDatasetDestFileName() {
-      return getEnhancedDatasetDestFileText().getText();
-   }
-
-   /**
-    * Use original dataset directory for enhanced dataset.
-    *
-    * @return true, if successful
-    */
-   private boolean useOriginalDatasetDir() {
-      return getUseOriginalDatasetDirButton().getSelection();
-   }
-
-   /**
-    * Gets the ontology description file path.
-    *
-    * @return the ontology description file path
-    */
-   public String getOntologyDescriptionFilePath() {
+   public String getOntologyDescriptionFile() {
       return getOntologyDescriptionFileTBC().getText();
-   }
-
-   /**
-    * Gets the ontology association file path.
-    *
-    * @return the ontology association file path
-    */
-   public String getOntologyAssociationFilePath() {
-      return getOntologyAssociationFileTBC().getText();
-   }
-
-   /**
-    * Gets the original dataset text button composite.
-    *
-    * @return the original dataset text button composite
-    */
-   private TextButtonComposite getOriginalDatasetTBC() {
-      return this.originalDatasetTBC;
-   }
-
-   /**
-    * Gets the enhanced dataset file path text.
-    *
-    * @return the enhancedDatasetFilePathText
-    */
-   private Text getEnhancedDatasetFilePathText() {
-      return this.enhancedDatasetFilePathText;
-   }
-
-   /**
-    * Gets the enhanced dataset destination directory text button composite.
-    *
-    * @return the enhanced dataset destination directory text button composite
-    */
-   private TextButtonComposite getEnhancedDatasetDestDirTBC() {
-      return this.enhancedDatasetDestDirTBC;
-   }
-
-   /**
-    * Gets the use original dataset directory for enhanced dataset.
-    *
-    * @return the use original dataset directory for enhanced dataset
-    */
-   private Button getUseOriginalDatasetDirButton() {
-      return this.useOriginalDatasetDirButton;
-   }
-
-   /**
-    * Gets the enhanced dataset destination file text.
-    *
-    * @return the enhanced dataset destination file text
-    */
-   private Text getEnhancedDatasetDestFileText() {
-      return this.enhancedDatasetDestFileText;
    }
 
    /**
@@ -593,12 +572,38 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    }
 
    /**
+    * Gets the ontology association file.
+    *
+    * @return the ontology association file
+    */
+   public String getOntologyAssociationFile() {
+      return getOntologyAssociationFileTBC().getText();
+   }
+
+   /**
     * Gets the ontology association file text button composite.
     *
     * @return the ontology association file text button composite
     */
    private TextButtonComposite getOntologyAssociationFileTBC() {
       return this.ontologyAssociationFileTBC;
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#validatePage()
+    */
+   @Override
+   protected void validatePage() {
+      final boolean valid = isProjectInformationValid() && getOriginalDatasetTBC().isValid()
+            && isValidEnhancedDatasetDestFileName() && getEnhancedDatasetDestDirTBC().isValid()
+            && isValidEnhancedDatasetFilePath() && getOntologyDescriptionFileTBC().isValid()
+            && getOntologyAssociationFileTBC().isValid();
+      setPageComplete(valid);
+      if (!valid) {
+         setErrorMessage(CommonMessages.Error_FixToContinue);
+      } else {
+         setErrorMessage(null);
+      }
    }
 
 }

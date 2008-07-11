@@ -35,7 +35,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jun 26, 2008
+ * @version Jul 10, 2008
  */
 public abstract class AbstractTaskWizardPage extends WizardPage implements IWizardPage, Constants {
 
@@ -371,6 +371,43 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       combo.select(0);
 
       return combo;
+   }
+
+   /**
+    * Creates the default text.
+    *
+    * @param parent the parent
+    *
+    * @return the text
+    */
+   protected Text createDefaultText(final Composite parent) {
+      final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
+      text.setToolTipText(CommonMessages.Info_LeaveBlank);
+
+      // apply layout
+      GUI.GRID_DATA_DEFAULT.applyTo(text);
+
+      // create decorations
+      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
+            CommonMessages.Info_LeaveBlank);
+      infoDecoration.hide();
+
+      // apply listeners
+      text.addFocusListener(new FocusListener() {
+
+         @Override
+         public void focusGained(final FocusEvent event) {
+            infoDecoration.show();
+         }
+
+         @Override
+         public void focusLost(final FocusEvent event) {
+            infoDecoration.hide();
+         }
+
+      });
+
+      return text;
    }
 
    /**

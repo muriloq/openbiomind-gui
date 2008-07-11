@@ -18,8 +18,6 @@ import openbiomind.gui.widgets.WidgetHelper;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -34,7 +32,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 6, 2008
+ * @version Jul 10, 2008
  */
 public class DatasetTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -248,7 +246,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       // TODO Find out if there is a list of category to choose from
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
             WizardMessages.Detail_TargetCategory);
-      this.targetCategoryText = createTargetCategoryText(parent);
+      this.targetCategoryText = createDefaultText(parent);
 
       // Number of selected features
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.DatasetTransformerWizardPage_Label_NumOfSelectedFeatures,
@@ -272,43 +270,6 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       this.testDatasetButton = createTestDatasetButton(parent);
       this.testDatasetTBC = createNewOptionalFileTextButtonComposite(parent);
       getTestDatasetTBC().setEnabled(false);
-   }
-
-   /**
-    * Creates the target category text.
-    *
-    * @param parent the parent
-    *
-    * @return the text
-    */
-   private Text createTargetCategoryText(final Composite parent) {
-      final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(CommonMessages.Info_LeaveBlank);
-
-      // apply layout
-      GUI.GRID_DATA_DEFAULT.applyTo(text);
-
-      // create decorations
-      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
-            CommonMessages.Info_LeaveBlank);
-      infoDecoration.hide();
-
-      // apply listeners
-      text.addFocusListener(new FocusListener() {
-
-         @Override
-         public void focusGained(final FocusEvent event) {
-            infoDecoration.show();
-         }
-
-         @Override
-         public void focusLost(final FocusEvent event) {
-            infoDecoration.hide();
-         }
-
-      });
-
-      return text;
    }
 
    /**
@@ -414,9 +375,9 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
    }
 
    /**
-    * Gets the enhanced dataset destination file.
+    * Gets the target category.
     *
-    * @return the enhanced dataset destination file
+    * @return the target category
     */
    public String getTargetCategory() {
       return getTargetCategoryText().getText();
