@@ -24,7 +24,7 @@ import org.eclipse.ui.console.MessageConsoleStream;
  *
  * @author bsanghvi
  * @since Jun 8, 2008
- * @version Jun 26, 2008
+ * @version Jul 13, 2008
  */
 public class Console implements Constants {
 
@@ -69,7 +69,7 @@ public class Console implements Constants {
     * @param message the message
     * @param color the color
     */
-   public synchronized static void write(final String message, final Color color) {
+   public static void write(final String message, final Color color) {
       Display.getDefault().asyncExec(new Runnable() {
 
          /*
@@ -84,44 +84,13 @@ public class Console implements Constants {
       });
    }
 
-   // /**
-   // * Write.
-   // *
-   // * @param inputStream the input stream
-   // * @param color the color
-   // */
-   // public synchronized static void write(final InputStream inputStream, final Color color) {
-   // Display.getDefault().asyncExec(new Runnable() {
-   //
-   // /*
-   // * @see java.lang.Runnable#run()
-   // */
-   // public void run() {
-   // final MessageConsoleStream stream = Console.console.newMessageStream();
-   // stream.setColor(color);
-   //
-   // final BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-   // String message;
-   //
-   // try {
-   // while ((message = br.readLine()) != null) {
-   // stream.println(message);
-   // }
-   // } catch (final IOException e) {
-   // error(e);
-   // }
-   // }
-   //
-   // });
-   // }
-
    /**
     * Write.
     *
     * @param e the e
     * @param color the color
     */
-   private synchronized static void write(final Throwable e, final Color color) {
+   private static void write(final Throwable e, final Color color) {
       Display.getDefault().asyncExec(new Runnable() {
 
          /*
@@ -141,7 +110,7 @@ public class Console implements Constants {
     *
     * @param message the message
     */
-   public synchronized static void output(final String message) {
+   public static void output(final String message) {
       write(message, Colors.OUTPUT);
    }
 
@@ -150,25 +119,16 @@ public class Console implements Constants {
     *
     * @param message the message
     */
-   public synchronized static void error(final String message) {
+   public static void error(final String message) {
       write(message, Colors.ERROR);
    }
-
-   // /**
-   // * Error.
-   // *
-   // * @param inputStream the input stream
-   // */
-   // public synchronized static void error(final InputStream inputStream) {
-   // write(inputStream, Colors.ERROR);
-   // }
 
    /**
     * Error.
     *
     * @param e the e
     */
-   public synchronized static void error(final Throwable e) {
+   public static void error(final Throwable e) {
       write(e, Colors.ERROR);
    }
 
@@ -178,7 +138,7 @@ public class Console implements Constants {
     * @param message the message
     * @param e the e
     */
-   public synchronized static void error(final String message, final Throwable e) {
+   public static void error(final String message, final Throwable e) {
       write(message, Colors.ERROR);
       write(e, Colors.ERROR);
    }
@@ -188,7 +148,7 @@ public class Console implements Constants {
     *
     * @param message the message
     */
-   public synchronized static void warn(final String message) {
+   public static void warn(final String message) {
       write(message, Colors.WARN);
    }
 
@@ -197,25 +157,16 @@ public class Console implements Constants {
     *
     * @param message the message
     */
-   public synchronized static void info(final String message) {
+   public static void info(final String message) {
       write(message, Colors.INFO);
    }
-
-   // /**
-   // * Info.
-   // *
-   // * @param inputStream the input stream
-   // */
-   // public synchronized static void info(final InputStream inputStream) {
-   // write(inputStream, Colors.INFO);
-   // }
 
    /**
     * Debug.
     *
     * @param message the message
     */
-   public synchronized static void debug(final String message) {
+   public static void debug(final String message) {
       if (isDebug()) {
          write(message, Colors.DEBUG);
       }
@@ -226,7 +177,7 @@ public class Console implements Constants {
     *
     * @param e the e
     */
-   public synchronized static void debug(final Throwable e) {
+   public static void debug(final Throwable e) {
       if (isDebug()) {
          write(e, Colors.DEBUG);
       }
