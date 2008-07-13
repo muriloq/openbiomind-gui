@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 10, 2008
+ * @version Jul 13, 2008
  */
 public class WizardMessages extends NLS {
 
@@ -26,9 +26,6 @@ public class WizardMessages extends NLS {
 
    /** The Abstract task wizard leave blank or specify a number. */
    public static String AbstractTaskWizard_LeaveBlank_Number;
-
-   /** The Abstract task wizard loading files. */
-   public static String AbstractTaskWizard_LoadingFiles;
 
    /** The Abstract task wizard preparing process. */
    public static String AbstractTaskWizard_PreparingProcess;
