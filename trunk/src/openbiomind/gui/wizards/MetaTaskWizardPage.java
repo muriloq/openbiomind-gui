@@ -9,7 +9,8 @@ package openbiomind.gui.wizards;
 
 import java.io.File;
 
-import openbiomind.gui.tasks.MetaTaskTaskData.ClassificationMethodEnum;
+import openbiomind.gui.tasks.ClassificationMethodEnum;
+import openbiomind.gui.tasks.MetaTaskShufflingEnum;
 import openbiomind.gui.util.CommonMessages;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.widgets.TextButtonComposite;
@@ -29,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Jul 10, 2008
+ * @version Jul 15, 2008
  */
 public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -58,6 +59,12 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /** The classification method array. */
    private String[] classificationMethodArray = null;
+
+   /** The meta task shuffling combo. */
+   private Combo metaTaskShufflingCombo = null;
+
+   /** The meta task shuffling array. */
+   private String[] metaTaskShufflingArray = null;
 
    /**
     * Instantiates a new meta task wizard page.
@@ -103,8 +110,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       this.datasetDirectoryTBC = createDatasetDirectoryTBC(parent);
 
       // Output directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputDir, WizardMessages.Detail_OutputDir,
-            true);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputDir, WizardMessages.Detail_OutputDir, true);
       this.outputDirectoryTBC = createOutputDirTBC(parent);
    }
 
@@ -246,6 +252,10 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       // Classification method
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_ClassificationMethod);
       this.classificationMethodCombo = createDefaultCombo(parent, getClassificationMethodArray());
+
+      // MetaTask shuffling
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_MetaTaskShuffling);
+      this.metaTaskShufflingCombo = createDefaultCombo(parent, getMetaTaskShufflingArray());
    }
 
    /**
@@ -350,11 +360,45 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
     */
    private String[] getClassificationMethodArray() {
       if (this.classificationMethodArray == null) {
-         this.classificationMethodArray = new String[] { EMPTY, ClassificationMethodEnum.BOOLSIMPLE.toString(),
-               ClassificationMethodEnum.BOOLCOMPLEX.toString(), ClassificationMethodEnum.CONVENTIONAL.toString() };
+         this.classificationMethodArray = new String[] { EMPTY, ClassificationMethodEnum.SNPQA.toString(),
+               ClassificationMethodEnum.BOOLSIMPLE.toString(), ClassificationMethodEnum.SNPLOCAL.toString(),
+               ClassificationMethodEnum.SNP.toString(), ClassificationMethodEnum.BOOLCOMPLEX.toString(),
+               ClassificationMethodEnum.CONVENTIONAL.toString() };
       }
 
       return this.classificationMethodArray;
+   }
+
+   /**
+    * Gets the meta task shuffling.
+    *
+    * @return the meta task shuffling
+    */
+   public MetaTaskShufflingEnum getMetaTaskShuffling() {
+      return MetaTaskShufflingEnum.parse(getMetaTaskShufflingArray()[getMetaTaskShufflingCombo().getSelectionIndex()]);
+   }
+
+   /**
+    * Gets the meta task shuffling combo.
+    *
+    * @return the meta task shuffling combo
+    */
+   private Combo getMetaTaskShufflingCombo() {
+      return this.metaTaskShufflingCombo;
+   }
+
+   /**
+    * Gets the meta task shuffling array.
+    *
+    * @return the meta task shuffling array
+    */
+   private String[] getMetaTaskShufflingArray() {
+      if (this.metaTaskShufflingArray == null) {
+         this.metaTaskShufflingArray = new String[] { EMPTY, MetaTaskShufflingEnum.ON.toString(),
+               MetaTaskShufflingEnum.OFF.toString() };
+      }
+
+      return this.metaTaskShufflingArray;
    }
 
    /*
