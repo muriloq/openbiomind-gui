@@ -15,12 +15,12 @@ import openbiomind.gui.util.Utility;
  * The class MetaTaskTaskData is used by the MetaTask task. The syntax of this task is as follows:
  *
  * <pre>
- * task.MetaTask &lt;-d dataset directory&gt; &lt;-o output&gt; [-numberOfTasks number of tasks] [-targetCategory case category] [-classificationMethod boolsimple|boolcomplex|conventional]
+ * task.MetaTask &lt;-d dataset directory&gt; &lt;-o output&gt; [-numberOfTasks number of tasks] [-targetCategory case category] [-classificationMethod snpga|boolsimple|snplocal|snp|conventional|boolcomplex] [-metataskShuffling on|off]
  * </pre>
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 10, 2008
+ * @version Jul 15, 2008
  */
 public class MetaTaskTaskData extends AbstractTaskData {
 
@@ -40,68 +40,18 @@ public class MetaTaskTaskData extends AbstractTaskData {
    private static final String ARG_TARGET_CATEGORY = HYPHEN + "targetCategory"; //$NON-NLS-1$
 
    /**
-    * Argument <code>-classificationMethod</code> for specifying the feature selection method. Must be one of
-    * {@link ClassificationMethodEnum#BOOLSIMPLE} or {@link ClassificationMethodEnum#BOOLCOMPLEX} or
-    * {@link ClassificationMethodEnum#CONVENTIONAL}.
+    * Argument <code>-classificationMethod</code> for specifying the feature selection method.
     *
     * @see ClassificationMethodEnum
     */
    private static final String ARG_CLASSIFICATION_METHOD = HYPHEN + "classificationMethod"; //$NON-NLS-1$
 
    /**
-    * The enum ClassificationMethodEnum.
+    * Argument <code>-metataskShuffling</code> for specifying if permutation analysis much be used or not?
+    *
+    * @see MetaTaskShufflingEnum
     */
-   public enum ClassificationMethodEnum {
-
-      /** The <code>boolsimple</code> method. */
-      BOOLSIMPLE("boolsimple"), //$NON-NLS-1$
-
-      /** The <code>boolcomplex</code> method. */
-      BOOLCOMPLEX("boolcomplex"), //$NON-NLS-1$
-
-      /** The <code>conventional</code> method. */
-      CONVENTIONAL("conventional"); //$NON-NLS-1$
-
-      /** The name. */
-      private String name = null;
-
-      /**
-       * Instantiates a new feature selection method enum.
-       *
-       * @param name the name
-       */
-      private ClassificationMethodEnum(final String name) {
-         this.name = name;
-      }
-
-      /**
-       * Parses the string to find the ClassificationMethodEnum.
-       *
-       * @param string the string
-       *
-       * @return the classification method enum
-       */
-      public static ClassificationMethodEnum parse(final String string) {
-         if (BOOLSIMPLE.toString().equals(string)) {
-            return BOOLSIMPLE;
-         } else if (BOOLCOMPLEX.toString().equals(string)) {
-            return BOOLCOMPLEX;
-         } else if (CONVENTIONAL.toString().equals(string)) {
-            return CONVENTIONAL;
-         } else {
-            return null;
-         }
-      }
-
-      /*
-       * @see java.lang.Enum#toString()
-       */
-      @Override
-      public String toString() {
-         return this.name;
-      }
-
-   }
+   private static final String ARG_METATASK_SHUFFLING = HYPHEN + "metataskShuffling"; //$NON-NLS-1$
 
    /**
     * Instantiates a new enhance dataset task.
@@ -202,13 +152,35 @@ public class MetaTaskTaskData extends AbstractTaskData {
    /**
     * Sets the classification method (argument = <code>-classificationMethod</code>).
     *
-    * @param featureSelectionMethod the feature selection method, must be one of
-    * {@link ClassificationMethodEnum#BOOLSIMPLE} or {@link ClassificationMethodEnum#BOOLCOMPLEX} or
-    * {@link ClassificationMethodEnum#CONVENTIONAL}.
+    * @param featureSelectionMethod the feature selection method, must be one of {@link ClassificationMethodEnum}.
     */
    public void setClassficationMethod(final ClassificationMethodEnum featureSelectionMethod) {
       if (featureSelectionMethod != null) {
          putArgument(ARG_CLASSIFICATION_METHOD, featureSelectionMethod.toString());
+      }
+   }
+
+   /**
+    * Gets the meta task shuffling.
+    *
+    * @return the meta task shuffling
+    *
+    * @see MetaTaskShufflingEnum
+    */
+   public MetaTaskShufflingEnum getMetaTaskShuffling() {
+      return MetaTaskShufflingEnum.parse(getArgument(ARG_METATASK_SHUFFLING));
+   }
+
+   /**
+    * Sets the meta task shuffling.
+    *
+    * @param metaTaskShuffling the meta task shuffling
+    *
+    * @see MetaTaskShufflingEnum
+    */
+   public void setMetaTaskShuffling(final MetaTaskShufflingEnum metaTaskShuffling) {
+      if (metaTaskShuffling != null) {
+         putArgument(ARG_METATASK_SHUFFLING, metaTaskShuffling.toString());
       }
    }
 

@@ -20,7 +20,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 10, 2008
+ * @version Jul 15, 2008
  */
 public class DatasetTransformerTaskData extends AbstractTaskData {
 
@@ -52,56 +52,6 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @see FeatureSelectionMethodEnum
     */
    private static final String ARG_FEATURE_SELECTION_METHOD = HYPHEN + "featureSelectionMethod"; //$NON-NLS-1$
-
-   /**
-    * The enum FeatureSelectionMethodEnum.
-    */
-   public enum FeatureSelectionMethodEnum {
-
-      /** The <code>differentiation</code> method. */
-      DIFFERENTIATION("differentiation"), //$NON-NLS-1$
-
-      /** The <code>SAM</code> method. */
-      SAM("SAM"); //$NON-NLS-1$
-
-      /** The name. */
-      private String name = null;
-
-      /**
-       * Instantiates a new feature selection method enum.
-       *
-       * @param name the name
-       */
-      private FeatureSelectionMethodEnum(final String name) {
-         this.name = name;
-      }
-
-      /**
-       * Parses the string to find the FeatureSelectionMethodEnum.
-       *
-       * @param string the string
-       *
-       * @return the feature selection method enum
-       */
-      public static FeatureSelectionMethodEnum parse(final String string) {
-         if (DIFFERENTIATION.toString().equals(string)) {
-            return DIFFERENTIATION;
-         } else if (SAM.toString().equals(string)) {
-            return SAM;
-         } else {
-            return null;
-         }
-      }
-
-      /*
-       * @see java.lang.Enum#toString()
-       */
-      @Override
-      public String toString() {
-         return this.name;
-      }
-
-   }
 
    /**
     * Instantiates a new enhance dataset task.

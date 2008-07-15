@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Jul 9, 2008
+ * @version Jul 15, 2008
  */
 public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -104,7 +104,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
       // Result directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.UtilityComputerWizardPage_Label_ResultDir,
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_MetaTaskResultDir,
             WizardMessages.UtilityComputerWizardPage_Detail_ResultDir, true);
       this.resultDirTBC = createResultDirTBC(parent);
 

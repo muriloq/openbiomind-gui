@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 13, 2008
+ * @version Jul 15, 2008
  */
 public class WizardMessages extends NLS {
 
@@ -117,6 +117,9 @@ public class WizardMessages extends NLS {
    /** The Enhance dataset wizard page label destination file. */
    public static String Label_DestinationFile;
 
+   /** The Meta Task result directory. */
+   public static String Label_MetaTaskResultDir;
+
    /** The Label none. */
    public static String Label_None;
 
@@ -140,6 +143,9 @@ public class WizardMessages extends NLS {
 
    /** The Meta task wizard page label dataset directory. */
    public static String MetaTaskWizardPage_Label_DatasetDir;
+
+   /** The Meta task wizard page MetaTask shuffling. */
+   public static String MetaTaskWizardPage_Label_MetaTaskShuffling;
 
    /** The Meta task wizard page label number of tasks. */
    public static String MetaTaskWizardPage_Label_NumOfTasks;
@@ -173,9 +179,6 @@ public class WizardMessages extends NLS {
 
    /** The Utility computer wizard page label output file path. */
    public static String UtilityComputerWizardPage_Label_OutputFilePath;
-
-   /** The Utility computer wizard page label result directory. */
-   public static String UtilityComputerWizardPage_Label_ResultDir;
 
    /*
     * Initialize the messages

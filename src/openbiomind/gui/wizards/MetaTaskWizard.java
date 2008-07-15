@@ -15,7 +15,7 @@ import openbiomind.gui.tasks.MetaTaskTaskData;
  *
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Jul 10, 2008
+ * @version Jul 15, 2008
  */
 public class MetaTaskWizard extends AbstractTaskWizard {
 
@@ -52,6 +52,7 @@ public class MetaTaskWizard extends AbstractTaskWizard {
       getMetaTaskTaskData().setNumberOfTasks(getMetaTaskWizardPage().getNumberTasks());
       getMetaTaskTaskData().setTargetCategory(getMetaTaskWizardPage().getTargetCategory());
       getMetaTaskTaskData().setClassficationMethod(getMetaTaskWizardPage().getClassificationMethod());
+      getMetaTaskTaskData().setMetaTaskShuffling(getMetaTaskWizardPage().getMetaTaskShuffling());
    }
 
    /*

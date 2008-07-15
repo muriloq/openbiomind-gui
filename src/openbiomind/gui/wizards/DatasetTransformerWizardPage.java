@@ -9,7 +9,7 @@ package openbiomind.gui.wizards;
 
 import java.io.File;
 
-import openbiomind.gui.tasks.DatasetTransformerTaskData.FeatureSelectionMethodEnum;
+import openbiomind.gui.tasks.FeatureSelectionMethodEnum;
 import openbiomind.gui.util.CommonMessages;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.widgets.TextButtonComposite;
@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 10, 2008
+ * @version Jul 15, 2008
  */
 public class DatasetTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
