@@ -42,7 +42,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
    public static final String PAGE_NAME = "openbiomind.gui.wizards.EnhanceDatasetWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
-   private static final int NUM_COLUMN_IN_GROUP = 2;
+   private static final int NUM_COLUMN_IN_GROUP = 3;
 
    /** The original dataset text button composite. */
    private TextButtonComposite originalDatasetTBC = null;
@@ -93,7 +93,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       GUI.GRID_LAYOUT_WITH_MARGIN.copy().numColumns(NUM_COLUMN_IN_GROUP).applyTo(composite);
 
       // add components
-      addProjectInformationFields(composite, NUM_COLUMN_IN_GROUP);
+      addProjectInformationFields(composite);
       createRequiredGroup(composite);
       createOptionalGroup(composite);
 
@@ -124,6 +124,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationFile,
             WizardMessages.EnhanceDatasetWizardPage_Detail_EnhancedDataset, true);
       this.enhancedDatasetDestFileNameText = createEnhancedDatasetDestFileNameText(parent);
+      WidgetHelper.createNewBlankLabel(parent);
       // - Destination directory
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationDir, CommonMessages.Info_DestinationDir);
       this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(parent);
@@ -156,7 +157,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       textButtonComposite.setToolTipText(WizardMessages.Detail_OriginalDataset);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
@@ -252,7 +253,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       textButtonComposite.setToolTipText(CommonMessages.Info_DestinationDir);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
       final Text textField = textButtonComposite.getTextField();
@@ -324,7 +325,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       button.setToolTipText(WizardMessages.EnhanceDatasetWizardPage_UseOriginalDatasetDir);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(button);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(button);
 
       // apply listeners
       button.addSelectionListener(new SelectionAdapter() {
@@ -356,7 +357,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       text.setToolTipText(WizardMessages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(text);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(text);
 
       // create decorations
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
@@ -403,12 +404,12 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       // Ontology description file
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_DescriptionFile,
             WizardMessages.EnhanceDatasetWizardPage_Detail_OntologyDesc);
-      this.ontologyDescriptionFileTBC = createNewOptionalFileTextButtonComposite(parent);
+      this.ontologyDescriptionFileTBC = createNewOptionalFileTextButtonComposite(parent, NUM_COLUMN_IN_GROUP - 1);
 
       // Ontology association file
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_AssociationFile,
             WizardMessages.EnhanceDatasetWizardPage_Detail_AssociationDesc);
-      this.ontologyAssociationFileTBC = createNewOptionalFileTextButtonComposite(parent);
+      this.ontologyAssociationFileTBC = createNewOptionalFileTextButtonComposite(parent, NUM_COLUMN_IN_GROUP - 1);
    }
 
    /**

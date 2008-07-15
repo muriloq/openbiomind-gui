@@ -40,7 +40,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
    public static final String PAGE_NAME = "openbiomind.gui.wizards.MetaTaskWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
-   private static final int NUM_COLUMN_IN_GROUP = 2;
+   private static final int NUM_COLUMN_IN_GROUP = 3;
 
    /** The dataset directory text button composite. */
    private TextButtonComposite datasetDirectoryTBC = null;
@@ -51,8 +51,11 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
    /** The number of tasks. */
    private Text numberOfTasks = null;
 
-   /** The target category text. */
-   private Text targetCategoryText = null;
+   /** The target category combo. */
+   private Combo targetCategoryCombo = null;
+
+   /** The target category array. */
+   private String[] targetCategoryArray = null;
 
    /** The feature classification method combo. */
    private Combo classificationMethodCombo = null;
@@ -88,7 +91,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       GUI.GRID_LAYOUT_WITH_MARGIN.copy().numColumns(NUM_COLUMN_IN_GROUP).applyTo(composite);
 
       // add components
-      addProjectInformationFields(composite, NUM_COLUMN_IN_GROUP);
+      addProjectInformationFields(composite);
       createRequiredGroup(composite);
       createOptionalGroup(composite);
 
@@ -134,7 +137,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       textButtonComposite.setToolTipText(WizardMessages.MetaTaskWizardPage_Tip_DatasetDir);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
       // TODO Update to identify that the folder must contain train and test tab files
@@ -187,7 +190,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       textButtonComposite.setToolTipText(WizardMessages.Detail_OutputDir);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
       final Text textField = textButtonComposite.getTextField();
@@ -242,20 +245,24 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_NumOfTasks,
             WizardMessages.MetaTaskWizardPage_Tip_NumOfTasks);
       this.numberOfTasks = createNewNumberOnlyText(parent);
+      WidgetHelper.createNewBlankLabel(parent);
 
       // Target category
-      // TODO Find out if there is a list of category to choose from
+      // TODO Read from the given input files
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
             WizardMessages.Detail_TargetCategory);
-      this.targetCategoryText = createDefaultText(parent);
+      this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryTextArray());
+      WidgetHelper.createNewBlankLabel(parent);
 
       // Classification method
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_ClassificationMethod);
-      this.classificationMethodCombo = createDefaultCombo(parent, getClassificationMethodArray());
+      this.classificationMethodCombo = createDefaultReadOnlyCombo(parent, getClassificationMethodArray());
+      WidgetHelper.createNewBlankLabel(parent);
 
       // MetaTask shuffling
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_MetaTaskShuffling);
-      this.metaTaskShufflingCombo = createDefaultCombo(parent, getMetaTaskShufflingArray());
+      this.metaTaskShufflingCombo = createDefaultReadOnlyCombo(parent, getMetaTaskShufflingArray());
+      WidgetHelper.createNewBlankLabel(parent);
    }
 
    /**
@@ -322,16 +329,29 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
     * @return the target category
     */
    public String getTargetCategory() {
-      return getTargetCategoryText().getText();
+      return getTargetCategoryCombo().getText();
    }
 
    /**
-    * Gets the target category text.
+    * Gets the target category combo.
     *
-    * @return the target category text
+    * @return the target category combo
     */
-   private Text getTargetCategoryText() {
-      return this.targetCategoryText;
+   private Combo getTargetCategoryCombo() {
+      return this.targetCategoryCombo;
+   }
+
+   /**
+    * Gets the target category text array.
+    *
+    * @return the target category text array
+    */
+   private String[] getTargetCategoryTextArray() {
+      if (this.targetCategoryArray == null) {
+         this.targetCategoryArray = new String[] { EMPTY, Resources.CATEGORY_CASE.toString() };
+      }
+
+      return this.targetCategoryArray;
    }
 
    /**

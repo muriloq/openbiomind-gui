@@ -134,13 +134,12 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * Adds the project information fields.
     *
     * @param parent the parent
-    * @param numberOfColumns the number of columns
     */
-   protected void addProjectInformationFields(final Composite parent, final int numberOfColumns) {
+   protected void addProjectInformationFields(final Composite parent) {
       // Execution Name (optional)
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.AbstractTaskWizardPage_Label_ProjectName,
             WizardMessages.AbstractTaskWizardPage_Tip_ProjectName);
-      this.projectNameText = createProjectNameText(parent, numberOfColumns - 1);
+      this.projectNameText = createProjectNameText(parent);
    }
 
    /**
@@ -156,16 +155,15 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * Creates the project name text.
     *
     * @param parent the parent
-    * @param numberOfColumns the number of columns
     *
     * @return the text
     */
-   private Text createProjectNameText(final Composite parent, final int numberOfColumns) {
+   private Text createProjectNameText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
       text.setToolTipText(WizardMessages.AbstractTaskWizardPage_Info_ProjectName);
 
       // apply layout
-      GUI.GRID_DATA_DEFAULT.copy().span(numberOfColumns, 1).applyTo(text);
+      GUI.GRID_DATA_FILL_H.applyTo(text);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
@@ -221,7 +219,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     *
     * @param parent the parent
     * @param text the text
-    * @param numOfColumns the num of columns
+    * @param numOfColumns the number of columns
     */
    protected void addSection(final Composite parent, final String text, final int numOfColumns) {
       WidgetHelper.createNewBlankLabel(parent, numOfColumns);
@@ -233,10 +231,11 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * Creates the new optional file text button composite.
     *
     * @param parent the parent
+    * @param numOfColumns the number of columns
     *
     * @return the text button composite
     */
-   protected TextButtonComposite createNewOptionalFileTextButtonComposite(final Composite parent) {
+   protected TextButtonComposite createNewOptionalFileTextButtonComposite(final Composite parent, final int numOfColumns) {
       final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
 
          @Override
@@ -249,7 +248,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       textButtonComposite.setToolTipText(CommonMessages.Info_LeaveBlankOrSpecifyFile);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(numOfColumns, 1).applyTo(textButtonComposite);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textButtonComposite
@@ -307,7 +306,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       text.setToolTipText(WizardMessages.AbstractTaskWizard_LeaveBlank_Number);
 
       // apply layout
-      GUI.GRID_DATA_DEFAULT.applyTo(text);
+      GUI.GRID_DATA_FILL_H.applyTo(text);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
@@ -354,20 +353,72 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    }
 
    /**
-    * Creates the default combo.
+    * Creates the default read only combo.
     *
     * @param parent the parent
     * @param items the items
     *
     * @return the combo
     */
-   protected Combo createDefaultCombo(final Composite parent, final String[] items) {
-      final Combo combo = new Combo(parent, SWT.READ_ONLY);
+   protected Combo createDefaultReadOnlyCombo(final Composite parent, final String[] items) {
+      return createDefaultCombo(parent, SWT.READ_ONLY, WizardMessages.AbstractTaskWizardPage_Tip_Combo_ReadOnly, items);
+   }
+
+   /**
+    * Creates the default drop down combo.
+    *
+    * @param parent the parent
+    * @param items the items
+    *
+    * @return the combo
+    */
+   protected Combo createDefaultDropDownCombo(final Composite parent, final String[] items) {
+      return createDefaultCombo(parent, SWT.DROP_DOWN, WizardMessages.AbstractTaskWizardPage_Tip_Combo_Simple, items);
+   }
+
+   /**
+    * Creates the default read only combo.
+    *
+    * @param parent the parent
+    * @param style the style must be either {@link SWT#DROP_DOWN} or {@link SWT#READ_ONLY} or {@link SWT#SIMPLE}
+    * @param tooltip the tool tip
+    * @param items the items
+    *
+    * @return the combo
+    */
+   private Combo createDefaultCombo(final Composite parent, final int style, final String tooltip, final String[] items) {
+      final Combo combo = new Combo(parent, style);
       combo.setItems(items);
 
       // apply layout
-      GUI.GRID_DATA_DEFAULT.applyTo(combo);
+      GUI.GRID_DATA_FILL_H.applyTo(combo);
 
+      // add tip and information decoration
+      if (!Utility.isEmpty(tooltip)) {
+         combo.setToolTipText(tooltip);
+
+         // create decorations
+         final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(combo, tooltip);
+         infoDecoration.hide();
+
+         // apply listeners
+         combo.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(final FocusEvent event) {
+               infoDecoration.show();
+            }
+
+            @Override
+            public void focusLost(final FocusEvent event) {
+               infoDecoration.hide();
+            }
+
+         });
+
+      }
+
+      // Select first value
       combo.select(0);
 
       return combo;
@@ -385,7 +436,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       text.setToolTipText(CommonMessages.Info_LeaveBlank);
 
       // apply layout
-      GUI.GRID_DATA_DEFAULT.applyTo(text);
+      GUI.GRID_DATA_FILL_H.applyTo(text);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,

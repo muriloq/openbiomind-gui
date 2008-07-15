@@ -39,6 +39,12 @@ public class WizardMessages extends NLS {
    /** The Abstract task wizard page label project name. */
    public static String AbstractTaskWizardPage_Label_ProjectName;
 
+   /** The Abstract task wizard page tip for read only combo. */
+   public static String AbstractTaskWizardPage_Tip_Combo_ReadOnly;
+
+   /** The Abstract task wizard page tip for simple combo. */
+   public static String AbstractTaskWizardPage_Tip_Combo_Simple;
+
    /** The Abstract task wizard page tip project name. */
    public static String AbstractTaskWizardPage_Tip_ProjectName;
 
