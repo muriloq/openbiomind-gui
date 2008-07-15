@@ -42,7 +42,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
    public static final String PAGE_NAME = "openbiomind.gui.wizards.DatasetTransformerWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
-   private static final int NUM_COLUMN_IN_GROUP = 2;
+   private static final int NUM_COLUMN_IN_GROUP = 3;
 
    /** The original dataset text button composite. */
    private TextButtonComposite originalDatasetTBC = null;
@@ -50,8 +50,11 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
    /** The output directory text button composite. */
    private TextButtonComposite outputDirectoryTBC = null;
 
-   /** The target category text. */
-   private Text targetCategoryText = null;
+   /** The target category combo. */
+   private Combo targetCategoryCombo = null;
+
+   /** The target category array. */
+   private String[] targetCategoryArray = null;
 
    /** The number of selected features text. */
    private Text numberOfSelectedFeaturesText = null;
@@ -96,7 +99,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       GUI.GRID_LAYOUT_WITH_MARGIN.copy().numColumns(NUM_COLUMN_IN_GROUP).applyTo(composite);
 
       // add components
-      addProjectInformationFields(composite, NUM_COLUMN_IN_GROUP);
+      addProjectInformationFields(composite);
       createRequiredGroup(composite);
       createOptionalGroup(composite);
 
@@ -118,8 +121,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       this.originalDatasetTBC = createOriginalDatasetTBC(parent);
 
       // Output directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputDir, WizardMessages.Detail_OutputDir,
-            true);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputDir, WizardMessages.Detail_OutputDir, true);
       this.outputDirectoryTBC = createOutputDirTBC(parent);
    }
 
@@ -143,7 +145,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       textButtonComposite.setToolTipText(WizardMessages.Detail_OriginalDataset);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
@@ -191,7 +193,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       textButtonComposite.setToolTipText(WizardMessages.Detail_OutputDir);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
       final Text textField = textButtonComposite.getTextField();
@@ -243,32 +245,34 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
       // Target category
-      // TODO Find out if there is a list of category to choose from
+      // TODO Read from the given input files
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
             WizardMessages.Detail_TargetCategory);
-      this.targetCategoryText = createDefaultText(parent);
+      this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryTextArray());
+      WidgetHelper.createNewBlankLabel(parent);
 
       // Number of selected features
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.DatasetTransformerWizardPage_Label_NumOfSelectedFeatures,
             WizardMessages.DatasetTransformerWizardPage_Detail_NumOfSelectedFeatures);
       this.numberOfSelectedFeaturesText = createNewNumberOnlyText(parent);
+      WidgetHelper.createNewBlankLabel(parent);
 
       // Feature selection method
       WidgetHelper
             .createNewFieldLabel(parent, WizardMessages.DatasetTransformerWizardPage_Label_FeatureSelectionMethod);
-      this.featureSelectionMethodCombo = createDefaultCombo(parent, getFeatureSelectionMethodArray());
+      this.featureSelectionMethodCombo = createDefaultReadOnlyCombo(parent, getFeatureSelectionMethodArray());
+      WidgetHelper.createNewBlankLabel(parent);
 
       // Select one of these
       WidgetHelper.createNewDetailsLabel(parent, WizardMessages.Detail_SelectOne, NUM_COLUMN_IN_GROUP);
-
       // Number of Folds
       this.numberOfFoldsButton = createNumberOfFoldsButton(parent);
       this.numberOfFoldsText = createNewNumberOnlyText(parent);
       getNumberOfFoldsText().setEnabled(false);
-
+      WidgetHelper.createNewBlankLabel(parent);
       // Test Dataset
       this.testDatasetButton = createTestDatasetButton(parent);
-      this.testDatasetTBC = createNewOptionalFileTextButtonComposite(parent);
+      this.testDatasetTBC = createNewOptionalFileTextButtonComposite(parent, NUM_COLUMN_IN_GROUP - 1);
       getTestDatasetTBC().setEnabled(false);
    }
 
@@ -380,16 +384,29 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
     * @return the target category
     */
    public String getTargetCategory() {
-      return getTargetCategoryText().getText();
+      return getTargetCategoryCombo().getText();
    }
 
    /**
-    * Gets the target category text.
+    * Gets the target category combo.
     *
-    * @return the target category text
+    * @return the target category combo
     */
-   private Text getTargetCategoryText() {
-      return this.targetCategoryText;
+   private Combo getTargetCategoryCombo() {
+      return this.targetCategoryCombo;
+   }
+
+   /**
+    * Gets the target category text array.
+    *
+    * @return the target category text array
+    */
+   private String[] getTargetCategoryTextArray() {
+      if (this.targetCategoryArray == null) {
+         this.targetCategoryArray = new String[] { EMPTY, Resources.CATEGORY_CASE.toString() };
+      }
+
+      return this.targetCategoryArray;
    }
 
    /**

@@ -21,6 +21,7 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
@@ -39,7 +40,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    public static final String PAGE_NAME = "openbiomind.gui.wizards.UtilityComputerWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
-   private static final int NUM_COLUMN_IN_GROUP = 2;
+   private static final int NUM_COLUMN_IN_GROUP = 3;
 
    /** The result directory text button composite. */
    private TextButtonComposite resultDirTBC = null;
@@ -62,8 +63,11 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    /** The valid output file path. */
    private boolean validOutputFilePath = false;
 
-   /** The target category text. */
-   private Text targetCategoryText = null;
+   /** The target category combo. */
+   private Combo targetCategoryCombo = null;
+
+   /** The target category array. */
+   private String[] targetCategoryArray = null;
 
    /**
     * Instantiates a new utility computer wizard page.
@@ -87,7 +91,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       GUI.GRID_LAYOUT_WITH_MARGIN.copy().numColumns(NUM_COLUMN_IN_GROUP).applyTo(composite);
 
       // add components
-      addProjectInformationFields(composite, NUM_COLUMN_IN_GROUP);
+      addProjectInformationFields(composite);
       createRequiredGroup(composite);
       createOptionalGroup(composite);
 
@@ -123,6 +127,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationFile,
             WizardMessages.UtilityComputerWizardPage_Detail_OutputFile, true);
       this.outputFileDestFileText = createOutputFileDestFileText(parent);
+      WidgetHelper.createNewBlankLabel(parent);
       // - Directory
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationDir, CommonMessages.Info_DestinationDir);
       this.outputFileDestDirTBC = createOutputFileDestDirTBC(parent);
@@ -151,7 +156,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       textButtonComposite.setToolTipText(WizardMessages.UtilityComputerWizardPage_Detail_ResultDir);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
       // TODO Update to identify that the folder must contain train and test tab files
@@ -203,7 +208,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       textButtonComposite.setToolTipText(WizardMessages.UtilityComputerWizardPage_Detail_BaseDataset);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
@@ -295,7 +300,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       textButtonComposite.setToolTipText(CommonMessages.Info_DestinationDir);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(textButtonComposite);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
       final Text textField = textButtonComposite.getTextField();
@@ -366,7 +371,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       text.setToolTipText(WizardMessages.UtilityComputerWizardPage_Detail_OutputFilePath);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.applyTo(text);
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(text);
 
       // create decorations
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
@@ -411,10 +416,11 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
       // Target category
-      // TODO Find out if there is a list of category to choose from
+      // TODO Read from the given input files
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
             WizardMessages.Detail_TargetCategory);
-      this.targetCategoryText = createDefaultText(parent);
+      this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryTextArray());
+      WidgetHelper.createNewBlankLabel(parent);
    }
 
    /**
@@ -557,16 +563,29 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
     * @return the target category
     */
    public String getTargetCategory() {
-      return getTargetCategoryText().getText();
+      return getTargetCategoryCombo().getText();
    }
 
    /**
-    * Gets the target category text.
+    * Gets the target category combo.
     *
-    * @return the target category text
+    * @return the target category combo
     */
-   private Text getTargetCategoryText() {
-      return this.targetCategoryText;
+   private Combo getTargetCategoryCombo() {
+      return this.targetCategoryCombo;
+   }
+
+   /**
+    * Gets the target category text array.
+    *
+    * @return the target category text array
+    */
+   private String[] getTargetCategoryTextArray() {
+      if (this.targetCategoryArray == null) {
+         this.targetCategoryArray = new String[] { EMPTY, Resources.CATEGORY_CASE.toString() };
+      }
+
+      return this.targetCategoryArray;
    }
 
    /*

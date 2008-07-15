@@ -101,8 +101,11 @@ public interface Constants {
       /** The Constant specifying the string that out file name starts with (value = <code>out</code>). */
       public static final String OUT_FILE_STARTS_WITH = "out"; //$NON-NLS-1$
 
-      /** The Constant specifying the string that out file name starts with (value = <code>out</code>). */
-      public static final String OUT_FILE = "outfinal" + TXT_EXTENSION; //$NON-NLS-1$
+      /** The Constant specifying the name of outfinal file starts with (value = <code>outfinal.txt</code>). */
+      public static final String OUT_FINAL_FILENAME = "outfinal" + TXT_EXTENSION; //$NON-NLS-1$
+
+      /** The Constant specifying the CASE category (value = <code>CASE</code>). */
+      public static final String CATEGORY_CASE = "CASE"; //$NON-NLS-1$
 
    }
 

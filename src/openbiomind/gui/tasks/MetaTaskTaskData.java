@@ -277,7 +277,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
             Resources.TXT_EXTENSION);
 
       for (final String outFile : outFilesArray) {
-         taskDataFolder.add(createTaskDataFile(outFile, directoryPath, Resources.OUT_FILE.equals(outFile)));
+         taskDataFolder.add(createTaskDataFile(outFile, directoryPath, Resources.OUT_FINAL_FILENAME.equals(outFile)));
       }
 
       return taskDataFolder;
