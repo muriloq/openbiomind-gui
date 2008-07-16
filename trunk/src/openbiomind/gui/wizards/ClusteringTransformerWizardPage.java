@@ -1,7 +1,7 @@
 /**
- * UtilityComputerWizardPage.java
+ * ClusteringTransformerWizardPage.java
  *
- * The file UtilityComputerWizardPage.java.
+ * The file ClusteringTransformerWizardPage.java.
  *
  * $Id$
  */
@@ -9,6 +9,7 @@ package openbiomind.gui.wizards;
 
 import java.io.File;
 
+import openbiomind.gui.tasks.TransformEnum;
 import openbiomind.gui.util.CommonMessages;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.widgets.TextButtonComposite;
@@ -19,32 +20,31 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * The class UtilityComputerWizardPage.
+ * The class ClusteringTransformerWizardPage.
  *
  * @author bsanghvi
- * @since Jul 9, 2008
+ * @since Jul 13, 2008
  * @version Jul 16, 2008
  */
-public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
+public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
    /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.UtilityComputerWizardPage</code>).
+    * The constant for page name (value = <code>openbiomind.gui.wizards.ClusteringTransformerWizardPage</code>).
     */
-   public static final String PAGE_NAME = "openbiomind.gui.wizards.UtilityComputerWizardPage"; //$NON-NLS-1$
+   public static final String PAGE_NAME = "openbiomind.gui.wizards.ClusteringTransformerWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
    private static final int NUM_COLUMN_IN_GROUP = 3;
 
-   /** The meta task result directory text button composite. */
-   private TextButtonComposite metaTaskResultDirTBC = null;
-
-   /** The base dataset text button composite. */
-   private TextButtonComposite baseDatasetTBC = null;
+   /** The dataset file text button composite. */
+   private TextButtonComposite datasetFileTBC = null;
 
    /** The output file destination file text. */
    private Text outputFileDestFileText = null;
@@ -61,11 +61,17 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    /** The valid output file path. */
    private boolean validOutputFilePath = false;
 
-   /** The target category combo. */
-   private Combo targetCategoryCombo = null;
+   /** The transform combo. */
+   private Combo transformCombo = null;
 
-   /** The target category array. */
-   private String[] targetCategoryArray = null;
+   /** The transform array. */
+   private String[] transformArray = null;
+
+   /** The meta task result directory text button composite. */
+   private TextButtonComposite metaTaskResultDirTBC = null;
+
+   /** The meta task result directory error decoration. */
+   private ControlDecoration metaTaskResultDirErrorDecoration = null;
 
    /**
     * Instantiates a new utility computer wizard page.
@@ -73,7 +79,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
-   public UtilityComputerWizardPage(final String pageTitle, final String pageDescription) {
+   public ClusteringTransformerWizardPage(final String pageTitle, final String pageDescription) {
       super(PAGE_NAME, pageTitle, pageDescription);
    }
 
@@ -105,15 +111,16 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       // Required Arguments
       addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
-      // MetaTask result directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_MetaTaskResultDir,
-            WizardMessages.UtilityComputerWizardPage_Detail_ResultDir, true);
-      this.metaTaskResultDirTBC = createMetaTaskResultDirTBC(parent);
+      // Dataset file
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DatasetFile, WizardMessages.Detail_DatasetFile,
+            true);
+      this.datasetFileTBC = createDatasetFileTBC(parent);
 
-      // Base dataset
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.UtilityComputerWizardPage_Label_BaseDataset,
-            WizardMessages.UtilityComputerWizardPage_Detail_BaseDataset, true);
-      this.baseDatasetTBC = createBaseDatasetTBC(parent);
+      // Transform
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.ClusteringTransformerWizardPage_Label_Transorm,
+            WizardMessages.ClusteringTransformerWizardPage_Info_Transform, true);
+      this.transformCombo = createTransformCombo(parent);
+      WidgetHelper.createNewBlankLabel(parent);
 
       // Output file
       // - leave a blank row
@@ -134,65 +141,13 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    }
 
    /**
-    * Creates the meta task result directory text button composite.
+    * Creates the dataset text file button composite.
     *
     * @param parent the parent
     *
     * @return the text button composite
     */
-   private TextButtonComposite createMetaTaskResultDirTBC(final Composite parent) {
-      final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
-
-         @Override
-         protected String buttonSelected() {
-            return getDirectoryDialog().open();
-         }
-
-      };
-      textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.UtilityComputerWizardPage_Detail_ResultDir);
-
-      // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
-
-      // create decorations
-      // TODO Update to identify that the folder must contain train and test tab files
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            CommonMessages.Error_InvalidDir);
-      errorDecoration.show();
-
-      // apply listeners
-      textButtonComposite.addModifyListenerOnTextField(new ModifyListener() {
-
-         @Override
-         public void modifyText(final ModifyEvent event) {
-            final File directory = new File(getMetaTaskResultDir());
-            textButtonComposite
-                  .setValid(Utility.directoryExists(directory)
-                        && Utility.listFileNames(directory, Resources.OUT_FILE_STARTS_WITH, Resources.TXT_EXTENSION).length > 0);
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
-            validatePage();
-         }
-
-      });
-
-      return textButtonComposite;
-   }
-
-   /**
-    * Creates the base dataset text button composite.
-    *
-    * @param parent the parent
-    *
-    * @return the text button composite
-    */
-   private TextButtonComposite createBaseDatasetTBC(final Composite parent) {
+   private TextButtonComposite createDatasetFileTBC(final Composite parent) {
       final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
 
          @Override
@@ -231,6 +186,27 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       });
 
       return textButtonComposite;
+   }
+
+   /**
+    * Creates the transform combo.
+    *
+    * @param parent the parent
+    *
+    * @return the combo
+    */
+   private Combo createTransformCombo(final Composite parent) {
+      final Combo combo = createDefaultReadOnlyCombo(parent, getTransformArray());
+      combo.addSelectionListener(new SelectionAdapter() {
+
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            validateMetaTaskResultDir();
+         }
+
+      });
+
+      return combo;
    }
 
    /**
@@ -398,39 +374,62 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       // Optional Arguments
       addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
-      // Target category
-      // TODO Read from the given input files
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
-            WizardMessages.Detail_TargetCategory);
-      this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryArray());
-      WidgetHelper.createNewBlankLabel(parent);
+      // MetaTask result directory
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_MetaTaskResultDir,
+            WizardMessages.UtilityComputerWizardPage_Detail_ResultDir);
+      this.metaTaskResultDirTBC = createMetaTaskResultDirTBC(parent);
    }
 
    /**
-    * Gets the meta task result directory.
+    * Creates the meta task result directory text button composite.
     *
-    * @return the result directory
+    * @param parent the parent
+    *
+    * @return the text button composite
     */
-   public String getMetaTaskResultDir() {
-      return getMetaTaskResultDirTBC().getText();
+   private TextButtonComposite createMetaTaskResultDirTBC(final Composite parent) {
+      final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
+
+         @Override
+         protected String buttonSelected() {
+            return getDirectoryDialog().open();
+         }
+
+      };
+      textButtonComposite.setValid(true);
+      textButtonComposite.setToolTipText(WizardMessages.UtilityComputerWizardPage_Detail_ResultDir);
+
+      // apply layout
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
+
+      // create decorations
+      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textButtonComposite
+            .getTextField(), CommonMessages.Info_LeaveBlankOrSpecifyDir);
+      infoDecoration.setShowOnlyOnFocus(true);
+      setMetaTaskResultDirErrorDecoration(WidgetHelper.createNewErrorDecoration(textButtonComposite,
+            WizardMessages.ClusteringTransformerWizardPage_Error_MetaTaskResultDir));
+      getMetaTaskResultDirErrorDecoration().hide();
+
+      // apply listeners
+      textButtonComposite.addModifyListenerOnTextField(new ModifyListener() {
+
+         @Override
+         public void modifyText(final ModifyEvent event) {
+            validateMetaTaskResultDir();
+         }
+
+      });
+
+      return textButtonComposite;
    }
 
    /**
-    * Gets the meta task result directory text button composite.
+    * Gets the dataset file.
     *
-    * @return the meta task result directory text button composite
+    * @return the dataset file
     */
-   private TextButtonComposite getMetaTaskResultDirTBC() {
-      return this.metaTaskResultDirTBC;
-   }
-
-   /**
-    * Gets the base dataset.
-    *
-    * @return the base dataset
-    */
-   public String getBaseDataset() {
-      return getBaseDatasetTBC().getText();
+   public String getDatasetFile() {
+      return getDatasetFileTBC().getText();
    }
 
    /**
@@ -438,8 +437,8 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
     *
     * @return the base dataset text button composite
     */
-   private TextButtonComposite getBaseDatasetTBC() {
-      return this.baseDatasetTBC;
+   private TextButtonComposite getDatasetFileTBC() {
+      return this.datasetFileTBC;
    }
 
    /**
@@ -541,34 +540,110 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    }
 
    /**
-    * Gets the target category.
+    * Gets the transform.
     *
-    * @return the target category
+    * @return the transform
     */
-   public String getTargetCategory() {
-      return getTargetCategoryCombo().getText();
+   public TransformEnum getTransform() {
+      return TransformEnum.parse(getTransformArray()[getTransformCombo().getSelectionIndex()]);
    }
 
    /**
-    * Gets the target category combo.
+    * Gets the transform combo.
     *
-    * @return the target category combo
+    * @return the transform combo
     */
-   private Combo getTargetCategoryCombo() {
-      return this.targetCategoryCombo;
+   private Combo getTransformCombo() {
+      return this.transformCombo;
    }
 
    /**
-    * Gets the target category array.
+    * Gets the transform array.
     *
-    * @return the target category array
+    * @return the transform array
     */
-   private String[] getTargetCategoryArray() {
-      if (this.targetCategoryArray == null) {
-         this.targetCategoryArray = new String[] { EMPTY, Resources.CATEGORY_CASE.toString() };
+   private String[] getTransformArray() {
+      if (this.transformArray == null) {
+         this.transformArray = new String[] { TransformEnum.HORIZONTAL.toString(), TransformEnum.VERTICAL.toString(),
+               TransformEnum.MUTIC.toString(), TransformEnum.MOBRA.toString() };
       }
 
-      return this.targetCategoryArray;
+      return this.transformArray;
+   }
+
+   /**
+    * Gets the meta task result directory.
+    *
+    * @return the meta task result directory
+    */
+   public String getMetaTaskResultDir() {
+      return getMetaTaskResultDirTBC().getText();
+   }
+
+   /**
+    * Gets meta task the result directory text button composite.
+    *
+    * @return the meta task result directory text button composite
+    */
+   private TextButtonComposite getMetaTaskResultDirTBC() {
+      return this.metaTaskResultDirTBC;
+   }
+
+   /**
+    * Gets the meta task result directory error decoration.
+    *
+    * @return the meta task result directory error decoration
+    */
+   private ControlDecoration getMetaTaskResultDirErrorDecoration() {
+      return this.metaTaskResultDirErrorDecoration;
+   }
+
+   /**
+    * Sets the meta task result directory error decoration.
+    *
+    * @param metaTaskResultDirErrorDecoration the new meta task result directory error decoration
+    */
+   private void setMetaTaskResultDirErrorDecoration(ControlDecoration metaTaskResultDirErrorDecoration) {
+      this.metaTaskResultDirErrorDecoration = metaTaskResultDirErrorDecoration;
+   }
+
+   /**
+    * Validate meta task result directory.
+    */
+   private void validateMetaTaskResultDir() {
+      final boolean required;
+      switch (getTransform()) {
+         case MUTIC:
+         case MOBRA:
+            required = true;
+            break;
+         case HORIZONTAL:
+         case VERTICAL:
+         default:
+            required = false;
+            break;
+      }
+
+      final String directoryName = getMetaTaskResultDir();
+      if (!required && Utility.isEmpty(directoryName)) {
+         getMetaTaskResultDirTBC().setValid(true);
+      } else {
+         final File directory = new File(directoryName);
+         getMetaTaskResultDirTBC()
+               .setValid(
+                     Utility.directoryExists(directory)
+                           && Utility.listFileNames(directory, Resources.OUT_FILE_STARTS_WITH, Resources.TXT_EXTENSION).length > 0);
+      }
+
+      if (getMetaTaskResultDirTBC().isValid()) {
+         getMetaTaskResultDirErrorDecoration().hide();
+      } else {
+         getMetaTaskResultDirErrorDecoration().show();
+         getMetaTaskResultDirErrorDecoration()
+               .showHoverText(getMetaTaskResultDirErrorDecoration().getDescriptionText());
+      }
+
+      validatePage();
    }
 
    /*
@@ -576,9 +651,9 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
     */
    @Override
    protected void validatePage() {
-      final boolean valid = isProjectInformationValid() && getMetaTaskResultDirTBC().isValid()
+      final boolean valid = isProjectInformationValid() && getDatasetFileTBC().isValid()
             && isValidOutputFileDestFileName() && getOutputFileDestDirTBC().isValid() && isValidOutputFilePath()
-            && getBaseDatasetTBC().isValid();
+            && getMetaTaskResultDirTBC().isValid();
       setPageComplete(valid);
       if (!valid) {
          setErrorMessage(CommonMessages.Error_FixToContinue);

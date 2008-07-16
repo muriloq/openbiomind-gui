@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jun 14, 2008
- * @version Jun 27, 2008
+ * @version Jul 16, 2008
  */
 public class CommonMessages extends NLS {
 
@@ -44,6 +44,9 @@ public class CommonMessages extends NLS {
 
    /** The leave blank information. */
    public static String Info_LeaveBlank;
+
+   /** The leave blank or specify direcotry information. */
+   public static String Info_LeaveBlankOrSpecifyDir;
 
    /** The leave blank or specify file information. */
    public static String Info_LeaveBlankOrSpecifyFile;

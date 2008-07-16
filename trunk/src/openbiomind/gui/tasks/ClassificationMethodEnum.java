@@ -14,7 +14,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 15, 2008
- * @version Jul 15, 2008
+ * @version Jul 16, 2008
  */
 public enum ClassificationMethodEnum {
 
@@ -36,7 +36,6 @@ public enum ClassificationMethodEnum {
    /** The <code>conventional</code> method. */
    CONVENTIONAL("conventional"), //$NON-NLS-1$
 
-   /** The name. */
    ; // End of allowed values
 
    /** The name. */

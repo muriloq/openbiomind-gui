@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 15, 2008
+ * @version Jul 16, 2008
  */
 public class WizardMessages extends NLS {
 
@@ -48,6 +48,21 @@ public class WizardMessages extends NLS {
    /** The Abstract task wizard page tip project name. */
    public static String AbstractTaskWizardPage_Tip_ProjectName;
 
+   /** The Clustering transformer wizard description. */
+   public static String ClusteringTransformerWizard_Description;
+
+   /** The Clustering transformer wizard name. */
+   public static String ClusteringTransformerWizard_Name;
+
+   /** The Clustering transformer wizard page error meta task result directory. */
+   public static String ClusteringTransformerWizardPage_Error_MetaTaskResultDir;
+
+   /** The Clustering transformer wizard page info transform. */
+   public static String ClusteringTransformerWizardPage_Info_Transform;
+
+   /** The Clustering transformer wizard page label transorm. */
+   public static String ClusteringTransformerWizardPage_Label_Transorm;
+
    /** The Dataset transformer wizard description. */
    public static String DatasetTransformerWizard_Description;
 
@@ -69,11 +84,20 @@ public class WizardMessages extends NLS {
    /** The Dataset transformer wizard page label test dataset. */
    public static String DatasetTransformerWizardPage_Label_TestDataset;
 
+   /** The dataset file detail. */
+   public static String Detail_DatasetFile;
+
    /** The Detail original dataset. */
    public static String Detail_OriginalDataset;
 
    /** The Detail output directory. */
    public static String Detail_OutputDir;
+
+   /** The Utility computer wizard page detail output file. */
+   public static String Detail_OutputFile;
+
+   /** The Utility computer wizard page detail output file path. */
+   public static String Detail_OutputFilePath;
 
    /** The Detail select one of these. */
    public static String Detail_SelectOne;
@@ -117,6 +141,9 @@ public class WizardMessages extends NLS {
    /** The Group label required arguments. */
    public static String GroupLabel_RequiredArguments;
 
+   /** The Label dataset file. */
+   public static String Label_DatasetFile;
+
    /** The Label destination directory. */
    public static String Label_DestinationDir;
 
@@ -134,6 +161,9 @@ public class WizardMessages extends NLS {
 
    /** The label output dataset. */
    public static String Label_OutputDir;
+
+   /** The Utility computer wizard page label output file path. */
+   public static String Label_OutputFilePath;
 
    /** The Dataset transformer wizard page label target category. */
    public static String Label_TargetCategory;
@@ -171,20 +201,11 @@ public class WizardMessages extends NLS {
    /** The Utility computer wizard page detail base dataset. */
    public static String UtilityComputerWizardPage_Detail_BaseDataset;
 
-   /** The Utility computer wizard page detail output file. */
-   public static String UtilityComputerWizardPage_Detail_OutputFile;
-
-   /** The Utility computer wizard page detail output file path. */
-   public static String UtilityComputerWizardPage_Detail_OutputFilePath;
-
    /** The Utility computer wizard page detail result directory. */
    public static String UtilityComputerWizardPage_Detail_ResultDir;
 
    /** The Utility computer wizard page label base dataset. */
    public static String UtilityComputerWizardPage_Label_BaseDataset;
-
-   /** The Utility computer wizard page label output file path. */
-   public static String UtilityComputerWizardPage_Label_OutputFilePath;
 
    /*
     * Initialize the messages

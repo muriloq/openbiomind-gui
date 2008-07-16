@@ -20,7 +20,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Jul 9, 2008
+ * @version Jul 16, 2008
  */
 public class UtilityComputerTaskData extends AbstractTaskData {
 
@@ -29,7 +29,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
     */
    private static final String TASK_NAME = "task.UtilityComputer"; //$NON-NLS-1$
 
-   /** Argument <code>-r</code> for specifying the name of result directory. */
+   /** Argument <code>-r</code> for specifying the name of meta task result directory. */
    private static final String ARG_R = HYPHEN + "r"; //$NON-NLS-1$
 
    /** Argument <code>-o</code> for specifying the output file. */
@@ -49,22 +49,22 @@ public class UtilityComputerTaskData extends AbstractTaskData {
    }
 
    /**
-    * Gets the result directory (argument = <code>-r</code>).
+    * Gets the meta task result directory (argument = <code>-r</code>).
     *
-    * @return the result directory
+    * @return the meta task result directory
     */
-   public String getResultDir() {
+   public String getMetaTaskResultDir() {
       return getArgument(ARG_R);
    }
 
    /**
-    * Sets the result directory (argument = <code>-r</code>).
+    * Sets the meta task result directory (argument = <code>-r</code>).
     *
-    * @param resultDir the result directory
+    * @param metaTaskResultDir the meta task result directory
     */
-   public void setResultDir(final String resultDir) {
-      if (!Utility.isEmpty(resultDir)) {
-         putArgument(ARG_R, resultDir);
+   public void setMetaTaskResultDir(final String metaTaskResultDir) {
+      if (!Utility.isEmpty(metaTaskResultDir)) {
+         putArgument(ARG_R, metaTaskResultDir);
       }
    }
 
@@ -134,7 +134,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
    @Override
    public TaskDataProject createTaskDataProject() {
       final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createResultDirTaskDataFolder(ARG_R, getResultDir()));
+      taskDataProject.add(createResultDirTaskDataFolder(ARG_R, getMetaTaskResultDir()));
       taskDataProject.add(createTaskDataFolder(ARG_O, getOutputFile(), true));
       taskDataProject.add(createTaskDataFolder(ARG_D, getBaseDataset(), false));
       return taskDataProject;

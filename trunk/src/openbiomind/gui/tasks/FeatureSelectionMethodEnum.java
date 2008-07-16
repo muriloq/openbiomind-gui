@@ -12,7 +12,7 @@ package openbiomind.gui.tasks;
  *
  * @author bsanghvi
  * @since Jul 15, 2008
- * @version Jul 15, 2008
+ * @version Jul 16, 2008
  */
 public enum FeatureSelectionMethodEnum {
 
@@ -22,7 +22,6 @@ public enum FeatureSelectionMethodEnum {
    /** The <code>SAM</code> method. */
    SAM("SAM"), //$NON-NLS-1$
 
-   /** The name. */
    ; // End of allowed values
 
    /** The name. */
@@ -49,9 +48,9 @@ public enum FeatureSelectionMethodEnum {
          return DIFFERENTIATION;
       } else if (SAM.toString().equals(string)) {
          return SAM;
-      } else {
-         return null;
       }
+
+      return null;
    }
 
    /*
