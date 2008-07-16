@@ -17,8 +17,6 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
@@ -35,7 +33,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 10, 2008
+ * @version Jul 15, 2008
  */
 public abstract class AbstractTaskWizardPage extends WizardPage implements IWizardPage, Constants {
 
@@ -168,23 +166,9 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
             WizardMessages.AbstractTaskWizardPage_Info_ProjectName);
-      infoDecoration.hide();
+      infoDecoration.setShowOnlyOnFocus(true);
 
-      // apply listeners
-      text.addFocusListener(new FocusListener() {
-
-         @Override
-         public void focusGained(final FocusEvent event) {
-            infoDecoration.show();
-         }
-
-         @Override
-         public void focusLost(final FocusEvent event) {
-            infoDecoration.hide();
-         }
-
-      });
-
+      // set initial focus on this field
       text.setFocus();
 
       return text;
@@ -253,26 +237,12 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textButtonComposite
             .getTextField(), CommonMessages.Info_LeaveBlankOrSpecifyFile);
-      infoDecoration.hide();
+      infoDecoration.setShowOnlyOnFocus(true);
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
             CommonMessages.Error_FileNotExist);
       errorDecoration.hide();
 
       // apply listeners
-      textButtonComposite.addFocusListenerOnTextField(new FocusListener() {
-
-         @Override
-         public void focusGained(final FocusEvent event) {
-            infoDecoration.show();
-         }
-
-         @Override
-         public void focusLost(final FocusEvent event) {
-            infoDecoration.hide();
-         }
-
-      });
-
       textButtonComposite.addModifyListenerOnTextField(new ModifyListener() {
 
          @Override
@@ -311,7 +281,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
             WizardMessages.AbstractTaskWizard_LeaveBlank_Number);
-      infoDecoration.hide();
+      infoDecoration.setShowOnlyOnFocus(true);
 
       // apply listeners
       text.addVerifyListener(new VerifyListener() {
@@ -331,20 +301,6 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
             if (!Character.isDigit(event.character)) {
                event.doit = false;
             }
-         }
-
-      });
-
-      text.addFocusListener(new FocusListener() {
-
-         @Override
-         public void focusGained(final FocusEvent event) {
-            infoDecoration.show();
-         }
-
-         @Override
-         public void focusLost(final FocusEvent event) {
-            infoDecoration.hide();
          }
 
       });
@@ -399,26 +355,10 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
          // create decorations
          final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(combo, tooltip);
-         infoDecoration.hide();
-
-         // apply listeners
-         combo.addFocusListener(new FocusListener() {
-
-            @Override
-            public void focusGained(final FocusEvent event) {
-               infoDecoration.show();
-            }
-
-            @Override
-            public void focusLost(final FocusEvent event) {
-               infoDecoration.hide();
-            }
-
-         });
-
+         infoDecoration.setShowOnlyOnFocus(true);
       }
 
-      // Select first value
+      // select first value
       combo.select(0);
 
       return combo;
@@ -441,22 +381,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
             CommonMessages.Info_LeaveBlank);
-      infoDecoration.hide();
-
-      // apply listeners
-      text.addFocusListener(new FocusListener() {
-
-         @Override
-         public void focusGained(final FocusEvent event) {
-            infoDecoration.show();
-         }
-
-         @Override
-         public void focusLost(final FocusEvent event) {
-            infoDecoration.hide();
-         }
-
-      });
+      infoDecoration.setShowOnlyOnFocus(true);
 
       return text;
    }
