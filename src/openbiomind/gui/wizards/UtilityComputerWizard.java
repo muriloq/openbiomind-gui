@@ -15,7 +15,7 @@ import openbiomind.gui.tasks.UtilityComputerTaskData;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Jul 9, 2008
+ * @version Jul 16, 2008
  */
 public class UtilityComputerWizard extends AbstractTaskWizard {
 
@@ -47,7 +47,7 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
    @Override
    protected void prepareTaskData() {
       getUtilityComputerTaskData().setProjectName(getUtilityComputerWizardPage().getProjectName());
-      getUtilityComputerTaskData().setResultDir(getUtilityComputerWizardPage().getResultDir());
+      getUtilityComputerTaskData().setMetaTaskResultDir(getUtilityComputerWizardPage().getMetaTaskResultDir());
       getUtilityComputerTaskData().setOutputFile(getUtilityComputerWizardPage().getOutputFile());
       getUtilityComputerTaskData().setBaseDataset(getUtilityComputerWizardPage().getBaseDataset());
       getUtilityComputerTaskData().setTargetCategory(getUtilityComputerWizardPage().getTargetCategory());

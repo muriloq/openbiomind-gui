@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.4"?>
 
-<product name="OpenBiomind-GUI" id="openbiomind.gui.product" application="openbiomind.gui.application" version="0.0.5.20080710" useFeatures="false">
+<product name="OpenBiomind-GUI" id="openbiomind.gui.product" application="openbiomind.gui.application" version="0.0.6.20080716" useFeatures="false">
 
    <aboutInfo>
       <image path="/OpenBiomind-GUI/icons/alt_about.gif"/>
       <text>
          OpenBiomind-GUI: GUI for OpenBiomind
-Version: 0.0.5.20080710
+Version: 0.0.6.20080716
 Development build
 
 For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.

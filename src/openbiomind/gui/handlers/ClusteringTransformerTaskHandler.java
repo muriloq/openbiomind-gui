@@ -7,18 +7,17 @@
  */
 package openbiomind.gui.handlers;
 
+import openbiomind.gui.wizards.ClusteringTransformerWizard;
+
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
  * The class ClusteringTransformerTaskHandler.
  *
  * @author bsanghvi
  * @since Jun 27, 2008
- * @version Jun 27, 2008
+ * @version Jul 16, 2008
  */
 public class ClusteringTransformerTaskHandler extends AbstractTaskHandler {
 
@@ -27,9 +26,7 @@ public class ClusteringTransformerTaskHandler extends AbstractTaskHandler {
     */
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {
-      final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-      MessageDialog.openInformation(window.getShell(), "OpenBiomind-GUI", "Clustering Transformer Task");
-      return null;
+      return execute(event, new ClusteringTransformerWizard());
    }
 
 }

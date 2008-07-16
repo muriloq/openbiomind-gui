@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Jul 15, 2008
+ * @version Jul 16, 2008
  */
 public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -251,7 +251,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       // TODO Read from the given input files
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
             WizardMessages.Detail_TargetCategory);
-      this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryTextArray());
+      this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryArray());
       WidgetHelper.createNewBlankLabel(parent);
 
       // Classification method
@@ -342,11 +342,11 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
    }
 
    /**
-    * Gets the target category text array.
+    * Gets the target category array.
     *
-    * @return the target category text array
+    * @return the target category array
     */
-   private String[] getTargetCategoryTextArray() {
+   private String[] getTargetCategoryArray() {
       if (this.targetCategoryArray == null) {
          this.targetCategoryArray = new String[] { EMPTY, Resources.CATEGORY_CASE.toString() };
       }

@@ -12,7 +12,7 @@ package openbiomind.gui.tasks;
  *
  * @author bsanghvi
  * @since Jul 15, 2008
- * @version Jul 15, 2008
+ * @version Jul 16, 2008
  */
 public enum MetaTaskShufflingEnum {
 
@@ -22,7 +22,6 @@ public enum MetaTaskShufflingEnum {
    /** The <code>off</code> value. */
    OFF("off"), //$NON-NLS-1$
 
-   /** The name. */
    ; // End of allowed values
 
    /** The name. */
