@@ -17,8 +17,6 @@ import openbiomind.gui.widgets.WidgetHelper;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -32,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 10, 2008
+ * @version Jul 15, 2008
  */
 public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -259,7 +257,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       final Text textField = textButtonComposite.getTextField();
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textField,
             CommonMessages.Info_DestinationDir);
-      infoDecoration.hide();
+      infoDecoration.setShowOnlyOnFocus(true);
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
             CommonMessages.Warn_DirNotExist);
       warningDecoration.hide();
@@ -268,20 +266,6 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       errorDecoration.hide();
 
       // apply listeners
-      textButtonComposite.addFocusListenerOnTextField(new FocusListener() {
-
-         @Override
-         public void focusGained(final FocusEvent event) {
-            infoDecoration.show();
-         }
-
-         @Override
-         public void focusLost(final FocusEvent event) {
-            infoDecoration.hide();
-         }
-
-      });
-
       textButtonComposite.addModifyListenerOnTextField(new ModifyListener() {
 
          @Override
