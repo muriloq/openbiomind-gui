@@ -107,7 +107,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
       // MetaTask result directory
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_MetaTaskResultDir,
-            WizardMessages.UtilityComputerWizardPage_Detail_ResultDir, true);
+            WizardMessages.Detail_MetaTaskResultDir, true);
       this.metaTaskResultDirTBC = createMetaTaskResultDirTBC(parent);
 
       // Base dataset
@@ -150,7 +150,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.UtilityComputerWizardPage_Detail_ResultDir);
+      textButtonComposite.setToolTipText(WizardMessages.Detail_MetaTaskResultDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);

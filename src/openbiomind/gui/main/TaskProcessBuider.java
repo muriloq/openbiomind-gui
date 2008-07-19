@@ -25,7 +25,7 @@ import openbiomind.gui.tasks.AbstractTaskData;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jun 12, 2008
+ * @version Jul 18, 2008
  */
 public class TaskProcessBuider {
 
@@ -76,7 +76,6 @@ public class TaskProcessBuider {
       commandList.addAll(this.abstractTaskData.getAllArgumentsAsList());
 
       this.processBuilder = new ProcessBuilder(commandList);
-      this.processBuilder.redirectErrorStream(true);
 
       logCommand(this.processBuilder.command());
    }

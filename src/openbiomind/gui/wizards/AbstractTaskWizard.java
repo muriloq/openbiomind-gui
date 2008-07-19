@@ -3,7 +3,7 @@
  *
  * The file AbstractTaskWizard.java.
  *
- * TODO THIS CLASS ANF ITS SUBCLASSES NEED TO BE REFACTORED AND REDESIGNED.
+ * TODO THIS CLASS AND ITS SUBCLASSES NEED TO BE REFACTORED AND REDESIGNED.
  *
  * $Id$
  */
@@ -14,7 +14,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Scanner;
 import java.util.Set;
 
 import openbiomind.gui.Application;
@@ -51,9 +53,15 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 13, 2008
+ * @version Jul 18, 2008
  */
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
+
+   /** The execution log file. */
+   private File executionLogFile = null;
+
+   /** The executed command. */
+   private String executedCommand = null;
 
    /**
     * Instantiates a new enhance dataset wizard.
@@ -125,11 +133,10 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     * @throws CoreException the core exception
     */
    private void doFinish(final IProgressMonitor monitor) throws CoreException {
-      // TODO Save the command as command.log in the project
       final SubMonitor subMonitor = SubMonitor.convert(monitor, WizardMessages.AbstractTaskWizard_ExecutingTask, 100);
       subMonitor.subTask(WizardMessages.AbstractTaskWizard_PreparingTaskData);
       prepareTaskData();
-      Console.info(getTaskData().toString());
+      Console.info(getExecutedCommand());
       subMonitor.worked(5);
 
       try {
@@ -137,9 +144,16 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
          final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(getTaskData());
          subMonitor.worked(5);
 
-         executeTask(taskProcessBuider.start(), subMonitor.newChild(50, SubMonitor.SUPPRESS_SETTASKNAME));
+         final Process process = taskProcessBuider.start();
+         executeTask(process, subMonitor.newChild(50, SubMonitor.SUPPRESS_SETTASKNAME));
+
          subMonitor.setWorkRemaining(40);
-         createProject(getTaskData().createTaskDataProject(), subMonitor.newChild(40, SubMonitor.SUPPRESS_SETTASKNAME));
+         if (process.exitValue() == 0) {
+            createProject(getTaskData().createTaskDataProject(), subMonitor.newChild(40,
+                  SubMonitor.SUPPRESS_SETTASKNAME));
+         } else {
+            processError(process, subMonitor.newChild(40, SubMonitor.SUPPRESS_SETTASKNAME));
+         }
       } catch (final IOException e) {
          throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, IStatus.OK, e.getLocalizedMessage(),
                e));
@@ -158,21 +172,67 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
       final SubMonitor subMonitor = SubMonitor.convert(monitor);
       subMonitor.setWorkRemaining(10000);
 
-      try {
-         final BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-         Assert.isNotNull(reader);
-         String message = null;
+      final Scanner reader = new Scanner(new BufferedReader(new InputStreamReader(process.getInputStream())));
+      PrintWriter executionLogWriter = null;
+      String message = null;
 
-         while ((message = reader.readLine()) != null) {
+      try {
+         executionLogWriter = new PrintWriter(getExecutionLogFile());
+
+         /*
+          * write the command at the top
+          */
+         executionLogWriter.println(getExecutedCommand());
+         executionLogWriter.println(); // empty line
+         subMonitor.worked(1);
+
+         /*
+          * read the command output and store it
+          */
+         while (reader.hasNextLine()) {
             subMonitor.setWorkRemaining(10000);
+            message = reader.nextLine();
             subMonitor.subTask(message);
+            executionLogWriter.println(message);
             subMonitor.worked(1);
-            Console.output(message);
-            // TODO Save the message as output.log in the project
          }
-         reader.close();
       } catch (final IOException e) {
          Console.error(e);
+      } finally {
+         Utility.close(executionLogWriter);
+         if (reader != null) {
+            reader.close();
+         }
+      }
+
+      return true;
+   }
+
+   /**
+    * Process error.
+    *
+    * @param process the process
+    * @param monitor the monitor
+    *
+    * @return true, if successful
+    */
+   private boolean processError(final Process process, final IProgressMonitor monitor) {
+      final SubMonitor subMonitor = SubMonitor.convert(monitor);
+      subMonitor.setWorkRemaining(100);
+
+      Scanner reader = null;
+
+      try {
+         reader = new Scanner(new BufferedReader(new InputStreamReader(process.getErrorStream())));
+         while (reader.hasNextLine()) {
+            subMonitor.setWorkRemaining(100);
+            Console.error(reader.nextLine());
+            subMonitor.worked(1);
+         }
+      } finally {
+         if (reader != null) {
+            reader.close();
+         }
       }
 
       return true;
@@ -188,14 +248,13 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     */
    private boolean createProject(final TaskDataProject taskDataProject, final IProgressMonitor monitor) {
       // TODO Update to use resource validation
-      // TODO Update to put a file named executedCommand.txt with the executed command
       boolean created = false;
       final Set<TaskDataFolder> taskDataFolderSet = taskDataProject.getTaskDataFolderSet();
       final Set<TaskDataFile> taskDataFileSet = taskDataProject.getTaskDataFileSet();
       final String projectName = taskDataProject.getName();
       Assert.isNotNull(projectName);
       final SubMonitor subMonitor = SubMonitor.convert(monitor, projectName, 100).setWorkRemaining(
-            2 + 2 * taskDataFolderSet.size() + taskDataFileSet.size());
+            3 + 2 * taskDataFolderSet.size() + taskDataFileSet.size());
 
       final IWorkspace workspace = ResourcesPlugin.getWorkspace();
       final IWorkspaceRoot workspaceRoot = workspace.getRoot();
@@ -215,6 +274,13 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
             for (final TaskDataFile taskDataFile : taskDataFileSet) {
                createFile(taskDataFile, iProject, subMonitor.newChild(1, SubMonitor.SUPPRESS_SETTASKNAME));
             }
+
+            // create execution.log file
+            final TaskDataFile outputLogTaskDataFile = new TaskDataFile(Resources.EXECUTION_FILENAME);
+            outputLogTaskDataFile.setAutoOpen(true);
+            outputLogTaskDataFile.setLinked(false);
+            outputLogTaskDataFile.setPath(getExecutionLogFile().getAbsolutePath());
+            createFile(outputLogTaskDataFile, iProject, subMonitor.newChild(1, SubMonitor.SUPPRESS_SETTASKNAME));
          }
 
          created = true;
@@ -236,7 +302,6 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     */
    private boolean createFolder(final TaskDataFolder taskDataFolder, final IContainer container,
          final IProgressMonitor monitor) {
-      // TODO Update to use the monitor
       // TODO Update to use resource validation
       boolean created = false;
       final Set<TaskDataFile> taskDataFileSet = taskDataFolder.getTaskDataFileSet();
@@ -353,6 +418,36 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
       }
 
       return created;
+   }
+
+   /**
+    * Gets the executed command.
+    *
+    * @return the executed command
+    */
+   private String getExecutedCommand() {
+      if (this.executedCommand == null) {
+         this.executedCommand = getTaskData().toString();
+      }
+      return this.executedCommand;
+   }
+
+   /**
+    * Gets the execution log file.
+    *
+    * @return the execution log file
+    */
+   private File getExecutionLogFile() {
+      if (this.executionLogFile == null) {
+         try {
+            this.executionLogFile = File.createTempFile(Resources.EXECUTION_FILENAME, Long.toString(System
+                  .currentTimeMillis()));
+         } catch (final IOException e) {
+            Console.error(e);
+         }
+      }
+
+      return this.executionLogFile;
    }
 
 }

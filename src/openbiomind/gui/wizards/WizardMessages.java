@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 16, 2008
+ * @version Jul 18, 2008
  */
 public class WizardMessages extends NLS {
 
@@ -57,11 +57,23 @@ public class WizardMessages extends NLS {
    /** The Clustering transformer wizard page error meta task result directory. */
    public static String ClusteringTransformerWizardPage_Error_MetaTaskResultDir;
 
-   /** The Clustering transformer wizard page info transform. */
-   public static String ClusteringTransformerWizardPage_Info_Transform;
-
    /** The Clustering transformer wizard page label transorm. */
    public static String ClusteringTransformerWizardPage_Label_Transorm;
+
+   /** The Clusterize wizard description. */
+   public static String ClusterizeWizard_Description;
+
+   /** The Clusterize wizard name. */
+   public static String ClusterizeWizard_Name;
+
+   /** The Clusterize wizard page detail clustering dataset file. */
+   public static String ClusterizeWizardPage_Detail_ClusteringDatasetFile;
+
+   /** The Clusterize wizard page label clustering dataset file. */
+   public static String ClusterizeWizardPage_Label_ClusteringDatasetFile;
+
+   /** The Clusterize wizard page label dataset clustering metric. */
+   public static String ClusterizeWizardPage_Label_DatasetClusteringMetric;
 
    /** The Dataset transformer wizard description. */
    public static String DatasetTransformerWizard_Description;
@@ -86,6 +98,9 @@ public class WizardMessages extends NLS {
 
    /** The dataset file detail. */
    public static String Detail_DatasetFile;
+
+   /** The Detail Meta Task result directory. */
+   public static String Detail_MetaTaskResultDir;
 
    /** The Detail original dataset. */
    public static String Detail_OriginalDataset;
@@ -153,9 +168,6 @@ public class WizardMessages extends NLS {
    /** The Meta Task result directory. */
    public static String Label_MetaTaskResultDir;
 
-   /** The Label none. */
-   public static String Label_None;
-
    /** The label original dataset. */
    public static String Label_OriginalDataset;
 
@@ -200,9 +212,6 @@ public class WizardMessages extends NLS {
 
    /** The Utility computer wizard page detail base dataset. */
    public static String UtilityComputerWizardPage_Detail_BaseDataset;
-
-   /** The Utility computer wizard page detail result directory. */
-   public static String UtilityComputerWizardPage_Detail_ResultDir;
 
    /** The Utility computer wizard page label base dataset. */
    public static String UtilityComputerWizardPage_Label_BaseDataset;

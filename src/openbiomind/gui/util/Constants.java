@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Display;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 6, 2008
+ * @version Jul 18, 2008
  */
 public interface Constants {
 
@@ -84,7 +84,10 @@ public interface Constants {
       /**
        * The constant specifying the name of the pipeline properties file (value = <code>pipeline.properties</code>).
        */
-      public static final String PIPELINE_PROPERTIES_FILENAME = "pipeline" + DOT + "properties"; //$NON-NLS-1$
+      public static final String PIPELINE_PROPERTIES_FILENAME = "pipeline" + DOT + "properties"; //$NON-NLS-1$ //$NON-NLS-2$
+
+      /** The Constant specifying the name of the execution file (value = <code>execution.log</code>). */
+      public static final String EXECUTION_FILENAME = "execution" + DOT + "log"; //$NON-NLS-1$ //$NON-NLS-2$
 
       /** The Constant specifying the tab file extension (value = <code>.tab</code>). */
       public static final String TAB_EXTENSION = DOT + "tab"; //$NON-NLS-1$

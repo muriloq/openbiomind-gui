@@ -7,15 +7,19 @@
  */
 package openbiomind.gui.util;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
+
+import openbiomind.gui.console.Console;
 
 /**
  * The class Utility.
  *
  * @author bsanghvi
  * @since Jun 14, 2008
- * @version Jul 6, 2008
+ * @version Jul 18, 2008
  */
 public final class Utility implements Constants {
 
@@ -173,7 +177,8 @@ public final class Utility implements Constants {
    }
 
    /**
-    * List the names of file in the given <code>directory</code> such that the names of the files begin with <code>startsWith</code> and ends with <code>endsWith</code>.
+    * List the names of file in the given <code>directory</code> such that the names of the files begin with
+    * <code>startsWith</code> and ends with <code>endsWith</code>.
     *
     * @param directory the directory
     * @param startsWith the starts with
@@ -192,6 +197,27 @@ public final class Utility implements Constants {
 
       });
 
+   }
+
+   /**
+    * Close the closeable resource.
+    *
+    * @param closeable the resource to be closed
+    *
+    * @return true, if no exception occurred while closing
+    */
+   public static boolean close(final Closeable closeable) {
+      boolean success = true;
+      if (closeable != null) {
+         try {
+            closeable.close();
+         } catch (final IOException e) {
+            success = false;
+            Console.debug(e);
+         }
+      }
+
+      return success;
    }
 
 }
