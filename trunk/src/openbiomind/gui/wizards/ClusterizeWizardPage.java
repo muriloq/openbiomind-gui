@@ -1,7 +1,7 @@
 /**
- * ClusteringTransformerWizardPage.java
+ * ClusterizeWizardPage.java
  *
- * The file ClusteringTransformerWizardPage.java.
+ * The file ClusterizeWizardPage.java.
  *
  * $Id$
  */
@@ -9,7 +9,7 @@ package openbiomind.gui.wizards;
 
 import java.io.File;
 
-import openbiomind.gui.tasks.TransformEnum;
+import openbiomind.gui.tasks.DatasetClusteringMetricEnum;
 import openbiomind.gui.util.CommonMessages;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.widgets.TextButtonComposite;
@@ -20,31 +20,29 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * The class ClusteringTransformerWizardPage.
+ * The class ClusterizeWizardPage.
  *
  * @author bsanghvi
- * @since Jul 13, 2008
+ * @since Jul 18, 2008
  * @version Jul 18, 2008
  */
-public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
+public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
    /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.ClusteringTransformerWizardPage</code>).
+    * The constant for page name (value = <code>openbiomind.gui.wizards.ClusterizeWizardPage</code>).
     */
-   public static final String PAGE_NAME = "openbiomind.gui.wizards.ClusteringTransformerWizardPage"; //$NON-NLS-1$
+   public static final String PAGE_NAME = "openbiomind.gui.wizards.ClusterizeWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
    private static final int NUM_COLUMN_IN_GROUP = 3;
 
-   /** The dataset file text button composite. */
-   private TextButtonComposite datasetFileTBC = null;
+   /** The clustering dataset file text button composite. */
+   private TextButtonComposite clusteringDatasetFileTBC = null;
 
    /** The output file destination file text. */
    private Text outputFileDestFileText = null;
@@ -61,25 +59,19 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
    /** The valid output file path. */
    private boolean validOutputFilePath = false;
 
-   /** The transform combo. */
-   private Combo transformCombo = null;
+   /** The dataset clustering metric combo. */
+   private Combo datasetClusteringMetricCombo = null;
 
-   /** The transform array. */
-   private String[] transformArray = null;
-
-   /** The meta task result directory text button composite. */
-   private TextButtonComposite metaTaskResultDirTBC = null;
-
-   /** The meta task result directory error decoration. */
-   private ControlDecoration metaTaskResultDirErrorDecoration = null;
+   /** The dataset clustering metric array. */
+   private String[] datasetClusteringMetricArray = null;
 
    /**
-    * Instantiates a new clustering transformer wizard page.
+    * Instantiates a new clusterize wizard page.
     *
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
-   public ClusteringTransformerWizardPage(final String pageTitle, final String pageDescription) {
+   public ClusterizeWizardPage(final String pageTitle, final String pageDescription) {
       super(PAGE_NAME, pageTitle, pageDescription);
    }
 
@@ -112,14 +104,9 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
       addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
       // Dataset file
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DatasetFile, WizardMessages.Detail_DatasetFile,
-            true);
-      this.datasetFileTBC = createDatasetFileTBC(parent);
-
-      // Transform
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.ClusteringTransformerWizardPage_Label_Transorm, true);
-      this.transformCombo = createTransformCombo(parent);
-      WidgetHelper.createNewBlankLabel(parent);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.ClusterizeWizardPage_Label_ClusteringDatasetFile,
+            WizardMessages.ClusterizeWizardPage_Detail_ClusteringDatasetFile, true);
+      this.clusteringDatasetFileTBC = createClusteringDatasetFileTBC(parent);
 
       // Output file
       // - leave a blank row
@@ -146,7 +133,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
     *
     * @return the text button composite
     */
-   private TextButtonComposite createDatasetFileTBC(final Composite parent) {
+   private TextButtonComposite createClusteringDatasetFileTBC(final Composite parent) {
       final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
 
          @Override
@@ -156,7 +143,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.Detail_DatasetFile);
+      textButtonComposite.setToolTipText(WizardMessages.ClusterizeWizardPage_Detail_ClusteringDatasetFile);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -185,27 +172,6 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
       });
 
       return textButtonComposite;
-   }
-
-   /**
-    * Creates the transform combo.
-    *
-    * @param parent the parent
-    *
-    * @return the combo
-    */
-   private Combo createTransformCombo(final Composite parent) {
-      final Combo combo = createDefaultReadOnlyCombo(parent, getTransformArray());
-      combo.addSelectionListener(new SelectionAdapter() {
-
-         @Override
-         public void widgetSelected(final SelectionEvent e) {
-            validateMetaTaskResultDir();
-         }
-
-      });
-
-      return combo;
    }
 
    /**
@@ -373,71 +339,28 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
       // Optional Arguments
       addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
-      // MetaTask result directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_MetaTaskResultDir,
-            WizardMessages.Detail_MetaTaskResultDir);
-      this.metaTaskResultDirTBC = createMetaTaskResultDirTBC(parent);
+      // Dataset clustering metric
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.ClusterizeWizardPage_Label_DatasetClusteringMetric);
+      this.datasetClusteringMetricCombo = createDefaultReadOnlyCombo(parent, getDatasetClusteringMetricArray());
+      WidgetHelper.createNewBlankLabel(parent);
    }
 
    /**
-    * Creates the meta task result directory text button composite.
+    * Gets the clustering dataset file.
     *
-    * @param parent the parent
-    *
-    * @return the text button composite
+    * @return the clustering dataset file
     */
-   private TextButtonComposite createMetaTaskResultDirTBC(final Composite parent) {
-      final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
-
-         @Override
-         protected String buttonSelected() {
-            return getDirectoryDialog().open();
-         }
-
-      };
-      textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText(WizardMessages.Detail_MetaTaskResultDir);
-
-      // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
-
-      // create decorations
-      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textButtonComposite
-            .getTextField(), CommonMessages.Info_LeaveBlankOrSpecifyDir);
-      infoDecoration.setShowOnlyOnFocus(true);
-      setMetaTaskResultDirErrorDecoration(WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            WizardMessages.ClusteringTransformerWizardPage_Error_MetaTaskResultDir));
-      getMetaTaskResultDirErrorDecoration().hide();
-
-      // apply listeners
-      textButtonComposite.addModifyListenerOnTextField(new ModifyListener() {
-
-         @Override
-         public void modifyText(final ModifyEvent event) {
-            validateMetaTaskResultDir();
-         }
-
-      });
-
-      return textButtonComposite;
+   public String getClusteringDatasetFile() {
+      return getClusteringDatasetFileTBC().getText();
    }
 
    /**
-    * Gets the dataset file.
+    * Gets the clustering dataset text button composite.
     *
-    * @return the dataset file
+    * @return the clustering dataset text button composite
     */
-   public String getDatasetFile() {
-      return getDatasetFileTBC().getText();
-   }
-
-   /**
-    * Gets the base dataset text button composite.
-    *
-    * @return the base dataset text button composite
-    */
-   private TextButtonComposite getDatasetFileTBC() {
-      return this.datasetFileTBC;
+   private TextButtonComposite getClusteringDatasetFileTBC() {
+      return this.clusteringDatasetFileTBC;
    }
 
    /**
@@ -539,110 +462,36 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
    }
 
    /**
-    * Gets the transform.
+    * Gets the dataset clustering metric.
     *
-    * @return the transform
+    * @return the dataset clustering metric
     */
-   public TransformEnum getTransform() {
-      return TransformEnum.parse(getTransformArray()[getTransformCombo().getSelectionIndex()]);
+   public DatasetClusteringMetricEnum getDatasetClusteringMetric() {
+      return DatasetClusteringMetricEnum.parse(getDatasetClusteringMetricArray()[getDatasetClusteringMetricCombo()
+            .getSelectionIndex()]);
    }
 
    /**
-    * Gets the transform combo.
+    * Gets the dataset clustering metric combo.
     *
-    * @return the transform combo
+    * @return the dataset clustering metric combo
     */
-   private Combo getTransformCombo() {
-      return this.transformCombo;
+   private Combo getDatasetClusteringMetricCombo() {
+      return this.datasetClusteringMetricCombo;
    }
 
    /**
-    * Gets the transform array.
+    * Gets the dataset clustering metric array.
     *
-    * @return the transform array
+    * @return the dataset clustering metric array
     */
-   private String[] getTransformArray() {
-      if (this.transformArray == null) {
-         this.transformArray = new String[] { TransformEnum.HORIZONTAL.toString(), TransformEnum.VERTICAL.toString(),
-               TransformEnum.MUTIC.toString(), TransformEnum.MOBRA.toString() };
+   private String[] getDatasetClusteringMetricArray() {
+      if (this.datasetClusteringMetricArray == null) {
+         this.datasetClusteringMetricArray = new String[] { EMPTY, DatasetClusteringMetricEnum.COSINE.toString(),
+               DatasetClusteringMetricEnum.EUCLIDEAN.toString(), DatasetClusteringMetricEnum.SNP.toString() };
       }
 
-      return this.transformArray;
-   }
-
-   /**
-    * Gets the meta task result directory.
-    *
-    * @return the meta task result directory
-    */
-   public String getMetaTaskResultDir() {
-      return getMetaTaskResultDirTBC().getText();
-   }
-
-   /**
-    * Gets meta task the result directory text button composite.
-    *
-    * @return the meta task result directory text button composite
-    */
-   private TextButtonComposite getMetaTaskResultDirTBC() {
-      return this.metaTaskResultDirTBC;
-   }
-
-   /**
-    * Gets the meta task result directory error decoration.
-    *
-    * @return the meta task result directory error decoration
-    */
-   private ControlDecoration getMetaTaskResultDirErrorDecoration() {
-      return this.metaTaskResultDirErrorDecoration;
-   }
-
-   /**
-    * Sets the meta task result directory error decoration.
-    *
-    * @param metaTaskResultDirErrorDecoration the new meta task result directory error decoration
-    */
-   private void setMetaTaskResultDirErrorDecoration(final ControlDecoration metaTaskResultDirErrorDecoration) {
-      this.metaTaskResultDirErrorDecoration = metaTaskResultDirErrorDecoration;
-   }
-
-   /**
-    * Validate meta task result directory.
-    */
-   private void validateMetaTaskResultDir() {
-      final boolean required;
-      switch (getTransform()) {
-         case MUTIC:
-         case MOBRA:
-            required = true;
-            break;
-         case HORIZONTAL:
-         case VERTICAL:
-         default:
-            required = false;
-            break;
-      }
-
-      final String directoryName = getMetaTaskResultDir();
-      if (!required && Utility.isEmpty(directoryName)) {
-         getMetaTaskResultDirTBC().setValid(true);
-      } else {
-         final File directory = new File(directoryName);
-         getMetaTaskResultDirTBC()
-               .setValid(
-                     Utility.directoryExists(directory)
-                           && Utility.listFileNames(directory, Resources.OUT_FILE_STARTS_WITH, Resources.TXT_EXTENSION).length > 0);
-      }
-
-      if (getMetaTaskResultDirTBC().isValid()) {
-         getMetaTaskResultDirErrorDecoration().hide();
-      } else {
-         getMetaTaskResultDirErrorDecoration().show();
-         getMetaTaskResultDirErrorDecoration()
-               .showHoverText(getMetaTaskResultDirErrorDecoration().getDescriptionText());
-      }
-
-      validatePage();
+      return this.datasetClusteringMetricArray;
    }
 
    /*
@@ -650,9 +499,8 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
     */
    @Override
    protected void validatePage() {
-      final boolean valid = isProjectInformationValid() && getDatasetFileTBC().isValid()
-            && isValidOutputFileDestFileName() && getOutputFileDestDirTBC().isValid() && isValidOutputFilePath()
-            && getMetaTaskResultDirTBC().isValid();
+      final boolean valid = isProjectInformationValid() && getClusteringDatasetFileTBC().isValid()
+            && isValidOutputFileDestFileName() && getOutputFileDestDirTBC().isValid() && isValidOutputFilePath();
       setPageComplete(valid);
       if (!valid) {
          setErrorMessage(CommonMessages.Error_FixToContinue);

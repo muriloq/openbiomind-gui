@@ -235,7 +235,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
       final int size = trainFiles.length < testFiles.length ? trainFiles.length : testFiles.length;
 
       if (size >= 0) {
-         taskDataFolder.add(createTrainTestPairTaskDataFolder("0", directoryPath, trainFiles[0], testFiles[0], true));
+         taskDataFolder.add(createTrainTestPairTaskDataFolder("0", directoryPath, trainFiles[0], testFiles[0], true)); //$NON-NLS-1$
          for (int i = 1; i < size; i++) {
             taskDataFolder.add(createTrainTestPairTaskDataFolder(Integer.toString(i), directoryPath, trainFiles[i],
                   testFiles[i], false));

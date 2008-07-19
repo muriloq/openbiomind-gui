@@ -59,7 +59,7 @@ public enum ClassificationMethodEnum {
     */
    public static ClassificationMethodEnum parse(final String string) {
       if (!Utility.isEmpty(string)) {
-         if ("snp".startsWith(string)) {
+         if ("snp".startsWith(string)) { //$NON-NLS-1$
             if (SNPQA.toString().equals(string)) {
                return SNPQA;
             } else if (SNPLOCAL.toString().equals(string)) {
@@ -67,7 +67,7 @@ public enum ClassificationMethodEnum {
             } else if (SNP.toString().equals(string)) {
                return SNP;
             }
-         } else if ("bool".startsWith(string)) {
+         } else if ("bool".startsWith(string)) { //$NON-NLS-1$
             if (BOOLSIMPLE.toString().equals(string)) {
                return BOOLSIMPLE;
             } else if (BOOLCOMPLEX.toString().equals(string)) {

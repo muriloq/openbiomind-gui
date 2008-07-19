@@ -21,7 +21,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 13, 2008
- * @version Jul 16, 2008
+ * @version Jul 18, 2008
  */
 public class ClusteringTransformerTaskData extends AbstractTaskData {
 
@@ -43,7 +43,7 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
    private static final String ARG_P = HYPHEN + "p"; //$NON-NLS-1$
 
    /**
-    * Instantiates a new utility computer task.
+    * Instantiates a new clustering transformer task data.
     */
    public ClusteringTransformerTaskData() {
       super(TASK_NAME);
@@ -94,8 +94,8 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
     *
     * @return the transform
     */
-   public String getTransform() {
-      return getArgument(ARG_T);
+   public TransformEnum getTransform() {
+      return TransformEnum.parse(getArgument(ARG_T));
    }
 
    /**

@@ -26,7 +26,7 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
    private ClusteringTransformerWizardPage clusteringTransformerWizardPage = null;
 
    /**
-    * Instantiates a new utility computer wizard.
+    * Instantiates a new clustering transformer wizard.
     */
    public ClusteringTransformerWizard() {
       super(WizardMessages.ClusteringTransformerWizard_Name);
