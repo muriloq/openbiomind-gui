@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 15, 2008
+ * @version Jul 20, 2008
  */
 public abstract class AbstractTaskWizardPage extends WizardPage implements IWizardPage, Constants {
 
@@ -317,7 +317,21 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @return the combo
     */
    protected Combo createDefaultReadOnlyCombo(final Composite parent, final String[] items) {
-      return createDefaultCombo(parent, SWT.READ_ONLY, WizardMessages.AbstractTaskWizardPage_Tip_Combo_ReadOnly, items);
+      return createDefaultReadOnlyCombo(parent, items, true);
+   }
+
+   /**
+    * Creates the default read only combo.
+    *
+    * @param parent the parent
+    * @param items the items
+    * @param fill the fill
+    *
+    * @return the combo
+    */
+   protected Combo createDefaultReadOnlyCombo(final Composite parent, final String[] items, final boolean fill) {
+      return createDefaultCombo(parent, SWT.READ_ONLY, WizardMessages.AbstractTaskWizardPage_Tip_Combo_ReadOnly, items,
+            fill);
    }
 
    /**
@@ -329,7 +343,21 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @return the combo
     */
    protected Combo createDefaultDropDownCombo(final Composite parent, final String[] items) {
-      return createDefaultCombo(parent, SWT.DROP_DOWN, WizardMessages.AbstractTaskWizardPage_Tip_Combo_Simple, items);
+      return createDefaultDropDownCombo(parent, items, true);
+   }
+
+   /**
+    * Creates the default drop down combo.
+    *
+    * @param parent the parent
+    * @param items the items
+    * @param fill the fill
+    *
+    * @return the combo
+    */
+   protected Combo createDefaultDropDownCombo(final Composite parent, final String[] items, final boolean fill) {
+      return createDefaultCombo(parent, SWT.DROP_DOWN, WizardMessages.AbstractTaskWizardPage_Tip_Combo_Simple, items,
+            fill);
    }
 
    /**
@@ -339,15 +367,21 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @param style the style must be either {@link SWT#DROP_DOWN} or {@link SWT#READ_ONLY} or {@link SWT#SIMPLE}
     * @param tooltip the tool tip
     * @param items the items
+    * @param fill the fill
     *
     * @return the combo
     */
-   private Combo createDefaultCombo(final Composite parent, final int style, final String tooltip, final String[] items) {
+   private Combo createDefaultCombo(final Composite parent, final int style, final String tooltip,
+         final String[] items, final boolean fill) {
       final Combo combo = new Combo(parent, style);
       combo.setItems(items);
 
       // apply layout
-      GUI.GRID_DATA_FILL_H.applyTo(combo);
+      if (fill) {
+         GUI.GRID_DATA_FILL_H.applyTo(combo);
+      } else {
+         GUI.GRID_DATA_DEFAULT.applyTo(combo);
+      }
 
       // add tip and information decoration
       if (!Utility.isEmpty(tooltip)) {

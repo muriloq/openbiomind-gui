@@ -23,7 +23,7 @@ import openbiomind.gui.util.Constants;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jun 27, 2008
+ * @version Jul 20, 2008
  */
 public abstract class AbstractTaskData implements Constants {
 
@@ -35,6 +35,9 @@ public abstract class AbstractTaskData implements Constants {
 
    /** The project name. */
    private String projectName = null;
+
+   /** The memory intensive operation flag. */
+   private boolean memoryIntensive = false;
 
    /** The argument map. */
    private Map<String, String> argumentMap = null;
@@ -86,6 +89,24 @@ public abstract class AbstractTaskData implements Constants {
     */
    public void setProjectName(final String projectName) {
       this.projectName = projectName;
+   }
+
+   /**
+    * Checks if is memory intensive.
+    *
+    * @return true, if is memory intensive
+    */
+   public boolean isMemoryIntensive() {
+      return this.memoryIntensive;
+   }
+
+   /**
+    * Sets the memory intensive.
+    *
+    * @param memoryIntensive the new memory intensive
+    */
+   public void setMemoryIntensive(final boolean memoryIntensive) {
+      this.memoryIntensive = memoryIntensive;
    }
 
    /**

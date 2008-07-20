@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 18, 2008
+ * @version Jul 20, 2008
  */
 public class WizardMessages extends NLS {
 
@@ -203,6 +203,33 @@ public class WizardMessages extends NLS {
 
    /** The Meta task wizard page tip number of tasks. */
    public static String MetaTaskWizardPage_Tip_NumOfTasks;
+
+   /** The View clusters wizard description. */
+   public static String ViewClustersWizard_Description;
+
+   /** The View clusters wizard name. */
+   public static String ViewClustersWizard_Name;
+
+   /** The View clusters wizard page detail clustering colors. */
+   public static String ViewClustersWizardPage_Detail_ClusteringColors;
+
+   /** The View clusters wizard page detail clustering dataset. */
+   public static String ViewClustersWizardPage_Detail_ClusteringDataset;
+
+   /** The View clusters wizard page detail clustering result. */
+   public static String ViewClustersWizardPage_Detail_ClusteringResult;
+
+   /** The View clusters wizard page detail image file. */
+   public static String ViewClustersWizardPage_Detail_ImageFile;
+
+   /** The View clusters wizard page label clustering colors. */
+   public static String ViewClustersWizardPage_Label_ClusteringColors;
+
+   /** The View clusters wizard page label clustering dataset. */
+   public static String ViewClustersWizardPage_Label_ClusteringDataset;
+
+   /** The View clusters wizard page label clustering result. */
+   public static String ViewClustersWizardPage_Label_ClusteringResult;
 
    /** The Utility computer wizard description. */
    public static String UtilityComputerWizard_Description;

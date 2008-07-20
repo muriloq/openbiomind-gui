@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Display;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 18, 2008
+ * @version Jul 20, 2008
  */
 public interface Constants {
 
@@ -94,6 +94,9 @@ public interface Constants {
 
       /** The Constant specifying the txt file extension (value = <code>.txt</code>). */
       public static final String TXT_EXTENSION = DOT + "txt"; //$NON-NLS-1$
+
+      /** The Constant specifying the png file extension (value = <code>.png</code>). */
+      public static final String PNG_EXTENSION = DOT + "png"; //$NON-NLS-1$
 
       /** The Constant specifying the string that test file name starts with (value = <code>test</code>). */
       public static final String TEST_FILE_STARTS_WITH = "test"; //$NON-NLS-1$

@@ -25,15 +25,18 @@ import openbiomind.gui.tasks.AbstractTaskData;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 18, 2008
+ * @version Jul 20, 2008
  */
 public class TaskProcessBuider {
 
    /** The <code>java</code> command for executing Java programs. */
-   public static final String JAVA_COMMAND = "java"; //$NON-NLS-1$
+   private static final String JAVA_COMMAND = "java"; //$NON-NLS-1$
 
    /** Argument <code>-cp</code> for specifying the classpath. */
-   public static final String JAVA_ARGUMENT_CLASSPATH = HYPHEN + "cp"; //$NON-NLS-1$
+   private static final String JAVA_ARGUMENT_CLASSPATH = HYPHEN + "cp"; //$NON-NLS-1$
+
+   /** Argument <code>-Xmx256m</code> for memory intensive commands. */
+   private static final String JAVA_Xmx = "-Xmx256m"; //$NON-NLS-1$
 
    /** The abstract task data. */
    private AbstractTaskData abstractTaskData = null;
@@ -70,6 +73,9 @@ public class TaskProcessBuider {
    private void buildProcess() {
       final List<String> commandList = new ArrayList<String>();
       commandList.add(JAVA_COMMAND);
+      if (this.abstractTaskData.isMemoryIntensive()) {
+         commandList.add(JAVA_Xmx);
+      }
       commandList.add(JAVA_ARGUMENT_CLASSPATH);
       commandList.add(getClasspath());
       commandList.add(this.abstractTaskData.getTaskName());
