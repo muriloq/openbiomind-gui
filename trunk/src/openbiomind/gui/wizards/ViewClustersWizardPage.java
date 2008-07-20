@@ -1,7 +1,7 @@
 /**
- * UtilityComputerWizardPage.java
+ * ViewClustersWizardPage.java
  *
- * The file UtilityComputerWizardPage.java.
+ * The file ViewClustersWizardPage.java.
  *
  * $Id$
  */
@@ -9,6 +9,7 @@ package openbiomind.gui.wizards;
 
 import java.io.File;
 
+import openbiomind.gui.tasks.ClusteringColorsEnum;
 import openbiomind.gui.util.CommonMessages;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.widgets.TextButtonComposite;
@@ -24,48 +25,54 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * The class UtilityComputerWizardPage.
+ * The class ViewClustersWizardPage.
  *
  * @author bsanghvi
- * @since Jul 9, 2008
- * @version Jul 16, 2008
+ * @since Jul 20, 2008
+ * @version Jul 20, 2008
  */
-public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
+public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
    /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.UtilityComputerWizardPage</code>).
+    * The constant for page name (value = <code>openbiomind.gui.wizards.ViewClustersWizardPage</code>).
     */
-   public static final String PAGE_NAME = "openbiomind.gui.wizards.UtilityComputerWizardPage"; //$NON-NLS-1$
+   public static final String PAGE_NAME = "openbiomind.gui.wizards.ViewClustersWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
    private static final int NUM_COLUMN_IN_GROUP = 3;
 
    /** The meta task result directory text button composite. */
-   private TextButtonComposite metaTaskResultDirTBC = null;
+   private TextButtonComposite clusteringResultTBC = null;
 
    /** The base dataset text button composite. */
-   private TextButtonComposite baseDatasetTBC = null;
+   private TextButtonComposite clusteringDatasetTBC = null;
 
    /** The output file destination file text. */
-   private Text outputFileDestFileText = null;
+   private Text imageFileDestFileText = null;
 
    /** The valid output file destination file name. */
-   private boolean validOutputFileDestFileName = false;
+   private boolean validImageFileDestFileName = false;
+
+   /** The image file destination extension combo. */
+   private Combo imageFileDestExtCombo = null;
+
+   /** The image file destination extension array. */
+   private String[] imageFileDestExtArray = null;
 
    /** The output file destination directory text button composite. */
-   private TextButtonComposite outputFileDestDirTBC = null;
+   private TextButtonComposite imageFileDestDirTBC = null;
 
    /** The output file path text. */
-   private Text outputFilePathText = null;
+   private Text imageFilePathText = null;
 
    /** The valid output file path. */
-   private boolean validOutputFilePath = false;
+   private boolean validImageFilePath = false;
 
    /** The target category combo. */
-   private Combo targetCategoryCombo = null;
+   private Combo clusteringColorsCombo = null;
 
    /** The target category array. */
-   private String[] targetCategoryArray = null;
+   private String[] clusteringColorsArray = null;
 
    /**
     * Instantiates a new utility computer wizard page.
@@ -73,7 +80,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
-   public UtilityComputerWizardPage(final String pageTitle, final String pageDescription) {
+   public ViewClustersWizardPage(final String pageTitle, final String pageDescription) {
       super(PAGE_NAME, pageTitle, pageDescription);
    }
 
@@ -105,94 +112,50 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       // Required Arguments
       addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
-      // MetaTask result directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_MetaTaskResultDir,
-            WizardMessages.Detail_MetaTaskResultDir, true);
-      this.metaTaskResultDirTBC = createMetaTaskResultDirTBC(parent);
+      // Clustering dataset
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.ViewClustersWizardPage_Label_ClusteringDataset,
+            WizardMessages.ViewClustersWizardPage_Detail_ClusteringDataset, true);
+      this.clusteringDatasetTBC = createSelectFileTBC(parent,
+            WizardMessages.ViewClustersWizardPage_Detail_ClusteringDataset);
 
-      // Base dataset
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.UtilityComputerWizardPage_Label_BaseDataset,
-            WizardMessages.UtilityComputerWizardPage_Detail_BaseDataset, true);
-      this.baseDatasetTBC = createBaseDatasetTBC(parent);
+      // Clustering result
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.ViewClustersWizardPage_Label_ClusteringResult,
+            WizardMessages.ViewClustersWizardPage_Detail_ClusteringResult, true);
+      this.clusteringResultTBC = createSelectFileTBC(parent,
+            WizardMessages.ViewClustersWizardPage_Detail_ClusteringResult);
 
       // Output file
       // - leave a blank row
       WidgetHelper.createNewBlankLabel(parent, NUM_COLUMN_IN_GROUP);
-      // - Detail row: Specify the output file
-      WidgetHelper.createNewDetailsLabel(parent, WizardMessages.Detail_OutputFile, NUM_COLUMN_IN_GROUP);
+      // - Detail row: Specify the image file
+      WidgetHelper.createNewDetailsLabel(parent, WizardMessages.ViewClustersWizardPage_Detail_ImageFile,
+            NUM_COLUMN_IN_GROUP);
       // - File name
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationFile, WizardMessages.Detail_OutputFile,
             true);
-      this.outputFileDestFileText = createOutputFileDestFileText(parent);
-      WidgetHelper.createNewBlankLabel(parent);
+      this.imageFileDestFileText = createImageFileDestFileText(parent);
+      this.imageFileDestExtCombo = createDefaultReadOnlyCombo(parent, getImageFileDestExtArray(), false);
+      // presently only PNG format is supported, so this combo can be disabled
+      if (getImageFileDestExtArray().length == 1) {
+         getImageFileDestExtCombo().setEnabled(false);
+      }
       // - Directory
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationDir, CommonMessages.Info_DestinationDir);
-      this.outputFileDestDirTBC = createOutputFileDestDirTBC(parent);
+      this.imageFileDestDirTBC = createImageFileDestDirTBC(parent);
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputFilePath,
             WizardMessages.Detail_OutputFilePath);
-      this.outputFilePathText = createOutputFilePathText(parent);
+      this.imageFilePathText = createImageFilePathText(parent);
    }
 
    /**
-    * Creates the meta task result directory text button composite.
+    * Creates the select file text button composite.
     *
     * @param parent the parent
+    * @param tooltip the tool tip
     *
     * @return the text button composite
     */
-   private TextButtonComposite createMetaTaskResultDirTBC(final Composite parent) {
-      final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
-
-         @Override
-         protected String buttonSelected() {
-            return getDirectoryDialog().open();
-         }
-
-      };
-      textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.Detail_MetaTaskResultDir);
-
-      // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
-
-      // create decorations
-      // TODO Update to identify that the folder must contain train and test tab files
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            CommonMessages.Error_InvalidDir);
-      errorDecoration.show();
-
-      // apply listeners
-      textButtonComposite.addModifyListenerOnTextField(new ModifyListener() {
-
-         @Override
-         public void modifyText(final ModifyEvent event) {
-            final File directory = new File(getMetaTaskResultDir());
-            textButtonComposite
-                  .setValid(Utility.directoryExists(directory)
-                        && Utility.listFileNames(directory, Resources.OUT_FILE_STARTS_WITH, Resources.TXT_EXTENSION).length > 0);
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
-            validatePage();
-         }
-
-      });
-
-      return textButtonComposite;
-   }
-
-   /**
-    * Creates the base dataset text button composite.
-    *
-    * @param parent the parent
-    *
-    * @return the text button composite
-    */
-   private TextButtonComposite createBaseDatasetTBC(final Composite parent) {
+   private TextButtonComposite createSelectFileTBC(final Composite parent, final String tooltip) {
       final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
 
          @Override
@@ -202,7 +165,9 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.UtilityComputerWizardPage_Detail_BaseDataset);
+      if (!Utility.isEmpty(tooltip)) {
+         textButtonComposite.setToolTipText(tooltip);
+      }
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -234,16 +199,16 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    }
 
    /**
-    * Creates the output file destination file text.
+    * Creates the image file destination file text.
     *
     * @param parent the parent
     *
     * @return the text
     */
-   private Text createOutputFileDestFileText(final Composite parent) {
+   private Text createImageFileDestFileText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
       text.setToolTipText(WizardMessages.Detail_OutputFile);
-      setValidOutputFileDestFileName(false);
+      setValidImageFileDestFileName(false);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(text);
@@ -258,15 +223,15 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            setValidOutputFileDestFileName(!Utility.isEmpty(text.getText()));
-            if (isValidOutputFileDestFileName()) {
+            setValidImageFileDestFileName(!Utility.isEmpty(text.getText()));
+            if (isValidImageFileDestFileName()) {
                errorDecoration.hide();
             } else {
                errorDecoration.show();
                errorDecoration.showHoverText(errorDecoration.getDescriptionText());
             }
 
-            getOutputFilePathText().setText(getOutputFile());
+            getImageFilePathText().setText(getImageFile());
 
             validatePage();
          }
@@ -277,13 +242,13 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    }
 
    /**
-    * Creates the output file destination directory text button composite.
+    * Creates the image file destination directory text button composite.
     *
     * @param parent the parent
     *
     * @return the text button composite
     */
-   private TextButtonComposite createOutputFileDestDirTBC(final Composite parent) {
+   private TextButtonComposite createImageFileDestDirTBC(final Composite parent) {
       final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
 
          @Override
@@ -332,7 +297,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
             textButtonComposite.setValid(!inError);
             showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration, infoDecoration);
 
-            getOutputFilePathText().setText(getOutputFile());
+            getImageFilePathText().setText(getImageFile());
 
             validatePage();
          }
@@ -343,13 +308,13 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    }
 
    /**
-    * Gets the output file path text. This method uses {@link #getOutputFile()}.
+    * Gets the image file path text. This method uses {@link #getImageFile()}.
     *
     * @param parent the parent
     *
     * @return the output file path text
     */
-   private Text createOutputFilePathText(final Composite parent) {
+   private Text createImageFilePathText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
       text.setToolTipText(WizardMessages.Detail_OutputFilePath);
 
@@ -371,7 +336,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
          public void modifyText(final ModifyEvent event) {
             boolean inError = false;
             boolean inWarning = false;
-            final File file = new File(getOutputFile());
+            final File file = new File(getImageFile());
 
             if (file.isDirectory()) {
                inError = true;
@@ -379,7 +344,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
                inWarning = true;
             }
 
-            setValidOutputFilePath(!inError);
+            setValidImageFilePath(!inError);
             showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration);
             validatePage();
          }
@@ -398,112 +363,142 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       // Optional Arguments
       addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
-      // Target category
-      // TODO Read from the given input files
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
-            WizardMessages.Detail_TargetCategory);
-      this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryArray());
+      // Clustering colors
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.ViewClustersWizardPage_Label_ClusteringColors,
+            WizardMessages.ViewClustersWizardPage_Detail_ClusteringColors);
+      this.clusteringColorsCombo = createDefaultReadOnlyCombo(parent, getClusteringColorsArray());
       WidgetHelper.createNewBlankLabel(parent);
    }
 
    /**
-    * Gets the meta task result directory.
+    * Gets the clustering dataset.
     *
-    * @return the result directory
+    * @return the clustering dataset
     */
-   public String getMetaTaskResultDir() {
-      return getMetaTaskResultDirTBC().getText();
+   public String getClusteringDataset() {
+      return getClusteringDatasetTBC().getText();
    }
 
    /**
-    * Gets the meta task result directory text button composite.
+    * Gets the clustering text button composite.
     *
-    * @return the meta task result directory text button composite
+    * @return the clustering text button composite
     */
-   private TextButtonComposite getMetaTaskResultDirTBC() {
-      return this.metaTaskResultDirTBC;
+   private TextButtonComposite getClusteringDatasetTBC() {
+      return this.clusteringDatasetTBC;
    }
 
    /**
-    * Gets the base dataset.
+    * Gets the clustering result.
     *
-    * @return the base dataset
+    * @return the clustering result
     */
-   public String getBaseDataset() {
-      return getBaseDatasetTBC().getText();
+   public String getClusteringResult() {
+      return getClusteringResultTBC().getText();
    }
 
    /**
-    * Gets the base dataset text button composite.
+    * Gets the clustering result text button composite.
     *
-    * @return the base dataset text button composite
+    * @return the clustering result text button composite
     */
-   private TextButtonComposite getBaseDatasetTBC() {
-      return this.baseDatasetTBC;
+   private TextButtonComposite getClusteringResultTBC() {
+      return this.clusteringResultTBC;
    }
 
    /**
-    * Gets the output file destination file.
+    * Gets the image file destination file.
     *
-    * @return the output file destination file
+    * @return the image file destination file
     */
-   private String getOutputFileDestFileName() {
-      return getOutputFileDestFileText().getText();
+   private String getImageFileDestFileName() {
+      return getImageFileDestFileText().getText();
    }
 
    /**
-    * Gets the output file destination file text.
+    * Gets the image file destination file text.
     *
-    * @return the output file destination file text
+    * @return the image file destination file text
     */
-   private Text getOutputFileDestFileText() {
-      return this.outputFileDestFileText;
+   private Text getImageFileDestFileText() {
+      return this.imageFileDestFileText;
    }
 
    /**
-    * Checks if is valid output file destination file name.
+    * Checks if is valid image file dest file name.
     *
-    * @return true, if checks if is valid output file destination file name
+    * @return true, if is valid image file dest file name
     */
-   private boolean isValidOutputFileDestFileName() {
-      return this.validOutputFileDestFileName;
+   private boolean isValidImageFileDestFileName() {
+      return this.validImageFileDestFileName;
    }
 
    /**
-    * Sets the valid output file destination file name.
+    * Sets the valid image file dest file name.
     *
-    * @param validOutputFileDestFileName the valid output file destination file name
+    * @param validImageFileDestFileName the new valid image file dest file name
     */
-   private void setValidOutputFileDestFileName(final boolean validOutputFileDestFileName) {
-      this.validOutputFileDestFileName = validOutputFileDestFileName;
+   private void setValidImageFileDestFileName(final boolean validImageFileDestFileName) {
+      this.validImageFileDestFileName = validImageFileDestFileName;
    }
 
    /**
-    * Gets the output file destination directory path.
+    * Gets the image file destination directory path.
     *
-    * @return the output file destination directory
+    * @return the image file destination directory
     */
-   private String getOutputFileDestDirPath() {
-      return getOutputFileDestDirTBC().getText();
+   private String getImageFileDestDirPath() {
+      return getImageFileDestDirTBC().getText();
    }
 
    /**
-    * Gets the output file destination directory text button composite.
+    * Gets the image file destination extension.
     *
-    * @return the output file destination directory text button composite
+    * @return the image file destination extension
     */
-   private TextButtonComposite getOutputFileDestDirTBC() {
-      return this.outputFileDestDirTBC;
+   private String getImageFileDestFileExt() {
+      return getImageFileDestExtCombo().getText();
    }
 
    /**
-    * Gets the output file.
+    * Gets the image file destination extension combo.
     *
-    * @return the output file
+    * @return the image file destination extension combo
     */
-   public String getOutputFile() {
-      final String directoryPath = getOutputFileDestDirPath();
-      final String fileName = getOutputFileDestFileName();
+   private Combo getImageFileDestExtCombo() {
+      return this.imageFileDestExtCombo;
+   }
+
+   /**
+    * Gets the image file destination extension array.
+    *
+    * @return the image file destination extension array
+    */
+   private String[] getImageFileDestExtArray() {
+      if (this.imageFileDestExtArray == null) {
+         this.imageFileDestExtArray = new String[] { Resources.PNG_EXTENSION };
+      }
+
+      return this.imageFileDestExtArray;
+   }
+
+   /**
+    * Gets the image file destination directory text button composite.
+    *
+    * @return the image file destination directory text button composite
+    */
+   private TextButtonComposite getImageFileDestDirTBC() {
+      return this.imageFileDestDirTBC;
+   }
+
+   /**
+    * Gets the image file.
+    *
+    * @return the image file
+    */
+   public String getImageFile() {
+      final String directoryPath = getImageFileDestDirPath();
+      final String fileName = getImageFileDestFileName() + getImageFileDestFileExt();
       if (!Utility.exists(directoryPath)) {
          return Properties.CURRENT_DIRECTORY + File.separator + fileName;
       } else if (directoryPath.endsWith(File.separator)) {
@@ -514,61 +509,62 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    }
 
    /**
-    * Gets the output file path text.
+    * Gets the image file path text.
     *
-    * @return the outputFilePathText
+    * @return the image file path text
     */
-   private Text getOutputFilePathText() {
-      return this.outputFilePathText;
+   private Text getImageFilePathText() {
+      return this.imageFilePathText;
    }
 
    /**
-    * Checks if is valid output file path.
+    * Checks if is valid image file path.
     *
-    * @return the validOutputFilePath
+    * @return true, if is valid image file path
     */
-   private boolean isValidOutputFilePath() {
-      return this.validOutputFilePath;
+   private boolean isValidImageFilePath() {
+      return this.validImageFilePath;
    }
 
    /**
-    * Sets the valid output file path.
+    * Sets the valid image file path.
     *
-    * @param validOutputFilePath the valid output file path
+    * @param validImageFilePath the new valid image file path
     */
-   private void setValidOutputFilePath(final boolean validOutputFilePath) {
-      this.validOutputFilePath = validOutputFilePath;
+   private void setValidImageFilePath(final boolean validImageFilePath) {
+      this.validImageFilePath = validImageFilePath;
    }
 
    /**
-    * Gets the target category.
+    * Gets the clustering colors.
     *
-    * @return the target category
+    * @return the clustering colors
     */
-   public String getTargetCategory() {
-      return getTargetCategoryCombo().getText();
+   public ClusteringColorsEnum getClusteringColors() {
+      return ClusteringColorsEnum.parse(getClusteringColorsCombo().getText());
    }
 
    /**
-    * Gets the target category combo.
+    * Gets the clustering colors combo.
     *
-    * @return the target category combo
+    * @return the clustering colors combo
     */
-   private Combo getTargetCategoryCombo() {
-      return this.targetCategoryCombo;
+   private Combo getClusteringColorsCombo() {
+      return this.clusteringColorsCombo;
    }
 
    /**
-    * Gets the target category array.
+    * Gets the clustering colors array.
     *
-    * @return the target category array
+    * @return the clustering colors array
     */
-   private String[] getTargetCategoryArray() {
-      if (this.targetCategoryArray == null) {
-         this.targetCategoryArray = new String[] { EMPTY, Resources.CATEGORY_CASE };
+   private String[] getClusteringColorsArray() {
+      if (this.clusteringColorsArray == null) {
+         this.clusteringColorsArray = new String[] { EMPTY, ClusteringColorsEnum.TRADITIONAL.toString(),
+               ClusteringColorsEnum.MONO.toString() };
       }
 
-      return this.targetCategoryArray;
+      return this.clusteringColorsArray;
    }
 
    /*
@@ -576,9 +572,9 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
     */
    @Override
    protected void validatePage() {
-      final boolean valid = isProjectInformationValid() && getMetaTaskResultDirTBC().isValid()
-            && isValidOutputFileDestFileName() && getOutputFileDestDirTBC().isValid() && isValidOutputFilePath()
-            && getBaseDatasetTBC().isValid();
+      final boolean valid = isProjectInformationValid() && getClusteringResultTBC().isValid()
+            && isValidImageFileDestFileName() && getImageFileDestDirTBC().isValid() && isValidImageFilePath()
+            && getClusteringDatasetTBC().isValid();
       setPageComplete(valid);
       if (!valid) {
          setErrorMessage(CommonMessages.Error_FixToContinue);

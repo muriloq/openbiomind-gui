@@ -53,7 +53,7 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 18, 2008
+ * @version Jul 20, 2008
  */
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
@@ -403,8 +403,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
             // Open the file if needed
             if (taskDataFile.isAutoOpen()) {
                // TODO Find out the file type and open the respective editor
-               IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), iFile,
-                     Properties.DEFAULT_TEXT_EDITOR_ID);
+               IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), iFile);
             }
 
             subMonitor.worked(50);

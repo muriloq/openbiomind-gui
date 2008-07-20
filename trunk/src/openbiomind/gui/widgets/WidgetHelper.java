@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Label;
  *
  * @author bsanghvi
  * @since Jun 26, 2008
- * @version Jun 26, 2008
+ * @version Jul 20, 2008
  */
 public final class WidgetHelper implements Constants {
 
@@ -127,6 +127,41 @@ public final class WidgetHelper implements Constants {
    }
 
    /**
+    * Creates the new label.
+    *
+    * @param parent the parent
+    * @param text the text
+    * @param toolTip the tool tip
+    *
+    * @return the label
+    */
+   public static Label createNewLabel(final Composite parent, final String text, final String toolTip) {
+      final Label label = new Label(parent, SWT.NULL);
+      label.setText(text);
+
+      if (!Utility.isEmpty(toolTip)) {
+         label.setToolTipText(toolTip);
+      }
+
+      // apply layout
+      GUI.GRID_DATA_DEFAULT.applyTo(label);
+
+      return label;
+   }
+
+   /**
+    * Creates the new label.
+    *
+    * @param parent the parent
+    * @param text the text
+    *
+    * @return the label
+    */
+   public static Label createNewLabel(final Composite parent, final String text) {
+      return createNewLabel(parent, text, null);
+   }
+
+   /**
     * Creates the new field label.
     *
     * @param parent the parent
@@ -138,15 +173,7 @@ public final class WidgetHelper implements Constants {
     */
    public static Label createNewFieldLabel(final Composite parent, final String text, final String toolTip,
          final boolean requiredField) {
-      final Label label = new Label(parent, SWT.NULL);
-      label.setText(text + LABEL_SEPARATOR);
-
-      if (!Utility.isEmpty(toolTip)) {
-         label.setToolTipText(toolTip);
-      }
-
-      // apply layout
-      GUI.GRID_DATA_DEFAULT.applyTo(label);
+      final Label label = createNewLabel(parent, text + LABEL_SEPARATOR, toolTip);
 
       // add decoration if it is required field
       if (requiredField) {
