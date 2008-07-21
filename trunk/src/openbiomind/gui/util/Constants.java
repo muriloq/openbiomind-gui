@@ -89,6 +89,9 @@ public interface Constants {
       /** The Constant specifying the name of the execution file (value = <code>execution.log</code>). */
       public static final String EXECUTION_FILENAME = "execution" + DOT + "log"; //$NON-NLS-1$ //$NON-NLS-2$
 
+      /** The Constant specifying the dot file extension (value = <code>.dot</code>). */
+      public static final String DOT_EXTENSION = DOT + "dot"; //$NON-NLS-1$
+
       /** The Constant specifying the tab file extension (value = <code>.tab</code>). */
       public static final String TAB_EXTENSION = DOT + "tab"; //$NON-NLS-1$
 
