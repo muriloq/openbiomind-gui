@@ -33,7 +33,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
    /** Argument <code>-o</code> for specifying name of the name of the output directory. */
    private static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
 
-   /** Argument <code>-numberOfTasks</code> for specifying the number of TASKS. */
+   /** Argument <code>-numberOfTasks</code> for specifying the number of tasks. */
    private static final String ARG_NUMBER_OF_TASKS = HYPHEN + "numberOfTasks"; //$NON-NLS-1$
 
    /** Argument <code>-targetCategory</code> for specifying the category. */

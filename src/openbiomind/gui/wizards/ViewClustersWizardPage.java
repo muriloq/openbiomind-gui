@@ -41,16 +41,16 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
    /** The number of columns in various groups. */
    private static final int NUM_COLUMN_IN_GROUP = 3;
 
-   /** The meta task result directory text button composite. */
-   private TextButtonComposite clusteringResultTBC = null;
-
    /** The base dataset text button composite. */
    private TextButtonComposite clusteringDatasetTBC = null;
 
-   /** The output file destination file text. */
+   /** The meta task result directory text button composite. */
+   private TextButtonComposite clusteringResultTBC = null;
+
+   /** The image file destination file text. */
    private Text imageFileDestFileText = null;
 
-   /** The valid output file destination file name. */
+   /** The valid image file destination file name. */
    private boolean validImageFileDestFileName = false;
 
    /** The image file destination extension combo. */
@@ -59,13 +59,13 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
    /** The image file destination extension array. */
    private String[] imageFileDestExtArray = null;
 
-   /** The output file destination directory text button composite. */
+   /** The image file destination directory text button composite. */
    private TextButtonComposite imageFileDestDirTBC = null;
 
-   /** The output file path text. */
+   /** The image file path text. */
    private Text imageFilePathText = null;
 
-   /** The valid output file path. */
+   /** The valid image file path. */
    private boolean validImageFilePath = false;
 
    /** The target category combo. */
@@ -312,7 +312,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
     *
     * @param parent the parent
     *
-    * @return the output file path text
+    * @return the image file path text
     */
    private Text createImageFilePathText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
@@ -380,9 +380,9 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
    }
 
    /**
-    * Gets the clustering text button composite.
+    * Gets the clustering dataset text button composite.
     *
-    * @return the clustering text button composite
+    * @return the clustering dataset text button composite
     */
    private TextButtonComposite getClusteringDatasetTBC() {
       return this.clusteringDatasetTBC;
@@ -425,18 +425,18 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
    }
 
    /**
-    * Checks if is valid image file dest file name.
+    * Checks if is valid image file destination file name.
     *
-    * @return true, if is valid image file dest file name
+    * @return true, if is valid image file destination file name
     */
    private boolean isValidImageFileDestFileName() {
       return this.validImageFileDestFileName;
    }
 
    /**
-    * Sets the valid image file dest file name.
+    * Sets the valid image file destination file name.
     *
-    * @param validImageFileDestFileName the new valid image file dest file name
+    * @param validImageFileDestFileName the new valid image file destination file name
     */
    private void setValidImageFileDestFileName(final boolean validImageFileDestFileName) {
       this.validImageFileDestFileName = validImageFileDestFileName;
@@ -572,9 +572,9 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
     */
    @Override
    protected void validatePage() {
-      final boolean valid = isProjectInformationValid() && getClusteringResultTBC().isValid()
-            && isValidImageFileDestFileName() && getImageFileDestDirTBC().isValid() && isValidImageFilePath()
-            && getClusteringDatasetTBC().isValid();
+      final boolean valid = isProjectInformationValid() && getClusteringDatasetTBC().isValid()
+            && getClusteringResultTBC().isValid() && isValidImageFileDestFileName()
+            && getImageFileDestDirTBC().isValid() && isValidImageFilePath();
       setPageComplete(valid);
       if (!valid) {
          setErrorMessage(CommonMessages.Error_FixToContinue);

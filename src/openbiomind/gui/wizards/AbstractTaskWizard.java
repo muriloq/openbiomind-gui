@@ -402,8 +402,13 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
             // Open the file if needed
             if (taskDataFile.isAutoOpen()) {
-               // TODO Find out the file type and open the respective editor
-               IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), iFile);
+               // FIXME Find out the file type and open the respective editor
+               if (Utility.isEmpty(taskDataFile.getEditorId())) {
+                  IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), iFile);
+               } else {
+                  IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), iFile,
+                        taskDataFile.getEditorId());
+               }
             }
 
             subMonitor.worked(50);

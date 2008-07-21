@@ -49,7 +49,7 @@ public class MetaTaskWizard extends AbstractTaskWizard {
       getMetaTaskTaskData().setProjectName(getMetaTaskWizardPage().getProjectName());
       getMetaTaskTaskData().setDatasetDirectory(getMetaTaskWizardPage().getDatasetDirectoryPath());
       getMetaTaskTaskData().setOutputDirectory(getMetaTaskWizardPage().getOutputDirectory());
-      getMetaTaskTaskData().setNumberOfTasks(getMetaTaskWizardPage().getNumberTasks());
+      getMetaTaskTaskData().setNumberOfTasks(getMetaTaskWizardPage().getNumberOfTasks());
       getMetaTaskTaskData().setTargetCategory(getMetaTaskWizardPage().getTargetCategory());
       getMetaTaskTaskData().setClassficationMethod(getMetaTaskWizardPage().getClassificationMethod());
       getMetaTaskTaskData().setMetaTaskShuffling(getMetaTaskWizardPage().getMetaTaskShuffling());

@@ -14,7 +14,7 @@ import static openbiomind.gui.util.Constants.EMPTY;
  *
  * @author bsanghvi
  * @since Jun 30, 2008
- * @version Jun 30, 2008
+ * @version Jul 20, 2008
  */
 public class TaskDataFile {
 
@@ -29,6 +29,9 @@ public class TaskDataFile {
 
    /** The auto open. */
    private boolean autoOpen = false;
+
+   /** The editor id. */
+   private String editorId = null;
 
    /**
     * Instantiates a new task data file.
@@ -127,6 +130,24 @@ public class TaskDataFile {
     */
    public void setAutoOpen(final boolean autoOpen) {
       this.autoOpen = autoOpen;
+   }
+
+   /**
+    * Gets the editor id.
+    *
+    * @return the editor id
+    */
+   public String getEditorId() {
+      return this.editorId;
+   }
+
+   /**
+    * Sets the editor id.
+    *
+    * @param editorId the new editor id
+    */
+   public void setEditorId(final String editorId) {
+      this.editorId = editorId;
    }
 
    /*

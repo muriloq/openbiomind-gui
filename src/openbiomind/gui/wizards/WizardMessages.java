@@ -150,6 +150,48 @@ public class WizardMessages extends NLS {
    /** The Enhance dataset wizard page use original dataset directory. */
    public static String EnhanceDatasetWizardPage_UseOriginalDatasetDir;
 
+   /** The Graph features wizard description. */
+   public static String GraphFeaturesWizard_Description;
+
+   /** The Graph features wizard name. */
+   public static String GraphFeaturesWizard_Name;
+
+   /** The Graph features wizard page label horizontal dataset. */
+   public static String GraphFeaturesWizardPage_Label_HorizontalDataset;
+
+   /** The Graph features wizard page label maximum co expression edges. */
+   public static String GraphFeaturesWizardPage_Label_MaximumCoExpressionEdges;
+
+   /** The Graph features wizard page label maximum co occurrence edges. */
+   public static String GraphFeaturesWizardPage_Label_MaximumCoOccurrenceEdges;
+
+   /** The Graph features wizard page label mobra dataset. */
+   public static String GraphFeaturesWizardPage_Label_MobraDataset;
+
+   /** The Graph features wizard page label top useful features. */
+   public static String GraphFeaturesWizardPage_Label_TopUsefulFeatures;
+
+   /** The Graph features wizard page label utility file. */
+   public static String GraphFeaturesWizardPage_Label_UtilityFile;
+
+   /** The Graph features wizard page tip horizontal dataset. */
+   public static String GraphFeaturesWizardPage_Tip_HorizontalDataset;
+
+   /** The Graph features wizard page tip maximum co expression edges. */
+   public static String GraphFeaturesWizardPage_Tip_MaximumCoExpressionEdges;
+
+   /** The Graph features wizard page tip maximum co occurrence edges. */
+   public static String GraphFeaturesWizardPage_Tip_MaximumCoOccurrenceEdges;
+
+   /** The Graph features wizard page tip mobra dataset. */
+   public static String GraphFeaturesWizardPage_Tip_MobraDataset;
+
+   /** The Graph features wizard page tip top useful features. */
+   public static String GraphFeaturesWizardPage_Tip_TopUsefulFeatures;
+
+   /** The Graph features wizard page tip utility file. */
+   public static String GraphFeaturesWizardPage_Tip_UtilityFile;
+
    /** The Group label optional arguments. */
    public static String GroupLabel_OptionalArguments;
 

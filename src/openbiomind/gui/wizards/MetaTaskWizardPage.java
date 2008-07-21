@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Jul 16, 2008
+ * @version Jul 20, 2008
  */
 public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -48,8 +48,8 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
    /** The output directory text button composite. */
    private TextButtonComposite outputDirectoryTBC = null;
 
-   /** The number of tasks. */
-   private Text numberOfTasks = null;
+   /** The number of tasks text. */
+   private Text numberOfTasksText = null;
 
    /** The target category combo. */
    private Combo targetCategoryCombo = null;
@@ -244,7 +244,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       // Number of tasks
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_NumOfTasks,
             WizardMessages.MetaTaskWizardPage_Tip_NumOfTasks);
-      this.numberOfTasks = createNewNumberOnlyText(parent);
+      this.numberOfTasksText = createNewNumberOnlyText(parent);
       WidgetHelper.createNewBlankLabel(parent);
 
       // Target category
@@ -302,25 +302,25 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
    }
 
    /**
-    * Gets the number of selected tasks.
+    * Gets the number of tasks.
     *
-    * @return the number of selected tasks
+    * @return the number of tasks
     */
-   public Integer getNumberTasks() {
+   public Integer getNumberOfTasks() {
       try {
-         return Integer.valueOf(getNumberOfTasks().getText());
+         return Integer.valueOf(getNumberOfTasksText().getText());
       } catch (final NumberFormatException e) {
          return null;
       }
    }
 
    /**
-    * Gets the number of tasks.
+    * Gets the number of tasks text.
     *
     * @return the number of tasks
     */
-   private Text getNumberOfTasks() {
-      return this.numberOfTasks;
+   private Text getNumberOfTasksText() {
+      return this.numberOfTasksText;
    }
 
    /**
