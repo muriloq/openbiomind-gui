@@ -3,8 +3,6 @@
  *
  * The file AbstractTaskWizard.java.
  *
- * TODO THIS CLASS AND ITS SUBCLASSES NEED TO BE REFACTORED AND REDESIGNED.
- *
  * $Id$
  */
 package openbiomind.gui.wizards;
@@ -13,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
@@ -53,7 +52,7 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 20, 2008
+ * @version Jul 24, 2008
  */
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
@@ -121,8 +120,8 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
          MessageDialog.openError(getShell(), Resources.ERROR, e.getTargetException().getLocalizedMessage());
          return false;
       }
-      return true;
 
+      return true;
    }
 
    /**
@@ -139,91 +138,110 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
       Console.info(getExecutedCommand());
       subMonitor.worked(5);
 
+      PrintWriter executionLogWriter = null;
       try {
          subMonitor.subTask(WizardMessages.AbstractTaskWizard_PreparingProcess);
          final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(getTaskData());
          subMonitor.worked(5);
 
+         executionLogWriter = new PrintWriter(getExecutionLogFile());
+
          final Process process = taskProcessBuider.start();
-         executeTask(process, subMonitor.newChild(50, SubMonitor.SUPPRESS_SETTASKNAME));
+         executeProcess(process, executionLogWriter, subMonitor.newChild(50, SubMonitor.SUPPRESS_SETTASKNAME));
 
          subMonitor.setWorkRemaining(40);
+         processError(process.getErrorStream(), subMonitor.newChild(5, SubMonitor.SUPPRESS_SETTASKNAME));
+         subMonitor.setWorkRemaining(35);
          if (process.exitValue() == 0) {
-            createProject(getTaskData().createTaskDataProject(), subMonitor.newChild(40,
+            executeProcess(getPostSuccessfulExecutionProcess(), executionLogWriter, subMonitor.newChild(10,
                   SubMonitor.SUPPRESS_SETTASKNAME));
-         } else {
-            processError(process, subMonitor.newChild(40, SubMonitor.SUPPRESS_SETTASKNAME));
+            subMonitor.setWorkRemaining(25);
+            createProject(getTaskData().createTaskDataProject(), subMonitor.newChild(25,
+                  SubMonitor.SUPPRESS_SETTASKNAME));
          }
       } catch (final IOException e) {
-         throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, IStatus.OK, e.getLocalizedMessage(),
-               e));
+         throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, IStatus.OK, e.getMessage(), e));
+      } finally {
+         Utility.close(executionLogWriter);
       }
+   }
+
+   /**
+    * Gets the post successful execution process. Override this method if you want to do some task after the command
+    * execution and before project creation.
+    *
+    * @return the post successful execution process
+    */
+   protected Process getPostSuccessfulExecutionProcess() {
+      return null;
    }
 
    /**
     * Execute task.
     *
     * @param process the process
+    * @param executionLogWriter the execution log writer
     * @param monitor the monitor
     *
     * @return true, if successful
     */
-   private boolean executeTask(final Process process, final IProgressMonitor monitor) {
-      final SubMonitor subMonitor = SubMonitor.convert(monitor);
-      subMonitor.setWorkRemaining(10000);
+   private boolean executeProcess(final Process process, final PrintWriter executionLogWriter,
+         final IProgressMonitor monitor) {
+      boolean successfulExecution = false;
 
-      final Scanner reader = new Scanner(new BufferedReader(new InputStreamReader(process.getInputStream())));
-      PrintWriter executionLogWriter = null;
-      String message = null;
+      if (process != null) {
+         final SubMonitor subMonitor = SubMonitor.convert(monitor);
+         subMonitor.setWorkRemaining(10000);
 
-      try {
-         executionLogWriter = new PrintWriter(getExecutionLogFile());
+         final Scanner reader = new Scanner(new BufferedReader(new InputStreamReader(process.getInputStream())));
+         String message = null;
 
-         /*
-          * write the command at the top
-          */
-         executionLogWriter.println(getExecutedCommand());
-         executionLogWriter.println(); // empty line
-         subMonitor.worked(1);
-
-         /*
-          * read the command output and store it
-          */
-         while (reader.hasNextLine()) {
-            subMonitor.setWorkRemaining(10000);
-            message = reader.nextLine();
-            subMonitor.subTask(message);
-            executionLogWriter.println(message);
+         try {
+            /*
+             * write the command at the top
+             */
+            executionLogWriter.println(getExecutedCommand());
+            executionLogWriter.println(); // empty line
             subMonitor.worked(1);
-         }
-      } catch (final IOException e) {
-         Console.error(e);
-      } finally {
-         Utility.close(executionLogWriter);
-         if (reader != null) {
-            reader.close();
+
+            /*
+             * read the command output and store it
+             */
+            while (reader.hasNextLine()) {
+               subMonitor.setWorkRemaining(10000);
+               message = reader.nextLine();
+               subMonitor.subTask(message);
+               executionLogWriter.println(message);
+               subMonitor.worked(1);
+            }
+
+            successfulExecution = true;
+         } finally {
+            if (reader != null) {
+               reader.close();
+            }
          }
       }
 
-      return true;
+      return successfulExecution;
    }
 
    /**
     * Process error.
     *
-    * @param process the process
+    * @param errorStream the error stream
     * @param monitor the monitor
     *
     * @return true, if successful
     */
-   private boolean processError(final Process process, final IProgressMonitor monitor) {
+   private boolean processError(final InputStream errorStream, final IProgressMonitor monitor) {
       final SubMonitor subMonitor = SubMonitor.convert(monitor);
       subMonitor.setWorkRemaining(100);
 
       Scanner reader = null;
 
       try {
-         reader = new Scanner(new BufferedReader(new InputStreamReader(process.getErrorStream())));
+         reader = new Scanner(new BufferedReader(new InputStreamReader(errorStream)));
          while (reader.hasNextLine()) {
             subMonitor.setWorkRemaining(100);
             Console.error(reader.nextLine());

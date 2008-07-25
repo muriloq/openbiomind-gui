@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 20, 2008
+ * @version Jul 24, 2008
  */
 public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -143,7 +143,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
             true);
       this.outputFileDestFileText = createOutputFileDestFileText(parent);
       this.outputFileDestExtCombo = createDefaultReadOnlyCombo(parent, getOutputFileDestExtArray(), false);
-      // presently only PNG format is supported, so this combo can be disabled
+      // FIXME Presently only one format is supported, so this combo can be disabled
       if (getOutputFileDestExtArray().length == 1) {
          getOutputFileDestExtCombo().setEnabled(false);
       }
@@ -490,6 +490,16 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
    }
 
    /**
+    * Gets the graph image type.
+    *
+    * @return the graph image type
+    */
+   public String getGraphImageType() {
+      // FIXME Update this later, to support more image types
+      return "png"; //$NON-NLS-1$
+   }
+
+   /**
     * Gets the output file destination extension.
     *
     * @return the output file destination extension
@@ -514,7 +524,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
     */
    private String[] getOutputFileDestExtArray() {
       if (this.outputFileDestExtArray == null) {
-         this.outputFileDestExtArray = new String[] { Resources.DOT_EXTENSION };
+         this.outputFileDestExtArray = new String[] { Resources.DOT_EXTENSION }; // "png", "gif", "jpeg"
       }
 
       return this.outputFileDestExtArray;

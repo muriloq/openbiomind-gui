@@ -37,7 +37,7 @@ public abstract class AbstractTaskHandler extends AbstractHandler implements Con
     * @return true, if successful
     */
    protected boolean validate(final Shell shell) {
-      if (!Preference.isPreferenceValid()) {
+      if (!Preference.isRequiredPreferenceSet()) {
          MessageDialog.openError(shell, Resources.ERROR, CommonMessages.Error_Preference);
          return false;
       }
@@ -55,7 +55,8 @@ public abstract class AbstractTaskHandler extends AbstractHandler implements Con
     *
     * @throws ExecutionException the execution exception
     */
-   protected Object execute(final ExecutionEvent event, final AbstractTaskWizard abstractTaskWizard) throws ExecutionException {
+   protected Object execute(final ExecutionEvent event, final AbstractTaskWizard abstractTaskWizard)
+         throws ExecutionException {
       final Shell shell = HandlerUtil.getActiveWorkbenchWindowChecked(event).getShell();
       if (validate(shell)) {
          new WizardDialog(shell, abstractTaskWizard).open();
@@ -63,7 +64,5 @@ public abstract class AbstractTaskHandler extends AbstractHandler implements Con
 
       return null;
    }
-
-
 
 }

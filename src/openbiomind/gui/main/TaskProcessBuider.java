@@ -7,10 +7,6 @@
  */
 package openbiomind.gui.main;
 
-import static openbiomind.gui.util.Constants.EMPTY;
-import static openbiomind.gui.util.Constants.HYPHEN;
-import static openbiomind.gui.util.Constants.SPACE;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,15 +15,16 @@ import java.util.List;
 import openbiomind.gui.console.Console;
 import openbiomind.gui.preferences.Preference;
 import openbiomind.gui.tasks.AbstractTaskData;
+import openbiomind.gui.util.Constants;
 
 /**
  * The class TaskProcessBuider.
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 20, 2008
+ * @version Jul 24, 2008
  */
-public class TaskProcessBuider {
+public class TaskProcessBuider implements Constants {
 
    /** The <code>java</code> command for executing Java programs. */
    private static final String JAVA_COMMAND = "java"; //$NON-NLS-1$
@@ -83,20 +80,20 @@ public class TaskProcessBuider {
 
       this.processBuilder = new ProcessBuilder(commandList);
 
-      logCommand(this.processBuilder.command());
+      logList(this.processBuilder.command());
    }
 
    /**
-    * Log command.
+    * Log command list.
     *
-    * @param commandList the command list
+    * @param list the command list
     */
-   private void logCommand(final List<String> commandList) {
-      final StringBuilder commandStringBuilder = new StringBuilder(EMPTY);
-      for (final String commandString : commandList) {
-         commandStringBuilder.append(commandString + SPACE);
+   private void logList(final List<String> list) {
+      final StringBuilder stringBuilder = new StringBuilder(EMPTY);
+      for (final String string : list) {
+         stringBuilder.append(string + SPACE);
       }
-      Console.debug(commandStringBuilder.toString());
+      Console.debug(stringBuilder.toString());
    }
 
    /**
@@ -105,7 +102,7 @@ public class TaskProcessBuider {
     * @return the classpath
     */
    private String getClasspath() {
-      return Preference.getOpenBiomindJarLocation() + File.pathSeparator + Preference.getPipelinePropertiesHome();
+      return Preference.getOpenBiomindJarPath() + File.pathSeparator + Preference.getPipelinePropertiesHome();
    }
 
 }

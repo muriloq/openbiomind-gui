@@ -31,7 +31,7 @@
          </property>
          <property
                name="aboutText"
-               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0A;Version: 0.0.8.20080720&#x0A;Development build&#x0A;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
+               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0D;&#x0A;Version: 0.0.9.20080724&#x0D;&#x0A;Development build&#x0D;&#x0A;&#x0D;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
          </property>
          <property
                name="aboutImage"
@@ -675,7 +675,7 @@
       <editor
             class="openbiomind.gui.editors.ImageEditor"
             default="true"
-            extensions="png, PNG, gif, GIF, bmp, BMP, jpe, JPE, jpeg, JPEG"
+            extensions="png, PNG, gif, GIF, jpe, JPE, jpg, JPG, jpeg, JPEG"
             icon="icons/image_editor.gif"
             id="openbiomind.gui.editors.ImageEditor"
             name="Image Editor">

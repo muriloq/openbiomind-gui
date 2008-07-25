@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 20, 2008
+ * @version Jul 24, 2008
  */
 public class WizardMessages extends NLS {
 
@@ -152,6 +152,9 @@ public class WizardMessages extends NLS {
 
    /** The Graph features wizard description. */
    public static String GraphFeaturesWizard_Description;
+
+   /** The Graph features wizard info for Graphviz dot utility. */
+   public static String GraphFeaturesWizard_Info_GraphvizDotUtility;
 
    /** The Graph features wizard name. */
    public static String GraphFeaturesWizard_Name;

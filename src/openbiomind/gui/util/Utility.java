@@ -19,7 +19,7 @@ import openbiomind.gui.console.Console;
  *
  * @author bsanghvi
  * @since Jun 14, 2008
- * @version Jul 18, 2008
+ * @version Jul 24, 2008
  */
 public final class Utility implements Constants {
 
@@ -163,17 +163,32 @@ public final class Utility implements Constants {
    }
 
    /**
-    * Extract name of the fire of the directory from the path.
+    * Extract name of the file or the directory from the path. The file name includes extension.
     *
     * @param pathName the path name
     *
     * @return the string
     */
-   public static String extractName(final String pathName) {
+   public static String extractFullName(final String pathName) {
       if (isEmpty(pathName)) {
          return EMPTY;
       }
       return new File(pathName).getName();
+   }
+
+   /**
+    * Extract name of the file without the extension.
+    *
+    * @param filePath the file path
+    *
+    * @return the string
+    */
+   public static String extractFileName(final String filePath) {
+      if (isEmpty(filePath)) {
+         return EMPTY;
+      }
+      final String name = extractFullName(filePath);
+      return name.substring(0, name.lastIndexOf(DOT));
    }
 
    /**
@@ -196,7 +211,6 @@ public final class Utility implements Constants {
          }
 
       });
-
    }
 
    /**
