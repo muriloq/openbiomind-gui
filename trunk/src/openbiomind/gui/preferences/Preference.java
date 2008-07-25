@@ -16,7 +16,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jun 9, 2008
- * @version Jun 27, 2008
+ * @version Jul 24, 2008
  */
 public class Preference implements Constants {
 
@@ -26,21 +26,54 @@ public class Preference implements Constants {
    /** The constant for pipeline.properties. */
    public static final String PIPELINE_PROPERTIES = "openbiomind.gui.preferences.PipelineProperties"; //$NON-NLS-1$
 
+   /** The constant for Graphviz dot utility. */
+   public static final String GRAPHVIZ_DOT_UTILITY = "openbiomind.gui.preferences.GraphvizDotUtility"; //$NON-NLS-1$
+
    /**
-    * Gets the open biomind jar location.
+    * Checks if all the set preferences are valid?
     *
-    * @return the open biomind jar location
+    * @return true, if the set preferences are valid
     */
-   public static String getOpenBiomindJarLocation() {
+   public static boolean isRequiredPreferenceSet() {
+      return (isOpenBiomindJarPreferenceValid() && isPipelinePropertiesPreferenceValid());
+   }
+
+   /**
+    * Gets the OpenBiomind jar path.
+    *
+    * @return the OpenBiomind jar path
+    */
+   public static String getOpenBiomindJarPath() {
       return Activator.getDefault().getPreferenceStore().getString(Preference.OPENBIOMIND_JAR);
    }
 
    /**
-    * Gets the pipeline properties location.
+    * Checks if OpenBiomind jar preference is valid?
     *
-    * @return the pipeline properties location
+    * @return true, if OpenBiomind jar preference is valid
     */
-   public static String getPipelinePropertiesLocation() {
+   public static boolean isOpenBiomindJarPreferenceValid() {
+      return isOpenBiomindJarPreferenceValid(getOpenBiomindJarPath());
+   }
+
+   /**
+    * Checks if OpenBiomind jar preference is valid for the given value?
+    *
+    * @param value the value
+    *
+    * @return true, if OpenBiomind jar preference is valid
+    */
+   public static boolean isOpenBiomindJarPreferenceValid(final String value) {
+      return (value != null && value.trim().toLowerCase().endsWith(Resources.JAR_EXTENSION) && Utility
+            .fileExists(value));
+   }
+
+   /**
+    * Gets the pipeline properties path.
+    *
+    * @return the pipeline properties path
+    */
+   public static String getPipelinePropertiesPath() {
       return Activator.getDefault().getPreferenceStore().getString(Preference.PIPELINE_PROPERTIES);
    }
 
@@ -50,41 +83,70 @@ public class Preference implements Constants {
     * @return the pipeline properties home
     */
    public static String getPipelinePropertiesHome() {
-      final String pipelinePropertiesPath = getPipelinePropertiesLocation();
+      final String pipelinePropertiesPath = getPipelinePropertiesPath();
       return pipelinePropertiesPath.substring(0, pipelinePropertiesPath
             .lastIndexOf(Resources.PIPELINE_PROPERTIES_FILENAME));
    }
 
    /**
-    * Checks if is open biomind jar preference valid.
+    * Checks if pipeline.properties preference is valid?
     *
-    * @param value the value
-    *
-    * @return true, if is open biomind jar preference valid
+    * @return true, if pipeline.properties preference is valid
     */
-   public static boolean isOpenBiomindJarPreferenceValid(final String value) {
-      return (value != null && value.trim().toLowerCase().endsWith(Resources.JAR_EXTENSION) && Utility.exists(value));
+   public static boolean isPipelinePropertiesPreferenceValid() {
+      return isPipelinePropertiesPreferenceValid(getPipelinePropertiesPath());
    }
 
    /**
-    * Checks if is pipeline properties preference valid.
+    * Checks if pipeline.properties preference is valid for the given value?
     *
     * @param value the value
     *
-    * @return true, if is pipeline properties preference valid
+    * @return true, if pipeline.properties preference is valid
     */
    public static boolean isPipelinePropertiesPreferenceValid(final String value) {
       return (value != null && value.trim().toLowerCase().endsWith(Resources.PIPELINE_PROPERTIES_FILENAME) && Utility
-            .exists(value));
+            .fileExists(value));
    }
 
    /**
-    * Checks if is preference valid.
+    * Gets the Graphviz dot utility path.
     *
-    * @return true, if is preference valid
+    * @return the Graphviz dot utility path
     */
-   public static boolean isPreferenceValid() {
-      return (isOpenBiomindJarPreferenceValid(getOpenBiomindJarLocation()) && isPipelinePropertiesPreferenceValid(getPipelinePropertiesLocation()));
+   public static String getGraphvizDotUtilityPath() {
+      return Activator.getDefault().getPreferenceStore().getString(Preference.GRAPHVIZ_DOT_UTILITY);
+   }
+
+   /**
+    * Checks if the Graphviz dot utility preference is set?
+    *
+    * @return true, if Graphviz dot utility preference is set
+    */
+   public static boolean isGraphvizDotUtilityPreferenceSet() {
+      final String value = getGraphvizDotUtilityPath();
+      return (!Utility.isEmpty(value) && isGraphvizDotUtilityPreferenceValid(value));
+   }
+
+   /**
+    * Checks if the Graphviz dot utility preference is valid?
+    *
+    * @return true, if Graphviz dot utility preference is valid
+    */
+   public static boolean isGraphvizDotUtilityPreferenceValid() {
+      return isGraphvizDotUtilityPreferenceValid(getGraphvizDotUtilityPath());
+   }
+
+   /**
+    * Checks if the Graphviz dot utility preference is valid for the given value?
+    *
+    * @param value the value
+    *
+    * @return true, if Graphviz dot utility preference is valid
+    */
+   public static boolean isGraphvizDotUtilityPreferenceValid(final String value) {
+      return (Utility.isEmpty(value) || (Utility.extractFullName(value.trim()).toLowerCase().startsWith(
+            Resources.GRAPHVIZ_DOT_UTILITY_NAME) && Utility.fileExists(value)));
    }
 
 }

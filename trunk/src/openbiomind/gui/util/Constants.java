@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Display;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 20, 2008
+ * @version Jul 24, 2008
  */
 public interface Constants {
 
@@ -78,8 +78,8 @@ public interface Constants {
       /** The Constant specifying the jar file extension (value = <code>.jar</code>). */
       public static final String JAR_EXTENSION = DOT + "jar"; //$NON-NLS-1$
 
-      /** The constant specifying the label for OpenBiomind JAR file. */
-      public static final String OPENBIOMIND_JAR_NAME = "OpenBiomind JAR"; //$NON-NLS-1$
+      /** The Constant specifying the name of Graphviz dot utility (value = <code>dot.</code>). */
+      public static final String GRAPHVIZ_DOT_UTILITY_NAME = "dot" + DOT; //$NON-NLS-1$
 
       /**
        * The constant specifying the name of the pipeline properties file (value = <code>pipeline.properties</code>).

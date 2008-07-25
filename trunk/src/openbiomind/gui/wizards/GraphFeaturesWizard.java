@@ -7,15 +7,23 @@
  */
 package openbiomind.gui.wizards;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import openbiomind.gui.console.Console;
+import openbiomind.gui.preferences.Preference;
 import openbiomind.gui.tasks.AbstractTaskData;
 import openbiomind.gui.tasks.GraphFeaturesTaskData;
+import openbiomind.gui.util.Utility;
 
 /**
  * The class GraphFeaturesWizard.
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 20, 2008
+ * @version Jul 24, 2008
  */
 public class GraphFeaturesWizard extends AbstractTaskWizard {
 
@@ -87,6 +95,36 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
       }
 
       return this.graphFeaturesWizardPage;
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getPostSuccessfulExecutionProcess()
+    */
+   @Override
+   protected Process getPostSuccessfulExecutionProcess() {
+      if (Preference.isGraphvizDotUtilityPreferenceSet()) {
+         final String graphImageType = getGraphFeaturesWizardPage().getGraphImageType();
+         final String outputDotFile = getGraphFeaturesWizardPage().getOutputFile();
+
+         try {
+            getGraphFeaturesTaskData().setGraphImagePath(
+                  File.createTempFile(Utility.extractFileName(outputDotFile) + DOT + graphImageType + DOT, EMPTY)
+                        .getAbsolutePath());
+
+            final List<String> commandList = new ArrayList<String>();
+            commandList.add(Preference.getGraphvizDotUtilityPath());
+            commandList.add("-T" + graphImageType); //$NON-NLS-1$
+            commandList.add(outputDotFile); // path of dot file
+            commandList.add("-o" + getGraphFeaturesTaskData().getGraphImagePath()); //$NON-NLS-1$
+            return (new ProcessBuilder(commandList)).start();
+         } catch (final IOException e) {
+            Console.debug(e);
+         }
+      } else {
+         Console.info(WizardMessages.GraphFeaturesWizard_Info_GraphvizDotUtility);
+      }
+
+      return super.getPostSuccessfulExecutionProcess();
    }
 
 }

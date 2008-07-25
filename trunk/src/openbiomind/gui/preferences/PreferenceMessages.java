@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 2, 2008
+ * @version Jul 24, 2008
  */
 public class PreferenceMessages extends NLS {
 
@@ -24,11 +24,23 @@ public class PreferenceMessages extends NLS {
    /** The Description. */
    public static String Description;
 
+   /** The Error when Graphviz dot utiliry is not specified. */
+   public static String Error_GraphvizDotUtility;
+
    /** The Error when OpenBiomind JAR is not set. */
    public static String Error_OpenBiomindJAR;
 
    /** The Error when pipeline.properties is not set. */
    public static String Error_PipelineProperties;
+
+   /** The Label for Graphviz dot utility. */
+   public static String Label_GraphvizDotUtility;
+
+   /** The Label for OpenBiomind jar. */
+   public static String Label_OpenBiomindJar;
+
+   /** The Label for pipeline.properties. */
+   public static String Label_PipelineProperties;
 
    /*
     * Initialize the messages

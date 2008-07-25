@@ -18,7 +18,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 20, 2008
+ * @version Jul 24, 2008
  */
 public class GraphFeaturesTaskData extends AbstractTaskData {
 
@@ -47,6 +47,9 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /** Argument <code>-topNCoex</code> for specifying the number of maximum co-expression edges. */
    private static final String ARG_TOP_N_COEX = HYPHEN + "topNCoex"; //$NON-NLS-1$
+
+   /** The graph image path. */
+   private String graphImagePath = null;
 
    /**
     * Instantiates a new view clusters task data.
@@ -195,6 +198,24 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
       }
    }
 
+   /**
+    * Gets the graph image path.
+    *
+    * @return the graph image path
+    */
+   public String getGraphImagePath() {
+      return this.graphImagePath;
+   }
+
+   /**
+    * Sets the graph image path.
+    *
+    * @param graphImagePath the new graph image path
+    */
+   public void setGraphImagePath(final String graphImagePath) {
+      this.graphImagePath = graphImagePath;
+   }
+
    /*
     * @see openbiomind.gui.tasks.AbstractTaskData#createTaskDataProject()
     */
@@ -204,7 +225,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
       taskDataProject.add(createTaskDataFolder(ARG_H, getHorizontalDataset(), false));
       taskDataProject.add(createTaskDataFolder(ARG_M, getMobraDataset(), false));
       taskDataProject.add(createTaskDataFolder(ARG_U, getUtilityFile(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_O, getOutputFile(), true));
+      taskDataProject.add(createOutputTaskDataFolder(ARG_O));
       return taskDataProject;
    }
 
@@ -225,16 +246,40 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
          taskDataFile.setPath(filepath);
          taskDataFile.setLinked(true);
          taskDataFile.setAutoOpen(autoOpen);
-         if (autoOpen) {
-            // FIXME Temporary hack for opening DOT files with text editor
-            taskDataFile.setEditorId(Properties.DEFAULT_TEXT_EDITOR_ID);
-         }
 
          final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
          taskDataFolder.add(taskDataFile);
 
          return taskDataFolder;
       }
+   }
+
+   /**
+    * Creates the output task data folder.
+    *
+    * @param folderName the folder name
+    *
+    * @return the task data folder
+    */
+   private TaskDataFolder createOutputTaskDataFolder(final String folderName) {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
+
+      final TaskDataFile dotTaskDataFile = new TaskDataFile();
+      dotTaskDataFile.setPath(getOutputFile());
+      dotTaskDataFile.setLinked(true);
+      dotTaskDataFile.setAutoOpen(true);
+      dotTaskDataFile.setEditorId(Properties.DEFAULT_TEXT_EDITOR_ID); // FIXME Temporary hack
+      taskDataFolder.add(dotTaskDataFile);
+
+      if (!Utility.isEmpty(getGraphImagePath())) {
+         final TaskDataFile graphImageTaskDataFile = new TaskDataFile(Utility.extractFileName(getGraphImagePath()));
+         graphImageTaskDataFile.setPath(getGraphImagePath());
+         graphImageTaskDataFile.setLinked(false);
+         graphImageTaskDataFile.setAutoOpen(true);
+         taskDataFolder.add(graphImageTaskDataFile);
+      }
+
+      return taskDataFolder;
    }
 
 }

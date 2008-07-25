@@ -12,6 +12,7 @@ import openbiomind.gui.util.Constants;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
+import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
@@ -26,39 +27,35 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  *
  * @author bsanghvi
  * @since Jun 9, 2008
- * @version Jun 27, 2008
+ * @version Jul 24, 2008
  */
 public class OpenBiomindPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage, Constants {
+
+   /** The OpenBiomind jar file field editor. */
+   private FileFieldEditor openBiomindJarFileFieldEditor = null;
+
+   /** The OpenBiomind jar valid. */
+   private boolean openBiomindJarValid = false;
+
+   /** The pipeline.properties file field editor. */
+   private FileFieldEditor pipelinePropertiesFileFieldEditor = null;
+
+   /** The pipeline.properties valid. */
+   private boolean pipelinePropertiesValid = false;
+
+   /** The Graphviz dot utility file field editor. */
+   private FileFieldEditor graphvizDotUtilityFileFieldEditor = null;
+
+   /** The Graphviz dot utility valid. */
+   private boolean graphvizDotUtilityValid = false;
 
    /**
     * Instantiates a new OpenBiomind preference page.
     */
    public OpenBiomindPreferencePage() {
-      super(GRID);
+      super(FieldEditorPreferencePage.GRID);
       setPreferenceStore(Activator.getDefault().getPreferenceStore());
       setDescription(PreferenceMessages.Description);
-   }
-
-   /*
-    * @see org.eclipse.jface.preference.FieldEditorPreferencePage#createFieldEditors()
-    */
-   @Override
-   public void createFieldEditors() {
-      /*
-       * openbiomind.jar
-       */
-      final FileFieldEditor openBiomindJarFileFieldEditor = new FileFieldEditor(Preference.OPENBIOMIND_JAR, AMPERSAND
-            + Resources.OPENBIOMIND_JAR_NAME + LABEL_SEPARATOR, getFieldEditorParent());
-      openBiomindJarFileFieldEditor.setFileExtensions(new String[] { WILDCARD_ANY + Resources.JAR_EXTENSION });
-      addField(openBiomindJarFileFieldEditor);
-
-      /*
-       * pipeline.properties
-       */
-      final FileFieldEditor pipelinePropertiesFileFieldEditor = new FileFieldEditor(Preference.PIPELINE_PROPERTIES,
-            AMPERSAND + Resources.PIPELINE_PROPERTIES_FILENAME + LABEL_SEPARATOR, getFieldEditorParent());
-      pipelinePropertiesFileFieldEditor.setFileExtensions(new String[] { Resources.PIPELINE_PROPERTIES_FILENAME });
-      addField(pipelinePropertiesFileFieldEditor);
    }
 
    /*
@@ -66,6 +63,55 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
     */
    @Override
    public void init(final IWorkbench workbench) {
+      // do nothing
+   }
+
+   /*
+    * @see org.eclipse.jface.preference.FieldEditorPreferencePage#createFieldEditors()
+    */
+   @Override
+   public void createFieldEditors() {
+      // OpenBiomind jar
+      setOpenBiomindJarFileFieldEditor(createNewFileFieldEditor(Preference.OPENBIOMIND_JAR,
+            PreferenceMessages.Label_OpenBiomindJar, new String[] { WILDCARD_ANY + Resources.JAR_EXTENSION }, false,
+            PreferenceMessages.Error_OpenBiomindJAR));
+      addField(getOpenBiomindJarFileFieldEditor());
+      setOpenBiomindJarValid(Preference.isOpenBiomindJarPreferenceValid());
+
+      // pipeline.properties
+      setPipelinePropertiesFileFieldEditor(createNewFileFieldEditor(Preference.PIPELINE_PROPERTIES,
+            PreferenceMessages.Label_PipelineProperties, new String[] { Resources.PIPELINE_PROPERTIES_FILENAME },
+            false, PreferenceMessages.Error_PipelineProperties));
+      addField(getPipelinePropertiesFileFieldEditor());
+      setPipelinePropertiesValid(Preference.isPipelinePropertiesPreferenceValid());
+
+      // Graphviz dot utility
+      setGraphvizDotUtilityFileFieldEditor(createNewFileFieldEditor(Preference.GRAPHVIZ_DOT_UTILITY,
+            PreferenceMessages.Label_GraphvizDotUtility, new String[] { Resources.GRAPHVIZ_DOT_UTILITY_NAME
+                  + WILDCARD_ANY }, true, PreferenceMessages.Error_GraphvizDotUtility));
+      addField(getGraphvizDotUtilityFileFieldEditor());
+      setGraphvizDotUtilityValid(Preference.isGraphvizDotUtilityPreferenceValid());
+   }
+
+   /**
+    * Creates the new file field editor.
+    *
+    * @param preferenceName the preference name
+    * @param labelText the label text
+    * @param fileExtensions the file extensions
+    * @param emptyStringAllowed the empty string allowed
+    * @param errorMessage the error message
+    *
+    * @return the file field editor
+    */
+   private FileFieldEditor createNewFileFieldEditor(final String preferenceName, final String labelText,
+         final String[] fileExtensions, final boolean emptyStringAllowed, final String errorMessage) {
+      final FileFieldEditor fileFieldEditor = new FileFieldEditor(preferenceName, labelText, true,
+            StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent());
+      fileFieldEditor.setFileExtensions(fileExtensions);
+      fileFieldEditor.setEmptyStringAllowed(emptyStringAllowed);
+      fileFieldEditor.setErrorMessage(errorMessage);
+      return fileFieldEditor;
    }
 
    /*
@@ -76,28 +122,163 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
    public void propertyChange(final PropertyChangeEvent event) {
       super.propertyChange(event);
 
-      boolean valid = true;
-
       final Object eventSource = event.getSource();
       if (eventSource instanceof FileFieldEditor) {
          final FileFieldEditor fileFieldEditor = (FileFieldEditor) eventSource;
          final String preferenceName = fileFieldEditor.getPreferenceName();
          final String value = fileFieldEditor.getStringValue();
 
+         boolean valid = false;
          if (Preference.OPENBIOMIND_JAR.equals(preferenceName)) {
-            if (!Preference.isOpenBiomindJarPreferenceValid(value)) {
-               valid = false;
-               setErrorMessage(PreferenceMessages.Error_OpenBiomindJAR);
+            setOpenBiomindJarValid(Preference.isOpenBiomindJarPreferenceValid(value));
+            if (isOpenBiomindJarValid()) {
+               // check if some other error message must be shown
+               if (!isPipelinePropertiesValid()) {
+                  getPipelinePropertiesFileFieldEditor().showErrorMessage();
+               } else if (!isGraphvizDotUtilityValid()) {
+                  getGraphvizDotUtilityFileFieldEditor().showErrorMessage();
+               } else {
+                  valid = true;
+               }
             }
          } else if (Preference.PIPELINE_PROPERTIES.equals(preferenceName)) {
-            if (!Preference.isPipelinePropertiesPreferenceValid(value)) {
-               valid = false;
-               setErrorMessage(PreferenceMessages.Error_PipelineProperties);
+            setPipelinePropertiesValid(Preference.isPipelinePropertiesPreferenceValid(value));
+            if (isPipelinePropertiesValid()) {
+               // check if some other error message must be shown
+               if (!isOpenBiomindJarValid()) {
+                  getOpenBiomindJarFileFieldEditor().showErrorMessage();
+               } else if (!isGraphvizDotUtilityValid()) {
+                  getGraphvizDotUtilityFileFieldEditor().showErrorMessage();
+               } else {
+                  valid = true;
+               }
             }
+         } else if (Preference.GRAPHVIZ_DOT_UTILITY.equals(preferenceName)) {
+            setGraphvizDotUtilityValid(Preference.isGraphvizDotUtilityPreferenceValid(value));
+            if (isGraphvizDotUtilityValid()) {
+               // check if some other error message must be shown
+               if (!isOpenBiomindJarValid()) {
+                  getOpenBiomindJarFileFieldEditor().showErrorMessage();
+               } else if (!isPipelinePropertiesValid()) {
+                  getPipelinePropertiesFileFieldEditor().showErrorMessage();
+               } else {
+                  valid = true;
+               }
+            }
+         } else {
+            return; // do nothing
          }
-      }
 
-      setValid(valid);
+         setValid(valid);
+      }
+   }
+
+   /**
+    * Gets the OpenBiomind jar file field editor.
+    *
+    * @return the OpenBiomind jar file field editor
+    */
+   private FileFieldEditor getOpenBiomindJarFileFieldEditor() {
+      return this.openBiomindJarFileFieldEditor;
+   }
+
+   /**
+    * Sets the OpenBiomind jar file field editor.
+    *
+    * @param openBiomindJarFileFieldEditor the new OpenBiomind jar file field editor
+    */
+   private void setOpenBiomindJarFileFieldEditor(final FileFieldEditor openBiomindJarFileFieldEditor) {
+      this.openBiomindJarFileFieldEditor = openBiomindJarFileFieldEditor;
+   }
+
+   /**
+    * Checks if OpenBiomind jar preference is valid.
+    *
+    * @return true, if OpenBiomind jar preference is valid
+    */
+   private boolean isOpenBiomindJarValid() {
+      return this.openBiomindJarValid;
+   }
+
+   /**
+    * Sets the OpenBiomind jar valid.
+    *
+    * @param validOpenBiomindJar the new OpenBiomind jar preference valid
+    */
+   private void setOpenBiomindJarValid(final boolean validOpenBiomindJar) {
+      this.openBiomindJarValid = validOpenBiomindJar;
+   }
+
+   /**
+    * Gets the pipeline.properties file field editor.
+    *
+    * @return the pipeline.properties file field editor
+    */
+   private FileFieldEditor getPipelinePropertiesFileFieldEditor() {
+      return this.pipelinePropertiesFileFieldEditor;
+   }
+
+   /**
+    * Sets the pipeline.properties file field editor.
+    *
+    * @param pipelinePropertiesFileFieldEditor the new pipeline.properties file field editor
+    */
+   private void setPipelinePropertiesFileFieldEditor(final FileFieldEditor pipelinePropertiesFileFieldEditor) {
+      this.pipelinePropertiesFileFieldEditor = pipelinePropertiesFileFieldEditor;
+   }
+
+   /**
+    * Checks if pipeline.properties preference is valid.
+    *
+    * @return true, if pipeline.properties preference is valid
+    */
+   private boolean isPipelinePropertiesValid() {
+      return this.pipelinePropertiesValid;
+   }
+
+   /**
+    * Sets the pipeline.properties preference valid.
+    *
+    * @param validPipelineProperties the new pipeline.properties valid
+    */
+   private void setPipelinePropertiesValid(final boolean validPipelineProperties) {
+      this.pipelinePropertiesValid = validPipelineProperties;
+   }
+
+   /**
+    * Gets the Graphviz dot utility file field editor.
+    *
+    * @return the Graphviz dot utility file field editor
+    */
+   private FileFieldEditor getGraphvizDotUtilityFileFieldEditor() {
+      return this.graphvizDotUtilityFileFieldEditor;
+   }
+
+   /**
+    * Sets the Graphviz dot utility file field editor.
+    *
+    * @param graphvizDotUtilityFileFieldEditor the new Graphviz dot utility file field editor
+    */
+   private void setGraphvizDotUtilityFileFieldEditor(final FileFieldEditor graphvizDotUtilityFileFieldEditor) {
+      this.graphvizDotUtilityFileFieldEditor = graphvizDotUtilityFileFieldEditor;
+   }
+
+   /**
+    * Checks if Graphviz dot utility preference is valid.
+    *
+    * @return true, if Graphviz dot utility preference is valid
+    */
+   private boolean isGraphvizDotUtilityValid() {
+      return this.graphvizDotUtilityValid;
+   }
+
+   /**
+    * Sets the Graphviz dot utility preference valid.
+    *
+    * @param validGraphvizDotUtility the new Graphviz dot utility valid
+    */
+   private void setGraphvizDotUtilityValid(final boolean validGraphvizDotUtility) {
+      this.graphvizDotUtilityValid = validGraphvizDotUtility;
    }
 
 }

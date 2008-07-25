@@ -27,7 +27,7 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jul 8, 2008
- * @version Jul 8, 2008
+ * @version Jul 24, 2008
  */
 public class OpenPipelineProperties extends AbstractHandler {
 
@@ -39,11 +39,10 @@ public class OpenPipelineProperties extends AbstractHandler {
       // TODO Identify a way to open in Properties File Editor. The following editor must not be used, since it needs
       // dependency on JDT
       // Properties File Editor: org.eclipse.jdt.ui.PropertiesFileEditor
-      final File file = new File(Preference.getPipelinePropertiesLocation());
+      final File file = new File(Preference.getPipelinePropertiesPath());
       try {
-         IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(),
-               new FileStoreEditorInput(EFS.getLocalFileSystem().getStore(file.toURI())),
-               Constants.Properties.DEFAULT_TEXT_EDITOR_ID);
+         IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), new FileStoreEditorInput(
+               EFS.getLocalFileSystem().getStore(file.toURI())), Constants.Properties.DEFAULT_TEXT_EDITOR_ID);
       } catch (final PartInitException e) {
          Console.debug(e);
       }
@@ -56,7 +55,7 @@ public class OpenPipelineProperties extends AbstractHandler {
     */
    @Override
    public boolean isEnabled() {
-      return Preference.isPreferenceValid();
+      return Preference.isPipelinePropertiesPreferenceValid();
    }
 
 }
