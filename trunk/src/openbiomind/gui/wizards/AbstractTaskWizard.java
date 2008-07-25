@@ -52,12 +52,12 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 24, 2008
+ * @version Jul 25, 2008
  */
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
-   /** The execution log file. */
-   private File executionLogFile = null;
+   /** The execution log file path. */
+   private String executionLogFilePath = null;
 
    /** The executed command. */
    private String executedCommand = null;
@@ -138,16 +138,17 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
       Console.info(getExecutedCommand());
       subMonitor.worked(5);
 
-      PrintWriter executionLogWriter = null;
-      try {
-         subMonitor.subTask(WizardMessages.AbstractTaskWizard_PreparingProcess);
-         final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(getTaskData());
-         subMonitor.worked(5);
+      subMonitor.subTask(WizardMessages.AbstractTaskWizard_PreparingProcess);
+      final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(getTaskData());
+      subMonitor.worked(5);
 
-         executionLogWriter = new PrintWriter(getExecutionLogFile());
+      PrintWriter executionLogWriter = null;
+
+      try {
+         executionLogWriter = new PrintWriter(getExecutionLogFilePath());
 
          final Process process = taskProcessBuider.start();
-         executeProcess(process, executionLogWriter, subMonitor.newChild(50, SubMonitor.SUPPRESS_SETTASKNAME));
+         executeTaskProcess(process, executionLogWriter, subMonitor.newChild(50, SubMonitor.SUPPRESS_SETTASKNAME));
 
          subMonitor.setWorkRemaining(40);
          processError(process.getErrorStream(), subMonitor.newChild(5, SubMonitor.SUPPRESS_SETTASKNAME));
@@ -185,6 +186,37 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     *
     * @return true, if successful
     */
+   private boolean executeTaskProcess(final Process process, final PrintWriter executionLogWriter,
+         final IProgressMonitor monitor) {
+      boolean successfulExecution = false;
+
+      if (process != null) {
+         final SubMonitor subMonitor = SubMonitor.convert(monitor);
+         subMonitor.setWorkRemaining(1000);
+
+         // write the command at the top
+         executionLogWriter.println(getExecutedCommand());
+         executionLogWriter.println(); // empty line
+         executionLogWriter.flush();
+         subMonitor.worked(1);
+
+         // read the command output and store it
+         successfulExecution = executeProcess(process, executionLogWriter, subMonitor.newChild(999,
+               SubMonitor.SUPPRESS_SETTASKNAME));
+      }
+
+      return successfulExecution;
+   }
+
+   /**
+    * Execute process.
+    *
+    * @param process the process
+    * @param executionLogWriter the execution log writer
+    * @param monitor the monitor
+    *
+    * @return true, if successful
+    */
    private boolean executeProcess(final Process process, final PrintWriter executionLogWriter,
          final IProgressMonitor monitor) {
       boolean successfulExecution = false;
@@ -193,33 +225,22 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
          final SubMonitor subMonitor = SubMonitor.convert(monitor);
          subMonitor.setWorkRemaining(10000);
 
+         // read the command output and store it
          final Scanner reader = new Scanner(new BufferedReader(new InputStreamReader(process.getInputStream())));
          String message = null;
-
-         try {
-            /*
-             * write the command at the top
-             */
-            executionLogWriter.println(getExecutedCommand());
-            executionLogWriter.println(); // empty line
+         while (reader.hasNextLine()) {
+            subMonitor.setWorkRemaining(10000);
+            message = reader.nextLine();
+            subMonitor.subTask(message);
+            executionLogWriter.println(message);
+            executionLogWriter.flush();
             subMonitor.worked(1);
+         }
 
-            /*
-             * read the command output and store it
-             */
-            while (reader.hasNextLine()) {
-               subMonitor.setWorkRemaining(10000);
-               message = reader.nextLine();
-               subMonitor.subTask(message);
-               executionLogWriter.println(message);
-               subMonitor.worked(1);
-            }
+         successfulExecution = true;
 
-            successfulExecution = true;
-         } finally {
-            if (reader != null) {
-               reader.close();
-            }
+         if (reader != null) {
+            reader.close();
          }
       }
 
@@ -297,7 +318,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
             final TaskDataFile outputLogTaskDataFile = new TaskDataFile(Resources.EXECUTION_FILENAME);
             outputLogTaskDataFile.setAutoOpen(true);
             outputLogTaskDataFile.setLinked(false);
-            outputLogTaskDataFile.setPath(getExecutionLogFile().getAbsolutePath());
+            outputLogTaskDataFile.setPath(getExecutionLogFilePath());
             createFile(outputLogTaskDataFile, iProject, subMonitor.newChild(1, SubMonitor.SUPPRESS_SETTASKNAME));
          }
 
@@ -455,21 +476,20 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
    }
 
    /**
-    * Gets the execution log file.
+    * Gets the execution log file path.
     *
-    * @return the execution log file
+    * @return the execution log file path
     */
-   private File getExecutionLogFile() {
-      if (this.executionLogFile == null) {
+   private String getExecutionLogFilePath() {
+      if (this.executionLogFilePath == null) {
          try {
-            this.executionLogFile = File.createTempFile(Resources.EXECUTION_FILENAME, Long.toString(System
-                  .currentTimeMillis()));
+            this.executionLogFilePath = File.createTempFile(Resources.EXECUTION_FILENAME, null).getAbsolutePath();
          } catch (final IOException e) {
             Console.error(e);
          }
       }
 
-      return this.executionLogFile;
+      return this.executionLogFilePath;
    }
 
 }
