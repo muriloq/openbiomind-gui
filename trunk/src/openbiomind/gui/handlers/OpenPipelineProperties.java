@@ -9,9 +9,9 @@ package openbiomind.gui.handlers;
 
 import java.io.File;
 
+import openbiomind.gui.common.Constants;
 import openbiomind.gui.console.Console;
 import openbiomind.gui.preferences.Preference;
-import openbiomind.gui.util.Constants;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;

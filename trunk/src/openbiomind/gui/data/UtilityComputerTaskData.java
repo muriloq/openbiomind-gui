@@ -5,10 +5,14 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
 import java.io.File;
 
+import openbiomind.gui.common.Argument;
+import openbiomind.gui.project.TaskDataFile;
+import openbiomind.gui.project.TaskDataFolder;
+import openbiomind.gui.project.TaskDataProject;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -20,7 +24,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Jul 16, 2008
+ * @version Jul 27, 2008
  */
 public class UtilityComputerTaskData extends AbstractTaskData {
 
@@ -30,16 +34,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
    private static final String TASK_NAME = "task.UtilityComputer"; //$NON-NLS-1$
 
    /** Argument <code>-r</code> for specifying the name of meta task result directory. */
-   private static final String ARG_R = HYPHEN + "r"; //$NON-NLS-1$
-
-   /** Argument <code>-o</code> for specifying the output file. */
-   private static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
-
-   /** Argument <code>-d</code> for specifying the base dataset. */
-   private static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
-
-   /** Argument <code>-targetCategory</code> for specifying the category. */
-   private static final String ARG_TARGET_CATEGORY = HYPHEN + "targetCategory"; //$NON-NLS-1$
+   private static final Argument ARG_R = new Argument("r", "MetaTask Result"); //$NON-NLS-1$
 
    /**
     * Instantiates a new utility computer task.
@@ -54,7 +49,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
     * @return the meta task result directory
     */
    public String getMetaTaskResultDir() {
-      return getArgument(ARG_R);
+      return getPairedArgument().get(ARG_R.argument());
    }
 
    /**
@@ -63,9 +58,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
     * @param metaTaskResultDir the meta task result directory
     */
    public void setMetaTaskResultDir(final String metaTaskResultDir) {
-      if (!Utility.isEmpty(metaTaskResultDir)) {
-         putArgument(ARG_R, metaTaskResultDir);
-      }
+      getPairedArgument().put(ARG_R.argument(), metaTaskResultDir);
    }
 
    /**
@@ -74,7 +67,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
     * @return the output file
     */
    public String getOutputFile() {
-      return getArgument(ARG_O);
+      return getPairedArgument().get(ARG_O.argument());
    }
 
    /**
@@ -83,9 +76,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
     * @param outputFile the output file
     */
    public void setOutputFile(final String outputFile) {
-      if (!Utility.isEmpty(outputFile)) {
-         putArgument(ARG_O, outputFile);
-      }
+      getPairedArgument().put(ARG_O.argument(), outputFile);
    }
 
    /**
@@ -94,7 +85,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
     * @return the base dataset
     */
    public String getBaseDataset() {
-      return getArgument(ARG_D);
+      return getPairedArgument().get(ARG_D.argument());
    }
 
    /**
@@ -103,9 +94,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
     * @param baseDataset the base dataset
     */
    public void setBaseDataset(final String baseDataset) {
-      if (!Utility.isEmpty(baseDataset)) {
-         putArgument(ARG_D, baseDataset);
-      }
+      getPairedArgument().put(ARG_D.argument(), baseDataset);
    }
 
    /**
@@ -114,7 +103,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
     * @return the target category
     */
    public String getTargetCategory() {
-      return getArgument(ARG_TARGET_CATEGORY);
+      return getPairedArgument().get(ARG_TARGET_CATEGORY.argument());
    }
 
    /**
@@ -123,9 +112,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
     * @param targetCategory the target category
     */
    public void setTargetCategory(final String targetCategory) {
-      if (!Utility.isEmpty(targetCategory)) {
-         putArgument(ARG_TARGET_CATEGORY, targetCategory);
-      }
+      getPairedArgument().put(ARG_TARGET_CATEGORY.argument(), targetCategory);
    }
 
    /*
@@ -134,9 +121,9 @@ public class UtilityComputerTaskData extends AbstractTaskData {
    @Override
    public TaskDataProject createTaskDataProject() {
       final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createResultDirTaskDataFolder(ARG_R, getMetaTaskResultDir()));
-      taskDataProject.add(createTaskDataFolder(ARG_O, getOutputFile(), true));
-      taskDataProject.add(createTaskDataFolder(ARG_D, getBaseDataset(), false));
+      taskDataProject.add(createResultDirTaskDataFolder(ARG_R.friendlyName(), getMetaTaskResultDir()));
+      taskDataProject.add(createTaskDataFolder(ARG_O.friendlyName(), getOutputFile(), true));
+      taskDataProject.add(createTaskDataFolder(ARG_D.friendlyName(), getBaseDataset(), false));
       return taskDataProject;
    }
 

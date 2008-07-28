@@ -9,8 +9,7 @@ package openbiomind.gui.console;
 
 import java.io.PrintStream;
 
-import openbiomind.gui.util.CommonMessages;
-import openbiomind.gui.util.Constants;
+import openbiomind.gui.common.Constants;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
@@ -24,12 +23,12 @@ import org.eclipse.ui.console.MessageConsoleStream;
  *
  * @author bsanghvi
  * @since Jun 8, 2008
- * @version Jul 13, 2008
+ * @version Jul 27, 2008
  */
 public class Console implements Constants {
 
    /** The console. */
-   private static MessageConsole console = new MessageConsole(CommonMessages.ConsoleTitle, null);
+   private static MessageConsole console = new MessageConsole(Constants.EMPTY, null);
 
    /** The debug. */
    private static boolean debug = true;

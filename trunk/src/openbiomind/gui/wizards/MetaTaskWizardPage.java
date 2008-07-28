@@ -9,12 +9,11 @@ package openbiomind.gui.wizards;
 
 import java.io.File;
 
-import openbiomind.gui.tasks.ClassificationMethodEnum;
-import openbiomind.gui.tasks.MetaTaskShufflingEnum;
-import openbiomind.gui.util.CommonMessages;
+import openbiomind.gui.common.TextButtonComposite;
+import openbiomind.gui.data.ClassificationMethodEnum;
+import openbiomind.gui.data.ShuffleEnum;
 import openbiomind.gui.util.Utility;
-import openbiomind.gui.widgets.TextButtonComposite;
-import openbiomind.gui.widgets.WidgetHelper;
+import openbiomind.gui.util.WidgetHelper;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -113,7 +112,8 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       this.datasetDirectoryTBC = createDatasetDirectoryTBC(parent);
 
       // Output directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputDir, WizardMessages.Detail_OutputDir, true);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizard_Label_OutputDir,
+            WizardMessages.Detail_OutputDir, true);
       this.outputDirectoryTBC = createOutputDirTBC(parent);
    }
 
@@ -142,7 +142,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       // create decorations
       // TODO Update to identify that the folder must contain train and test tab files
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            CommonMessages.Error_InvalidDir);
+            "Invalid directory");
       errorDecoration.show();
 
       // apply listeners
@@ -195,10 +195,10 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       // create decorations
       final Text textField = textButtonComposite.getTextField();
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
-            CommonMessages.Warn_DirAlreadyExist);
+            "Specified directory already exists and files inside it may be overwritten");
       warningDecoration.hide();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
-            CommonMessages.Error_InvalidDir);
+            "Invalid directory");
       errorDecoration.show();
 
       // apply listeners
@@ -394,8 +394,8 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
     *
     * @return the meta task shuffling
     */
-   public MetaTaskShufflingEnum getMetaTaskShuffling() {
-      return MetaTaskShufflingEnum.parse(getMetaTaskShufflingArray()[getMetaTaskShufflingCombo().getSelectionIndex()]);
+   public ShuffleEnum getMetaTaskShuffling() {
+      return ShuffleEnum.parse(getMetaTaskShufflingArray()[getMetaTaskShufflingCombo().getSelectionIndex()]);
    }
 
    /**
@@ -414,8 +414,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
     */
    private String[] getMetaTaskShufflingArray() {
       if (this.metaTaskShufflingArray == null) {
-         this.metaTaskShufflingArray = new String[] { EMPTY, MetaTaskShufflingEnum.ON.toString(),
-               MetaTaskShufflingEnum.OFF.toString() };
+         this.metaTaskShufflingArray = new String[] { EMPTY, ShuffleEnum.ON.toString(), ShuffleEnum.OFF.toString() };
       }
 
       return this.metaTaskShufflingArray;
@@ -430,7 +429,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
             && getOutputDirectoryTBC().isValid();
       setPageComplete(valid);
       if (!valid) {
-         setErrorMessage(CommonMessages.Error_FixToContinue);
+         setErrorMessage("Fix the errors to continue");
       } else {
          setErrorMessage(null);
       }

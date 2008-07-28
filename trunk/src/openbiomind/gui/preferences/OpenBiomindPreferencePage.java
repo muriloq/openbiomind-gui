@@ -8,7 +8,7 @@
 package openbiomind.gui.preferences;
 
 import openbiomind.gui.Activator;
-import openbiomind.gui.util.Constants;
+import openbiomind.gui.common.Constants;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;

@@ -5,8 +5,12 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
+import openbiomind.gui.common.Argument;
+import openbiomind.gui.project.TaskDataFile;
+import openbiomind.gui.project.TaskDataFolder;
+import openbiomind.gui.project.TaskDataProject;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -18,24 +22,15 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 10, 2008
+ * @version Jul 27, 2008
  */
 public class EnhanceDatasetTaskData extends AbstractTaskData {
 
    /** Name of this task is <code>task.EnhanceDataset</code>. */
    private static final String TASK_NAME = "task.EnhanceDataset"; //$NON-NLS-1$
 
-   /** Argument <code>-d</code> for specifying the name of original dataset (i.e. the input dataset). */
-   private static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
-
-   /** Argument <code>-e</code> for specifying name of the name of enhanced dataset (i.e. the output dataset). */
-   private static final String ARG_E = HYPHEN + "e"; //$NON-NLS-1$
-
-   /** Argument <code>-ontologyDescriptionFile</code> for specifying the name of ontology association file. */
-   private static final String ARG_ONTOLOGY_DESCRIPTION_FILE = HYPHEN + "ontologyDescriptionFile"; //$NON-NLS-1$
-
-   /** Argument <code>-ontologyAssociationFile</code> for specifying the name of the ontology description file. */
-   private static final String ARG_ONTOLOGY_ASSOCIATION_FILE = HYPHEN + "ontologyAssociationFile"; //$NON-NLS-1$
+   /** Argument <code>-e</code> for specifying the name of enhanced dataset (i.e. the output dataset). */
+   private static final Argument ARG_E = new Argument("e", "Enhanced Dataset"); //$NON-NLS-1$
 
    /**
     * Instantiates a new enhance dataset task.
@@ -50,7 +45,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @return the original dataset
     */
    public String getOriginalDataset() {
-      return getArgument(ARG_D);
+      return getPairedArgument().get(ARG_D.argument());
    }
 
    /**
@@ -59,9 +54,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @param originalDataset the original dataset
     */
    public void setOriginalDataset(final String originalDataset) {
-      if (!Utility.isEmpty(originalDataset)) {
-         putArgument(ARG_D, originalDataset);
-      }
+      getPairedArgument().put(ARG_D.argument(), originalDataset);
    }
 
    /**
@@ -70,7 +63,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @return the enhanced dataset
     */
    public String getEnhancedDataset() {
-      return getArgument(ARG_E);
+      return getPairedArgument().get(ARG_E.argument());
    }
 
    /**
@@ -79,9 +72,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @param enhancedDataset the enhanced dataset
     */
    public void setEnhancedDataset(final String enhancedDataset) {
-      if (!Utility.isEmpty(enhancedDataset)) {
-         putArgument(ARG_E, enhancedDataset);
-      }
+      getPairedArgument().put(ARG_E.argument(), enhancedDataset);
    }
 
    /**
@@ -90,7 +81,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @return the ontology description file
     */
    public String getOntologyDescriptionFile() {
-      return getArgument(ARG_ONTOLOGY_DESCRIPTION_FILE);
+      return getPairedArgument().get(ARG_ONTOLOGY_DESCRIPTION_FILE.argument());
    }
 
    /**
@@ -99,9 +90,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @param ontologyDescriptionFile the ontology description file
     */
    public void setOntologyDescriptionFile(final String ontologyDescriptionFile) {
-      if (!Utility.isEmpty(ontologyDescriptionFile)) {
-         putArgument(ARG_ONTOLOGY_DESCRIPTION_FILE, ontologyDescriptionFile);
-      }
+      getPairedArgument().put(ARG_ONTOLOGY_DESCRIPTION_FILE.argument(), ontologyDescriptionFile);
    }
 
    /**
@@ -110,7 +99,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @return the ontology association file
     */
    public String getOntologyAssociationFile() {
-      return getArgument(ARG_ONTOLOGY_ASSOCIATION_FILE);
+      return getPairedArgument().get(ARG_ONTOLOGY_ASSOCIATION_FILE.argument());
    }
 
    /**
@@ -119,9 +108,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
     * @param ontologyAssociationFile the ontology association file
     */
    public void setOntologyAssociationFile(final String ontologyAssociationFile) {
-      if (!Utility.isEmpty(ontologyAssociationFile)) {
-         putArgument(ARG_ONTOLOGY_ASSOCIATION_FILE, ontologyAssociationFile);
-      }
+      getPairedArgument().put(ARG_ONTOLOGY_ASSOCIATION_FILE.argument(), ontologyAssociationFile);
    }
 
    /*
@@ -130,10 +117,12 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
    @Override
    public TaskDataProject createTaskDataProject() {
       final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createTaskDataFolder(ARG_D, getOriginalDataset(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_E, getEnhancedDataset(), true));
-      taskDataProject.add(createTaskDataFolder(ARG_ONTOLOGY_ASSOCIATION_FILE, getOntologyAssociationFile(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_ONTOLOGY_DESCRIPTION_FILE, getOntologyDescriptionFile(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_D.friendlyName(), getOriginalDataset(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_E.friendlyName(), getEnhancedDataset(), true));
+      taskDataProject.add(createTaskDataFolder(ARG_ONTOLOGY_ASSOCIATION_FILE.friendlyName(),
+            getOntologyAssociationFile(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_ONTOLOGY_DESCRIPTION_FILE.friendlyName(),
+            getOntologyDescriptionFile(), false));
       return taskDataProject;
    }
 

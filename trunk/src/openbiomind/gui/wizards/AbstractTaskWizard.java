@@ -19,13 +19,13 @@ import java.util.Scanner;
 import java.util.Set;
 
 import openbiomind.gui.Application;
+import openbiomind.gui.common.Constants;
 import openbiomind.gui.console.Console;
+import openbiomind.gui.data.AbstractTaskData;
 import openbiomind.gui.main.TaskProcessBuider;
-import openbiomind.gui.tasks.AbstractTaskData;
-import openbiomind.gui.tasks.TaskDataFile;
-import openbiomind.gui.tasks.TaskDataFolder;
-import openbiomind.gui.tasks.TaskDataProject;
-import openbiomind.gui.util.Constants;
+import openbiomind.gui.project.TaskDataFile;
+import openbiomind.gui.project.TaskDataFolder;
+import openbiomind.gui.project.TaskDataProject;
 import openbiomind.gui.util.Utility;
 
 import org.eclipse.core.resources.IContainer;
@@ -117,7 +117,8 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
       } catch (final InterruptedException e) {
          return false;
       } catch (final InvocationTargetException e) {
-         MessageDialog.openError(getShell(), Resources.ERROR, e.getTargetException().getLocalizedMessage());
+         Console.debug(e);
+         MessageDialog.openError(getShell(), Resources.ERROR, e.getTargetException().getMessage());
          return false;
       }
 

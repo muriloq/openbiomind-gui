@@ -5,14 +5,14 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
 /**
  * The enum DatasetClusteringMetricEnum.
  *
  * @author bsanghvi
  * @since Jul 18, 2008
- * @version Jul 18, 2008
+ * @version Jul 27, 2008
  */
 public enum DatasetClusteringMetricEnum {
 

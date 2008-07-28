@@ -8,7 +8,7 @@
 package openbiomind.gui.preferences;
 
 import openbiomind.gui.Activator;
-import openbiomind.gui.util.Constants;
+import openbiomind.gui.common.Constants;
 import openbiomind.gui.util.Utility;
 
 /**

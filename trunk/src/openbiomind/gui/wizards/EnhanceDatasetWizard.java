@@ -7,8 +7,8 @@
  */
 package openbiomind.gui.wizards;
 
-import openbiomind.gui.tasks.AbstractTaskData;
-import openbiomind.gui.tasks.EnhanceDatasetTaskData;
+import openbiomind.gui.data.AbstractTaskData;
+import openbiomind.gui.data.EnhanceDatasetTaskData;
 
 /**
  * The class EnhanceDatasetWizard.

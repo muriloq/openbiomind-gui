@@ -5,16 +5,16 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.project;
 
-import static openbiomind.gui.util.Constants.EMPTY;
+import static openbiomind.gui.common.Constants.EMPTY;
 
 /**
  * The class TaskDataFile.
  *
  * @author bsanghvi
  * @since Jun 30, 2008
- * @version Jul 20, 2008
+ * @version Jul 26, 2008
  */
 public class TaskDataFile {
 

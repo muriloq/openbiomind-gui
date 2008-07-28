@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.util.List;
 
 import openbiomind.gui.console.Console;
+import openbiomind.gui.data.AbstractTaskData;
+import openbiomind.gui.data.GraphFeaturesTaskData;
 import openbiomind.gui.main.GraphvizHelper;
 import openbiomind.gui.preferences.Preference;
-import openbiomind.gui.tasks.AbstractTaskData;
-import openbiomind.gui.tasks.GraphFeaturesTaskData;
 import openbiomind.gui.util.Utility;
 
 /**

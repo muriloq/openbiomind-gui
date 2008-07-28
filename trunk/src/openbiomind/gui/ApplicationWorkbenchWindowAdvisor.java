@@ -8,7 +8,6 @@
 package openbiomind.gui;
 
 import openbiomind.gui.console.Console;
-import openbiomind.gui.util.CommonMessages;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -23,7 +22,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
  *
  * @author bsanghvi
  * @since Jun 1, 2008
- * @version Jun 1, 2008
+ * @version Jul 27, 2008
  */
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
@@ -62,7 +61,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     */
    @Override
    public void postWindowOpen() {
-      getWindowConfigurer().getActionBarConfigurer().getStatusLineManager().setMessage(CommonMessages.Startup);
+      // NOTE To write to status line, use following
+      // getWindowConfigurer().getActionBarConfigurer().getStatusLineManager().setMessage(...);
    }
 
    /*

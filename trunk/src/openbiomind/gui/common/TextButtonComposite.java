@@ -5,9 +5,8 @@
  *
  * $Id$
  */
-package openbiomind.gui.widgets;
+package openbiomind.gui.common;
 
-import openbiomind.gui.util.Constants;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusListener;

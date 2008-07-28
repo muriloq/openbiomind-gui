@@ -7,9 +7,8 @@
  */
 package openbiomind.gui.handlers;
 
+import openbiomind.gui.common.Constants;
 import openbiomind.gui.preferences.Preference;
-import openbiomind.gui.util.CommonMessages;
-import openbiomind.gui.util.Constants;
 import openbiomind.gui.wizards.AbstractTaskWizard;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -25,7 +24,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
  *
  * @author bsanghvi
  * @since Jun 14, 2008
- * @version Jul 9, 2008
+ * @version Jul 27, 2008
  */
 public abstract class AbstractTaskHandler extends AbstractHandler implements Constants {
 
@@ -38,7 +37,7 @@ public abstract class AbstractTaskHandler extends AbstractHandler implements Con
     */
    protected boolean validate(final Shell shell) {
       if (!Preference.isRequiredPreferenceSet()) {
-         MessageDialog.openError(shell, Resources.ERROR, CommonMessages.Error_Preference);
+         MessageDialog.openError(shell, Resources.ERROR, "Set the required preferences before executing a task.");
          return false;
       }
 

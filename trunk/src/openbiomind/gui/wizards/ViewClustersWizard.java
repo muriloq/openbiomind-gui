@@ -7,8 +7,8 @@
  */
 package openbiomind.gui.wizards;
 
-import openbiomind.gui.tasks.AbstractTaskData;
-import openbiomind.gui.tasks.ViewClustersTaskData;
+import openbiomind.gui.data.AbstractTaskData;
+import openbiomind.gui.data.ViewClustersTaskData;
 
 /**
  * The class ViewClustersWizard.

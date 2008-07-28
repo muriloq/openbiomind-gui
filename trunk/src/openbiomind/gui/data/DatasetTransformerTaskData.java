@@ -5,10 +5,14 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
 import java.io.File;
 
+import openbiomind.gui.common.Argument;
+import openbiomind.gui.project.TaskDataFile;
+import openbiomind.gui.project.TaskDataFolder;
+import openbiomind.gui.project.TaskDataProject;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -20,38 +24,15 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 15, 2008
+ * @version Jul 27, 2008
  */
 public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /** Name of this task is <code>task.DatasetTransformer</code>. */
    private static final String TASK_NAME = "task.DatasetTransformer"; //$NON-NLS-1$
 
-   /** Argument <code>-d</code> for specifying the name of original dataset (i.e. the input dataset). */
-   private static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
-
-   /** Argument <code>-o</code> for specifying name of the name of the output directory. */
-   private static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
-
-   /** Argument <code>-targetCategory</code> for specifying the category. */
-   private static final String ARG_TARGET_CATEGORY = HYPHEN + "targetCategory"; //$NON-NLS-1$
-
-   /** Argument <code>-numberOfFolds</code> for specifying the number of folds. */
-   private static final String ARG_NUMBER_OF_FOLDS = HYPHEN + "numberOfFolds"; //$NON-NLS-1$
-
    /** Argument <code>-testDataset</code> for specifying the name of test dataset. */
-   private static final String ARG_TEST_DATASET = HYPHEN + "testDataset"; //$NON-NLS-1$
-
-   /** Argument <code>-numberOfSelectedFeatures</code> for specifying the number of selected features. */
-   private static final String ARG_NUMBER_OF_SELECTED_FEATURES = HYPHEN + "numberOfSelectedFeatures"; //$NON-NLS-1$
-
-   /**
-    * Argument <code>-featureSelectionMethod</code> for specifying the feature selection method. Must be one of
-    * {@link FeatureSelectionMethodEnum#DIFFERENTIATION} or {@link FeatureSelectionMethodEnum#SAM}.
-    *
-    * @see FeatureSelectionMethodEnum
-    */
-   private static final String ARG_FEATURE_SELECTION_METHOD = HYPHEN + "featureSelectionMethod"; //$NON-NLS-1$
+   private static final Argument ARG_TEST_DATASET = new Argument("testDataset", "Test Dataset"); //$NON-NLS-1$
 
    /**
     * Instantiates a new enhance dataset task.
@@ -66,7 +47,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @return the original dataset
     */
    public String getOriginalDataset() {
-      return getArgument(ARG_D);
+      return getPairedArgument().get(ARG_D.argument());
    }
 
    /**
@@ -75,9 +56,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @param originalDataset the original dataset
     */
    public void setOriginalDataset(final String originalDataset) {
-      if (!Utility.isEmpty(originalDataset)) {
-         putArgument(ARG_D, originalDataset);
-      }
+      getPairedArgument().put(ARG_D.argument(), originalDataset);
    }
 
    /**
@@ -86,7 +65,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @return the output directory
     */
    public String getOutputDirectory() {
-      return getArgument(ARG_O);
+      return getPairedArgument().get(ARG_O.argument());
    }
 
    /**
@@ -95,9 +74,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @param outputDirectory the output directory
     */
    public void setOutputDirectory(final String outputDirectory) {
-      if (!Utility.isEmpty(outputDirectory)) {
-         putArgument(ARG_O, outputDirectory);
-      }
+      getPairedArgument().put(ARG_O.argument(), outputDirectory);
    }
 
    /**
@@ -106,7 +83,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @return the target category
     */
    public String getTargetCategory() {
-      return getArgument(ARG_TARGET_CATEGORY);
+      return getPairedArgument().get(ARG_TARGET_CATEGORY.argument());
    }
 
    /**
@@ -116,7 +93,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     */
    public void setTargetCategory(final String targetCategory) {
       if (!Utility.isEmpty(targetCategory)) {
-         putArgument(ARG_TARGET_CATEGORY, targetCategory);
+         getPairedArgument().put(ARG_TARGET_CATEGORY.argument(), targetCategory);
       }
    }
 
@@ -126,7 +103,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @return the number of folds
     */
    public Integer getNumberOfFolds() {
-      return Integer.valueOf(getArgument(ARG_NUMBER_OF_FOLDS));
+      return getPairedArgument().getInteger(ARG_NUMBER_OF_FOLDS.argument());
    }
 
    /**
@@ -137,8 +114,8 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     */
    public void setNumberOfFolds(final Integer numberOfFolds) {
       if (numberOfFolds != null) {
-         remove(ARG_TEST_DATASET);
-         putArgument(ARG_NUMBER_OF_FOLDS, numberOfFolds.toString());
+         getPairedArgument().remove(ARG_TEST_DATASET.argument());
+         getPairedArgument().put(ARG_NUMBER_OF_FOLDS.argument(), numberOfFolds);
       }
    }
 
@@ -148,7 +125,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @return the number of folds
     */
    public String getTestDataset() {
-      return getArgument(ARG_TEST_DATASET);
+      return getPairedArgument().get(ARG_TEST_DATASET.argument());
    }
 
    /**
@@ -158,8 +135,10 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @param testDataset the test dataset
     */
    public void setTestDataset(final String testDataset) {
-      remove(ARG_NUMBER_OF_FOLDS);
-      putArgument(ARG_TEST_DATASET, testDataset);
+      if (!Utility.isEmpty(testDataset)) {
+         getPairedArgument().remove(ARG_NUMBER_OF_FOLDS.argument());
+         getPairedArgument().put(ARG_TEST_DATASET.argument(), testDataset);
+      }
    }
 
    /**
@@ -168,7 +147,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @return the number of selected features
     */
    public Integer getNumberOfSelectedFeatures() {
-      return Integer.valueOf(getArgument(ARG_NUMBER_OF_SELECTED_FEATURES));
+      return getPairedArgument().getInteger(ARG_NUMBER_OF_SELECTED_FEATURES.argument());
    }
 
    /**
@@ -177,9 +156,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @param numberOfSelectedFeatures the number of selected features
     */
    public void setNumberOfSelectedFeatures(final Integer numberOfSelectedFeatures) {
-      if (numberOfSelectedFeatures != null) {
-         putArgument(ARG_NUMBER_OF_SELECTED_FEATURES, numberOfSelectedFeatures.toString());
-      }
+      getPairedArgument().put(ARG_NUMBER_OF_SELECTED_FEATURES.argument(), numberOfSelectedFeatures);
    }
 
    /**
@@ -188,7 +165,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * @return the ontology association file
     */
    public FeatureSelectionMethodEnum getFeatureSelectionMethod() {
-      return FeatureSelectionMethodEnum.parse(getArgument(ARG_FEATURE_SELECTION_METHOD));
+      return getPairedArgument().getFeatureSelectionMethodEnum(ARG_FEATURE_SELECTION_METHOD.argument());
    }
 
    /**
@@ -198,9 +175,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
     * {@link FeatureSelectionMethodEnum#DIFFERENTIATION} or {@link FeatureSelectionMethodEnum#SAM}.
     */
    public void setFeatureSelectionMethod(final FeatureSelectionMethodEnum featureSelectionMethod) {
-      if (featureSelectionMethod != null) {
-         putArgument(ARG_FEATURE_SELECTION_METHOD, featureSelectionMethod.toString());
-      }
+      getPairedArgument().put(ARG_FEATURE_SELECTION_METHOD.argument(), featureSelectionMethod);
    }
 
    /*
@@ -209,9 +184,9 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
    @Override
    public TaskDataProject createTaskDataProject() {
       final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createTaskDataFolder(ARG_D, getOriginalDataset(), false));
-      taskDataProject.add(createTrainTestPairTaskDataFolder(ARG_O, getOutputDirectory()));
-      taskDataProject.add(createTaskDataFolder(ARG_TEST_DATASET, getTestDataset(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_D.friendlyName(), getOriginalDataset(), false));
+      taskDataProject.add(createTrainTestPairTaskDataFolder(ARG_O.friendlyName(), getOutputDirectory()));
+      taskDataProject.add(createTaskDataFolder(ARG_TEST_DATASET.friendlyName(), getTestDataset(), false));
       return taskDataProject;
    }
 

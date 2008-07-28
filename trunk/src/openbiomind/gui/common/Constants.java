@@ -5,7 +5,7 @@
  *
  * $Id$
  */
-package openbiomind.gui.util;
+package openbiomind.gui.common;
 
 import java.io.File;
 
@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Display;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 24, 2008
+ * @version Jul 27, 2008
  */
 public interface Constants {
 

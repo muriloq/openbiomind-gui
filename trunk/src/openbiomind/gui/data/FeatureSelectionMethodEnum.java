@@ -5,14 +5,14 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
 /**
  * The enum FeatureSelectionMethodEnum.
  *
  * @author bsanghvi
  * @since Jul 15, 2008
- * @version Jul 16, 2008
+ * @version Jul 27, 2008
  */
 public enum FeatureSelectionMethodEnum {
 

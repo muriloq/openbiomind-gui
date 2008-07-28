@@ -9,10 +9,9 @@ package openbiomind.gui.wizards;
 
 import java.io.File;
 
-import openbiomind.gui.util.CommonMessages;
+import openbiomind.gui.common.TextButtonComposite;
 import openbiomind.gui.util.Utility;
-import openbiomind.gui.widgets.TextButtonComposite;
-import openbiomind.gui.widgets.WidgetHelper;
+import openbiomind.gui.util.WidgetHelper;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -108,7 +107,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
       // Original dataset
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OriginalDataset,
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.EnhanceDatasetWizardPage_Label_OriginalDataset,
             WizardMessages.Detail_OriginalDataset, true);
       this.originalDatasetTBC = createOriginalDatasetTBC(parent);
 
@@ -124,7 +123,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       this.enhancedDatasetDestFileNameText = createEnhancedDatasetDestFileNameText(parent);
       WidgetHelper.createNewBlankLabel(parent);
       // - Destination directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationDir, CommonMessages.Info_DestinationDir);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationDir, "Leave blank to use current directory or specify an existing directory");
       this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(parent);
       // - Use original dataset directory check box
       WidgetHelper.createNewBlankLabel(parent);
@@ -159,7 +158,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            CommonMessages.Error_FileNotExist);
+            "Please specify an existing file");
       errorDecoration.show();
 
       // apply listeners
@@ -204,7 +203,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
-            CommonMessages.Error_InvalidFile);
+            "Invalid file");
       errorDecoration.show();
 
       // apply listeners
@@ -248,7 +247,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       };
       textButtonComposite.setText(Properties.CURRENT_DIRECTORY);
       textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText(CommonMessages.Info_DestinationDir);
+      textButtonComposite.setToolTipText("Leave blank to use current directory or specify an existing directory");
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -256,13 +255,13 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       // create decorations
       final Text textField = textButtonComposite.getTextField();
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textField,
-            CommonMessages.Info_DestinationDir);
+            "Leave blank to use current directory or specify an existing directory");
       infoDecoration.setShowOnlyOnFocus(true);
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
-            CommonMessages.Warn_DirNotExist);
+            "Specified directory does not exist and will be automatically created");
       warningDecoration.hide();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
-            CommonMessages.Error_InvalidDir);
+            "Invalid directory");
       errorDecoration.hide();
 
       // apply listeners
@@ -345,10 +344,10 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
       // create decorations
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
-            CommonMessages.Warn_FileAlreadyExists);
+            "File already exists and would be overwritten");
       warningDecoration.hide();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
-            CommonMessages.Error_InvalidFile);
+            "Invalid file");
       errorDecoration.hide();
 
       // apply listeners
@@ -584,7 +583,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
             && getOntologyAssociationFileTBC().isValid();
       setPageComplete(valid);
       if (!valid) {
-         setErrorMessage(CommonMessages.Error_FixToContinue);
+         setErrorMessage("Fix the errors to continue");
       } else {
          setErrorMessage(null);
       }
