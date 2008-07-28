@@ -12,17 +12,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import openbiomind.gui.common.Constants;
 import openbiomind.gui.console.Console;
+import openbiomind.gui.data.AbstractTaskData;
 import openbiomind.gui.preferences.Preference;
-import openbiomind.gui.tasks.AbstractTaskData;
-import openbiomind.gui.util.Constants;
 
 /**
  * The class TaskProcessBuider.
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 24, 2008
+ * @version Jul 27, 2008
  */
 public class TaskProcessBuider implements Constants {
 
@@ -76,7 +76,7 @@ public class TaskProcessBuider implements Constants {
       commandList.add(JAVA_ARGUMENT_CLASSPATH);
       commandList.add(getClasspath());
       commandList.add(this.abstractTaskData.getTaskName());
-      commandList.addAll(this.abstractTaskData.getAllArgumentsAsList());
+      commandList.addAll(this.abstractTaskData.toList());
 
       this.processBuilder = new ProcessBuilder(commandList);
 

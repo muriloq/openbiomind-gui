@@ -5,10 +5,13 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
 import java.io.File;
 
+import openbiomind.gui.project.TaskDataFile;
+import openbiomind.gui.project.TaskDataFolder;
+import openbiomind.gui.project.TaskDataProject;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -20,38 +23,12 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 15, 2008
+ * @version Jul 27, 2008
  */
 public class MetaTaskTaskData extends AbstractTaskData {
 
    /** Name of this task is <code>task.DatasetTransformer</code>. */
    private static final String TASK_NAME = "task.MetaTask"; //$NON-NLS-1$
-
-   /** Argument <code>-d</code> for specifying the name of original dataset (i.e. the input dataset). */
-   private static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
-
-   /** Argument <code>-o</code> for specifying name of the name of the output directory. */
-   private static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
-
-   /** Argument <code>-numberOfTasks</code> for specifying the number of tasks. */
-   private static final String ARG_NUMBER_OF_TASKS = HYPHEN + "numberOfTasks"; //$NON-NLS-1$
-
-   /** Argument <code>-targetCategory</code> for specifying the category. */
-   private static final String ARG_TARGET_CATEGORY = HYPHEN + "targetCategory"; //$NON-NLS-1$
-
-   /**
-    * Argument <code>-classificationMethod</code> for specifying the feature selection method.
-    *
-    * @see ClassificationMethodEnum
-    */
-   private static final String ARG_CLASSIFICATION_METHOD = HYPHEN + "classificationMethod"; //$NON-NLS-1$
-
-   /**
-    * Argument <code>-metataskShuffling</code> for specifying if permutation analysis much be used or not?
-    *
-    * @see MetaTaskShufflingEnum
-    */
-   private static final String ARG_METATASK_SHUFFLING = HYPHEN + "metataskShuffling"; //$NON-NLS-1$
 
    /**
     * Instantiates a new enhance dataset task.
@@ -66,7 +43,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
     * @return the dataset directory
     */
    public String getDatasetDirectory() {
-      return getArgument(ARG_D);
+      return getPairedArgument().get(ARG_D.argument());
    }
 
    /**
@@ -75,9 +52,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
     * @param datasetDirectory the dataset directory
     */
    public void setDatasetDirectory(final String datasetDirectory) {
-      if (!Utility.isEmpty(datasetDirectory)) {
-         putArgument(ARG_D, datasetDirectory);
-      }
+      getPairedArgument().put(ARG_D.argument(), datasetDirectory);
    }
 
    /**
@@ -86,7 +61,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
     * @return the output directory
     */
    public String getOutputDirectory() {
-      return getArgument(ARG_O);
+      return getPairedArgument().get(ARG_O.argument());
    }
 
    /**
@@ -95,9 +70,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
     * @param outputDirectory the output directory
     */
    public void setOutputDirectory(final String outputDirectory) {
-      if (!Utility.isEmpty(outputDirectory)) {
-         putArgument(ARG_O, outputDirectory);
-      }
+      getPairedArgument().put(ARG_O.argument(), outputDirectory);
    }
 
    /**
@@ -106,7 +79,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
     * @return the number of folds
     */
    public Integer getNumberOfTasks() {
-      return Integer.valueOf(getArgument(ARG_NUMBER_OF_TASKS));
+      return getPairedArgument().getInteger(ARG_NUMBER_OF_TASKS.argument());
    }
 
    /**
@@ -115,9 +88,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
     * @param numberOfTasks the number of tasks
     */
    public void setNumberOfTasks(final Integer numberOfTasks) {
-      if (numberOfTasks != null) {
-         putArgument(ARG_NUMBER_OF_TASKS, numberOfTasks.toString());
-      }
+      getPairedArgument().put(ARG_NUMBER_OF_TASKS.argument(), numberOfTasks);
    }
 
    /**
@@ -126,7 +97,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
     * @return the target category
     */
    public String getTargetCategory() {
-      return getArgument(ARG_TARGET_CATEGORY);
+      return getPairedArgument().get(ARG_TARGET_CATEGORY.argument());
    }
 
    /**
@@ -135,9 +106,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
     * @param targetCategory the target category
     */
    public void setTargetCategory(final String targetCategory) {
-      if (!Utility.isEmpty(targetCategory)) {
-         putArgument(ARG_TARGET_CATEGORY, targetCategory);
-      }
+      getPairedArgument().put(ARG_TARGET_CATEGORY.argument(), targetCategory);
    }
 
    /**
@@ -146,7 +115,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
     * @return the ontology association file
     */
    public ClassificationMethodEnum getClassificationMethod() {
-      return ClassificationMethodEnum.parse(getArgument(ARG_CLASSIFICATION_METHOD));
+      return getPairedArgument().getClassificationMethodEnum(ARG_CLASSIFICATION_METHOD.argument());
    }
 
    /**
@@ -155,9 +124,7 @@ public class MetaTaskTaskData extends AbstractTaskData {
     * @param featureSelectionMethod the feature selection method, must be one of {@link ClassificationMethodEnum}.
     */
    public void setClassficationMethod(final ClassificationMethodEnum featureSelectionMethod) {
-      if (featureSelectionMethod != null) {
-         putArgument(ARG_CLASSIFICATION_METHOD, featureSelectionMethod.toString());
-      }
+      getPairedArgument().put(ARG_CLASSIFICATION_METHOD.argument(), featureSelectionMethod);
    }
 
    /**
@@ -165,10 +132,10 @@ public class MetaTaskTaskData extends AbstractTaskData {
     *
     * @return the meta task shuffling
     *
-    * @see MetaTaskShufflingEnum
+    * @see ShuffleEnum
     */
-   public MetaTaskShufflingEnum getMetaTaskShuffling() {
-      return MetaTaskShufflingEnum.parse(getArgument(ARG_METATASK_SHUFFLING));
+   public ShuffleEnum getMetaTaskShuffling() {
+      return getPairedArgument().getShuffleEnum(ARG_METATASK_SHUFFLING.argument());
    }
 
    /**
@@ -176,12 +143,10 @@ public class MetaTaskTaskData extends AbstractTaskData {
     *
     * @param metaTaskShuffling the meta task shuffling
     *
-    * @see MetaTaskShufflingEnum
+    * @see ShuffleEnum
     */
-   public void setMetaTaskShuffling(final MetaTaskShufflingEnum metaTaskShuffling) {
-      if (metaTaskShuffling != null) {
-         putArgument(ARG_METATASK_SHUFFLING, metaTaskShuffling.toString());
-      }
+   public void setMetaTaskShuffling(final ShuffleEnum metaTaskShuffling) {
+      getPairedArgument().put(ARG_METATASK_SHUFFLING.argument(), metaTaskShuffling);
    }
 
    /*
@@ -190,8 +155,8 @@ public class MetaTaskTaskData extends AbstractTaskData {
    @Override
    public TaskDataProject createTaskDataProject() {
       final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createTrainTestPairTaskDataFolder(ARG_D, getDatasetDirectory()));
-      taskDataProject.add(createOutputTaskDataFolder(ARG_O, getOutputDirectory()));
+      taskDataProject.add(createTrainTestPairTaskDataFolder(ARG_D.friendlyName(), getDatasetDirectory()));
+      taskDataProject.add(createOutputTaskDataFolder(ARG_O.friendlyName(), getOutputDirectory()));
       return taskDataProject;
    }
 

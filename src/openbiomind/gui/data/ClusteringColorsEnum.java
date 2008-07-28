@@ -5,14 +5,14 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
 /**
  * The enum ClusteringColorsEnum.
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 20, 2008
+ * @version Jul 27, 2008
  */
 public enum ClusteringColorsEnum {
 

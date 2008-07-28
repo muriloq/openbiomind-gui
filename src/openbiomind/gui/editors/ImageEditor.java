@@ -7,8 +7,7 @@
  */
 package openbiomind.gui.editors;
 
-import openbiomind.gui.util.CommonMessages;
-import openbiomind.gui.util.Constants.GUI;
+import openbiomind.gui.common.Constants.GUI;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -40,7 +39,7 @@ import org.eclipse.ui.part.FileEditorInput;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 20, 2008
+ * @version Jul 27, 2008
  */
 public class ImageEditor extends EditorPart {
 
@@ -239,7 +238,7 @@ public class ImageEditor extends EditorPart {
 
       // add components
       new Label(composite, SWT.CENTER).setImage(GUI.FIELD_DECORATION_ERROR_IMAGE);
-      new Label(composite, SWT.CENTER).setText(CommonMessages.Error_UnableToOpen);
+      new Label(composite, SWT.CENTER).setText("Unable to open");
 
       return composite;
    }

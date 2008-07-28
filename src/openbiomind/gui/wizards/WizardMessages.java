@@ -57,6 +57,9 @@ public class WizardMessages extends NLS {
    /** The Clustering transformer wizard page error meta task result directory. */
    public static String ClusteringTransformerWizardPage_Error_MetaTaskResultDir;
 
+   /** The Clustering transformer wizard page Meta Task result directory. */
+   public static String ClusteringTransformerWizardPage_Label_MetaTaskResultDir;
+
    /** The Clustering transformer wizard page label transorm. */
    public static String ClusteringTransformerWizardPage_Label_Transorm;
 
@@ -92,6 +95,12 @@ public class WizardMessages extends NLS {
 
    /** The Dataset transformer wizard page label number of selected features. */
    public static String DatasetTransformerWizardPage_Label_NumOfSelectedFeatures;
+
+   /** The Dataset transformer wizard page label original dataset. */
+   public static String DatasetTransformerWizardPage_Label_OriginalDataset;
+
+   /** The Dataset transformer wizard label output dataset. */
+   public static String DatasetTransformerWizardPage_Label_OutputDir;
 
    /** The Dataset transformer wizard page label test dataset. */
    public static String DatasetTransformerWizardPage_Label_TestDataset;
@@ -143,6 +152,9 @@ public class WizardMessages extends NLS {
 
    /** The Enhance dataset wizard page label enhanced dataset path. */
    public static String EnhanceDatasetWizardPage_Label_EnhancedDatasetPath;
+
+   /** The Enhance dataset wizard page label original dataset. */
+   public static String EnhanceDatasetWizardPage_Label_OriginalDataset;
 
    /** The Enhance dataset wizard page tip enhanced dataset. */
    public static String EnhanceDatasetWizardPage_Tip_EnhancedDataset;
@@ -210,15 +222,6 @@ public class WizardMessages extends NLS {
    /** The Enhance dataset wizard page label destination file. */
    public static String Label_DestinationFile;
 
-   /** The Meta Task result directory. */
-   public static String Label_MetaTaskResultDir;
-
-   /** The label original dataset. */
-   public static String Label_OriginalDataset;
-
-   /** The label output dataset. */
-   public static String Label_OutputDir;
-
    /** The Utility computer wizard page label output file path. */
    public static String Label_OutputFilePath;
 
@@ -242,6 +245,9 @@ public class WizardMessages extends NLS {
 
    /** The Meta task wizard page label number of tasks. */
    public static String MetaTaskWizardPage_Label_NumOfTasks;
+
+   /** The Meta task wizard label output dataset. */
+   public static String MetaTaskWizard_Label_OutputDir;
 
    /** The Meta task wizard page tip dataset directory. */
    public static String MetaTaskWizardPage_Tip_DatasetDir;
@@ -287,6 +293,9 @@ public class WizardMessages extends NLS {
 
    /** The Utility computer wizard page label base dataset. */
    public static String UtilityComputerWizardPage_Label_BaseDataset;
+
+   /** The Utility computer wizard page Meta Task result directory. */
+   public static String UtilityComputerWizardPage_Label_MetaTaskResultDir;
 
    /*
     * Initialize the messages

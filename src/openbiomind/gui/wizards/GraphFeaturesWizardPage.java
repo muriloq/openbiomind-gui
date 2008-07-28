@@ -9,10 +9,9 @@ package openbiomind.gui.wizards;
 
 import java.io.File;
 
-import openbiomind.gui.util.CommonMessages;
+import openbiomind.gui.common.TextButtonComposite;
 import openbiomind.gui.util.Utility;
-import openbiomind.gui.widgets.TextButtonComposite;
-import openbiomind.gui.widgets.WidgetHelper;
+import openbiomind.gui.util.WidgetHelper;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -148,7 +147,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
          getOutputFileDestExtCombo().setEnabled(false);
       }
       // - Directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationDir, CommonMessages.Info_DestinationDir);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationDir, "Leave blank to use current directory or specify an existing directory");
       this.outputFileDestDirTBC = createOutputFileDestDirTBC(parent);
       WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputFilePath,
             WizardMessages.Detail_OutputFilePath);
@@ -182,7 +181,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            CommonMessages.Error_FileNotExist);
+            "Please specify an existing file");
       errorDecoration.show();
 
       // apply listeners
@@ -223,7 +222,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
-            CommonMessages.Error_InvalidFile);
+            "Invalid file");
       errorDecoration.show();
 
       // apply listeners
@@ -267,7 +266,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
       };
       textButtonComposite.setText(Properties.CURRENT_DIRECTORY);
       textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText(CommonMessages.Info_DestinationDir);
+      textButtonComposite.setToolTipText("Leave blank to use current directory or specify an existing directory");
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -275,13 +274,13 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
       // create decorations
       final Text textField = textButtonComposite.getTextField();
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textField,
-            CommonMessages.Info_DestinationDir);
+            "Leave blank to use current directory or specify an existing directory");
       infoDecoration.setShowOnlyOnFocus(true);
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
-            CommonMessages.Warn_DirNotExist);
+            "Specified directory does not exist and will be automatically created");
       warningDecoration.hide();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
-            CommonMessages.Error_InvalidDir);
+            "Invalid directory");
       errorDecoration.hide();
 
       // apply listeners
@@ -331,10 +330,10 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
       // create decorations
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
-            CommonMessages.Warn_FileAlreadyExists);
+            "File already exists and would be overwritten");
       warningDecoration.hide();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
-            CommonMessages.Error_InvalidFile);
+            "Invalid file");
       errorDecoration.hide();
 
       // apply listeners
@@ -659,7 +658,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
             && getOutputFileDestDirTBC().isValid() && isValidOutputFilePath();
       setPageComplete(valid);
       if (!valid) {
-         setErrorMessage(CommonMessages.Error_FixToContinue);
+         setErrorMessage("Fix the errors to continue");
       } else {
          setErrorMessage(null);
       }

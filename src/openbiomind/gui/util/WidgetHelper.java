@@ -5,10 +5,9 @@
  *
  * $Id$
  */
-package openbiomind.gui.widgets;
+package openbiomind.gui.util;
 
-import openbiomind.gui.util.Constants;
-import openbiomind.gui.util.Utility;
+import openbiomind.gui.common.Constants;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.SWT;

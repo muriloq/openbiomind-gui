@@ -5,8 +5,12 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
+import openbiomind.gui.common.Argument;
+import openbiomind.gui.project.TaskDataFile;
+import openbiomind.gui.project.TaskDataFolder;
+import openbiomind.gui.project.TaskDataProject;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -18,7 +22,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 20, 2008
+ * @version Jul 27, 2008
  */
 public class ViewClustersTaskData extends AbstractTaskData {
 
@@ -27,17 +31,8 @@ public class ViewClustersTaskData extends AbstractTaskData {
     */
    private static final String TASK_NAME = "task.ViewClusters"; //$NON-NLS-1$
 
-   /** Argument <code>-d</code> for specifying the clustering dataset. */
-   private static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
-
-   /** Argument <code>-r</code> for specifying the clustering result. */
-   private static final String ARG_R = HYPHEN + "r"; //$NON-NLS-1$
-
-   /** Argument <code>-o</code> for specifying the image file. */
-   private static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
-
-   /** Argument <code>-clusteringColors</code> for specifying the clustering colors. */
-   private static final String ARG_CLUSTERING_COLORS = HYPHEN + "clusteringColors"; //$NON-NLS-1$
+   /** Argument <code>r</code> for specifying the clustering result. */
+   private static final Argument ARG_R = new Argument("r", "Clustering Result"); //$NON-NLS-1$
 
    /**
     * Instantiates a new view clusters task data.
@@ -53,7 +48,7 @@ public class ViewClustersTaskData extends AbstractTaskData {
     * @return the clustering dataset
     */
    public String getClusteringDataset() {
-      return getArgument(ARG_D);
+      return getPairedArgument().get(ARG_D.argument());
    }
 
    /**
@@ -62,9 +57,7 @@ public class ViewClustersTaskData extends AbstractTaskData {
     * @param clusteringDataset the clustering dataset
     */
    public void setClusteringDataset(final String clusteringDataset) {
-      if (!Utility.isEmpty(clusteringDataset)) {
-         putArgument(ARG_D, clusteringDataset);
-      }
+      getPairedArgument().put(ARG_D.argument(), clusteringDataset);
    }
 
    /**
@@ -73,7 +66,7 @@ public class ViewClustersTaskData extends AbstractTaskData {
     * @return the clustering result
     */
    public String getClusteringResult() {
-      return getArgument(ARG_R);
+      return getPairedArgument().get(ARG_R.argument());
    }
 
    /**
@@ -82,9 +75,7 @@ public class ViewClustersTaskData extends AbstractTaskData {
     * @param clusteringResult the clustering result
     */
    public void setClusteringResult(final String clusteringResult) {
-      if (!Utility.isEmpty(clusteringResult)) {
-         putArgument(ARG_R, clusteringResult);
-      }
+      getPairedArgument().put(ARG_R.argument(), clusteringResult);
    }
 
    /**
@@ -93,7 +84,7 @@ public class ViewClustersTaskData extends AbstractTaskData {
     * @return the image file
     */
    public String getImageFile() {
-      return getArgument(ARG_O);
+      return getPairedArgument().get(ARG_O.argument());
    }
 
    /**
@@ -102,9 +93,7 @@ public class ViewClustersTaskData extends AbstractTaskData {
     * @param imageFile the image file
     */
    public void setImageFile(final String imageFile) {
-      if (!Utility.isEmpty(imageFile)) {
-         putArgument(ARG_O, imageFile);
-      }
+      getPairedArgument().put(ARG_O.argument(), imageFile);
    }
 
    /**
@@ -113,7 +102,7 @@ public class ViewClustersTaskData extends AbstractTaskData {
     * @return the clustering colors
     */
    public ClusteringColorsEnum getClusteringColors() {
-      return ClusteringColorsEnum.parse(getArgument(ARG_CLUSTERING_COLORS));
+      return getPairedArgument().getClusteringColorsEnum(ARG_CLUSTERING_COLORS.argument());
    }
 
    /**
@@ -122,9 +111,7 @@ public class ViewClustersTaskData extends AbstractTaskData {
     * @param clusteringColors the clustering colors
     */
    public void setClusteringColors(final ClusteringColorsEnum clusteringColors) {
-      if (clusteringColors != null) {
-         putArgument(ARG_CLUSTERING_COLORS, clusteringColors.toString());
-      }
+      getPairedArgument().put(ARG_CLUSTERING_COLORS.argument(), clusteringColors);
    }
 
    /*
@@ -133,9 +120,9 @@ public class ViewClustersTaskData extends AbstractTaskData {
    @Override
    public TaskDataProject createTaskDataProject() {
       final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createTaskDataFolder(ARG_D, getClusteringDataset(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_R, getClusteringResult(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_O, getImageFile(), true));
+      taskDataProject.add(createTaskDataFolder(ARG_D.friendlyName(), getClusteringDataset(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_R.friendlyName(), getClusteringResult(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_O.friendlyName(), getImageFile(), true));
       return taskDataProject;
    }
 

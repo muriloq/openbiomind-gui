@@ -7,11 +7,10 @@
  */
 package openbiomind.gui.wizards;
 
-import openbiomind.gui.util.CommonMessages;
-import openbiomind.gui.util.Constants;
+import openbiomind.gui.common.Constants;
+import openbiomind.gui.common.TextButtonComposite;
 import openbiomind.gui.util.Utility;
-import openbiomind.gui.widgets.TextButtonComposite;
-import openbiomind.gui.widgets.WidgetHelper;
+import openbiomind.gui.util.WidgetHelper;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -229,17 +228,17 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
       };
       textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText(CommonMessages.Info_LeaveBlankOrSpecifyFile);
+      textButtonComposite.setToolTipText("Leave blank or specify a valid file");
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(numOfColumns, 1).applyTo(textButtonComposite);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textButtonComposite
-            .getTextField(), CommonMessages.Info_LeaveBlankOrSpecifyFile);
+            .getTextField(), "Leave blank or specify a valid file");
       infoDecoration.setShowOnlyOnFocus(true);
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            CommonMessages.Error_FileNotExist);
+            "Please specify an existing file");
       errorDecoration.hide();
 
       // apply listeners
@@ -407,14 +406,14 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     */
    protected Text createDefaultText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(CommonMessages.Info_LeaveBlank);
+      text.setToolTipText("Leave blank if you do not want to specify a value");
 
       // apply layout
       GUI.GRID_DATA_FILL_H.applyTo(text);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
-            CommonMessages.Info_LeaveBlank);
+            "Leave blank if you do not want to specify a value");
       infoDecoration.setShowOnlyOnFocus(true);
 
       return text;

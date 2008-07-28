@@ -10,8 +10,8 @@ package openbiomind.gui.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import openbiomind.gui.common.Constants;
 import openbiomind.gui.preferences.Preference;
-import openbiomind.gui.util.Constants;
 
 /**
  * The class GraphvizHelper.

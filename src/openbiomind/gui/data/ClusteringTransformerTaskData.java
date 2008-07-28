@@ -5,10 +5,14 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
 import java.io.File;
 
+import openbiomind.gui.common.Argument;
+import openbiomind.gui.project.TaskDataFile;
+import openbiomind.gui.project.TaskDataFolder;
+import openbiomind.gui.project.TaskDataProject;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -21,7 +25,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 13, 2008
- * @version Jul 18, 2008
+ * @version Jul 27, 2008
  */
 public class ClusteringTransformerTaskData extends AbstractTaskData {
 
@@ -30,17 +34,11 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
     */
    private static final String TASK_NAME = "task.ClusteringTransformer"; //$NON-NLS-1$
 
-   /** Argument <code>-d</code> for specifying the dataset file. */
-   private static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
-
-   /** Argument <code>-o</code> for specifying the output file. */
-   private static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
-
    /** Argument <code>-t</code> for specifying the transform. */
-   private static final String ARG_T = HYPHEN + "t"; //$NON-NLS-1$
+   private static final Argument ARG_T = new Argument("t"); //$NON-NLS-1$
 
    /** Argument <code>-p</code> for specifying the meta task results directory. */
-   private static final String ARG_P = HYPHEN + "p"; //$NON-NLS-1$
+   private static final Argument ARG_P = new Argument("p", "MetaTask Result"); //$NON-NLS-1$
 
    /**
     * Instantiates a new clustering transformer task data.
@@ -55,7 +53,7 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
     * @return the dataset file
     */
    public String getDatasetFile() {
-      return getArgument(ARG_D);
+      return getPairedArgument().get(ARG_D.argument());
    }
 
    /**
@@ -64,9 +62,7 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
     * @param datasetFile the dataset file
     */
    public void setDatasetFile(final String datasetFile) {
-      if (!Utility.isEmpty(datasetFile)) {
-         putArgument(ARG_D, datasetFile);
-      }
+      getPairedArgument().put(ARG_D.argument(), datasetFile);
    }
 
    /**
@@ -75,7 +71,7 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
     * @return the output file
     */
    public String getOutputFile() {
-      return getArgument(ARG_O);
+      return getPairedArgument().get(ARG_O.argument());
    }
 
    /**
@@ -84,9 +80,7 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
     * @param outputFile the output file
     */
    public void setOutputFile(final String outputFile) {
-      if (!Utility.isEmpty(outputFile)) {
-         putArgument(ARG_O, outputFile);
-      }
+      getPairedArgument().put(ARG_O.argument(), outputFile);
    }
 
    /**
@@ -95,7 +89,7 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
     * @return the transform
     */
    public TransformEnum getTransform() {
-      return TransformEnum.parse(getArgument(ARG_T));
+      return getPairedArgument().getTransformEnum(ARG_T.argument());
    }
 
    /**
@@ -104,9 +98,7 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
     * @param transform the transform
     */
    public void setTransform(final TransformEnum transform) {
-      if (transform != null) {
-         putArgument(ARG_T, transform.toString());
-      }
+      getPairedArgument().put(ARG_T.argument(), transform);
    }
 
    /**
@@ -115,7 +107,7 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
     * @return the meta task result directory
     */
    public String getMetaTaskResultDir() {
-      return getArgument(ARG_P);
+      return getPairedArgument().get(ARG_P.argument());
    }
 
    /**
@@ -124,9 +116,7 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
     * @param metaTaskResultDir the meta task result directory
     */
    public void setMetaTaskResultDir(final String metaTaskResultDir) {
-      if (!Utility.isEmpty(metaTaskResultDir)) {
-         putArgument(ARG_P, metaTaskResultDir);
-      }
+      getPairedArgument().put(ARG_P.argument(), metaTaskResultDir);
    }
 
    /*
@@ -135,9 +125,9 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
    @Override
    public TaskDataProject createTaskDataProject() {
       final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createTaskDataFolder(ARG_D, getDatasetFile(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_O, getOutputFile(), true));
-      taskDataProject.add(createResultDirTaskDataFolder(ARG_P, getMetaTaskResultDir()));
+      taskDataProject.add(createTaskDataFolder(ARG_D.friendlyName(), getDatasetFile(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_O.friendlyName(), getOutputFile(), true));
+      taskDataProject.add(createResultDirTaskDataFolder(ARG_P.friendlyName(), getMetaTaskResultDir()));
       return taskDataProject;
    }
 

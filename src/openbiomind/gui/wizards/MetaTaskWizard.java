@@ -7,8 +7,8 @@
  */
 package openbiomind.gui.wizards;
 
-import openbiomind.gui.tasks.AbstractTaskData;
-import openbiomind.gui.tasks.MetaTaskTaskData;
+import openbiomind.gui.data.AbstractTaskData;
+import openbiomind.gui.data.MetaTaskTaskData;
 
 /**
  * The class MetaTaskWizard.

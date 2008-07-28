@@ -5,7 +5,7 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
 import openbiomind.gui.util.Utility;
 
@@ -14,7 +14,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 15, 2008
- * @version Jul 16, 2008
+ * @version Jul 27, 2008
  */
 public enum ClassificationMethodEnum {
 

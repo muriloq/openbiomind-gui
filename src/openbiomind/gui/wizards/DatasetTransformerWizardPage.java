@@ -9,11 +9,10 @@ package openbiomind.gui.wizards;
 
 import java.io.File;
 
-import openbiomind.gui.tasks.FeatureSelectionMethodEnum;
-import openbiomind.gui.util.CommonMessages;
+import openbiomind.gui.common.TextButtonComposite;
+import openbiomind.gui.data.FeatureSelectionMethodEnum;
 import openbiomind.gui.util.Utility;
-import openbiomind.gui.widgets.TextButtonComposite;
-import openbiomind.gui.widgets.WidgetHelper;
+import openbiomind.gui.util.WidgetHelper;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -116,12 +115,13 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
       // Original dataset
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OriginalDataset,
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.DatasetTransformerWizardPage_Label_OriginalDataset,
             WizardMessages.Detail_OriginalDataset, true);
       this.originalDatasetTBC = createOriginalDatasetTBC(parent);
 
       // Output directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputDir, WizardMessages.Detail_OutputDir, true);
+      WidgetHelper.createNewFieldLabel(parent, WizardMessages.DatasetTransformerWizardPage_Label_OutputDir,
+            WizardMessages.Detail_OutputDir, true);
       this.outputDirectoryTBC = createOutputDirTBC(parent);
    }
 
@@ -149,7 +149,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            CommonMessages.Error_FileNotExist);
+            "Please specify an existing file");
       errorDecoration.show();
 
       // apply listeners
@@ -198,10 +198,10 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       // create decorations
       final Text textField = textButtonComposite.getTextField();
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
-            CommonMessages.Warn_DirAlreadyExist);
+            "Specified directory already exists and files inside it may be overwritten");
       warningDecoration.hide();
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
-            CommonMessages.Error_InvalidDir);
+            "Invalid directory");
       errorDecoration.show();
 
       // apply listeners
@@ -549,7 +549,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
             && getOutputDirectoryTBC().isValid() && getTestDatasetTBC().isValid();
       setPageComplete(valid);
       if (!valid) {
-         setErrorMessage(CommonMessages.Error_FixToContinue);
+         setErrorMessage("Fix the errors to continue");
       } else {
          setErrorMessage(null);
       }

@@ -1,20 +1,20 @@
 /**
- * MetaTaskShufflingEnum.java
+ * ShuffleEnum.java
  *
- * The file MetaTaskShufflingEnum.java.
+ * The file ShuffleEnum.java.
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
 /**
- * The enum MetaTaskShufflingEnum.
+ * The enum ShuffleEnum.
  *
  * @author bsanghvi
  * @since Jul 15, 2008
- * @version Jul 16, 2008
+ * @version Jul 27, 2008
  */
-public enum MetaTaskShufflingEnum {
+public enum ShuffleEnum {
 
    /** The <code>on</code> value. */
    ON("on"), //$NON-NLS-1$
@@ -28,22 +28,22 @@ public enum MetaTaskShufflingEnum {
    private String name = null;
 
    /**
-    * Instantiates a new MetaTask Shuffling enum.
+    * Instantiates a new Shuffle enum.
     *
     * @param name the name
     */
-   private MetaTaskShufflingEnum(final String name) {
+   private ShuffleEnum(final String name) {
       this.name = name;
    }
 
    /**
-    * Parses the string to find the MetaTaskShufflingEnum.
+    * Parses the string to find the ShuffleEnum.
     *
     * @param string the string
     *
-    * @return the MetaTask Shuffling enum
+    * @return the shuffle enum
     */
-   public static MetaTaskShufflingEnum parse(final String string) {
+   public static ShuffleEnum parse(final String string) {
       if (ON.toString().equals(string)) {
          return ON;
       } else if (OFF.toString().equals(string)) {

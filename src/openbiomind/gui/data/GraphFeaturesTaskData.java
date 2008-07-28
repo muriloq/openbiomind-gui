@@ -5,8 +5,12 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
+import openbiomind.gui.common.Argument;
+import openbiomind.gui.project.TaskDataFile;
+import openbiomind.gui.project.TaskDataFolder;
+import openbiomind.gui.project.TaskDataProject;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -18,7 +22,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 24, 2008
+ * @version Jul 27, 2008
  */
 public class GraphFeaturesTaskData extends AbstractTaskData {
 
@@ -28,25 +32,13 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
    private static final String TASK_NAME = "task.GraphFeatures"; //$NON-NLS-1$
 
    /** Argument <code>-h</code> for specifying the horizontal dataset. */
-   private static final String ARG_H = HYPHEN + "h"; //$NON-NLS-1$
+   private static final Argument ARG_H = new Argument("h", "Horizontal Dataset"); //$NON-NLS-1$
 
    /** Argument <code>-m</code> for specifying the MOBRA result. */
-   private static final String ARG_M = HYPHEN + "m"; //$NON-NLS-1$
+   private static final Argument ARG_M = new Argument("m", "MOBRA Result"); //$NON-NLS-1$
 
    /** Argument <code>-u</code> for specifying the utility file. */
-   private static final String ARG_U = HYPHEN + "u"; //$NON-NLS-1$
-
-   /** Argument <code>-o</code> for specifying the output file. */
-   private static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
-
-   /** Argument <code>-topNUseful</code> for specifying the number of top useful features. */
-   private static final String ARG_TOP_N_USEFUL = HYPHEN + "topNUseful"; //$NON-NLS-1$
-
-   /** Argument <code>-topNCooc</code> for specifying the number of maximum co-occurrence edges. */
-   private static final String ARG_TOP_N_COOC = HYPHEN + "topNCooc"; //$NON-NLS-1$
-
-   /** Argument <code>-topNCoex</code> for specifying the number of maximum co-expression edges. */
-   private static final String ARG_TOP_N_COEX = HYPHEN + "topNCoex"; //$NON-NLS-1$
+   private static final Argument ARG_U = new Argument("u", "Utility File"); //$NON-NLS-1$
 
    /** The graph image path. */
    private String graphImagePath = null;
@@ -64,7 +56,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @return the horizontal dataset
     */
    public String getHorizontalDataset() {
-      return getArgument(ARG_H);
+      return getPairedArgument().get(ARG_H.argument());
    }
 
    /**
@@ -73,9 +65,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @param horizontalDataset the horizontal dataset
     */
    public void setHorizontalDataset(final String horizontalDataset) {
-      if (!Utility.isEmpty(horizontalDataset)) {
-         putArgument(ARG_H, horizontalDataset);
-      }
+      getPairedArgument().put(ARG_H.argument(), horizontalDataset);
    }
 
    /**
@@ -84,7 +74,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @return the MOBRA dataset
     */
    public String getMobraDataset() {
-      return getArgument(ARG_M);
+      return getPairedArgument().get(ARG_M.argument());
    }
 
    /**
@@ -93,9 +83,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @param mobraDataset the MOBRA dataset
     */
    public void setMobraDataset(final String mobraDataset) {
-      if (!Utility.isEmpty(mobraDataset)) {
-         putArgument(ARG_M, mobraDataset);
-      }
+      getPairedArgument().put(ARG_M.argument(), mobraDataset);
    }
 
    /**
@@ -104,7 +92,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @return the utility file
     */
    public String getUtilityFile() {
-      return getArgument(ARG_U);
+      return getPairedArgument().get(ARG_U.argument());
    }
 
    /**
@@ -113,9 +101,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @param utilityFile the new utility file
     */
    public void setUtilityFile(final String utilityFile) {
-      if (!Utility.isEmpty(utilityFile)) {
-         putArgument(ARG_U, utilityFile);
-      }
+      getPairedArgument().put(ARG_U.argument(), utilityFile);
    }
 
    /**
@@ -124,7 +110,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @return the output file
     */
    public String getOutputFile() {
-      return getArgument(ARG_O);
+      return getPairedArgument().get(ARG_O.argument());
    }
 
    /**
@@ -133,9 +119,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @param outputFile the output file
     */
    public void setOutputFile(final String outputFile) {
-      if (!Utility.isEmpty(outputFile)) {
-         putArgument(ARG_O, outputFile);
-      }
+      getPairedArgument().put(ARG_O.argument(), outputFile);
    }
 
    /**
@@ -144,7 +128,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @return the top useful features
     */
    public Integer getTopUsefulFeatures() {
-      return Integer.valueOf(getArgument(ARG_TOP_N_USEFUL));
+      return getPairedArgument().getInteger(ARG_TOP_N_USEFUL.argument());
    }
 
    /**
@@ -153,9 +137,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @param topUsefulFeatures the top useful features
     */
    public void setTopUsefulFeatures(final Integer topUsefulFeatures) {
-      if (topUsefulFeatures != null) {
-         putArgument(ARG_TOP_N_USEFUL, topUsefulFeatures.toString());
-      }
+      getPairedArgument().put(ARG_TOP_N_USEFUL.argument(), topUsefulFeatures);
    }
 
    /**
@@ -164,7 +146,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @return the maximum co-occurrence edges
     */
    public Integer getMaximumCoOccurrenceEdges() {
-      return Integer.valueOf(getArgument(ARG_TOP_N_COOC));
+      return getPairedArgument().getInteger(ARG_TOP_N_COOC.argument());
    }
 
    /**
@@ -173,9 +155,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @param maximumCoOccurrenceEdges the maximum co-occurrence edges
     */
    public void setMaximumCoOccurrenceEdges(final Integer maximumCoOccurrenceEdges) {
-      if (maximumCoOccurrenceEdges != null) {
-         putArgument(ARG_TOP_N_COOC, maximumCoOccurrenceEdges.toString());
-      }
+      getPairedArgument().put(ARG_TOP_N_COOC.argument(), maximumCoOccurrenceEdges);
    }
 
    /**
@@ -184,7 +164,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @return the maximum co-expression edges
     */
    public Integer getMaximumCoExpressionEdges() {
-      return Integer.valueOf(getArgument(ARG_TOP_N_COEX));
+      return getPairedArgument().getInteger(ARG_TOP_N_COEX.argument());
    }
 
    /**
@@ -193,9 +173,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
     * @param maximumCoExpressionEdges the maximum co-expression edges
     */
    public void setMaximumCoExpressionEdges(final Integer maximumCoExpressionEdges) {
-      if (maximumCoExpressionEdges != null) {
-         putArgument(ARG_TOP_N_COEX, maximumCoExpressionEdges.toString());
-      }
+      getPairedArgument().put(ARG_TOP_N_COEX.argument(), maximumCoExpressionEdges);
    }
 
    /**
@@ -222,10 +200,10 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
    @Override
    public TaskDataProject createTaskDataProject() {
       final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createTaskDataFolder(ARG_H, getHorizontalDataset(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_M, getMobraDataset(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_U, getUtilityFile(), false));
-      taskDataProject.add(createOutputTaskDataFolder(ARG_O));
+      taskDataProject.add(createTaskDataFolder(ARG_H.friendlyName(), getHorizontalDataset(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_M.friendlyName(), getMobraDataset(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_U.friendlyName(), getUtilityFile(), false));
+      taskDataProject.add(createOutputTaskDataFolder(ARG_O.friendlyName()));
       return taskDataProject;
    }
 

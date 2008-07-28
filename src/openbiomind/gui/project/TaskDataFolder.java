@@ -1,25 +1,25 @@
 /**
- * TaskDataProject.java
+ * TaskDataFolder.java
  *
- * The file TaskDataProject.java.
+ * The file TaskDataFolder.java.
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.project;
 
-import static openbiomind.gui.util.Constants.EMPTY;
+import static openbiomind.gui.common.Constants.EMPTY;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * The class TaskDataProject.
+ * The class TaskDataFolder.
  *
  * @author bsanghvi
  * @since Jun 30, 2008
- * @version Jun 30, 2008
+ * @version Jul 26, 2008
  */
-public class TaskDataProject {
+public class TaskDataFolder {
 
    /** The name. */
    private String name = null;
@@ -30,22 +30,30 @@ public class TaskDataProject {
    /** The task data file set. */
    private Set<TaskDataFile> taskDataFileSet = null;
 
+   /** The linked. */
+   private boolean linked = false;
+
+   /** The path. */
+   private String path = null;
+
    /**
-    * Instantiates a new task data project.
+    * Instantiates a new task data folder.
     */
-   public TaskDataProject() {
+   public TaskDataFolder() {
       this(EMPTY);
    }
 
    /**
-    * Instantiates a new task data project.
+    * Instantiates a new task data folder.
     *
-    * @param name the name of the project
+    * @param name the name of the folder
     */
-   public TaskDataProject(final String name) {
+   public TaskDataFolder(final String name) {
       setName(name);
       setTaskDataFolderSet(null);
       setTaskDataFileSet(null);
+      setLinked(false);
+      setPath(EMPTY);
    }
 
    /**
@@ -115,6 +123,46 @@ public class TaskDataProject {
    }
 
    /**
+    * Checks if the folder must be linked.
+    *
+    * @return true, if is linked
+    */
+   public boolean isLinked() {
+      return this.linked;
+   }
+
+   /**
+    * Sets if the folder must be linked.
+    *
+    * @param linked the new linked
+    */
+   public void setLinked(final boolean linked) {
+      this.linked = linked;
+   }
+
+   /**
+    * Gets the path.
+    *
+    * @return the path
+    */
+   public String getPath() {
+      return this.path;
+   }
+
+   /**
+    * Sets the path
+    *
+    * @param path the path to set
+    */
+   public void setPath(final String path) {
+      if (path != null) {
+         this.path = path;
+      } else {
+         this.path = EMPTY;
+      }
+   }
+
+   /**
     * Adds the task data folder.
     *
     * @param taskDataFolder the task data folder
@@ -161,11 +209,11 @@ public class TaskDataProject {
     */
    @Override
    public boolean equals(final Object otherObject) {
-      if (otherObject != null && otherObject instanceof TaskDataProject) {
-         final TaskDataProject otherTaskDataProject = (TaskDataProject) otherObject;
-         return (getName().equals(otherTaskDataProject.getName())
-               && getTaskDataFolderSet().equals(otherTaskDataProject.getTaskDataFolderSet()) && getTaskDataFileSet()
-               .equals(otherTaskDataProject.getTaskDataFileSet()));
+      if (otherObject != null && otherObject instanceof TaskDataFolder) {
+         final TaskDataFolder otherTaskDataFolder = (TaskDataFolder) otherObject;
+         return (getName().equals(otherTaskDataFolder.getName()) && getPath().equals(otherTaskDataFolder.getPath())
+               && getTaskDataFileSet().equals(otherTaskDataFolder.getTaskDataFileSet()) && getTaskDataFolderSet()
+               .equals(otherTaskDataFolder.getTaskDataFolderSet()));
       }
 
       return false;

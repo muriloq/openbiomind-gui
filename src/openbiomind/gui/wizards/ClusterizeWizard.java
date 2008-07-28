@@ -7,8 +7,8 @@
  */
 package openbiomind.gui.wizards;
 
-import openbiomind.gui.tasks.AbstractTaskData;
-import openbiomind.gui.tasks.ClusterizeTaskData;
+import openbiomind.gui.data.AbstractTaskData;
+import openbiomind.gui.data.ClusterizeTaskData;
 
 /**
  * The class ClusterizeWizard.

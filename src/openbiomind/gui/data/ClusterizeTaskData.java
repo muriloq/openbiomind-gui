@@ -5,8 +5,11 @@
  *
  * $Id$
  */
-package openbiomind.gui.tasks;
+package openbiomind.gui.data;
 
+import openbiomind.gui.project.TaskDataFile;
+import openbiomind.gui.project.TaskDataFolder;
+import openbiomind.gui.project.TaskDataProject;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -18,7 +21,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 18, 2008
- * @version Jul 18, 2008
+ * @version Jul 27, 2008
  */
 public class ClusterizeTaskData extends AbstractTaskData {
 
@@ -26,15 +29,6 @@ public class ClusterizeTaskData extends AbstractTaskData {
     * Name of this task is <code>task.ClusteringTransformer</code>.
     */
    private static final String TASK_NAME = "task.Clusterize"; //$NON-NLS-1$
-
-   /** Argument <code>-d</code> for specifying the clustering dataset file. */
-   private static final String ARG_D = HYPHEN + "d"; //$NON-NLS-1$
-
-   /** Argument <code>-o</code> for specifying the output file. */
-   private static final String ARG_O = HYPHEN + "o"; //$NON-NLS-1$
-
-   /** Argument <code>-t</code> for specifying the transform. */
-   private static final String ARG_T = HYPHEN + "t"; //$NON-NLS-1$
 
    /**
     * Instantiates a new clusterize task data.
@@ -49,7 +43,7 @@ public class ClusterizeTaskData extends AbstractTaskData {
     * @return the clustering dataset file
     */
    public String getClusteringDatasetFile() {
-      return getArgument(ARG_D);
+      return getPairedArgument().get(ARG_D.argument());
    }
 
    /**
@@ -58,9 +52,7 @@ public class ClusterizeTaskData extends AbstractTaskData {
     * @param clusteringDatasetFile the clustering dataset file
     */
    public void setClusteringDatasetFile(final String clusteringDatasetFile) {
-      if (!Utility.isEmpty(clusteringDatasetFile)) {
-         putArgument(ARG_D, clusteringDatasetFile);
-      }
+      getPairedArgument().put(ARG_D.argument(), clusteringDatasetFile);
    }
 
    /**
@@ -69,7 +61,7 @@ public class ClusterizeTaskData extends AbstractTaskData {
     * @return the output file
     */
    public String getOutputFile() {
-      return getArgument(ARG_O);
+      return getPairedArgument().get(ARG_O.argument());
    }
 
    /**
@@ -78,29 +70,25 @@ public class ClusterizeTaskData extends AbstractTaskData {
     * @param outputFile the output file
     */
    public void setOutputFile(final String outputFile) {
-      if (!Utility.isEmpty(outputFile)) {
-         putArgument(ARG_O, outputFile);
-      }
+      getPairedArgument().put(ARG_O.argument(), outputFile);
    }
 
    /**
-    * Gets the dataset clustering metric (argument = <code>-t</code>).
+    * Gets the dataset clustering metric (argument = <code>-datasetClusteringMetric</code>).
     *
     * @return the dataset clustering metric
     */
    public DatasetClusteringMetricEnum getDatasetClusteringMetric() {
-      return DatasetClusteringMetricEnum.parse(getArgument(ARG_T));
+      return getPairedArgument().getDatasetClusteringMetricEnum(ARG_DATASET_CLUSTERING_METRIC.argument());
    }
 
    /**
-    * Sets the dataset clustering metric (argument = <code>-t</code>).
+    * Sets the dataset clustering metric (argument = <code>-datasetClusteringMetric</code>).
     *
     * @param datasetClusteringMetric the dataset clustering metric
     */
    public void setDatasetClusteringMetric(final DatasetClusteringMetricEnum datasetClusteringMetric) {
-      if (datasetClusteringMetric != null) {
-         putArgument(ARG_T, datasetClusteringMetric.toString());
-      }
+      getPairedArgument().put(ARG_DATASET_CLUSTERING_METRIC.argument(), datasetClusteringMetric);
    }
 
    /*
@@ -109,8 +97,8 @@ public class ClusterizeTaskData extends AbstractTaskData {
    @Override
    public TaskDataProject createTaskDataProject() {
       final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createTaskDataFolder(ARG_D, getClusteringDatasetFile(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_O, getOutputFile(), true));
+      taskDataProject.add(createTaskDataFolder(ARG_D.friendlyName(), getClusteringDatasetFile(), false));
+      taskDataProject.add(createTaskDataFolder(ARG_O.friendlyName(), getOutputFile(), true));
       return taskDataProject;
    }
 
