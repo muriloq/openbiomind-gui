@@ -15,7 +15,7 @@ import openbiomind.gui.data.ClusteringTransformerTaskData;
  *
  * @author bsanghvi
  * @since Jul 13, 2008
- * @version Jul 16, 2008
+ * @version Jul 28, 2008
  */
 public class ClusteringTransformerWizard extends AbstractTaskWizard {
 
@@ -29,7 +29,7 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
     * Instantiates a new clustering transformer wizard.
     */
    public ClusteringTransformerWizard() {
-      super(WizardMessages.ClusteringTransformerWizard_Name);
+      super(Messages.ClusteringTransformerWizard_Name);
       this.clusteringTransformerTaskData = new ClusteringTransformerTaskData();
    }
 
@@ -79,7 +79,7 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
    private ClusteringTransformerWizardPage getClusteringTransformerWizardPage() {
       if (this.clusteringTransformerWizardPage == null) {
          this.clusteringTransformerWizardPage = new ClusteringTransformerWizardPage(
-               WizardMessages.ClusteringTransformerWizard_Name, WizardMessages.ClusteringTransformerWizard_Description);
+               Messages.ClusteringTransformerWizard_Name, Messages.ClusteringTransformerWizard_Description);
       }
 
       return this.clusteringTransformerWizardPage;

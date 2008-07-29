@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 20, 2008
+ * @version Jul 28, 2008
  */
 public abstract class AbstractTaskWizardPage extends WizardPage implements IWizardPage, Constants {
 
@@ -134,8 +134,8 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     */
    protected void addProjectInformationFields(final Composite parent) {
       // Execution Name (optional)
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.AbstractTaskWizardPage_Label_ProjectName,
-            WizardMessages.AbstractTaskWizardPage_Tip_ProjectName);
+      WidgetHelper.createNewFieldLabel(parent, Messages.AbstractTaskWizardPage_Label_ProjectName,
+            Messages.AbstractTaskWizardPage_Tip_ProjectName);
       this.projectNameText = createProjectNameText(parent);
    }
 
@@ -157,14 +157,14 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     */
    private Text createProjectNameText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(WizardMessages.AbstractTaskWizardPage_Info_ProjectName);
+      text.setToolTipText(Messages.AbstractTaskWizardPage_Info_ProjectName);
 
       // apply layout
       GUI.GRID_DATA_FILL_H.applyTo(text);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
-            WizardMessages.AbstractTaskWizardPage_Info_ProjectName);
+            Messages.AbstractTaskWizardPage_Info_ProjectName);
       infoDecoration.setShowOnlyOnFocus(true);
 
       // set initial focus on this field
@@ -272,14 +272,14 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     */
    protected Text createNewNumberOnlyText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(WizardMessages.AbstractTaskWizard_LeaveBlank_Number);
+      text.setToolTipText(Messages.AbstractTaskWizard_LeaveBlank_Number);
 
       // apply layout
       GUI.GRID_DATA_FILL_H.applyTo(text);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
-            WizardMessages.AbstractTaskWizard_LeaveBlank_Number);
+            Messages.AbstractTaskWizard_LeaveBlank_Number);
       infoDecoration.setShowOnlyOnFocus(true);
 
       // apply listeners
@@ -329,8 +329,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @return the combo
     */
    protected Combo createDefaultReadOnlyCombo(final Composite parent, final String[] items, final boolean fill) {
-      return createDefaultCombo(parent, SWT.READ_ONLY, WizardMessages.AbstractTaskWizardPage_Tip_Combo_ReadOnly, items,
-            fill);
+      return createDefaultCombo(parent, SWT.READ_ONLY, Messages.AbstractTaskWizardPage_Tip_Combo_ReadOnly, items, fill);
    }
 
    /**
@@ -355,8 +354,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @return the combo
     */
    protected Combo createDefaultDropDownCombo(final Composite parent, final String[] items, final boolean fill) {
-      return createDefaultCombo(parent, SWT.DROP_DOWN, WizardMessages.AbstractTaskWizardPage_Tip_Combo_Simple, items,
-            fill);
+      return createDefaultCombo(parent, SWT.DROP_DOWN, Messages.AbstractTaskWizardPage_Tip_Combo_Simple, items, fill);
    }
 
    /**

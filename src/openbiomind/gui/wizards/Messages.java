@@ -1,7 +1,7 @@
 /**
- * WizardMessages.java
+ * Messages.java
  *
- * The file WizardMessages.java.
+ * This class contains messages used in the openbiomind.gui.wizards package.
  *
  * $Id$
  */
@@ -10,16 +10,16 @@ package openbiomind.gui.wizards;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * The class WizardMessages.
+ * This class contains messages used in the openbiomind.gui.wizards package.
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 24, 2008
+ * @version Jul 28, 2008
  */
-public class WizardMessages extends NLS {
+class Messages extends NLS {
 
    /** The Constant BUNDLE_NAME. */
-   private static final String BUNDLE_NAME = "openbiomind.gui.wizards.wizard_messages"; //$NON-NLS-1$
+   private static final String BUNDLE_NAME = "openbiomind.gui.wizards.messages"; //$NON-NLS-1$
 
    /** The Abstract task wizard executing task. */
    public static String AbstractTaskWizard_ExecutingTask;
@@ -298,18 +298,17 @@ public class WizardMessages extends NLS {
    public static String UtilityComputerWizardPage_Label_MetaTaskResultDir;
 
    /*
-    * Initialize the messages
+    * Initialize the resource bundle
     */
    static {
-      // initialize resource bundle
-      NLS.initializeMessages(BUNDLE_NAME, WizardMessages.class);
+      NLS.initializeMessages(BUNDLE_NAME, Messages.class);
    }
 
    /**
     * Instantiates a new wizard messages.
     */
-   private WizardMessages() {
-      // empty constructor
+   private Messages() {
+      // left empty
    }
 
 }

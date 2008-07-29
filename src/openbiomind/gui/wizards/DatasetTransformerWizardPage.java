@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 16, 2008
+ * @version Jul 28, 2008
  */
 public class DatasetTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -112,16 +112,16 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
     */
    private void createRequiredGroup(final Composite parent) {
       // Required Arguments
-      addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
       // Original dataset
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.DatasetTransformerWizardPage_Label_OriginalDataset,
-            WizardMessages.Detail_OriginalDataset, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.DatasetTransformerWizardPage_Label_OriginalDataset,
+            Messages.Detail_OriginalDataset, true);
       this.originalDatasetTBC = createOriginalDatasetTBC(parent);
 
       // Output directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.DatasetTransformerWizardPage_Label_OutputDir,
-            WizardMessages.Detail_OutputDir, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.DatasetTransformerWizardPage_Label_OutputDir,
+            Messages.Detail_OutputDir, true);
       this.outputDirectoryTBC = createOutputDirTBC(parent);
    }
 
@@ -142,7 +142,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.Detail_OriginalDataset);
+      textButtonComposite.setToolTipText(Messages.Detail_OriginalDataset);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -190,7 +190,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.Detail_OutputDir);
+      textButtonComposite.setToolTipText(Messages.Detail_OutputDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -200,8 +200,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
             "Specified directory already exists and files inside it may be overwritten");
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
-            "Invalid directory");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField, "Invalid directory");
       errorDecoration.show();
 
       // apply listeners
@@ -242,29 +241,27 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
     */
    private void createOptionalGroup(final Composite parent) {
       // Optional Arguments
-      addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
       // Target category
       // TODO Read from the given input files
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
-            WizardMessages.Detail_TargetCategory);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_TargetCategory, Messages.Detail_TargetCategory);
       this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryArray());
       WidgetHelper.createNewBlankLabel(parent);
 
       // Number of selected features
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.DatasetTransformerWizardPage_Label_NumOfSelectedFeatures,
-            WizardMessages.DatasetTransformerWizardPage_Detail_NumOfSelectedFeatures);
+      WidgetHelper.createNewFieldLabel(parent, Messages.DatasetTransformerWizardPage_Label_NumOfSelectedFeatures,
+            Messages.DatasetTransformerWizardPage_Detail_NumOfSelectedFeatures);
       this.numberOfSelectedFeaturesText = createNewNumberOnlyText(parent);
       WidgetHelper.createNewBlankLabel(parent);
 
       // Feature selection method
-      WidgetHelper
-            .createNewFieldLabel(parent, WizardMessages.DatasetTransformerWizardPage_Label_FeatureSelectionMethod);
+      WidgetHelper.createNewFieldLabel(parent, Messages.DatasetTransformerWizardPage_Label_FeatureSelectionMethod);
       this.featureSelectionMethodCombo = createDefaultReadOnlyCombo(parent, getFeatureSelectionMethodArray());
       WidgetHelper.createNewBlankLabel(parent);
 
       // Select one of these
-      WidgetHelper.createNewDetailsLabel(parent, WizardMessages.Detail_SelectOne, NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewDetailsLabel(parent, Messages.Detail_SelectOne, NUM_COLUMN_IN_GROUP);
       // Number of Folds
       this.numberOfFoldsButton = createNumberOfFoldsButton(parent);
       this.numberOfFoldsText = createNewNumberOnlyText(parent);
@@ -285,8 +282,8 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
     */
    private Button createNumberOfFoldsButton(final Composite parent) {
       final Button button = new Button(parent, SWT.RADIO);
-      button.setText(WizardMessages.DatasetTransformerWizardPage_Label_NumOfFolds + LABEL_SEPARATOR);
-      button.setToolTipText(WizardMessages.DatasetTransformerWizardPage_Label_NumOfFolds);
+      button.setText(Messages.DatasetTransformerWizardPage_Label_NumOfFolds + LABEL_SEPARATOR);
+      button.setToolTipText(Messages.DatasetTransformerWizardPage_Label_NumOfFolds);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(button);
@@ -318,8 +315,8 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
     */
    private Button createTestDatasetButton(final Composite parent) {
       final Button button = new Button(parent, SWT.RADIO);
-      button.setText(WizardMessages.DatasetTransformerWizardPage_Label_TestDataset + LABEL_SEPARATOR);
-      button.setToolTipText(WizardMessages.DatasetTransformerWizardPage_Label_TestDataset);
+      button.setText(Messages.DatasetTransformerWizardPage_Label_TestDataset + LABEL_SEPARATOR);
+      button.setToolTipText(Messages.DatasetTransformerWizardPage_Label_TestDataset);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(button);

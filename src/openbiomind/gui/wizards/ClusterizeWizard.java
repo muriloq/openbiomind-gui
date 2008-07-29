@@ -15,7 +15,7 @@ import openbiomind.gui.data.ClusterizeTaskData;
  *
  * @author bsanghvi
  * @since Jul 18, 2008
- * @version Jul 18, 2008
+ * @version Jul 28, 2008
  */
 public class ClusterizeWizard extends AbstractTaskWizard {
 
@@ -29,7 +29,7 @@ public class ClusterizeWizard extends AbstractTaskWizard {
     * Instantiates a new clusterize wizard.
     */
    public ClusterizeWizard() {
-      super(WizardMessages.ClusterizeWizard_Name);
+      super(Messages.ClusterizeWizard_Name);
       this.clusterizeTaskData = new ClusterizeTaskData();
    }
 
@@ -76,8 +76,8 @@ public class ClusterizeWizard extends AbstractTaskWizard {
     */
    private ClusterizeWizardPage getClusterizeWizardPage() {
       if (this.clusterizeWizardPage == null) {
-         this.clusterizeWizardPage = new ClusterizeWizardPage(WizardMessages.ClusterizeWizard_Name,
-               WizardMessages.ClusterizeWizard_Description);
+         this.clusterizeWizardPage = new ClusterizeWizardPage(Messages.ClusterizeWizard_Name,
+               Messages.ClusterizeWizard_Description);
       }
 
       return this.clusterizeWizardPage;

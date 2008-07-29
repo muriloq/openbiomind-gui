@@ -27,7 +27,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  *
  * @author bsanghvi
  * @since Jun 9, 2008
- * @version Jul 24, 2008
+ * @version Jul 28, 2008
  */
 public class OpenBiomindPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage, Constants {
 
@@ -55,7 +55,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
    public OpenBiomindPreferencePage() {
       super(FieldEditorPreferencePage.GRID);
       setPreferenceStore(Activator.getDefault().getPreferenceStore());
-      setDescription(PreferenceMessages.Description);
+      setDescription(Messages.OpenBiomindPrefPage_Desc);
    }
 
    /*
@@ -73,22 +73,22 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
    public void createFieldEditors() {
       // OpenBiomind jar
       setOpenBiomindJarFileFieldEditor(createNewFileFieldEditor(Preference.OPENBIOMIND_JAR,
-            PreferenceMessages.Label_OpenBiomindJar, new String[] { WILDCARD_ANY + Resources.JAR_EXTENSION }, false,
-            PreferenceMessages.Error_OpenBiomindJAR));
+            Messages.OpenBiomindPrefPage_Label_OpenBiomindJar, new String[] { WILDCARD_ANY + Resources.JAR_EXTENSION },
+            false, Messages.OpenBiomindPrefPage_Err_OpenBiomindJAR));
       addField(getOpenBiomindJarFileFieldEditor());
       setOpenBiomindJarValid(Preference.isOpenBiomindJarPreferenceValid());
 
       // pipeline.properties
       setPipelinePropertiesFileFieldEditor(createNewFileFieldEditor(Preference.PIPELINE_PROPERTIES,
-            PreferenceMessages.Label_PipelineProperties, new String[] { Resources.PIPELINE_PROPERTIES_FILENAME },
-            false, PreferenceMessages.Error_PipelineProperties));
+            Messages.OpenBiomindPrefPage_Label_PipelineProp, new String[] { Resources.PIPELINE_PROPERTIES_FILENAME },
+            false, Messages.OpenBiomindPrefPage_Err_PipelineProp));
       addField(getPipelinePropertiesFileFieldEditor());
       setPipelinePropertiesValid(Preference.isPipelinePropertiesPreferenceValid());
 
       // Graphviz dot utility
       setGraphvizDotUtilityFileFieldEditor(createNewFileFieldEditor(Preference.GRAPHVIZ_DOT_UTILITY,
-            PreferenceMessages.Label_GraphvizDotUtility, new String[] { Resources.GRAPHVIZ_DOT_UTILITY_NAME
-                  + WILDCARD_ANY }, true, PreferenceMessages.Error_GraphvizDotUtility));
+            Messages.OpenBiomindPrefPage_Label_GraphvizDotUtil, new String[] { Resources.GRAPHVIZ_DOT_UTILITY_NAME
+                  + WILDCARD_ANY }, true, Messages.OpenBiomindPrefPage_Err_GraphvizDotUtil));
       addField(getGraphvizDotUtilityFileFieldEditor());
       setGraphvizDotUtilityValid(Preference.isGraphvizDotUtilityPreferenceValid());
    }

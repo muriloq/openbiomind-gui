@@ -15,7 +15,7 @@ import openbiomind.gui.data.UtilityComputerTaskData;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Jul 16, 2008
+ * @version Jul 28, 2008
  */
 public class UtilityComputerWizard extends AbstractTaskWizard {
 
@@ -29,7 +29,7 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
     * Instantiates a new utility computer wizard.
     */
    public UtilityComputerWizard() {
-      super(WizardMessages.UtilityComputerWizard_Name);
+      super(Messages.UtilityComputerWizard_Name);
       this.utilityComputerTaskData = new UtilityComputerTaskData();
    }
 
@@ -77,8 +77,8 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
     */
    private UtilityComputerWizardPage getUtilityComputerWizardPage() {
       if (this.utilityComputerWizardPage == null) {
-         this.utilityComputerWizardPage = new UtilityComputerWizardPage(WizardMessages.UtilityComputerWizard_Name,
-               WizardMessages.UtilityComputerWizard_Description);
+         this.utilityComputerWizardPage = new UtilityComputerWizardPage(Messages.UtilityComputerWizard_Name,
+               Messages.UtilityComputerWizard_Description);
       }
 
       return this.utilityComputerWizardPage;

@@ -22,7 +22,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public class ViewClustersTaskData extends AbstractTaskData {
 
@@ -32,7 +32,7 @@ public class ViewClustersTaskData extends AbstractTaskData {
    private static final String TASK_NAME = "task.ViewClusters"; //$NON-NLS-1$
 
    /** Argument <code>r</code> for specifying the clustering result. */
-   private static final Argument ARG_R = new Argument("r", "Clustering Result"); //$NON-NLS-1$
+   private static final Argument ARG_R = new Argument("r", Messages.ViewClust_ArgR_FName); //$NON-NLS-1$
 
    /**
     * Instantiates a new view clusters task data.

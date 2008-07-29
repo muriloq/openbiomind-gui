@@ -25,7 +25,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 13, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public class ClusteringTransformerTaskData extends AbstractTaskData {
 
@@ -38,7 +38,7 @@ public class ClusteringTransformerTaskData extends AbstractTaskData {
    private static final Argument ARG_T = new Argument("t"); //$NON-NLS-1$
 
    /** Argument <code>-p</code> for specifying the meta task results directory. */
-   private static final Argument ARG_P = new Argument("p", "MetaTask Result"); //$NON-NLS-1$
+   private static final Argument ARG_P = new Argument("p", Messages.ClustTrans_ArgP_FName); //$NON-NLS-1$
 
    /**
     * Instantiates a new clustering transformer task data.

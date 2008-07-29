@@ -52,7 +52,7 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 25, 2008
+ * @version Jul 28, 2008
  */
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
@@ -98,7 +98,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
          @Override
          public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
             try {
-               monitor.beginTask(WizardMessages.AbstractTaskWizard_ExecutingTask, 1);
+               monitor.beginTask(Messages.AbstractTaskWizard_ExecutingTask, 1);
                doFinish(monitor);
             } catch (final CoreException e) {
                throw new InvocationTargetException(e);
@@ -133,13 +133,13 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     * @throws CoreException the core exception
     */
    private void doFinish(final IProgressMonitor monitor) throws CoreException {
-      final SubMonitor subMonitor = SubMonitor.convert(monitor, WizardMessages.AbstractTaskWizard_ExecutingTask, 100);
-      subMonitor.subTask(WizardMessages.AbstractTaskWizard_PreparingTaskData);
+      final SubMonitor subMonitor = SubMonitor.convert(monitor, Messages.AbstractTaskWizard_ExecutingTask, 100);
+      subMonitor.subTask(Messages.AbstractTaskWizard_PreparingTaskData);
       prepareTaskData();
       Console.info(getExecutedCommand());
       subMonitor.worked(5);
 
-      subMonitor.subTask(WizardMessages.AbstractTaskWizard_PreparingProcess);
+      subMonitor.subTask(Messages.AbstractTaskWizard_PreparingProcess);
       final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(getTaskData());
       subMonitor.worked(5);
 

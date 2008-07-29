@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 13, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -108,15 +108,14 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
     */
    private void createRequiredGroup(final Composite parent) {
       // Required Arguments
-      addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
       // Dataset file
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DatasetFile, WizardMessages.Detail_DatasetFile,
-            true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DatasetFile, Messages.Detail_DatasetFile, true);
       this.datasetFileTBC = createDatasetFileTBC(parent);
 
       // Transform
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.ClusteringTransformerWizardPage_Label_Transorm, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.ClusteringTransformerWizardPage_Label_Transorm, true);
       this.transformCombo = createTransformCombo(parent);
       WidgetHelper.createNewBlankLabel(parent);
 
@@ -124,17 +123,16 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
       // - leave a blank row
       WidgetHelper.createNewBlankLabel(parent, NUM_COLUMN_IN_GROUP);
       // - Detail row: Specify the output file
-      WidgetHelper.createNewDetailsLabel(parent, WizardMessages.Detail_OutputFile, NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewDetailsLabel(parent, Messages.Detail_OutputFile, NUM_COLUMN_IN_GROUP);
       // - File name
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationFile, WizardMessages.Detail_OutputFile,
-            true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationFile, Messages.Detail_OutputFile, true);
       this.outputFileDestFileText = createOutputFileDestFileText(parent);
       WidgetHelper.createNewBlankLabel(parent);
       // - Directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationDir, "Leave blank to use current directory or specify an existing directory");
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationDir,
+            "Leave blank to use current directory or specify an existing directory");
       this.outputFileDestDirTBC = createOutputFileDestDirTBC(parent);
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputFilePath,
-            WizardMessages.Detail_OutputFilePath);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_OutputFilePath, Messages.Detail_OutputFilePath);
       this.outputFilePathText = createOutputFilePathText(parent);
    }
 
@@ -155,7 +153,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.Detail_DatasetFile);
+      textButtonComposite.setToolTipText(Messages.Detail_DatasetFile);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -216,15 +214,14 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
     */
    private Text createOutputFileDestFileText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(WizardMessages.Detail_OutputFile);
+      text.setToolTipText(Messages.Detail_OutputFile);
       setValidOutputFileDestFileName(false);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(text);
 
       // create decorations
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
-            "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
       errorDecoration.show();
 
       // apply listeners
@@ -281,8 +278,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
             "Specified directory does not exist and will be automatically created");
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
-            "Invalid directory");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField, "Invalid directory");
       errorDecoration.hide();
 
       // apply listeners
@@ -325,7 +321,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
     */
    private Text createOutputFilePathText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
-      text.setToolTipText(WizardMessages.Detail_OutputFilePath);
+      text.setToolTipText(Messages.Detail_OutputFilePath);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(text);
@@ -334,8 +330,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
             "File already exists and would be overwritten");
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
-            "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
       errorDecoration.hide();
 
       // apply listeners
@@ -370,11 +365,11 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
     */
    private void createOptionalGroup(final Composite parent) {
       // Optional Arguments
-      addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
       // MetaTask result directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.ClusteringTransformerWizardPage_Label_MetaTaskResultDir,
-            WizardMessages.Detail_MetaTaskResultDir);
+      WidgetHelper.createNewFieldLabel(parent, Messages.ClusteringTransformerWizardPage_Label_MetaTaskResultDir,
+            Messages.Detail_MetaTaskResultDir);
       this.metaTaskResultDirTBC = createMetaTaskResultDirTBC(parent);
    }
 
@@ -395,7 +390,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
       };
       textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText(WizardMessages.Detail_MetaTaskResultDir);
+      textButtonComposite.setToolTipText(Messages.Detail_MetaTaskResultDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -405,7 +400,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
             .getTextField(), "Leave blank or specify a valid directory");
       infoDecoration.setShowOnlyOnFocus(true);
       setMetaTaskResultDirErrorDecoration(WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            WizardMessages.ClusteringTransformerWizardPage_Error_MetaTaskResultDir));
+            Messages.ClusteringTransformerWizardPage_Error_MetaTaskResultDir));
       getMetaTaskResultDirErrorDecoration().hide();
 
       // apply listeners

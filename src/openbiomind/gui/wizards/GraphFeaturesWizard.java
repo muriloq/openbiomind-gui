@@ -23,7 +23,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 25, 2008
+ * @version Jul 28, 2008
  */
 public class GraphFeaturesWizard extends AbstractTaskWizard {
 
@@ -37,7 +37,7 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     * Instantiates a new graph features wizard.
     */
    public GraphFeaturesWizard() {
-      super(WizardMessages.GraphFeaturesWizard_Name);
+      super(Messages.GraphFeaturesWizard_Name);
       this.graphFeaturesTaskData = new GraphFeaturesTaskData();
    }
 
@@ -90,8 +90,8 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     */
    private GraphFeaturesWizardPage getGraphFeaturesWizardPage() {
       if (this.graphFeaturesWizardPage == null) {
-         this.graphFeaturesWizardPage = new GraphFeaturesWizardPage(WizardMessages.GraphFeaturesWizard_Name,
-               WizardMessages.GraphFeaturesWizard_Description);
+         this.graphFeaturesWizardPage = new GraphFeaturesWizardPage(Messages.GraphFeaturesWizard_Name,
+               Messages.GraphFeaturesWizard_Description);
       }
 
       return this.graphFeaturesWizardPage;
@@ -121,7 +121,7 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
          }
       }
 
-      Console.info(WizardMessages.GraphFeaturesWizard_Info_GraphvizDotUtility);
+      Console.info(Messages.GraphFeaturesWizard_Info_GraphvizDotUtility);
       return super.getPostSuccessfulExecutionProcess();
    }
 

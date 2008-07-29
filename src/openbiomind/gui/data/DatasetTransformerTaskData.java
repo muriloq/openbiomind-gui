@@ -24,7 +24,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public class DatasetTransformerTaskData extends AbstractTaskData {
 
@@ -32,7 +32,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
    private static final String TASK_NAME = "task.DatasetTransformer"; //$NON-NLS-1$
 
    /** Argument <code>-testDataset</code> for specifying the name of test dataset. */
-   private static final Argument ARG_TEST_DATASET = new Argument("testDataset", "Test Dataset"); //$NON-NLS-1$
+   private static final Argument ARG_TEST_DATASET = new Argument("testDataset", Messages.DataTrans_ArgTData_FName); //$NON-NLS-1$
 
    /**
     * Instantiates a new enhance dataset task.

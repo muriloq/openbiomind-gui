@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Jul 16, 2008
+ * @version Jul 28, 2008
  */
 public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -102,33 +102,32 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
     */
    private void createRequiredGroup(final Composite parent) {
       // Required Arguments
-      addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
       // MetaTask result directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.UtilityComputerWizardPage_Label_MetaTaskResultDir,
-            WizardMessages.Detail_MetaTaskResultDir, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.UtilityComputerWizardPage_Label_MetaTaskResultDir,
+            Messages.Detail_MetaTaskResultDir, true);
       this.metaTaskResultDirTBC = createMetaTaskResultDirTBC(parent);
 
       // Base dataset
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.UtilityComputerWizardPage_Label_BaseDataset,
-            WizardMessages.UtilityComputerWizardPage_Detail_BaseDataset, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.UtilityComputerWizardPage_Label_BaseDataset,
+            Messages.UtilityComputerWizardPage_Detail_BaseDataset, true);
       this.baseDatasetTBC = createBaseDatasetTBC(parent);
 
       // Output file
       // - leave a blank row
       WidgetHelper.createNewBlankLabel(parent, NUM_COLUMN_IN_GROUP);
       // - Detail row: Specify the output file
-      WidgetHelper.createNewDetailsLabel(parent, WizardMessages.Detail_OutputFile, NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewDetailsLabel(parent, Messages.Detail_OutputFile, NUM_COLUMN_IN_GROUP);
       // - File name
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationFile, WizardMessages.Detail_OutputFile,
-            true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationFile, Messages.Detail_OutputFile, true);
       this.outputFileDestFileText = createOutputFileDestFileText(parent);
       WidgetHelper.createNewBlankLabel(parent);
       // - Directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationDir, "Leave blank to use current directory or specify an existing directory");
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationDir,
+            "Leave blank to use current directory or specify an existing directory");
       this.outputFileDestDirTBC = createOutputFileDestDirTBC(parent);
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputFilePath,
-            WizardMessages.Detail_OutputFilePath);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_OutputFilePath, Messages.Detail_OutputFilePath);
       this.outputFilePathText = createOutputFilePathText(parent);
    }
 
@@ -149,7 +148,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.Detail_MetaTaskResultDir);
+      textButtonComposite.setToolTipText(Messages.Detail_MetaTaskResultDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -201,7 +200,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.UtilityComputerWizardPage_Detail_BaseDataset);
+      textButtonComposite.setToolTipText(Messages.UtilityComputerWizardPage_Detail_BaseDataset);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -241,15 +240,14 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
     */
    private Text createOutputFileDestFileText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(WizardMessages.Detail_OutputFile);
+      text.setToolTipText(Messages.Detail_OutputFile);
       setValidOutputFileDestFileName(false);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(text);
 
       // create decorations
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
-            "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
       errorDecoration.show();
 
       // apply listeners
@@ -306,8 +304,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
             "Specified directory does not exist and will be automatically created");
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
-            "Invalid directory");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField, "Invalid directory");
       errorDecoration.hide();
 
       // apply listeners
@@ -350,7 +347,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
     */
    private Text createOutputFilePathText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
-      text.setToolTipText(WizardMessages.Detail_OutputFilePath);
+      text.setToolTipText(Messages.Detail_OutputFilePath);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(text);
@@ -359,8 +356,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
             "File already exists and would be overwritten");
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
-            "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
       errorDecoration.hide();
 
       // apply listeners
@@ -395,12 +391,11 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
     */
    private void createOptionalGroup(final Composite parent) {
       // Optional Arguments
-      addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
       // Target category
       // TODO Read from the given input files
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
-            WizardMessages.Detail_TargetCategory);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_TargetCategory, Messages.Detail_TargetCategory);
       this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryArray());
       WidgetHelper.createNewBlankLabel(parent);
    }
