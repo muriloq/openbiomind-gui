@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Display;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public interface Constants {
 
@@ -73,7 +73,7 @@ public interface Constants {
       public static final String OPENBIOMIND_HOMEPAGE = "http://code.google.com/p/openbiomind/"; //$NON-NLS-1$
 
       /** The OpenBiomind-GUI homepage. */
-      public static final String OPENBIOMIND_GUI_HOMEPAGE = "http://code.google.com/p/openbiomin-gui/"; //$NON-NLS-1$
+      public static final String OPENBIOMIND_GUI_HOMEPAGE = "http://code.google.com/p/openbiomind-gui/"; //$NON-NLS-1$
 
       /** The Constant specifying the jar file extension (value = <code>.jar</code>). */
       public static final String JAR_EXTENSION = DOT + "jar"; //$NON-NLS-1$

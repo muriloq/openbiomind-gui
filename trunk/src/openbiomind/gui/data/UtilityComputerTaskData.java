@@ -24,7 +24,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public class UtilityComputerTaskData extends AbstractTaskData {
 
@@ -34,7 +34,7 @@ public class UtilityComputerTaskData extends AbstractTaskData {
    private static final String TASK_NAME = "task.UtilityComputer"; //$NON-NLS-1$
 
    /** Argument <code>-r</code> for specifying the name of meta task result directory. */
-   private static final Argument ARG_R = new Argument("r", "MetaTask Result"); //$NON-NLS-1$
+   private static final Argument ARG_R = new Argument("r", Messages.UtilComp_ArgR_FName); //$NON-NLS-1$
 
    /**
     * Instantiates a new utility computer task.

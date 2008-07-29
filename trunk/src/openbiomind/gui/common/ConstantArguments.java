@@ -12,7 +12,7 @@ package openbiomind.gui.common;
  *
  * @author bsanghvi
  * @since Jul 26, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public interface ConstantArguments {
 
@@ -31,7 +31,7 @@ public interface ConstantArguments {
    public static final Argument ARG_CLUSTERING_COLORS = new Argument("clusteringColors"); //$NON-NLS-1$
 
    /** Argument <code>d</code> for specifying the base dataset. */
-   public static final Argument ARG_D = new Argument("d", "Source Dataset"); //$NON-NLS-1$
+   public static final Argument ARG_D = new Argument("d", Messages.ConstArg_ArgD_FName); //$NON-NLS-1$
 
    /**
     * Argument <code>datasetClusteringMetric</code> for specifying the dataset clustering metric.
@@ -68,15 +68,15 @@ public interface ConstantArguments {
    public static final Argument ARG_NUMBER_OF_TASKS = new Argument("numberOfTasks"); //$NON-NLS-1$
 
    /** Argument <code>o</code> for specifying the output file. */
-   public static final Argument ARG_O = new Argument("o", "Output"); //$NON-NLS-1$
+   public static final Argument ARG_O = new Argument("o", Messages.ConstArg_ArgO_FName); //$NON-NLS-1$
 
    /** Argument <code>ontologyAssociationFile</code> for specifying ontology association file. */
    public static final Argument ARG_ONTOLOGY_ASSOCIATION_FILE = new Argument(
-         "ontologyAssociationFile", "Ontology Association File"); //$NON-NLS-1$
+         "ontologyAssociationFile", Messages.ConstArg_ArgOntAssoFile_FName); //$NON-NLS-1$
 
    /** Argument <code>ontologyDescriptionFile</code> for specifying ontology description file. */
    public static final Argument ARG_ONTOLOGY_DESCRIPTION_FILE = new Argument(
-         "ontologyDescriptionFile", "Ontology Description File"); //$NON-NLS-1$
+         "ontologyDescriptionFile", Messages.ConstArg_ArgOntDescFile_FName); //$NON-NLS-1$
 
    //   public static final Argument ARG_SNP_SELECTION_SHUFFLE = new Argument("snpSelectionShuffle"); //$NON-NLS-1$
 

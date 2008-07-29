@@ -15,7 +15,7 @@ import openbiomind.gui.data.DatasetTransformerTaskData;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 2, 2008
+ * @version Jul 28, 2008
  */
 public class DatasetTransformerWizard extends AbstractTaskWizard {
 
@@ -29,7 +29,7 @@ public class DatasetTransformerWizard extends AbstractTaskWizard {
     * Instantiates a new enhance dataset wizard.
     */
    public DatasetTransformerWizard() {
-      super(WizardMessages.DatasetTransformerWizard_Name);
+      super(Messages.DatasetTransformerWizard_Name);
       this.datasetTransformerTaskData = new DatasetTransformerTaskData();
    }
 
@@ -86,8 +86,8 @@ public class DatasetTransformerWizard extends AbstractTaskWizard {
     */
    private DatasetTransformerWizardPage getDatasetTransformerWizardPage() {
       if (this.datasetTransformerWizardPage == null) {
-         this.datasetTransformerWizardPage = new DatasetTransformerWizardPage(
-               WizardMessages.DatasetTransformerWizard_Name, WizardMessages.DatasetTransformerWizard_Description);
+         this.datasetTransformerWizardPage = new DatasetTransformerWizardPage(Messages.DatasetTransformerWizard_Name,
+               Messages.DatasetTransformerWizard_Description);
       }
 
       return this.datasetTransformerWizardPage;

@@ -15,7 +15,7 @@ import openbiomind.gui.data.ViewClustersTaskData;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 20, 2008
+ * @version Jul 28, 2008
  */
 public class ViewClustersWizard extends AbstractTaskWizard {
 
@@ -29,7 +29,7 @@ public class ViewClustersWizard extends AbstractTaskWizard {
     * Instantiates a new utility computer wizard.
     */
    public ViewClustersWizard() {
-      super(WizardMessages.ViewClustersWizard_Name);
+      super(Messages.ViewClustersWizard_Name);
       this.viewClustersTaskData = new ViewClustersTaskData();
    }
 
@@ -77,8 +77,8 @@ public class ViewClustersWizard extends AbstractTaskWizard {
     */
    private ViewClustersWizardPage getViewClustersWizardPage() {
       if (this.viewClustersWizardPage == null) {
-         this.viewClustersWizardPage = new ViewClustersWizardPage(WizardMessages.ViewClustersWizard_Name,
-               WizardMessages.ViewClustersWizard_Description);
+         this.viewClustersWizardPage = new ViewClustersWizardPage(Messages.ViewClustersWizard_Name,
+               Messages.ViewClustersWizard_Description);
       }
 
       return this.viewClustersWizardPage;

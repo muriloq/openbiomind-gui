@@ -22,7 +22,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public class EnhanceDatasetTaskData extends AbstractTaskData {
 
@@ -30,7 +30,7 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
    private static final String TASK_NAME = "task.EnhanceDataset"; //$NON-NLS-1$
 
    /** Argument <code>-e</code> for specifying the name of enhanced dataset (i.e. the output dataset). */
-   private static final Argument ARG_E = new Argument("e", "Enhanced Dataset"); //$NON-NLS-1$
+   private static final Argument ARG_E = new Argument("e", Messages.EnhanData_ArgE_FName); //$NON-NLS-1$
 
    /**
     * Instantiates a new enhance dataset task.

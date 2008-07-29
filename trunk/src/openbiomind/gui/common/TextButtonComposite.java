@@ -7,7 +7,6 @@
  */
 package openbiomind.gui.common;
 
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyListener;
@@ -22,7 +21,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jun 27, 2008
+ * @version Jul 28, 2008
  */
 public abstract class TextButtonComposite extends Composite implements Constants {
 
@@ -119,6 +118,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
             final String absolutePath = buttonSelected();
             if (absolutePath != null) {
                setText(absolutePath);
+               getTextField().setSelection(absolutePath.length());
                getTextField().setFocus();
             }
          }

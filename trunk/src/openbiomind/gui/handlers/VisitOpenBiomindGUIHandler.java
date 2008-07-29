@@ -13,6 +13,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.program.Program;
 import org.eclipse.ui.handlers.HandlerUtil;
 
@@ -21,7 +22,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
  *
  * @author bsanghvi
  * @since Jul 4, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public class VisitOpenBiomindGUIHandler extends AbstractHandler implements Constants {
 
@@ -31,8 +32,8 @@ public class VisitOpenBiomindGUIHandler extends AbstractHandler implements Const
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {
       if (!Program.launch(Resources.OPENBIOMIND_GUI_HOMEPAGE)) {
-         MessageDialog.openError(HandlerUtil.getActiveWorkbenchWindowChecked(event).getShell(), Resources.ERROR,
-               "Unable to open" + SPACE + Resources.OPENBIOMIND_GUI_HOMEPAGE);
+         MessageDialog.openError(HandlerUtil.getActiveWorkbenchWindowChecked(event).getShell(), Resources.ERROR, NLS
+               .bind(Messages.Err_UnableToOpen, Resources.OPENBIOMIND_GUI_HOMEPAGE));
       }
       return null;
    }

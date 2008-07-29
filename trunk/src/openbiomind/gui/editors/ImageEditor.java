@@ -12,6 +12,7 @@ import openbiomind.gui.common.Constants.GUI;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
@@ -39,7 +40,7 @@ import org.eclipse.ui.part.FileEditorInput;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public class ImageEditor extends EditorPart {
 
@@ -238,7 +239,7 @@ public class ImageEditor extends EditorPart {
 
       // add components
       new Label(composite, SWT.CENTER).setImage(GUI.FIELD_DECORATION_ERROR_IMAGE);
-      new Label(composite, SWT.CENTER).setText("Unable to open");
+      new Label(composite, SWT.CENTER).setText(NLS.bind(Messages.Err_UnableToOpen, getImageName()));
 
       return composite;
    }
@@ -259,9 +260,18 @@ public class ImageEditor extends EditorPart {
     */
    private Image getImage() {
       if (this.image == null && getEditorInput() instanceof FileEditorInput) {
-         this.image = new Image(Display.getCurrent(), ((FileEditorInput) getEditorInput()).getPath().toPortableString());
+         this.image = new Image(Display.getCurrent(), getImageName());
       }
       return this.image;
+   }
+
+   /**
+    * Gets the image name.
+    *
+    * @return the image name
+    */
+   private String getImageName() {
+      return ((FileEditorInput) getEditorInput()).getPath().toPortableString();
    }
 
    /*

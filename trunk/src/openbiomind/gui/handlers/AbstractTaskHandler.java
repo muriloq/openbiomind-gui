@@ -24,7 +24,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
  *
  * @author bsanghvi
  * @since Jun 14, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public abstract class AbstractTaskHandler extends AbstractHandler implements Constants {
 
@@ -37,7 +37,7 @@ public abstract class AbstractTaskHandler extends AbstractHandler implements Con
     */
    protected boolean validate(final Shell shell) {
       if (!Preference.isRequiredPreferenceSet()) {
-         MessageDialog.openError(shell, Resources.ERROR, "Set the required preferences before executing a task.");
+         MessageDialog.openError(shell, Resources.ERROR, Messages.Err_PrefNotSet);
          return false;
       }
 

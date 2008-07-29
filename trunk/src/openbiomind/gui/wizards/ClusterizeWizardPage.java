@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 18, 2008
- * @version Jul 18, 2008
+ * @version Jul 28, 2008
  */
 public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -100,28 +100,27 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
     */
    private void createRequiredGroup(final Composite parent) {
       // Required Arguments
-      addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
       // Dataset file
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.ClusterizeWizardPage_Label_ClusteringDatasetFile,
-            WizardMessages.ClusterizeWizardPage_Detail_ClusteringDatasetFile, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.ClusterizeWizardPage_Label_ClusteringDatasetFile,
+            Messages.ClusterizeWizardPage_Detail_ClusteringDatasetFile, true);
       this.clusteringDatasetFileTBC = createClusteringDatasetFileTBC(parent);
 
       // Output file
       // - leave a blank row
       WidgetHelper.createNewBlankLabel(parent, NUM_COLUMN_IN_GROUP);
       // - Detail row: Specify the output file
-      WidgetHelper.createNewDetailsLabel(parent, WizardMessages.Detail_OutputFile, NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewDetailsLabel(parent, Messages.Detail_OutputFile, NUM_COLUMN_IN_GROUP);
       // - File name
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationFile, WizardMessages.Detail_OutputFile,
-            true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationFile, Messages.Detail_OutputFile, true);
       this.outputFileDestFileText = createOutputFileDestFileText(parent);
       WidgetHelper.createNewBlankLabel(parent);
       // - Directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_DestinationDir, "Leave blank to use current directory or specify an existing directory");
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationDir,
+            "Leave blank to use current directory or specify an existing directory");
       this.outputFileDestDirTBC = createOutputFileDestDirTBC(parent);
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_OutputFilePath,
-            WizardMessages.Detail_OutputFilePath);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_OutputFilePath, Messages.Detail_OutputFilePath);
       this.outputFilePathText = createOutputFilePathText(parent);
    }
 
@@ -142,7 +141,7 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.ClusterizeWizardPage_Detail_ClusteringDatasetFile);
+      textButtonComposite.setToolTipText(Messages.ClusterizeWizardPage_Detail_ClusteringDatasetFile);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -182,15 +181,14 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
     */
    private Text createOutputFileDestFileText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(WizardMessages.Detail_OutputFile);
+      text.setToolTipText(Messages.Detail_OutputFile);
       setValidOutputFileDestFileName(false);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(text);
 
       // create decorations
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
-            "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
       errorDecoration.show();
 
       // apply listeners
@@ -247,8 +245,7 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
             "Specified directory does not exist and will be automatically created");
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
-            "Invalid directory");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField, "Invalid directory");
       errorDecoration.hide();
 
       // apply listeners
@@ -291,7 +288,7 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
     */
    private Text createOutputFilePathText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
-      text.setToolTipText(WizardMessages.Detail_OutputFilePath);
+      text.setToolTipText(Messages.Detail_OutputFilePath);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(text);
@@ -300,8 +297,7 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
             "File already exists and would be overwritten");
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text,
-            "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
       errorDecoration.hide();
 
       // apply listeners
@@ -336,10 +332,10 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
     */
    private void createOptionalGroup(final Composite parent) {
       // Optional Arguments
-      addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
       // Dataset clustering metric
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.ClusterizeWizardPage_Label_DatasetClusteringMetric);
+      WidgetHelper.createNewFieldLabel(parent, Messages.ClusterizeWizardPage_Label_DatasetClusteringMetric);
       this.datasetClusteringMetricCombo = createDefaultReadOnlyCombo(parent, getDatasetClusteringMetricArray());
       WidgetHelper.createNewBlankLabel(parent);
    }

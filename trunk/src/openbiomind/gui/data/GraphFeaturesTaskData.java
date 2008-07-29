@@ -22,7 +22,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 27, 2008
+ * @version Jul 28, 2008
  */
 public class GraphFeaturesTaskData extends AbstractTaskData {
 
@@ -32,13 +32,13 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
    private static final String TASK_NAME = "task.GraphFeatures"; //$NON-NLS-1$
 
    /** Argument <code>-h</code> for specifying the horizontal dataset. */
-   private static final Argument ARG_H = new Argument("h", "Horizontal Dataset"); //$NON-NLS-1$
+   private static final Argument ARG_H = new Argument("h", Messages.GraphFeatures_ArgH_FName); //$NON-NLS-1$
 
    /** Argument <code>-m</code> for specifying the MOBRA result. */
-   private static final Argument ARG_M = new Argument("m", "MOBRA Result"); //$NON-NLS-1$
+   private static final Argument ARG_M = new Argument("m", Messages.GraphFeatures_ArgM_FName); //$NON-NLS-1$
 
    /** Argument <code>-u</code> for specifying the utility file. */
-   private static final Argument ARG_U = new Argument("u", "Utility File"); //$NON-NLS-1$
+   private static final Argument ARG_U = new Argument("u", Messages.GraphFeatures_ArgU_FName); //$NON-NLS-1$
 
    /** The graph image path. */
    private String graphImagePath = null;

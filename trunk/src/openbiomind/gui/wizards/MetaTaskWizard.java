@@ -15,7 +15,7 @@ import openbiomind.gui.data.MetaTaskTaskData;
  *
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Jul 15, 2008
+ * @version Jul 28, 2008
  */
 public class MetaTaskWizard extends AbstractTaskWizard {
 
@@ -29,7 +29,7 @@ public class MetaTaskWizard extends AbstractTaskWizard {
     * Instantiates a new enhance dataset wizard.
     */
    public MetaTaskWizard() {
-      super(WizardMessages.MetaTaskWizard_Name);
+      super(Messages.MetaTaskWizard_Name);
       this.metaTaskTaskData = new MetaTaskTaskData();
    }
 
@@ -79,8 +79,8 @@ public class MetaTaskWizard extends AbstractTaskWizard {
     */
    private MetaTaskWizardPage getMetaTaskWizardPage() {
       if (this.metaTaskWizardPage == null) {
-         this.metaTaskWizardPage = new MetaTaskWizardPage(WizardMessages.MetaTaskWizard_Name,
-               WizardMessages.MetaTaskWizard_Description);
+         this.metaTaskWizardPage = new MetaTaskWizardPage(Messages.MetaTaskWizard_Name,
+               Messages.MetaTaskWizard_Description);
       }
 
       return this.metaTaskWizardPage;

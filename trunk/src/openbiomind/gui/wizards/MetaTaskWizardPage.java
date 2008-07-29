@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Jul 20, 2008
+ * @version Jul 28, 2008
  */
 public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -104,16 +104,16 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
     */
    private void createRequiredGroup(final Composite parent) {
       // Required Arguments
-      addSection(parent, WizardMessages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
 
       // Original dataset
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_DatasetDir,
-            WizardMessages.MetaTaskWizardPage_Tip_DatasetDir, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.MetaTaskWizardPage_Label_DatasetDir,
+            Messages.MetaTaskWizardPage_Tip_DatasetDir, true);
       this.datasetDirectoryTBC = createDatasetDirectoryTBC(parent);
 
       // Output directory
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizard_Label_OutputDir,
-            WizardMessages.Detail_OutputDir, true);
+      WidgetHelper
+            .createNewFieldLabel(parent, Messages.MetaTaskWizard_Label_OutputDir, Messages.Detail_OutputDir, true);
       this.outputDirectoryTBC = createOutputDirTBC(parent);
    }
 
@@ -134,7 +134,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.MetaTaskWizardPage_Tip_DatasetDir);
+      textButtonComposite.setToolTipText(Messages.MetaTaskWizardPage_Tip_DatasetDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -187,7 +187,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(WizardMessages.Detail_OutputDir);
+      textButtonComposite.setToolTipText(Messages.Detail_OutputDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -197,8 +197,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
             "Specified directory already exists and files inside it may be overwritten");
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
-            "Invalid directory");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField, "Invalid directory");
       errorDecoration.show();
 
       // apply listeners
@@ -239,28 +238,27 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
     */
    private void createOptionalGroup(final Composite parent) {
       // Optional Arguments
-      addSection(parent, WizardMessages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
 
       // Number of tasks
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_NumOfTasks,
-            WizardMessages.MetaTaskWizardPage_Tip_NumOfTasks);
+      WidgetHelper.createNewFieldLabel(parent, Messages.MetaTaskWizardPage_Label_NumOfTasks,
+            Messages.MetaTaskWizardPage_Tip_NumOfTasks);
       this.numberOfTasksText = createNewNumberOnlyText(parent);
       WidgetHelper.createNewBlankLabel(parent);
 
       // Target category
       // TODO Read from the given input files
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.Label_TargetCategory,
-            WizardMessages.Detail_TargetCategory);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_TargetCategory, Messages.Detail_TargetCategory);
       this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryArray());
       WidgetHelper.createNewBlankLabel(parent);
 
       // Classification method
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_ClassificationMethod);
+      WidgetHelper.createNewFieldLabel(parent, Messages.MetaTaskWizardPage_Label_ClassificationMethod);
       this.classificationMethodCombo = createDefaultReadOnlyCombo(parent, getClassificationMethodArray());
       WidgetHelper.createNewBlankLabel(parent);
 
       // MetaTask shuffling
-      WidgetHelper.createNewFieldLabel(parent, WizardMessages.MetaTaskWizardPage_Label_MetaTaskShuffling);
+      WidgetHelper.createNewFieldLabel(parent, Messages.MetaTaskWizardPage_Label_MetaTaskShuffling);
       this.metaTaskShufflingCombo = createDefaultReadOnlyCombo(parent, getMetaTaskShufflingArray());
       WidgetHelper.createNewBlankLabel(parent);
    }
