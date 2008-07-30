@@ -7,7 +7,11 @@
  */
 package openbiomind.gui.editors;
 
+import java.io.File;
+import java.io.IOException;
+
 import openbiomind.gui.common.Constants.GUI;
+import openbiomind.gui.console.Console;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -31,9 +35,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
-import org.eclipse.ui.part.FileEditorInput;
 
 /**
  * The class ImageEditor is used to open an editor that contains image.
@@ -239,7 +243,7 @@ public class ImageEditor extends EditorPart {
 
       // add components
       new Label(composite, SWT.CENTER).setImage(GUI.FIELD_DECORATION_ERROR_IMAGE);
-      new Label(composite, SWT.CENTER).setText(NLS.bind(Messages.Err_UnableToOpen, getImageName()));
+      new Label(composite, SWT.CENTER).setText(NLS.bind(Messages.Err_UnableToOpen, getEditorInput().getName()));
 
       return composite;
    }
@@ -259,8 +263,8 @@ public class ImageEditor extends EditorPart {
     * @return the image
     */
    private Image getImage() {
-      if (this.image == null && getEditorInput() instanceof FileEditorInput) {
-         this.image = new Image(Display.getCurrent(), getImageName());
+      if (this.image == null && getEditorInput() instanceof IURIEditorInput) {
+         this.image = new Image(Display.getCurrent(), getImagePath());
       }
       return this.image;
    }
@@ -270,8 +274,13 @@ public class ImageEditor extends EditorPart {
     *
     * @return the image name
     */
-   private String getImageName() {
-      return ((FileEditorInput) getEditorInput()).getPath().toPortableString();
+   private String getImagePath() {
+      try {
+         return new File(((IURIEditorInput) getEditorInput()).getURI()).getCanonicalPath();
+      } catch (final IOException e) {
+         Console.error(e);
+      }
+      return null;
    }
 
    /*
