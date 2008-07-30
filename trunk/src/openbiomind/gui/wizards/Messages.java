@@ -18,7 +18,7 @@ import org.eclipse.osgi.util.NLS;
  */
 class Messages extends NLS {
 
-   /** The Constant BUNDLE_NAME. */
+   /** The constant bundle name. */
    private static final String BUNDLE_NAME = "openbiomind.gui.wizards.messages"; //$NON-NLS-1$
 
    /** The Abstract task wizard executing task. */

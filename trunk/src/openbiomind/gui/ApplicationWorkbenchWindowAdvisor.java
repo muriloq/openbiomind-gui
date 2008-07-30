@@ -22,7 +22,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
  *
  * @author bsanghvi
  * @since Jun 1, 2008
- * @version Jul 27, 2008
+ * @version Jul 30, 2008
  */
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
@@ -52,18 +52,18 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
       final IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
       configurer.setInitialSize(new Point(800, 600));
       configurer.setShowMenuBar(true);
-      configurer.setShowCoolBar(true); // show the toolbar
+      configurer.setShowCoolBar(true);
       configurer.setShowStatusLine(true);
    }
 
-   /*
-    * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowOpen()
-    */
-   @Override
-   public void postWindowOpen() {
-      // NOTE To write to status line, use following
-      // getWindowConfigurer().getActionBarConfigurer().getStatusLineManager().setMessage(...);
-   }
+//   /*
+//    * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowOpen()
+//    */
+//   @Override
+//   public void postWindowOpen() {
+//      // NOTE To write to status line, use following
+//      // getWindowConfigurer().getActionBarConfigurer().getStatusLineManager().setMessage(...);
+//   }
 
    /*
     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#preWindowShellClose()

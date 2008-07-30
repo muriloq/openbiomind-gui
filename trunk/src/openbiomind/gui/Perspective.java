@@ -16,7 +16,7 @@ import org.eclipse.ui.IPerspectiveFactory;
  *
  * @author bsanghvi
  * @since Jun 1, 2008
- * @version Jun 1, 2008
+ * @version Jul 30, 2008
  */
 public class Perspective implements IPerspectiveFactory {
 
@@ -25,11 +25,14 @@ public class Perspective implements IPerspectiveFactory {
     */
    @Override
    public void createInitialLayout(final IPageLayout layout) {
-      final String editorArea = layout.getEditorArea();
-
       // display the editor view
       layout.setEditorAreaVisible(true);
       // layout.setFixed(true);
+
+      /*
+       * Add other views
+       */
+      final String editorArea = layout.getEditorArea();
 
       /*
        * Left
