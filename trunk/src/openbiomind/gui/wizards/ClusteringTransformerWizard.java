@@ -29,7 +29,7 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
     * Instantiates a new clustering transformer wizard.
     */
    public ClusteringTransformerWizard() {
-      super(Messages.ClusteringTransformerWizard_Name);
+      super(Messages.ClustTransWiz_Name);
       this.clusteringTransformerTaskData = new ClusteringTransformerTaskData();
    }
 
@@ -78,8 +78,8 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
     */
    private ClusteringTransformerWizardPage getClusteringTransformerWizardPage() {
       if (this.clusteringTransformerWizardPage == null) {
-         this.clusteringTransformerWizardPage = new ClusteringTransformerWizardPage(
-               Messages.ClusteringTransformerWizard_Name, Messages.ClusteringTransformerWizard_Description);
+         this.clusteringTransformerWizardPage = new ClusteringTransformerWizardPage(Messages.ClustTransWiz_Name,
+               Messages.ClustTransWiz_Desc);
       }
 
       return this.clusteringTransformerWizardPage;

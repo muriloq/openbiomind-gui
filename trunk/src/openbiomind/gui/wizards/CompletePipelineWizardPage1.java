@@ -1,7 +1,7 @@
 /**
- * MetaTaskWizardPage.java
+ * CompletePipelineWizardPage1.java
  *
- * The file MetaTaskWizardPage.java.
+ * The file CompletePipelineWizardPage1.java.
  *
  * $Id$
  */
@@ -10,8 +10,6 @@ package openbiomind.gui.wizards;
 import java.io.File;
 
 import openbiomind.gui.common.TextButtonComposite;
-import openbiomind.gui.data.ClassificationMethodEnum;
-import openbiomind.gui.data.ShuffleEnum;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
 
@@ -20,52 +18,46 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * The class MetaTaskWizardPage.
+ * The class CompletePipelineWizardPage1.
  *
  * @author bsanghvi
- * @since Jul 5, 2008
+ * @since Jul 31, 2008
  * @version Aug 3, 2008
  */
-public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizardPage {
+public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implements IWizardPage {
 
    /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.MetaTaskWizardPage</code>).
+    * The constant for page name (value = <code>openbiomind.gui.wizards.CompletePipelineWizardPage1</code>).
     */
-   public static final String PAGE_NAME = "openbiomind.gui.wizards.MetaTaskWizardPage"; //$NON-NLS-1$
+   public static final String PAGE_NAME = "openbiomind.gui.wizards.CompletePipelineWizardPage1"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
    private static final int NUM_COLUMN_IN_GROUP = 3;
 
-   /** The dataset directory text button composite. */
-   private TextButtonComposite datasetDirectoryTBC = null;
+   /** The original dataset text button composite. */
+   private TextButtonComposite originalDatasetTBC = null;
 
    /** The output directory text button composite. */
    private TextButtonComposite outputDirectoryTBC = null;
 
-   /** The number of tasks text. */
-   private Text numberOfTasksText = null;
+   /** The test dataset text button composite. */
+   private TextButtonComposite testDatasetTBC = null;
 
-   /** The target category combo. */
-   private Combo targetCategoryCombo = null;
-
-   /** The feature classification method combo. */
-   private Combo classificationMethodCombo = null;
-
-   /** The meta task shuffling combo. */
-   private Combo metaTaskShufflingCombo = null;
+   /** The property file text button composite. */
+   private TextButtonComposite propertyFileTBC = null;
 
    /**
-    * Instantiates a new meta task wizard page.
+    * Instantiates a new dataset transformer wizard page.
     *
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
-   public MetaTaskWizardPage(final String pageTitle, final String pageDescription) {
+   public CompletePipelineWizardPage1(final String pageTitle, final String pageDescription) {
       super(PAGE_NAME, pageTitle, pageDescription);
    }
 
@@ -97,42 +89,40 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       // Required Arguments
       addSection(parent, Messages.Label_ReqdArg, NUM_COLUMN_IN_GROUP);
 
-      // Source dataset
-      WidgetHelper
-            .createNewFieldLabel(parent, Messages.Label_DataTransResultDir, Messages.Tip_DataTransResultDir, true);
-      this.datasetDirectoryTBC = createDatasetDirectoryTBC(parent);
+      // Original dataset
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_SrcData, Messages.Tip_SrcData, true);
+      this.originalDatasetTBC = createOriginalDatasetTBC(parent);
 
       // Output directory
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_OutDir, Messages.Label_SpecifyOutDir, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_OutDir, Messages.Tip_OutDir, true);
       this.outputDirectoryTBC = createOutputDirTBC(parent);
    }
 
    /**
-    * Creates the dataset directory text button composite.
+    * Creates the original dataset text button composite.
     *
     * @param parent the parent
     *
     * @return the text button composite
     */
-   private TextButtonComposite createDatasetDirectoryTBC(final Composite parent) {
+   private TextButtonComposite createOriginalDatasetTBC(final Composite parent) {
       final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
 
          @Override
          protected String buttonSelected() {
-            return getDirectoryDialog().open();
+            return getFileDialog().open();
          }
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(Messages.Tip_DataTransResultDir);
+      textButtonComposite.setToolTipText(Messages.Tip_SrcData);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
-      // TODO Update to identify that the folder must contain train and test tab files
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            Messages.Err_InvalidDir);
+            Messages.Err_FileNotExist);
       errorDecoration.show();
 
       // apply listeners
@@ -140,11 +130,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            final File directory = new File(getDatasetDirectoryPath());
-            textButtonComposite
-                  .setValid(Utility.directoryExists(directory)
-                        && Utility.listFileNames(directory, Resources.TRAIN_FILE_STARTS_WITH, Resources.TAB_EXTENSION).length > 0
-                        && Utility.listFileNames(directory, Resources.TEST_FILE_STARTS_WITH, Resources.TAB_EXTENSION).length > 0);
+            textButtonComposite.setValid(Utility.fileExists(getOriginalDatasetFilePath()));
             if (textButtonComposite.isValid()) {
                errorDecoration.hide();
             } else {
@@ -177,7 +163,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(Messages.Label_SpecifyOutDir);
+      textButtonComposite.setToolTipText(Messages.Tip_OutDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -231,44 +217,95 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       // Optional Arguments
       addSection(parent, Messages.Label_OptionalArg, NUM_COLUMN_IN_GROUP);
 
-      // Number of tasks
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_NumOfTasks);
-      this.numberOfTasksText = createNewNumberOnlyText(parent);
-      WidgetHelper.createNewBlankLabel(parent);
+      // Test dataset
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_TestData);
+      this.testDatasetTBC = createNewOptionalFileTextButtonComposite(parent, NUM_COLUMN_IN_GROUP - 1);
 
-      // Target category
-      // TODO Read from the given input files
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_TargetCat);
-      this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryArray());
-      WidgetHelper.createNewBlankLabel(parent);
-
-      // Classification method
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_ClassMethod);
-      this.classificationMethodCombo = createDefaultReadOnlyCombo(parent, getClassificationMethodArray());
-      WidgetHelper.createNewBlankLabel(parent);
-
-      // MetaTask shuffling
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_MetaShuffling);
-      this.metaTaskShufflingCombo = createDefaultReadOnlyCombo(parent, getMetaTaskShufflingArray());
-      WidgetHelper.createNewBlankLabel(parent);
+      // Alternate property file
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_PropFile, Messages.Tip_PropFile);
+      this.propertyFileTBC = createNewPropertyFileTextButtonComposite(parent);
    }
 
    /**
-    * Gets the dataset directory path.
+    * Creates the new property file text button composite.
     *
-    * @return the dataset directory path
+    * @param parent the parent
+    *
+    * @return the text button composite
     */
-   public String getDatasetDirectoryPath() {
-      return getDatasetDirectoryTBC().getText();
+   protected TextButtonComposite createNewPropertyFileTextButtonComposite(final Composite parent) {
+      final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
+
+         private FileDialog fileDialog = null;
+
+         @Override
+         protected String buttonSelected() {
+            return getFileDialog().open();
+         }
+
+         private FileDialog getFileDialog() {
+            if (this.fileDialog == null) {
+               this.fileDialog = new FileDialog(getShell(), SWT.OPEN);
+               this.fileDialog.setFilterExtensions(new String[] { WILDCARD_ANY + Resources.PROPERTIES_EXTENSION });
+            }
+            return this.fileDialog;
+         }
+
+      };
+      textButtonComposite.setValid(true);
+      textButtonComposite.setToolTipText(Messages.Tip_LeaveBlankOrSpecifyPropertiesFile);
+
+      // apply layout
+      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
+
+      // create decorations
+      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textButtonComposite
+            .getTextField(), Messages.Tip_LeaveBlankOrSpecifyPropertiesFile);
+      infoDecoration.setShowOnlyOnFocus(true);
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
+            Messages.Err_FileNotExist);
+      errorDecoration.hide();
+
+      // apply listeners
+      textButtonComposite.addModifyListenerOnTextField(new ModifyListener() {
+
+         @Override
+         public void modifyText(final ModifyEvent event) {
+            final String fileName = textButtonComposite.getText();
+            textButtonComposite.setValid(Utility.isEmptyOrExistingFile(fileName)
+                  && fileName.endsWith(Resources.PROPERTIES_EXTENSION));
+            if (textButtonComposite.isValid()) {
+               errorDecoration.hide();
+            } else {
+               infoDecoration.hideHover();
+               errorDecoration.show();
+               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
+            }
+
+            validatePage();
+         }
+
+      });
+
+      return textButtonComposite;
    }
 
    /**
-    * Gets the dataset directory text button composite.
+    * Gets the original dataset file path.
     *
-    * @return the dataset directory text button composite
+    * @return the original dataset file
     */
-   private TextButtonComposite getDatasetDirectoryTBC() {
-      return this.datasetDirectoryTBC;
+   public String getOriginalDatasetFilePath() {
+      return getOriginalDatasetTBC().getText();
+   }
+
+   /**
+    * Gets the original dataset text button composite.
+    *
+    * @return the original dataset text button composite
+    */
+   private TextButtonComposite getOriginalDatasetTBC() {
+      return this.originalDatasetTBC;
    }
 
    /**
@@ -290,80 +327,39 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
    }
 
    /**
-    * Gets the number of tasks.
+    * Gets the test dataset.
     *
-    * @return the number of tasks
+    * @return the test dataset
     */
-   public Integer getNumberOfTasks() {
-      try {
-         return Integer.valueOf(getNumberOfTasksText().getText());
-      } catch (final NumberFormatException e) {
-         return null;
-      }
+   public String getTestDataset() {
+      return getTestDatasetTBC().getText();
    }
 
    /**
-    * Gets the number of tasks text.
+    * Gets the test dataset text button composite.
     *
-    * @return the number of tasks
+    * @return the test dataset text button composite
     */
-   private Text getNumberOfTasksText() {
-      return this.numberOfTasksText;
+   private TextButtonComposite getTestDatasetTBC() {
+      return this.testDatasetTBC;
    }
 
    /**
-    * Gets the target category.
+    * Gets the property file.
     *
-    * @return the target category
+    * @return the property file
     */
-   public String getTargetCategory() {
-      return getTargetCategoryCombo().getText();
+   public String getPropertyFile() {
+      return getPropertyFileTBC().getText();
    }
 
    /**
-    * Gets the target category combo.
+    * Gets the property file text button composite.
     *
-    * @return the target category combo
+    * @return the property file text button composite
     */
-   private Combo getTargetCategoryCombo() {
-      return this.targetCategoryCombo;
-   }
-
-   /**
-    * Gets the classification method.
-    *
-    * @return the classification method
-    */
-   public ClassificationMethodEnum getClassificationMethod() {
-      return ClassificationMethodEnum.parse(getClassificationMethodArray()[getClassificationMethodCombo()
-            .getSelectionIndex()]);
-   }
-
-   /**
-    * Gets the classification method combo.
-    *
-    * @return the classification method combo
-    */
-   private Combo getClassificationMethodCombo() {
-      return this.classificationMethodCombo;
-   }
-
-   /**
-    * Gets the meta task shuffling.
-    *
-    * @return the meta task shuffling
-    */
-   public ShuffleEnum getMetaTaskShuffling() {
-      return ShuffleEnum.parse(getMetaTaskShufflingArray()[getMetaTaskShufflingCombo().getSelectionIndex()]);
-   }
-
-   /**
-    * Gets the meta task shuffling combo.
-    *
-    * @return the meta task shuffling combo
-    */
-   private Combo getMetaTaskShufflingCombo() {
-      return this.metaTaskShufflingCombo;
+   private TextButtonComposite getPropertyFileTBC() {
+      return this.propertyFileTBC;
    }
 
    /*
@@ -371,8 +367,8 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
     */
    @Override
    protected void validatePage() {
-      final boolean valid = isProjectInformationValid() && getDatasetDirectoryTBC().isValid()
-            && getOutputDirectoryTBC().isValid();
+      final boolean valid = isProjectInformationValid() && getOriginalDatasetTBC().isValid()
+            && getOutputDirectoryTBC().isValid() && getTestDatasetTBC().isValid() && getPropertyFileTBC().isValid();
       setPageComplete(valid);
       if (!valid) {
          setErrorMessage(Messages.Err_FixErrToContinue);

@@ -29,7 +29,7 @@ public class DatasetTransformerWizard extends AbstractTaskWizard {
     * Instantiates a new enhance dataset wizard.
     */
    public DatasetTransformerWizard() {
-      super(Messages.DatasetTransformerWizard_Name);
+      super(Messages.DataTransWiz_Name);
       this.datasetTransformerTaskData = new DatasetTransformerTaskData();
    }
 
@@ -47,8 +47,7 @@ public class DatasetTransformerWizard extends AbstractTaskWizard {
    @Override
    protected void prepareTaskData() {
       getDatasetTransformerTaskData().setProjectName(getDatasetTransformerWizardPage().getProjectName());
-      getDatasetTransformerTaskData()
-            .setOriginalDataset(getDatasetTransformerWizardPage().getOriginalDatasetFilePath());
+      getDatasetTransformerTaskData().setInputDataset(getDatasetTransformerWizardPage().getInputDataset());
       getDatasetTransformerTaskData().setOutputDirectory(getDatasetTransformerWizardPage().getOutputDirectory());
       getDatasetTransformerTaskData().setTargetCategory(getDatasetTransformerWizardPage().getTargetCategory());
       if (getDatasetTransformerWizardPage().specifiedNumberOfFolds()) {
@@ -86,8 +85,8 @@ public class DatasetTransformerWizard extends AbstractTaskWizard {
     */
    private DatasetTransformerWizardPage getDatasetTransformerWizardPage() {
       if (this.datasetTransformerWizardPage == null) {
-         this.datasetTransformerWizardPage = new DatasetTransformerWizardPage(Messages.DatasetTransformerWizard_Name,
-               Messages.DatasetTransformerWizard_Description);
+         this.datasetTransformerWizardPage = new DatasetTransformerWizardPage(Messages.DataTransWiz_Name,
+               Messages.DataTransWiz_Desc);
       }
 
       return this.datasetTransformerWizardPage;

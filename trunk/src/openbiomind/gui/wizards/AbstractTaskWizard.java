@@ -52,7 +52,7 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
@@ -98,7 +98,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
          @Override
          public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
             try {
-               monitor.beginTask(Messages.AbstractTaskWizard_ExecutingTask, 1);
+               monitor.beginTask(Messages.AbsTaskWiz_ExecTask, 1);
                doFinish(monitor);
             } catch (final CoreException e) {
                throw new InvocationTargetException(e);
@@ -133,13 +133,13 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     * @throws CoreException the core exception
     */
    private void doFinish(final IProgressMonitor monitor) throws CoreException {
-      final SubMonitor subMonitor = SubMonitor.convert(monitor, Messages.AbstractTaskWizard_ExecutingTask, 100);
-      subMonitor.subTask(Messages.AbstractTaskWizard_PreparingTaskData);
+      final SubMonitor subMonitor = SubMonitor.convert(monitor, Messages.AbsTaskWiz_ExecTask, 100);
+      subMonitor.subTask(Messages.AbsTaskWiz_PrepTaskData);
       prepareTaskData();
       Console.info(getExecutedCommand());
       subMonitor.worked(5);
 
-      subMonitor.subTask(Messages.AbstractTaskWizard_PreparingProcess);
+      subMonitor.subTask(Messages.AbsTaskWiz_PrepProc);
       final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(getTaskData());
       subMonitor.worked(5);
 
@@ -158,9 +158,14 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
             executeProcess(getPostSuccessfulExecutionProcess(), executionLogWriter, subMonitor.newChild(10,
                   SubMonitor.SUPPRESS_SETTASKNAME));
             subMonitor.setWorkRemaining(25);
-            createProject(getTaskData().createTaskDataProject(), subMonitor.newChild(25,
-                  SubMonitor.SUPPRESS_SETTASKNAME));
+            if (!createProject(getTaskData().createTaskDataProject(), subMonitor.newChild(25,
+                  SubMonitor.SUPPRESS_SETTASKNAME))) {
+               throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID,
+                     Messages.Err_UnableToCreateProject));
+            }
          }
+      } catch (final CoreException e) {
+         throw e;
       } catch (final IOException e) {
          throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, IStatus.OK, e.getMessage(), e));
       } finally {
@@ -285,22 +290,25 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     * @param monitor the monitor
     *
     * @return true, if successful
+    *
+    * @throws CoreException the core exception
     */
-   private boolean createProject(final TaskDataProject taskDataProject, final IProgressMonitor monitor) {
-      // TODO Update to use resource validation
+   private boolean createProject(final TaskDataProject taskDataProject, final IProgressMonitor monitor)
+         throws CoreException {
       boolean created = false;
-      final Set<TaskDataFolder> taskDataFolderSet = taskDataProject.getTaskDataFolderSet();
-      final Set<TaskDataFile> taskDataFileSet = taskDataProject.getTaskDataFileSet();
-      final String projectName = taskDataProject.getName();
-      Assert.isNotNull(projectName);
-      final SubMonitor subMonitor = SubMonitor.convert(monitor, projectName, 100).setWorkRemaining(
-            3 + 2 * taskDataFolderSet.size() + taskDataFileSet.size());
+      if (taskDataProject != null) {
+         // TODO Update to use resource validation
+         final Set<TaskDataFolder> taskDataFolderSet = taskDataProject.getTaskDataFolderSet();
+         final Set<TaskDataFile> taskDataFileSet = taskDataProject.getTaskDataFileSet();
+         final String projectName = taskDataProject.getName();
+         Assert.isNotNull(projectName);
+         final SubMonitor subMonitor = SubMonitor.convert(monitor, projectName, 100).setWorkRemaining(
+               3 + 2 * taskDataFolderSet.size() + taskDataFileSet.size());
 
-      final IWorkspace workspace = ResourcesPlugin.getWorkspace();
-      final IWorkspaceRoot workspaceRoot = workspace.getRoot();
-      final IProject iProject = workspaceRoot.getProject(projectName);
+         final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+         final IWorkspaceRoot workspaceRoot = workspace.getRoot();
+         final IProject iProject = workspaceRoot.getProject(projectName);
 
-      try {
          iProject.create(subMonitor.newChild(1, SubMonitor.SUPPRESS_ALL_LABELS));
          iProject.open(subMonitor.newChild(1, SubMonitor.SUPPRESS_ALL_LABELS));
 
@@ -324,8 +332,6 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
          }
 
          created = true;
-      } catch (final CoreException e) {
-         Console.error(e);
       }
 
       return created;

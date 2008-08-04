@@ -23,7 +23,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public class GraphFeaturesWizard extends AbstractTaskWizard {
 
@@ -37,7 +37,7 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     * Instantiates a new graph features wizard.
     */
    public GraphFeaturesWizard() {
-      super(Messages.GraphFeaturesWizard_Name);
+      super(Messages.GraFeatureWiz_Name);
       this.graphFeaturesTaskData = new GraphFeaturesTaskData();
    }
 
@@ -59,11 +59,11 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
       getGraphFeaturesTaskData().setMobraDataset(getGraphFeaturesWizardPage().getMobraDataset());
       getGraphFeaturesTaskData().setUtilityFile(getGraphFeaturesWizardPage().getUtilityFile());
       getGraphFeaturesTaskData().setOutputFile(getGraphFeaturesWizardPage().getOutputFile());
-      getGraphFeaturesTaskData().setTopUsefulFeatures(getGraphFeaturesWizardPage().getTopUsefulFeatures());
       getGraphFeaturesTaskData()
             .setMaximumCoOccurrenceEdges(getGraphFeaturesWizardPage().getMaximumCoOccurrenceEdges());
       getGraphFeaturesTaskData()
             .setMaximumCoExpressionEdges(getGraphFeaturesWizardPage().getMaximumCoExpressionEdges());
+      getGraphFeaturesTaskData().setTopUsefulFeatures(getGraphFeaturesWizardPage().getTopUsefulFeatures());
    }
 
    /*
@@ -90,8 +90,8 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     */
    private GraphFeaturesWizardPage getGraphFeaturesWizardPage() {
       if (this.graphFeaturesWizardPage == null) {
-         this.graphFeaturesWizardPage = new GraphFeaturesWizardPage(Messages.GraphFeaturesWizard_Name,
-               Messages.GraphFeaturesWizard_Description);
+         this.graphFeaturesWizardPage = new GraphFeaturesWizardPage(Messages.GraFeatureWiz_Name,
+               Messages.GraFeatureWiz_Desc);
       }
 
       return this.graphFeaturesWizardPage;
@@ -103,7 +103,7 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
    @Override
    protected Process getPostSuccessfulExecutionProcess() {
       if (Preference.isGraphvizDotUtilityPreferenceSet()) {
-         final String outputFormat = getGraphFeaturesWizardPage().getGraphImageType();
+         final String outputFormat = Resources.PNG_FORMAT;
          final String sourceDotPath = getGraphFeaturesWizardPage().getOutputFile();
 
          try {
@@ -121,7 +121,7 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
          }
       }
 
-      Console.info(Messages.GraphFeaturesWizard_Info_GraphvizDotUtility);
+      Console.info(Messages.Err_GraphvizDotUtility);
       return super.getPostSuccessfulExecutionProcess();
    }
 

@@ -29,7 +29,7 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     * Instantiates a new enhance dataset wizard.
     */
    public EnhanceDatasetWizard() {
-      super(Messages.EnhanceDatasetWizard_Name);
+      super(Messages.EnhDataWiz_Name);
       this.enhanceDatasetTaskData = new EnhanceDatasetTaskData();
    }
 
@@ -47,7 +47,7 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
    @Override
    protected void prepareTaskData() {
       getEnhanceDatasetTaskData().setProjectName(getEnhanceDatasetWizardPage().getProjectName());
-      getEnhanceDatasetTaskData().setOriginalDataset(getEnhanceDatasetWizardPage().getOriginalDataset());
+      getEnhanceDatasetTaskData().setInputDataset(getEnhanceDatasetWizardPage().getInputDataset());
       getEnhanceDatasetTaskData().setEnhancedDataset(getEnhanceDatasetWizardPage().getEnhancedDataset());
       getEnhanceDatasetTaskData()
             .setOntologyDescriptionFile(getEnhanceDatasetWizardPage().getOntologyDescriptionFile());
@@ -79,8 +79,8 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    private EnhanceDatasetWizardPage getEnhanceDatasetWizardPage() {
       if (this.enhanceDatasetWizardPage == null) {
-         this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(Messages.EnhanceDatasetWizard_Name,
-               Messages.EnhanceDatasetWizard_Description);
+         this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(Messages.EnhDataWiz_Name,
+               Messages.EnhDataWiz_Desc);
       }
 
       return this.enhanceDatasetWizardPage;

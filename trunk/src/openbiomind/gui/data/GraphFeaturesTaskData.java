@@ -10,7 +10,6 @@ package openbiomind.gui.data;
 import openbiomind.gui.common.Argument;
 import openbiomind.gui.project.TaskDataFile;
 import openbiomind.gui.project.TaskDataFolder;
-import openbiomind.gui.project.TaskDataProject;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -22,7 +21,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public class GraphFeaturesTaskData extends AbstractTaskData {
 
@@ -195,68 +194,29 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
    }
 
    /*
-    * @see openbiomind.gui.tasks.AbstractTaskData#createTaskDataProject()
+    * @see openbiomind.gui.data.AbstractTaskData#createInputFolder()
     */
    @Override
-   public TaskDataProject createTaskDataProject() {
-      final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createTaskDataFolder(ARG_H.friendlyName(), getHorizontalDataset(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_M.friendlyName(), getMobraDataset(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_U.friendlyName(), getUtilityFile(), false));
-      taskDataProject.add(createOutputTaskDataFolder(ARG_O.friendlyName()));
-      return taskDataProject;
+   protected TaskDataFolder createInputFolder() {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(Messages.Folder_In);
+      taskDataFolder.add(createTaskDataFile(getHorizontalDataset(), true, false, Resources.TAB_EXTENSION));
+      taskDataFolder.add(createTaskDataFile(getMobraDataset(), true, false, Resources.TAB_EXTENSION));
+      taskDataFolder.add(createTaskDataFile(getUtilityFile(), true, false, Resources.TAB_EXTENSION));
+      return taskDataFolder;
    }
 
-   /**
-    * Creates the task data folder.
-    *
-    * @param folderName the folder name
-    * @param filepath the file path
-    * @param autoOpen the auto open
-    *
-    * @return the task data folder
+   /*
+    * @see openbiomind.gui.data.AbstractTaskData#createOutputFolder()
     */
-   private TaskDataFolder createTaskDataFolder(final String folderName, final String filepath, final boolean autoOpen) {
-      if (Utility.isEmpty(filepath)) {
-         return null;
-      } else {
-         final TaskDataFile taskDataFile = new TaskDataFile();
-         taskDataFile.setPath(filepath);
-         taskDataFile.setLinked(true);
-         taskDataFile.setAutoOpen(autoOpen);
-
-         final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
-         taskDataFolder.add(taskDataFile);
-
-         return taskDataFolder;
-      }
-   }
-
-   /**
-    * Creates the output task data folder.
-    *
-    * @param folderName the folder name
-    *
-    * @return the task data folder
-    */
-   private TaskDataFolder createOutputTaskDataFolder(final String folderName) {
-      final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
-
-      final TaskDataFile dotTaskDataFile = new TaskDataFile();
-      dotTaskDataFile.setPath(getOutputFile());
-      dotTaskDataFile.setLinked(true);
-      dotTaskDataFile.setAutoOpen(true);
-      dotTaskDataFile.setEditorId(Properties.DEFAULT_TEXT_EDITOR_ID); // FIXME Temporary hack
-      taskDataFolder.add(dotTaskDataFile);
-
-      if (!Utility.isEmpty(getGraphImagePath())) {
-         final TaskDataFile graphImageTaskDataFile = new TaskDataFile(Utility.extractFileName(getGraphImagePath()));
-         graphImageTaskDataFile.setPath(getGraphImagePath());
-         graphImageTaskDataFile.setLinked(false);
-         graphImageTaskDataFile.setAutoOpen(true);
-         taskDataFolder.add(graphImageTaskDataFile);
-      }
-
+   @Override
+   protected TaskDataFolder createOutputFolder() {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(Messages.Folder_Out);
+      final TaskDataFile outputFile = createTaskDataFile(getOutputFile(), true, true);
+      outputFile.setEditorId(Properties.DEFAULT_TEXT_EDITOR_ID); // FIXME Temporary hack
+      taskDataFolder.add(outputFile);
+      final String imagePath = getGraphImagePath();
+      System.out.println("imagePath = " + imagePath);
+      taskDataFolder.add(createTaskDataFile(Utility.extractFileName(imagePath), imagePath, false, true));
       return taskDataFolder;
    }
 

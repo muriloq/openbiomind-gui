@@ -29,7 +29,7 @@ public class MetaTaskWizard extends AbstractTaskWizard {
     * Instantiates a new enhance dataset wizard.
     */
    public MetaTaskWizard() {
-      super(Messages.MetaTaskWizard_Name);
+      super(Messages.MetaWiz_Name);
       this.metaTaskTaskData = new MetaTaskTaskData();
    }
 
@@ -79,8 +79,7 @@ public class MetaTaskWizard extends AbstractTaskWizard {
     */
    private MetaTaskWizardPage getMetaTaskWizardPage() {
       if (this.metaTaskWizardPage == null) {
-         this.metaTaskWizardPage = new MetaTaskWizardPage(Messages.MetaTaskWizard_Name,
-               Messages.MetaTaskWizard_Description);
+         this.metaTaskWizardPage = new MetaTaskWizardPage(Messages.MetaWiz_Name, Messages.MetaWiz_Desc);
       }
 
       return this.metaTaskWizardPage;

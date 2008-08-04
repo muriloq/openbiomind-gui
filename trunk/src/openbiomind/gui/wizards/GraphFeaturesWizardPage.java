@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -69,14 +69,14 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
    /** The valid output file path. */
    private boolean validOutputFilePath = false;
 
-   /** The top useful features text. */
-   private Text topUsefulFeaturesText = null;
-
    /** The maximum co-occurrence edges text. */
    private Text maximumCoOccurrenceEdgesText = null;
 
    /** The maximum co-expression edges text. */
    private Text maximumCoExpressionEdgesText = null;
+
+   /** The top useful features text. */
+   private Text topUsefulFeaturesText = null;
 
    /**
     * Instantiates a new utility computer wizard page.
@@ -114,41 +114,38 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
     */
    private void createRequiredGroup(final Composite parent) {
       // Required Arguments
-      addSection(parent, Messages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.Label_ReqdArg, NUM_COLUMN_IN_GROUP);
 
       // Horizontal dataset
-      WidgetHelper.createNewFieldLabel(parent, Messages.GraphFeaturesWizardPage_Label_HorizontalDataset,
-            Messages.GraphFeaturesWizardPage_Tip_HorizontalDataset, true);
-      this.horizontalDatasetTBC = createSelectFileTBC(parent, Messages.GraphFeaturesWizardPage_Tip_HorizontalDataset);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_HData, true);
+      this.horizontalDatasetTBC = createSelectFileTBC(parent, Messages.Label_HData);
 
       // MOBRA dataset
-      WidgetHelper.createNewFieldLabel(parent, Messages.GraphFeaturesWizardPage_Label_MobraDataset,
-            Messages.GraphFeaturesWizardPage_Tip_MobraDataset, true);
-      this.mobraDatasetTBC = createSelectFileTBC(parent, Messages.GraphFeaturesWizardPage_Tip_MobraDataset);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_MobraData, true);
+      this.mobraDatasetTBC = createSelectFileTBC(parent, Messages.Label_MobraData);
 
       // Utility file
-      WidgetHelper.createNewFieldLabel(parent, Messages.GraphFeaturesWizardPage_Label_UtilityFile,
-            Messages.GraphFeaturesWizardPage_Tip_UtilityFile, true);
-      this.utilityFileTBC = createSelectFileTBC(parent, Messages.GraphFeaturesWizardPage_Tip_UtilityFile);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_UtilFile, Messages.Tip_UtilFile, true);
+      this.utilityFileTBC = createSelectFileTBC(parent, Messages.Tip_UtilFile);
 
       // Output file
       // - leave a blank row
       WidgetHelper.createNewBlankLabel(parent, NUM_COLUMN_IN_GROUP);
       // - Detail row: Specify the output file
-      WidgetHelper.createNewDetailsLabel(parent, Messages.Detail_OutputFile, NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewDetailsLabel(parent, Messages.Tip_OutFile, NUM_COLUMN_IN_GROUP);
       // - File name
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationFile, Messages.Detail_OutputFile, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_File, Messages.Tip_OutFile, true);
       this.outputFileDestFileText = createOutputFileDestFileText(parent);
       this.outputFileDestExtCombo = createDefaultReadOnlyCombo(parent, getOutputFileDestExtArray(), false);
-      // FIXME Presently only one format is supported, so this combo can be disabled
+      // FIXME Presently only one format is supported, so this combo is disabled
       if (getOutputFileDestExtArray().length == 1) {
          getOutputFileDestExtCombo().setEnabled(false);
       }
       // - Directory
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationDir,
-            "Leave blank to use current directory or specify an existing directory");
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_Dir, Messages.Tip_LeaveBlankToUseCurrDirOrSpecifyDir);
       this.outputFileDestDirTBC = createOutputFileDestDirTBC(parent);
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_OutputFilePath, Messages.Detail_OutputFilePath);
+      // - Path
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_FilePath, Messages.Tip_OutFilePath);
       this.outputFilePathText = createOutputFilePathText(parent);
    }
 
@@ -179,7 +176,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            "Please specify an existing file");
+            Messages.Err_FileNotExist);
       errorDecoration.show();
 
       // apply listeners
@@ -212,14 +209,14 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
     */
    private Text createOutputFileDestFileText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(Messages.Detail_OutputFile);
+      text.setToolTipText(Messages.Tip_OutFile);
       setValidOutputFileDestFileName(false);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(text);
 
       // create decorations
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, Messages.Err_InvalidFile);
       errorDecoration.show();
 
       // apply listeners
@@ -263,7 +260,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
       };
       textButtonComposite.setText(Properties.CURRENT_DIRECTORY);
       textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText("Leave blank to use current directory or specify an existing directory");
+      textButtonComposite.setToolTipText(Messages.Tip_LeaveBlankToUseCurrDirOrSpecifyDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -271,12 +268,13 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
       // create decorations
       final Text textField = textButtonComposite.getTextField();
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textField,
-            "Leave blank to use current directory or specify an existing directory");
+            Messages.Tip_LeaveBlankToUseCurrDirOrSpecifyDir);
       infoDecoration.setShowOnlyOnFocus(true);
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
-            "Specified directory does not exist and will be automatically created");
+            Messages.Warn_DirNotExist);
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField, "Invalid directory");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
+            Messages.Err_InvalidDir);
       errorDecoration.hide();
 
       // apply listeners
@@ -319,16 +317,16 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
     */
    private Text createOutputFilePathText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
-      text.setToolTipText(Messages.Detail_OutputFilePath);
+      text.setToolTipText(Messages.Tip_OutFilePath);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(text);
 
       // create decorations
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
-            "File already exists and would be overwritten");
+            Messages.Warn_FileAlreadyExist);
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, Messages.Err_InvalidFile);
       errorDecoration.hide();
 
       // apply listeners
@@ -363,23 +361,20 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
     */
    private void createOptionalGroup(final Composite parent) {
       // Optional Arguments
-      addSection(parent, Messages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.Label_OptionalArg, NUM_COLUMN_IN_GROUP);
 
-      // Top useful features
-      WidgetHelper.createNewFieldLabel(parent, Messages.GraphFeaturesWizardPage_Label_MaximumCoOccurrenceEdges,
-            Messages.GraphFeaturesWizardPage_Tip_MaximumCoOccurrenceEdges);
+      // Maximum co-occurrence edges
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_MaxCoOccEdge);
       this.maximumCoOccurrenceEdgesText = createNewNumberOnlyText(parent);
       WidgetHelper.createNewBlankLabel(parent);
 
-      // Top useful features
-      WidgetHelper.createNewFieldLabel(parent, Messages.GraphFeaturesWizardPage_Label_MaximumCoExpressionEdges,
-            Messages.GraphFeaturesWizardPage_Tip_MaximumCoExpressionEdges);
+      // Maximum co-expression edges
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_MaxCoExpEdge);
       this.maximumCoExpressionEdgesText = createNewNumberOnlyText(parent);
       WidgetHelper.createNewBlankLabel(parent);
 
       // Top useful features
-      WidgetHelper.createNewFieldLabel(parent, Messages.GraphFeaturesWizardPage_Label_TopUsefulFeatures,
-            Messages.GraphFeaturesWizardPage_Tip_TopUsefulFeatures);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_TopUsefulFeatures);
       this.topUsefulFeaturesText = createNewNumberOnlyText(parent);
       WidgetHelper.createNewBlankLabel(parent);
    }
@@ -484,16 +479,6 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
    }
 
    /**
-    * Gets the graph image type.
-    *
-    * @return the graph image type
-    */
-   public String getGraphImageType() {
-      // FIXME Update this later, to support more image types
-      return "png"; //$NON-NLS-1$
-   }
-
-   /**
     * Gets the output file destination extension.
     *
     * @return the output file destination extension
@@ -578,28 +563,6 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
    }
 
    /**
-    * Gets the top useful features.
-    *
-    * @return the top useful features
-    */
-   public Integer getTopUsefulFeatures() {
-      try {
-         return Integer.valueOf(getTopUsefulFeaturesText().getText());
-      } catch (final NumberFormatException e) {
-         return null;
-      }
-   }
-
-   /**
-    * Gets the top useful features text.
-    *
-    * @return the top useful features text
-    */
-   private Text getTopUsefulFeaturesText() {
-      return this.topUsefulFeaturesText;
-   }
-
-   /**
     * Gets the maximum co-occurrence edges.
     *
     * @return the maximum co-occurrence edges
@@ -643,6 +606,28 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
       return this.maximumCoExpressionEdgesText;
    }
 
+   /**
+    * Gets the top useful features.
+    *
+    * @return the top useful features
+    */
+   public Integer getTopUsefulFeatures() {
+      try {
+         return Integer.valueOf(getTopUsefulFeaturesText().getText());
+      } catch (final NumberFormatException e) {
+         return null;
+      }
+   }
+
+   /**
+    * Gets the top useful features text.
+    *
+    * @return the top useful features text
+    */
+   private Text getTopUsefulFeaturesText() {
+      return this.topUsefulFeaturesText;
+   }
+
    /*
     * @see openbiomind.gui.wizards.AbstractTaskWizardPage#validatePage()
     */
@@ -653,7 +638,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
             && getOutputFileDestDirTBC().isValid() && isValidOutputFilePath();
       setPageComplete(valid);
       if (!valid) {
-         setErrorMessage("Fix the errors to continue");
+         setErrorMessage(Messages.Err_FixErrToContinue);
       } else {
          setErrorMessage(null);
       }

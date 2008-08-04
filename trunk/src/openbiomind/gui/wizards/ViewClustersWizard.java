@@ -29,7 +29,7 @@ public class ViewClustersWizard extends AbstractTaskWizard {
     * Instantiates a new utility computer wizard.
     */
    public ViewClustersWizard() {
-      super(Messages.ViewClustersWizard_Name);
+      super(Messages.ViewClustWiz_Name);
       this.viewClustersTaskData = new ViewClustersTaskData();
    }
 
@@ -77,8 +77,8 @@ public class ViewClustersWizard extends AbstractTaskWizard {
     */
    private ViewClustersWizardPage getViewClustersWizardPage() {
       if (this.viewClustersWizardPage == null) {
-         this.viewClustersWizardPage = new ViewClustersWizardPage(Messages.ViewClustersWizard_Name,
-               Messages.ViewClustersWizard_Description);
+         this.viewClustersWizardPage = new ViewClustersWizardPage(Messages.ViewClustWiz_Name,
+               Messages.ViewClustWiz_Desc);
       }
 
       return this.viewClustersWizardPage;

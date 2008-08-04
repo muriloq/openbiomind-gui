@@ -14,9 +14,13 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="OpenBiomind"
             class="openbiomind.gui.Perspective"
-            id="openbiomind.gui.Perspective">
+            icon="icons/perspective.gif"
+            id="openbiomind.gui.Perspective"
+            name="OpenBiomind">
+         <description>
+            Default persective for OpenBiomind.
+         </description>
       </perspective>
    </extension>
    <extension
@@ -31,7 +35,7 @@
          </property>
          <property
                name="aboutText"
-               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0A;Version: 0.0.9.20080724&#x0A;Development build&#x0A;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
+               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0A;Version: 0.0.10.20080803&#x0A;Development build&#x0A;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
          </property>
          <property
                name="aboutImage"
@@ -511,6 +515,7 @@
                   commandId="openbiomind.gui.commands.EnhanceDataset"
                   icon="icons/tasks/enhance_dataset.gif"
                   id="openbiomind.gui.toolbars.task.EnhanceDataset"
+                  style="push"
                   tooltip="Enhance Dataset: Extending a dataset">
             </command>
             <command
@@ -622,11 +627,16 @@
             name="OpenBiomind">
       </category>
       <view
+            allowMultiple="false"
             category="openbiomind.gui.views.category.OpenBiomind"
             class="org.eclipse.ui.navigator.CommonNavigator"
-            id="openbiomind.gui.views.ExecutedTasks"
-            name="Executed Tasks"
+            icon="icons/result_view.gif"
+            id="openbiomind.gui.views.Results"
+            name="Results"
             restorable="true">
+         <description>
+            Shows the results of the executed tasks.
+         </description>
       </view>
    </extension>
    <extension
@@ -646,14 +656,14 @@
    <extension
          point="org.eclipse.ui.navigator.viewer">
       <viewerActionBinding
-            viewerId="openbiomind.gui.views.ExecutedTasks">
+            viewerId="openbiomind.gui.views.Results">
          <includes>
             <actionExtension
                   pattern="org.eclipse.ui.navigator.resources.*">
             </actionExtension></includes>
       </viewerActionBinding>
       <viewerContentBinding
-            viewerId="openbiomind.gui.views.ExecutedTasks">
+            viewerId="openbiomind.gui.views.Results">
          <includes>
             <contentExtension
                   pattern="org.eclipse.ui.navigator.resourceContent">

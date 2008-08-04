@@ -8,10 +8,7 @@
 package openbiomind.gui.data;
 
 import openbiomind.gui.common.Argument;
-import openbiomind.gui.project.TaskDataFile;
 import openbiomind.gui.project.TaskDataFolder;
-import openbiomind.gui.project.TaskDataProject;
-import openbiomind.gui.util.Utility;
 
 /**
  * The class ViewClustersTaskData is used by the ViewClusters task. The syntax of this task is as follows:
@@ -22,7 +19,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public class ViewClustersTaskData extends AbstractTaskData {
 
@@ -115,40 +112,24 @@ public class ViewClustersTaskData extends AbstractTaskData {
    }
 
    /*
-    * @see openbiomind.gui.tasks.AbstractTaskData#createTaskDataProject()
+    * @see openbiomind.gui.data.AbstractTaskData#createInputFolder()
     */
    @Override
-   public TaskDataProject createTaskDataProject() {
-      final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createTaskDataFolder(ARG_D.friendlyName(), getClusteringDataset(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_R.friendlyName(), getClusteringResult(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_O.friendlyName(), getImageFile(), true));
-      return taskDataProject;
+   protected TaskDataFolder createInputFolder() {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(Messages.Folder_In);
+      taskDataFolder.add(createTaskDataFile(getClusteringDataset(), true, false, Resources.TAB_EXTENSION));
+      taskDataFolder.add(createTaskDataFile(getClusteringResult(), true, false, Resources.TXT_EXTENSION));
+      return taskDataFolder;
    }
 
-   /**
-    * Creates the task data folder.
-    *
-    * @param folderName the folder name
-    * @param filepath the file path
-    * @param autoOpen the auto open
-    *
-    * @return the task data folder
+   /*
+    * @see openbiomind.gui.data.AbstractTaskData#createOutputFolder()
     */
-   private TaskDataFolder createTaskDataFolder(final String folderName, final String filepath, final boolean autoOpen) {
-      if (Utility.isEmpty(filepath)) {
-         return null;
-      } else {
-         final TaskDataFile taskDataFile = new TaskDataFile();
-         taskDataFile.setPath(filepath);
-         taskDataFile.setLinked(true);
-         taskDataFile.setAutoOpen(autoOpen);
-
-         final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
-         taskDataFolder.add(taskDataFile);
-
-         return taskDataFolder;
-      }
+   @Override
+   protected TaskDataFolder createOutputFolder() {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(Messages.Folder_Out);
+      taskDataFolder.add(createTaskDataFile(getImageFile(), true, true));
+      return taskDataFolder;
    }
 
 }

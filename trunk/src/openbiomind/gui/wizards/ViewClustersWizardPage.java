@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -70,9 +70,6 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
    /** The target category combo. */
    private Combo clusteringColorsCombo = null;
 
-   /** The target category array. */
-   private String[] clusteringColorsArray = null;
-
    /**
     * Instantiates a new utility computer wizard page.
     *
@@ -109,25 +106,23 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
     */
    private void createRequiredGroup(final Composite parent) {
       // Required Arguments
-      addSection(parent, Messages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.Label_ReqdArg, NUM_COLUMN_IN_GROUP);
 
       // Clustering dataset
-      WidgetHelper.createNewFieldLabel(parent, Messages.ViewClustersWizardPage_Label_ClusteringDataset,
-            Messages.ViewClustersWizardPage_Detail_ClusteringDataset, true);
-      this.clusteringDatasetTBC = createSelectFileTBC(parent, Messages.ViewClustersWizardPage_Detail_ClusteringDataset);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_ClustDataResult, Messages.Tip_ClustDataResult, true);
+      this.clusteringDatasetTBC = createSelectFileTBC(parent, Messages.Tip_ClustDataResult);
 
       // Clustering result
-      WidgetHelper.createNewFieldLabel(parent, Messages.ViewClustersWizardPage_Label_ClusteringResult,
-            Messages.ViewClustersWizardPage_Detail_ClusteringResult, true);
-      this.clusteringResultTBC = createSelectFileTBC(parent, Messages.ViewClustersWizardPage_Detail_ClusteringResult);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_ClustResult, Messages.Tip_ClustResult, true);
+      this.clusteringResultTBC = createSelectFileTBC(parent, Messages.Tip_ClustResult);
 
       // Output file
       // - leave a blank row
       WidgetHelper.createNewBlankLabel(parent, NUM_COLUMN_IN_GROUP);
       // - Detail row: Specify the image file
-      WidgetHelper.createNewDetailsLabel(parent, Messages.ViewClustersWizardPage_Detail_ImageFile, NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewDetailsLabel(parent, Messages.Label_SpecifyOutImgFile, NUM_COLUMN_IN_GROUP);
       // - File name
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationFile, Messages.Detail_OutputFile, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_File, Messages.Tip_OutFile, true);
       this.imageFileDestFileText = createImageFileDestFileText(parent);
       this.imageFileDestExtCombo = createDefaultReadOnlyCombo(parent, getImageFileDestExtArray(), false);
       // presently only PNG format is supported, so this combo can be disabled
@@ -135,10 +130,9 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
          getImageFileDestExtCombo().setEnabled(false);
       }
       // - Directory
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationDir,
-            "Leave blank to use current directory or specify an existing directory");
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_Dir, Messages.Tip_LeaveBlankToUseCurrDirOrSpecifyDir);
       this.imageFileDestDirTBC = createImageFileDestDirTBC(parent);
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_OutputFilePath, Messages.Detail_OutputFilePath);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_FilePath, Messages.Tip_OutFilePath);
       this.imageFilePathText = createImageFilePathText(parent);
    }
 
@@ -169,7 +163,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            "Please specify an existing file");
+            Messages.Err_FileNotExist);
       errorDecoration.show();
 
       // apply listeners
@@ -202,14 +196,14 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
     */
    private Text createImageFileDestFileText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(Messages.Detail_OutputFile);
+      text.setToolTipText(Messages.Tip_OutFile);
       setValidImageFileDestFileName(false);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(text);
 
       // create decorations
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, Messages.Err_InvalidFile);
       errorDecoration.show();
 
       // apply listeners
@@ -253,7 +247,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
       };
       textButtonComposite.setText(Properties.CURRENT_DIRECTORY);
       textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText("Leave blank to use current directory or specify an existing directory");
+      textButtonComposite.setToolTipText(Messages.Tip_LeaveBlankToUseCurrDirOrSpecifyDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -261,12 +255,13 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
       // create decorations
       final Text textField = textButtonComposite.getTextField();
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textField,
-            "Leave blank to use current directory or specify an existing directory");
+            Messages.Tip_LeaveBlankToUseCurrDirOrSpecifyDir);
       infoDecoration.setShowOnlyOnFocus(true);
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
-            "Specified directory does not exist and will be automatically created");
+            Messages.Warn_DirNotExist);
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField, "Invalid directory");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
+            Messages.Err_InvalidDir);
       errorDecoration.hide();
 
       // apply listeners
@@ -309,16 +304,16 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
     */
    private Text createImageFilePathText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
-      text.setToolTipText(Messages.Detail_OutputFilePath);
+      text.setToolTipText(Messages.Tip_OutFilePath);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(text);
 
       // create decorations
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
-            "File already exists and would be overwritten");
+            Messages.Warn_FileAlreadyExist);
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, Messages.Err_InvalidFile);
       errorDecoration.hide();
 
       // apply listeners
@@ -353,11 +348,10 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
     */
    private void createOptionalGroup(final Composite parent) {
       // Optional Arguments
-      addSection(parent, Messages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.Label_OptionalArg, NUM_COLUMN_IN_GROUP);
 
       // Clustering colors
-      WidgetHelper.createNewFieldLabel(parent, Messages.ViewClustersWizardPage_Label_ClusteringColors,
-            Messages.ViewClustersWizardPage_Detail_ClusteringColors);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_ClustColor, Messages.Tip_ClustColor);
       this.clusteringColorsCombo = createDefaultReadOnlyCombo(parent, getClusteringColorsArray());
       WidgetHelper.createNewBlankLabel(parent);
    }
@@ -545,20 +539,6 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
       return this.clusteringColorsCombo;
    }
 
-   /**
-    * Gets the clustering colors array.
-    *
-    * @return the clustering colors array
-    */
-   private String[] getClusteringColorsArray() {
-      if (this.clusteringColorsArray == null) {
-         this.clusteringColorsArray = new String[] { EMPTY, ClusteringColorsEnum.TRADITIONAL.toString(),
-               ClusteringColorsEnum.MONO.toString() };
-      }
-
-      return this.clusteringColorsArray;
-   }
-
    /*
     * @see openbiomind.gui.wizards.AbstractTaskWizardPage#validatePage()
     */
@@ -569,7 +549,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
             && getImageFileDestDirTBC().isValid() && isValidImageFilePath();
       setPageComplete(valid);
       if (!valid) {
-         setErrorMessage("Fix the errors to continue");
+         setErrorMessage(Messages.Err_FixErrToContinue);
       } else {
          setErrorMessage(null);
       }

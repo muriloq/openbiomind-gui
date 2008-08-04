@@ -29,7 +29,7 @@ public class ClusterizeWizard extends AbstractTaskWizard {
     * Instantiates a new clusterize wizard.
     */
    public ClusterizeWizard() {
-      super(Messages.ClusterizeWizard_Name);
+      super(Messages.ClustWiz_Name);
       this.clusterizeTaskData = new ClusterizeTaskData();
    }
 
@@ -76,8 +76,7 @@ public class ClusterizeWizard extends AbstractTaskWizard {
     */
    private ClusterizeWizardPage getClusterizeWizardPage() {
       if (this.clusterizeWizardPage == null) {
-         this.clusterizeWizardPage = new ClusterizeWizardPage(Messages.ClusterizeWizard_Name,
-               Messages.ClusterizeWizard_Description);
+         this.clusterizeWizardPage = new ClusterizeWizardPage(Messages.ClustWiz_Name, Messages.ClustWiz_Desc);
       }
 
       return this.clusterizeWizardPage;

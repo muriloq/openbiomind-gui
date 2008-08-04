@@ -5,14 +5,16 @@
  *
  * $Id$
  */
-package openbiomind.gui.common;
+package openbiomind.gui.data;
+
+import openbiomind.gui.common.Argument;
 
 /**
  * The interface ConstantArguments.
  *
  * @author bsanghvi
  * @since Jul 26, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public interface ConstantArguments {
 
@@ -47,9 +49,11 @@ public interface ConstantArguments {
     */
    public static final Argument ARG_FEATURE_SELECTION_METHOD = new Argument("featureSelectionMethod"); //$NON-NLS-1$
 
-   //   public static final Argument ARG_IS_FEATURE_SELECTED = new Argument("isFeatureSelected"); //$NON-NLS-1$
+   /** Argument <code>isFeatureSelected</code> for specifying whether feature is selected or not. */
+   public static final Argument ARG_IS_FEATURE_SELECTED = new Argument("isFeatureSelected"); //$NON-NLS-1$
 
-   //   public static final Argument ARG_IS_FOLDED = new Argument("isFolded"); //$NON-NLS-1$
+   /** Argument <code>isFolded</code> for specifying whether folded or not. */
+   public static final Argument ARG_IS_FOLDED = new Argument("isFolded"); //$NON-NLS-1$
 
    /**
     * Argument <code>metataskShuffling</code> for specifying if permutation analysis much be used or not?

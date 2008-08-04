@@ -9,6 +9,11 @@ package openbiomind.gui.wizards;
 
 import openbiomind.gui.common.Constants;
 import openbiomind.gui.common.TextButtonComposite;
+import openbiomind.gui.data.ClassificationMethodEnum;
+import openbiomind.gui.data.ClusteringColorsEnum;
+import openbiomind.gui.data.DatasetClusteringMetricEnum;
+import openbiomind.gui.data.FeatureSelectionMethodEnum;
+import openbiomind.gui.data.ShuffleEnum;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
 
@@ -32,7 +37,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public abstract class AbstractTaskWizardPage extends WizardPage implements IWizardPage, Constants {
 
@@ -50,6 +55,27 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /** The directory dialog. */
    private DirectoryDialog directoryDialog = null;
+
+   /** The target category array. */
+   private String[] targetCategoryArray = null;
+
+   /** The feature selection method array. */
+   private String[] featureSelectionMethodArray = null;
+
+   /** The classification method array. */
+   private String[] classificationMethodArray = null;
+
+   /** The meta task shuffling array. */
+   private String[] metaTaskShufflingArray = null;
+
+   /** The dataset clustering metric array. */
+   private String[] datasetClusteringMetricArray = null;
+
+   /** The target category array. */
+   private String[] clusteringColorsArray = null;
+
+   /** The boolean value array. */
+   private String[] booleanValueArray = null;
 
    /**
     * Instantiates a new abstract task wizard page.
@@ -71,11 +97,11 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    public void createControl(final Composite parent) {
       setParent(parent);
 
-      // Required to avoid an error in the system
-      setControl(getControl());
-
       // initially page is not complete
       setPageComplete(false);
+
+      // Required to avoid an error in the system
+      setControl(getControl());
    }
 
    /**
@@ -134,8 +160,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     */
    protected void addProjectInformationFields(final Composite parent) {
       // Execution Name (optional)
-      WidgetHelper.createNewFieldLabel(parent, Messages.AbstractTaskWizardPage_Label_ProjectName,
-            Messages.AbstractTaskWizardPage_Tip_ProjectName);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_ProjName, Messages.Info_ProjName);
       this.projectNameText = createProjectNameText(parent);
    }
 
@@ -157,14 +182,13 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     */
    private Text createProjectNameText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(Messages.AbstractTaskWizardPage_Info_ProjectName);
+      text.setToolTipText(Messages.Tip_ProjName);
 
       // apply layout
       GUI.GRID_DATA_FILL_H.applyTo(text);
 
       // create decorations
-      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
-            Messages.AbstractTaskWizardPage_Info_ProjectName);
+      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text, Messages.Tip_ProjName);
       infoDecoration.setShowOnlyOnFocus(true);
 
       // set initial focus on this field
@@ -228,17 +252,17 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
       };
       textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText("Leave blank or specify a valid file");
+      textButtonComposite.setToolTipText(Messages.Tip_LeaveBlankOrSpecifyFile);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(numOfColumns, 1).applyTo(textButtonComposite);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textButtonComposite
-            .getTextField(), "Leave blank or specify a valid file");
+            .getTextField(), Messages.Tip_LeaveBlankOrSpecifyFile);
       infoDecoration.setShowOnlyOnFocus(true);
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            "Please specify an existing file");
+            Messages.Err_FileNotExist);
       errorDecoration.hide();
 
       // apply listeners
@@ -272,14 +296,14 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     */
    protected Text createNewNumberOnlyText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(Messages.AbstractTaskWizard_LeaveBlank_Number);
+      text.setToolTipText(Messages.Tip_LeaveBlank_Number);
 
       // apply layout
       GUI.GRID_DATA_FILL_H.applyTo(text);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
-            Messages.AbstractTaskWizard_LeaveBlank_Number);
+            Messages.Tip_LeaveBlank_Number);
       infoDecoration.setShowOnlyOnFocus(true);
 
       // apply listeners
@@ -329,7 +353,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @return the combo
     */
    protected Combo createDefaultReadOnlyCombo(final Composite parent, final String[] items, final boolean fill) {
-      return createDefaultCombo(parent, SWT.READ_ONLY, Messages.AbstractTaskWizardPage_Tip_Combo_ReadOnly, items, fill);
+      return createDefaultCombo(parent, SWT.READ_ONLY, Messages.Tip_Combo_ReadOnly, items, fill);
    }
 
    /**
@@ -354,7 +378,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @return the combo
     */
    protected Combo createDefaultDropDownCombo(final Composite parent, final String[] items, final boolean fill) {
-      return createDefaultCombo(parent, SWT.DROP_DOWN, Messages.AbstractTaskWizardPage_Tip_Combo_Simple, items, fill);
+      return createDefaultCombo(parent, SWT.DROP_DOWN, Messages.Tip_Combo_Simple, items, fill);
    }
 
    /**
@@ -404,14 +428,14 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     */
    protected Text createDefaultText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText("Leave blank if you do not want to specify a value");
+      text.setToolTipText(Messages.Tip_LeaveBlank_Value);
 
       // apply layout
       GUI.GRID_DATA_FILL_H.applyTo(text);
 
       // create decorations
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(text,
-            "Leave blank if you do not want to specify a value");
+            Messages.Tip_LeaveBlank_Value);
       infoDecoration.setShowOnlyOnFocus(true);
 
       return text;
@@ -437,7 +461,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     */
    protected FileDialog getFileDialog() {
       if (this.fileDialog == null) {
-         this.fileDialog = new FileDialog(getShell());
+         this.fileDialog = new FileDialog(getShell(), SWT.OPEN);
       }
 
       return this.fileDialog;
@@ -487,6 +511,103 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    protected void showErrorOrWarning(final boolean inError, final ControlDecoration errorDecoration,
          final boolean inWarning, final ControlDecoration warningDecoration) {
       showErrorOrWarning(inError, errorDecoration, inWarning, warningDecoration, null);
+   }
+
+   /**
+    * Gets the target category array.
+    *
+    * @return the target category array
+    */
+   protected String[] getTargetCategoryArray() {
+      if (this.targetCategoryArray == null) {
+         this.targetCategoryArray = new String[] { EMPTY, Resources.CATEGORY_CASE.toString() };
+      }
+
+      return this.targetCategoryArray;
+   }
+
+   /**
+    * Gets the feature selection method array.
+    *
+    * @return the feature selection method array
+    */
+   protected String[] getFeatureSelectionMethodArray() {
+      if (this.featureSelectionMethodArray == null) {
+         this.featureSelectionMethodArray = new String[] { EMPTY,
+               FeatureSelectionMethodEnum.DIFFERENTIATION.toString(), FeatureSelectionMethodEnum.SAM.toString() };
+      }
+
+      return this.featureSelectionMethodArray;
+   }
+
+   /**
+    * Gets the classification method array.
+    *
+    * @return the classification method array
+    */
+   protected String[] getClassificationMethodArray() {
+      if (this.classificationMethodArray == null) {
+         this.classificationMethodArray = new String[] { EMPTY, ClassificationMethodEnum.SNPQA.toString(),
+               ClassificationMethodEnum.BOOLSIMPLE.toString(), ClassificationMethodEnum.SNPLOCAL.toString(),
+               ClassificationMethodEnum.SNP.toString(), ClassificationMethodEnum.BOOLCOMPLEX.toString(),
+               ClassificationMethodEnum.CONVENTIONAL.toString() };
+      }
+
+      return this.classificationMethodArray;
+   }
+
+   /**
+    * Gets the meta task shuffling array.
+    *
+    * @return the meta task shuffling array
+    */
+   protected String[] getMetaTaskShufflingArray() {
+      if (this.metaTaskShufflingArray == null) {
+         this.metaTaskShufflingArray = new String[] { EMPTY, ShuffleEnum.ON.toString(), ShuffleEnum.OFF.toString() };
+      }
+
+      return this.metaTaskShufflingArray;
+   }
+
+   /**
+    * Gets the dataset clustering metric array.
+    *
+    * @return the dataset clustering metric array
+    */
+   protected String[] getDatasetClusteringMetricArray() {
+      if (this.datasetClusteringMetricArray == null) {
+         this.datasetClusteringMetricArray = new String[] { EMPTY, DatasetClusteringMetricEnum.COSINE.toString(),
+               DatasetClusteringMetricEnum.EUCLIDEAN.toString(), DatasetClusteringMetricEnum.SNP.toString() };
+      }
+
+      return this.datasetClusteringMetricArray;
+   }
+
+   /**
+    * Gets the clustering colors array.
+    *
+    * @return the clustering colors array
+    */
+   protected String[] getClusteringColorsArray() {
+      if (this.clusteringColorsArray == null) {
+         this.clusteringColorsArray = new String[] { EMPTY, ClusteringColorsEnum.TRADITIONAL.toString(),
+               ClusteringColorsEnum.MONO.toString() };
+      }
+
+      return this.clusteringColorsArray;
+   }
+
+   /**
+    * Gets the boolean value array.
+    *
+    * @return the boolean value array
+    */
+   protected String[] getBooleanValueArray() {
+      if (this.booleanValueArray == null) {
+         this.booleanValueArray = new String[] { EMPTY, Boolean.TRUE.toString(), Boolean.FALSE.toString() };
+      }
+
+      return this.booleanValueArray;
    }
 
 }

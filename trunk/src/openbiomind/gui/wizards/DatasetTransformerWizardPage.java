@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public class DatasetTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -52,17 +52,11 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
    /** The target category combo. */
    private Combo targetCategoryCombo = null;
 
-   /** The target category array. */
-   private String[] targetCategoryArray = null;
-
    /** The number of selected features text. */
    private Text numberOfSelectedFeaturesText = null;
 
    /** The feature selection method combo. */
    private Combo featureSelectionMethodCombo = null;
-
-   /** The feature selection method array. */
-   private String[] featureSelectionMethodArray = null;
 
    /** The number of folds button. */
    private Button numberOfFoldsButton = null;
@@ -112,16 +106,14 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
     */
    private void createRequiredGroup(final Composite parent) {
       // Required Arguments
-      addSection(parent, Messages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.Label_ReqdArg, NUM_COLUMN_IN_GROUP);
 
-      // Original dataset
-      WidgetHelper.createNewFieldLabel(parent, Messages.DatasetTransformerWizardPage_Label_OriginalDataset,
-            Messages.Detail_OriginalDataset, true);
+      // Source dataset
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_SrcData, Messages.Tip_SrcData, true);
       this.originalDatasetTBC = createOriginalDatasetTBC(parent);
 
       // Output directory
-      WidgetHelper.createNewFieldLabel(parent, Messages.DatasetTransformerWizardPage_Label_OutputDir,
-            Messages.Detail_OutputDir, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_OutDir, Messages.Label_SpecifyOutDir, true);
       this.outputDirectoryTBC = createOutputDirTBC(parent);
    }
 
@@ -142,14 +134,14 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(Messages.Detail_OriginalDataset);
+      textButtonComposite.setToolTipText(Messages.Tip_SrcData);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            "Please specify an existing file");
+            Messages.Err_FileNotExist);
       errorDecoration.show();
 
       // apply listeners
@@ -157,7 +149,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            textButtonComposite.setValid(Utility.fileExists(getOriginalDatasetFilePath()));
+            textButtonComposite.setValid(Utility.fileExists(getInputDataset()));
             if (textButtonComposite.isValid()) {
                errorDecoration.hide();
             } else {
@@ -190,7 +182,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(Messages.Detail_OutputDir);
+      textButtonComposite.setToolTipText(Messages.Label_SpecifyOutDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -198,9 +190,10 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       // create decorations
       final Text textField = textButtonComposite.getTextField();
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
-            "Specified directory already exists and files inside it may be overwritten");
+            Messages.Err_DirAlreadyExist);
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField, "Invalid directory");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
+            Messages.Err_InvalidDir);
       errorDecoration.show();
 
       // apply listeners
@@ -241,22 +234,21 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
     */
    private void createOptionalGroup(final Composite parent) {
       // Optional Arguments
-      addSection(parent, Messages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.Label_OptionalArg, NUM_COLUMN_IN_GROUP);
 
       // Target category
       // TODO Read from the given input files
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_TargetCategory, Messages.Detail_TargetCategory);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_TargetCat);
       this.targetCategoryCombo = createDefaultDropDownCombo(parent, getTargetCategoryArray());
       WidgetHelper.createNewBlankLabel(parent);
 
       // Number of selected features
-      WidgetHelper.createNewFieldLabel(parent, Messages.DatasetTransformerWizardPage_Label_NumOfSelectedFeatures,
-            Messages.DatasetTransformerWizardPage_Detail_NumOfSelectedFeatures);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_NumOfSelecFeatures);
       this.numberOfSelectedFeaturesText = createNewNumberOnlyText(parent);
       WidgetHelper.createNewBlankLabel(parent);
 
       // Feature selection method
-      WidgetHelper.createNewFieldLabel(parent, Messages.DatasetTransformerWizardPage_Label_FeatureSelectionMethod);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_FeatureSelecMethod);
       this.featureSelectionMethodCombo = createDefaultReadOnlyCombo(parent, getFeatureSelectionMethodArray());
       WidgetHelper.createNewBlankLabel(parent);
 
@@ -282,8 +274,8 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
     */
    private Button createNumberOfFoldsButton(final Composite parent) {
       final Button button = new Button(parent, SWT.RADIO);
-      button.setText(Messages.DatasetTransformerWizardPage_Label_NumOfFolds + LABEL_SEPARATOR);
-      button.setToolTipText(Messages.DatasetTransformerWizardPage_Label_NumOfFolds);
+      button.setText(Messages.Label_NumOfFolds + LABEL_SEPARATOR);
+      button.setToolTipText(Messages.Label_NumOfFolds);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(button);
@@ -315,8 +307,8 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
     */
    private Button createTestDatasetButton(final Composite parent) {
       final Button button = new Button(parent, SWT.RADIO);
-      button.setText(Messages.DatasetTransformerWizardPage_Label_TestDataset + LABEL_SEPARATOR);
-      button.setToolTipText(Messages.DatasetTransformerWizardPage_Label_TestDataset);
+      button.setText(Messages.Label_TestData + LABEL_SEPARATOR);
+      button.setToolTipText(Messages.Label_TestData);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(button);
@@ -340,11 +332,11 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
    }
 
    /**
-    * Gets the original dataset file path.
+    * Gets the input dataset file path.
     *
-    * @return the original dataset file
+    * @return the input dataset file
     */
-   public String getOriginalDatasetFilePath() {
+   public String getInputDataset() {
       return getOriginalDatasetTBC().getText();
    }
 
@@ -394,19 +386,6 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
    }
 
    /**
-    * Gets the target category array.
-    *
-    * @return the target category array
-    */
-   private String[] getTargetCategoryArray() {
-      if (this.targetCategoryArray == null) {
-         this.targetCategoryArray = new String[] { EMPTY, Resources.CATEGORY_CASE.toString() };
-      }
-
-      return this.targetCategoryArray;
-   }
-
-   /**
     * Gets the number of selected features.
     *
     * @return the number of selected features
@@ -445,20 +424,6 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
     */
    private Combo getFeatureSelectionMethodCombo() {
       return this.featureSelectionMethodCombo;
-   }
-
-   /**
-    * Gets the feature selection method array.
-    *
-    * @return the feature selection method array
-    */
-   private String[] getFeatureSelectionMethodArray() {
-      if (this.featureSelectionMethodArray == null) {
-         this.featureSelectionMethodArray = new String[] { EMPTY,
-               FeatureSelectionMethodEnum.DIFFERENTIATION.toString(), FeatureSelectionMethodEnum.SAM.toString() };
-      }
-
-      return this.featureSelectionMethodArray;
    }
 
    /**
@@ -546,7 +511,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
             && getOutputDirectoryTBC().isValid() && getTestDatasetTBC().isValid();
       setPageComplete(valid);
       if (!valid) {
-         setErrorMessage("Fix the errors to continue");
+         setErrorMessage(Messages.Err_FixErrToContinue);
       } else {
          setErrorMessage(null);
       }

@@ -14,288 +14,300 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 class Messages extends NLS {
 
    /** The constant bundle name. */
    private static final String BUNDLE_NAME = "openbiomind.gui.wizards.messages"; //$NON-NLS-1$
 
-   /** The Abstract task wizard executing task. */
-   public static String AbstractTaskWizard_ExecutingTask;
+   /** Executing task */
+   public static String AbsTaskWiz_ExecTask;
 
-   /** The Abstract task wizard leave blank or specify a number. */
-   public static String AbstractTaskWizard_LeaveBlank_Number;
+   /** Preparing process... */
+   public static String AbsTaskWiz_PrepProc;
 
-   /** The Abstract task wizard preparing process. */
-   public static String AbstractTaskWizard_PreparingProcess;
+   /** Preparing task data... */
+   public static String AbsTaskWiz_PrepTaskData;
 
-   /** The Abstract task wizard preparing task data. */
-   public static String AbstractTaskWizard_PreparingTaskData;
+   /** Use this task to run clustering-related data transforms */
+   public static String ClustTransWiz_Desc;
 
-   /** The Abstract task wizard page info project name. */
-   public static String AbstractTaskWizardPage_Info_ProjectName;
+   /** Clustering Transformer */
+   public static String ClustTransWiz_Name;
 
-   /** The Abstract task wizard page label project name. */
-   public static String AbstractTaskWizardPage_Label_ProjectName;
+   /** Use this task for clustering data */
+   public static String ClustWiz_Desc;
 
-   /** The Abstract task wizard page tip for read only combo. */
-   public static String AbstractTaskWizardPage_Tip_Combo_ReadOnly;
+   /** Clusterize */
+   public static String ClustWiz_Name;
 
-   /** The Abstract task wizard page tip for simple combo. */
-   public static String AbstractTaskWizardPage_Tip_Combo_Simple;
+   /** Complete Pipeline Task */
+   public static String CompPipeWiz_Name;
 
-   /** The Abstract task wizard page tip project name. */
-   public static String AbstractTaskWizardPage_Tip_ProjectName;
+   /** Use this task to perform all the tasks together */
+   public static String CompPipeWiz_P1_Desc;
 
-   /** The Clustering transformer wizard description. */
-   public static String ClusteringTransformerWizard_Description;
+   /** Complete Pipeline Task */
+   public static String CompPipeWiz_P1_Name;
 
-   /** The Clustering transformer wizard name. */
-   public static String ClusteringTransformerWizard_Name;
+   /** Use this page to override the properties in {0} */
+   public static String CompPipeWiz_P2_Desc;
 
-   /** The Clustering transformer wizard page error meta task result directory. */
-   public static String ClusteringTransformerWizardPage_Error_MetaTaskResultDir;
+   /** Complete Pipeline Task */
+   public static String CompPipeWiz_P2_Name;
 
-   /** The Clustering transformer wizard page Meta Task result directory. */
-   public static String ClusteringTransformerWizardPage_Label_MetaTaskResultDir;
+   /** Use this task to fold a dataset */
+   public static String DataTransWiz_Desc;
 
-   /** The Clustering transformer wizard page label transorm. */
-   public static String ClusteringTransformerWizardPage_Label_Transorm;
+   /** Dataset Transformer Task */
+   public static String DataTransWiz_Name;
 
-   /** The Clusterize wizard description. */
-   public static String ClusterizeWizard_Description;
-
-   /** The Clusterize wizard name. */
-   public static String ClusterizeWizard_Name;
-
-   /** The Clusterize wizard page detail clustering dataset file. */
-   public static String ClusterizeWizardPage_Detail_ClusteringDatasetFile;
-
-   /** The Clusterize wizard page label clustering dataset file. */
-   public static String ClusterizeWizardPage_Label_ClusteringDatasetFile;
-
-   /** The Clusterize wizard page label dataset clustering metric. */
-   public static String ClusterizeWizardPage_Label_DatasetClusteringMetric;
-
-   /** The Dataset transformer wizard description. */
-   public static String DatasetTransformerWizard_Description;
-
-   /** The Dataset transformer wizard name. */
-   public static String DatasetTransformerWizard_Name;
-
-   /** The Dataset transformer wizard page detail number of selected features. */
-   public static String DatasetTransformerWizardPage_Detail_NumOfSelectedFeatures;
-
-   /** The Dataset transformer wizard page label feature selection method. */
-   public static String DatasetTransformerWizardPage_Label_FeatureSelectionMethod;
-
-   /** The Dataset transformer wizard page label number of folds. */
-   public static String DatasetTransformerWizardPage_Label_NumOfFolds;
-
-   /** The Dataset transformer wizard page label number of selected features. */
-   public static String DatasetTransformerWizardPage_Label_NumOfSelectedFeatures;
-
-   /** The Dataset transformer wizard page label original dataset. */
-   public static String DatasetTransformerWizardPage_Label_OriginalDataset;
-
-   /** The Dataset transformer wizard label output dataset. */
-   public static String DatasetTransformerWizardPage_Label_OutputDir;
-
-   /** The Dataset transformer wizard page label test dataset. */
-   public static String DatasetTransformerWizardPage_Label_TestDataset;
-
-   /** The dataset file detail. */
-   public static String Detail_DatasetFile;
-
-   /** The Detail Meta Task result directory. */
-   public static String Detail_MetaTaskResultDir;
-
-   /** The Detail original dataset. */
-   public static String Detail_OriginalDataset;
-
-   /** The Detail output directory. */
-   public static String Detail_OutputDir;
-
-   /** The Utility computer wizard page detail output file. */
-   public static String Detail_OutputFile;
-
-   /** The Utility computer wizard page detail output file path. */
-   public static String Detail_OutputFilePath;
-
-   /** The Detail select one of these. */
+   /** Select one of these */
    public static String Detail_SelectOne;
 
-   /** The detail target category. */
-   public static String Detail_TargetCategory;
+   /** Use this task to add new features */
+   public static String EnhDataWiz_Desc;
 
-   /** The Enhance dataset wizard description. */
-   public static String EnhanceDatasetWizard_Description;
+   /** Enhance Dataset Task */
+   public static String EnhDataWiz_Name;
 
-   /** The Enhance dataset wizard name. */
-   public static String EnhanceDatasetWizard_Name;
+   /** Use the original dataset directory */
+   public static String EnhDataWizPg_UseOriginalDataDir;
 
-   /** The Enhance dataset wizard page detail association description. */
-   public static String EnhanceDatasetWizardPage_Detail_AssociationDesc;
+   /** Specified directory already exists and files inside it may be overwritten */
+   public static String Err_DirAlreadyExist;
 
-   /** The Enhance dataset wizard page detail enhanced dataset. */
-   public static String EnhanceDatasetWizardPage_Detail_EnhancedDataset;
+   /** Please specify an existing file */
+   public static String Err_FileNotExist;
 
-   /** The Enhance dataset wizard page detail ontology description. */
-   public static String EnhanceDatasetWizardPage_Detail_OntologyDesc;
+   /** Fix the errors to continue */
+   public static String Err_FixErrToContinue;
 
-   /** The Enhance dataset wizard page label association file. */
-   public static String EnhanceDatasetWizardPage_Label_AssociationFile;
+   /** Set Graphviz dot utility in Preferences to automatically convert dot files to images */
+   public static String Err_GraphvizDotUtility;
 
-   /** The Enhance dataset wizard page label description file. */
-   public static String EnhanceDatasetWizardPage_Label_DescriptionFile;
+   /** Invalid directory (required argument transform is MUTIC or MOBRA) */
+   public static String Err_InvalidDir;
 
-   /** The Enhance dataset wizard page label enhanced dataset path. */
-   public static String EnhanceDatasetWizardPage_Label_EnhancedDatasetPath;
+   /** Invalid directory */
+   public static String Err_InvalidDir_MetaResult;
 
-   /** The Enhance dataset wizard page label original dataset. */
-   public static String EnhanceDatasetWizardPage_Label_OriginalDataset;
+   /** Invalid file */
+   public static String Err_InvalidFile;
 
-   /** The Enhance dataset wizard page tip enhanced dataset. */
-   public static String EnhanceDatasetWizardPage_Tip_EnhancedDataset;
+   /** Error occurred while creating project */
+   public static String Err_UnableToCreateProject;
 
-   /** The Enhance dataset wizard page use original dataset directory. */
-   public static String EnhanceDatasetWizardPage_UseOriginalDatasetDir;
+   /** Use this task for integrated graph visualization */
+   public static String GraFeatureWiz_Desc;
 
-   /** The Graph features wizard description. */
-   public static String GraphFeaturesWizard_Description;
+   /** Graph Features */
+   public static String GraFeatureWiz_Name;
 
-   /** The Graph features wizard info for Graphviz dot utility. */
-   public static String GraphFeaturesWizard_Info_GraphvizDotUtility;
+   /** Time will be appended at end of name to make it unique */
+   public static String Info_ProjName;
 
-   /** The Graph features wizard name. */
-   public static String GraphFeaturesWizard_Name;
+   /** Classification method */
+   public static String Label_ClassMethod;
 
-   /** The Graph features wizard page label horizontal dataset. */
-   public static String GraphFeaturesWizardPage_Label_HorizontalDataset;
+   /** Clustering colors */
+   public static String Label_ClustColor;
 
-   /** The Graph features wizard page label maximum co expression edges. */
-   public static String GraphFeaturesWizardPage_Label_MaximumCoExpressionEdges;
+   /** Clustering dataset */
+   public static String Label_ClustDataResult;
 
-   /** The Graph features wizard page label maximum co occurrence edges. */
-   public static String GraphFeaturesWizardPage_Label_MaximumCoOccurrenceEdges;
+   /** Clustering result */
+   public static String Label_ClustResult;
 
-   /** The Graph features wizard page label mobra dataset. */
-   public static String GraphFeaturesWizardPage_Label_MobraDataset;
+   /** Dataset clustering metric */
+   public static String Label_DataClustMetric;
 
-   /** The Graph features wizard page label top useful features. */
-   public static String GraphFeaturesWizardPage_Label_TopUsefulFeatures;
+   /** Dataset transformer result */
+   public static String Label_DataTransResultDir;
 
-   /** The Graph features wizard page label utility file. */
-   public static String GraphFeaturesWizardPage_Label_UtilityFile;
+   /** Directory */
+   public static String Label_Dir;
 
-   /** The Graph features wizard page tip horizontal dataset. */
-   public static String GraphFeaturesWizardPage_Tip_HorizontalDataset;
+   /** Feature selection method */
+   public static String Label_FeatureSelecMethod;
 
-   /** The Graph features wizard page tip maximum co expression edges. */
-   public static String GraphFeaturesWizardPage_Tip_MaximumCoExpressionEdges;
+   /** File name */
+   public static String Label_File;
 
-   /** The Graph features wizard page tip maximum co occurrence edges. */
-   public static String GraphFeaturesWizardPage_Tip_MaximumCoOccurrenceEdges;
+   /** Path */
+   public static String Label_FilePath;
 
-   /** The Graph features wizard page tip mobra dataset. */
-   public static String GraphFeaturesWizardPage_Tip_MobraDataset;
+   /** Horizontal dataset */
+   public static String Label_HData;
 
-   /** The Graph features wizard page tip top useful features. */
-   public static String GraphFeaturesWizardPage_Tip_TopUsefulFeatures;
+   /** Is feature selected */
+   public static String Label_IsFeatureSel;
 
-   /** The Graph features wizard page tip utility file. */
-   public static String GraphFeaturesWizardPage_Tip_UtilityFile;
+   /** Is folded */
+   public static String Label_IsFolded;
 
-   /** The Group label optional arguments. */
-   public static String GroupLabel_OptionalArguments;
+   /** Maximum co-expression edges */
+   public static String Label_MaxCoExpEdge;
 
-   /** The Group label required arguments. */
-   public static String GroupLabel_RequiredArguments;
+   /** Maximum co-occurrence edges */
+   public static String Label_MaxCoOccEdge;
 
-   /** The Label dataset file. */
-   public static String Label_DatasetFile;
+   /** MetaTask result */
+   public static String Label_MetaResultDir;
 
-   /** The Label destination directory. */
-   public static String Label_DestinationDir;
+   /** MetaTask shuffling */
+   public static String Label_MetaShuffling;
 
-   /** The Enhance dataset wizard page label destination file. */
-   public static String Label_DestinationFile;
+   /** MOBRA dataset */
+   public static String Label_MobraData;
 
-   /** The Utility computer wizard page label output file path. */
-   public static String Label_OutputFilePath;
+   /** Number of folds */
+   public static String Label_NumOfFolds;
 
-   /** The Dataset transformer wizard page label target category. */
-   public static String Label_TargetCategory;
+   /** Number of selected features */
+   public static String Label_NumOfSelecFeatures;
 
-   /** The Meta task wizard description. */
-   public static String MetaTaskWizard_Description;
+   /** Number of tasks */
+   public static String Label_NumOfTasks;
 
-   /** The Meta task wizard name. */
-   public static String MetaTaskWizard_Name;
+   /** Ontology association file */
+   public static String Label_OntAssoFile;
 
-   /** The Meta task wizard page label classification method. */
-   public static String MetaTaskWizardPage_Label_ClassificationMethod;
+   /** Ontology description file */
+   public static String Label_OntDescFile;
 
-   /** The Meta task wizard page label dataset directory. */
-   public static String MetaTaskWizardPage_Label_DatasetDir;
+   /** Optional Arguments */
+   public static String Label_OptionalArg;
 
-   /** The Meta task wizard page MetaTask shuffling. */
-   public static String MetaTaskWizardPage_Label_MetaTaskShuffling;
+   /** Output directory */
+   public static String Label_OutDir;
 
-   /** The Meta task wizard page label number of tasks. */
-   public static String MetaTaskWizardPage_Label_NumOfTasks;
+   /** Execution name (optional) */
+   public static String Label_ProjName;
 
-   /** The Meta task wizard label output dataset. */
-   public static String MetaTaskWizard_Label_OutputDir;
+   /** Alternate property file */
+   public static String Label_PropFile;
 
-   /** The Meta task wizard page tip dataset directory. */
-   public static String MetaTaskWizardPage_Tip_DatasetDir;
+   /** Required Arguments */
+   public static String Label_ReqdArg;
 
-   /** The Meta task wizard page tip number of tasks. */
-   public static String MetaTaskWizardPage_Tip_NumOfTasks;
+   /** Specify the enhanced dataset file */
+   public static String Label_SpecifyEnhData;
 
-   /** The View clusters wizard description. */
-   public static String ViewClustersWizard_Description;
+   /** Specify the output directory */
+   public static String Label_SpecifyOutDir;
 
-   /** The View clusters wizard name. */
-   public static String ViewClustersWizard_Name;
+   /** Specify the output image file */
+   public static String Label_SpecifyOutImgFile;
 
-   /** The View clusters wizard page detail clustering colors. */
-   public static String ViewClustersWizardPage_Detail_ClusteringColors;
+   /** Source dataset */
+   public static String Label_SrcData;
 
-   /** The View clusters wizard page detail clustering dataset. */
-   public static String ViewClustersWizardPage_Detail_ClusteringDataset;
+   /** Target category */
+   public static String Label_TargetCat;
 
-   /** The View clusters wizard page detail clustering result. */
-   public static String ViewClustersWizardPage_Detail_ClusteringResult;
+   /** Test dataset */
+   public static String Label_TestData;
 
-   /** The View clusters wizard page detail image file. */
-   public static String ViewClustersWizardPage_Detail_ImageFile;
+   /** Top useful features */
+   public static String Label_TopUsefulFeatures;
 
-   /** The View clusters wizard page label clustering colors. */
-   public static String ViewClustersWizardPage_Label_ClusteringColors;
+   /** Transform */
+   public static String Label_Transform;
 
-   /** The View clusters wizard page label clustering dataset. */
-   public static String ViewClustersWizardPage_Label_ClusteringDataset;
+   /** Utility file */
+   public static String Label_UtilFile;
 
-   /** The View clusters wizard page label clustering result. */
-   public static String ViewClustersWizardPage_Label_ClusteringResult;
+   /** Perform Meta Task */
+   public static String MetaWiz_Desc;
 
-   /** The Utility computer wizard description. */
-   public static String UtilityComputerWizard_Description;
+   /** Meta Task */
+   public static String MetaWiz_Name;
 
-   /** The Utility computer wizard name. */
-   public static String UtilityComputerWizard_Name;
+   /** Select the base dataset file */
+   public static String Tip_BaseData;
 
-   /** The Utility computer wizard page detail base dataset. */
-   public static String UtilityComputerWizardPage_Detail_BaseDataset;
+   /** Select the mapping from intensity to color used */
+   public static String Tip_ClustColor;
 
-   /** The Utility computer wizard page label base dataset. */
-   public static String UtilityComputerWizardPage_Label_BaseDataset;
+   /** Select the result of Clustering Transformer */
+   public static String Tip_ClustDataResult;
 
-   /** The Utility computer wizard page Meta Task result directory. */
-   public static String UtilityComputerWizardPage_Label_MetaTaskResultDir;
+   /** Select the result of Clusterize */
+   public static String Tip_ClustResult;
+
+   /** Select a value from the list */
+   public static String Tip_Combo_ReadOnly;
+
+   /** Select a value from the list or enter a new value */
+   public static String Tip_Combo_Simple;
+
+   /** Select the directory containing validation fold(s) composed by train and test */
+   public static String Tip_DataTransResultDir;
+
+   /** Leave blank if you do not want to specify a number */
+   public static String Tip_LeaveBlank_Number;
+
+   /** Leave blank if you do not want to specify a value */
+   public static String Tip_LeaveBlank_Value;
+
+   /** Leave blank or specify a valid directory */
+   public static String Tip_LeaveBlankOrSpecifyDir;
+
+   /** Leave blank or specify a valid file */
+   public static String Tip_LeaveBlankOrSpecifyFile;
+
+   /** Leave blank or specify a valid properties file */
+   public static String Tip_LeaveBlankOrSpecifyPropertiesFile;
+
+   /** Leave blank to use current directory or specify an existing directory */
+   public static String Tip_LeaveBlankToUseCurrDirOrSpecifyDir;
+
+   /** Select the directory containing out files */
+   public static String Tip_MetaResultDir;
+
+   /** Specify the output directory */
+   public static String Tip_OutDir;
+
+   /** Specify the output file */
+   public static String Tip_OutFile;
+
+   /** Output file that will be generated */
+   public static String Tip_OutFilePath;
+
+   /** File that will be generated */
+   public static String Tip_Path;
+
+   /** Leave blank to auto-generate name */
+   public static String Tip_ProjName;
+
+   /** Default property file will be used, if alternate is not specified. */
+   public static String Tip_PropFile;
+
+   /** Select the source dataset file */
+   public static String Tip_SrcData;
+
+   /** Select the result of Utility Computer */
+   public static String Tip_UtilFile;
+
+   /** Use this task to compute feature utilities */
+   public static String UtilCompWiz_Desc;
+
+   /** Utility Computer Task */
+   public static String UtilCompWiz_Name;
+
+   /** Use this task for cluster visualization */
+   public static String ViewClustWiz_Desc;
+
+   /** View Clusters */
+   public static String ViewClustWiz_Name;
+
+   /** Specified directory does not exist and will be automatically created */
+   public static String Warn_DirNotExist;
+
+   /** File already exists and would be overwritten */
+   public static String Warn_FileAlreadyExist;
 
    /*
     * Initialize the resource bundle
