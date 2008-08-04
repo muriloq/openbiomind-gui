@@ -14,35 +14,59 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 27, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 class Messages extends NLS {
 
    /** The constant bundle name. */
    private static final String BUNDLE_NAME = "openbiomind.gui.data.messages"; //$NON-NLS-1$
 
-   /** The friendly name for ClusteringTransformerTaskData.ARG_P. */
+   /** metatask_result */
    public static String ClustTrans_ArgP_FName;
 
-   /** The friendly name for DatasetTransformerTaskData.ARG_TEST_DATASET. */
+   /** test_dataset */
+   public static String CompPipe_ArgDT_FName;
+
+   /** property_file */
+   public static String CompPipe_ArgP_FName;
+
+   /** source_dataset */
+   public static String ConstArg_ArgD_FName;
+
+   /** output_dataset */
+   public static String ConstArg_ArgO_FName;
+
+   /** ontology_association */
+   public static String ConstArg_ArgOntAssoFile_FName;
+
+   /** ontology_description */
+   public static String ConstArg_ArgOntDescFile_FName;
+
+   /** test_dataset */
    public static String DataTrans_ArgTData_FName;
 
-   /** The friendly name for EnhanceDatasetTaskData.ARG_E. */
+   /** enhanced_dataset */
    public static String EnhanData_ArgE_FName;
 
-   /** The friendly name for GraphFeaturesTaskData.ARG_H. */
+   /** input */
+   public static String Folder_In;
+
+   /** output */
+   public static String Folder_Out;
+
+   /** horizontal_dataset */
    public static String GraphFeatures_ArgH_FName;
 
-   /** The friendly name for GraphFeaturesTaskData.ARG_M. */
+   /** mobra_result */
    public static String GraphFeatures_ArgM_FName;
 
-   /** The friendly name for GraphFeaturesTaskData.ARG_U. */
+   /** utility */
    public static String GraphFeatures_ArgU_FName;
 
-   /** The friendly name for UtilityComputerTaskData.ARG_R. */
+   /** metatask_result */
    public static String UtilComp_ArgR_FName;
 
-   /** The friendly name for ViewClustersTaskData.ARG_R. */
+   /** clustering_result */
    public static String ViewClust_ArgR_FName;
 
    /*

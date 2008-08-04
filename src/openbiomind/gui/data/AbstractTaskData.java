@@ -9,17 +9,19 @@ package openbiomind.gui.data;
 
 import java.util.List;
 
-import openbiomind.gui.common.ConstantArguments;
 import openbiomind.gui.common.Constants;
 import openbiomind.gui.common.PairedArgument;
+import openbiomind.gui.project.TaskDataFile;
+import openbiomind.gui.project.TaskDataFolder;
 import openbiomind.gui.project.TaskDataProject;
+import openbiomind.gui.util.Utility;
 
 /**
  * The class AbstractTaskData.
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 27, 2008
+ * @version Aug 3, 2008
  */
 public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
@@ -50,7 +52,26 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
     *
     * @return the task data project
     */
-   public abstract TaskDataProject createTaskDataProject();
+   public TaskDataProject createTaskDataProject() {
+      final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
+      taskDataProject.add(createInputFolder());
+      taskDataProject.add(createOutputFolder());
+      return taskDataProject;
+   }
+
+   /**
+    * Creates the input folder.
+    *
+    * @return the task data folder
+    */
+   protected abstract TaskDataFolder createInputFolder();
+
+   /**
+    * Creates the output folder.
+    *
+    * @return the task data folder
+    */
+   protected abstract TaskDataFolder createOutputFolder();
 
    /**
     * Gets the paired arguments.
@@ -182,6 +203,82 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
       }
 
       return false;
+   }
+
+   /**
+    * Creates the task data file.
+    *
+    * @param fileName the file name
+    * @param filePath the file path
+    * @param linked the linked
+    * @param autoOpen the auto open
+    *
+    * @return the task data file
+    */
+   protected TaskDataFile createTaskDataFile(final String fileName, final String filePath, final boolean linked,
+         final boolean autoOpen) {
+      return ((!Utility.isEmpty(filePath) && !Utility.isEmpty(fileName)) ? new TaskDataFile(fileName, filePath, linked,
+            autoOpen) : null);
+   }
+
+   /**
+    * Creates the task data file.
+    *
+    * @param filePath the file path
+    * @param linked the linked
+    * @param autoOpen the auto open
+    *
+    * @return the task data file
+    */
+   protected TaskDataFile createTaskDataFile(final String filePath, final boolean linked, final boolean autoOpen) {
+      return createTaskDataFile(Utility.extractFullName(filePath), filePath, linked, autoOpen);
+   }
+
+   /**
+    * Creates the task data file.
+    *
+    * @param filePath the file path
+    * @param linked the linked
+    * @param autoOpen the auto open
+    * @param fileExtension the file extension
+    *
+    * @return the task data file
+    */
+   protected TaskDataFile createTaskDataFile(final String filePath, final boolean linked, final boolean autoOpen,
+         final String fileExtension) {
+      final String fileName = Utility.extractFullName(filePath);
+      if (!fileName.endsWith(fileExtension)) {
+         return createTaskDataFile(fileName + fileExtension, filePath, linked, autoOpen);
+      } else {
+         return createTaskDataFile(fileName, filePath, linked, autoOpen);
+      }
+   }
+
+   /**
+    * Creates the task data folder.
+    *
+    * @param folderName the folder name
+    * @param folderPath the folder path
+    * @param linked the linked
+    *
+    * @return the task data folder
+    */
+   protected TaskDataFolder createTaskDataFolder(final String folderName, final String folderPath, final boolean linked) {
+      return ((!Utility.isEmpty(folderPath) && !Utility.isEmpty(folderName)) ? new TaskDataFolder(folderName,
+            folderPath, linked) : null);
+
+   }
+
+   /**
+    * Creates the task data folder.
+    *
+    * @param folderPath the folder path
+    * @param linked the linked
+    *
+    * @return the task data folder
+    */
+   protected TaskDataFolder createTaskDataFolder(final String folderPath, final boolean linked) {
+      return createTaskDataFolder(Utility.extractFullName(folderPath), folderPath, linked);
    }
 
 }

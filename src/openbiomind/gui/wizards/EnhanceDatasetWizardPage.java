@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -104,34 +104,29 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private void createRequiredGroup(final Composite parent) {
       // Required Arguments
-      addSection(parent, Messages.GroupLabel_RequiredArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.Label_ReqdArg, NUM_COLUMN_IN_GROUP);
 
-      // Original dataset
-      WidgetHelper.createNewFieldLabel(parent, Messages.EnhanceDatasetWizardPage_Label_OriginalDataset,
-            Messages.Detail_OriginalDataset, true);
+      // Source dataset
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_SrcData, Messages.Tip_SrcData, true);
       this.originalDatasetTBC = createOriginalDatasetTBC(parent);
 
       // Enhanced dataset
       // - leave a blank row
       WidgetHelper.createNewBlankLabel(parent, NUM_COLUMN_IN_GROUP);
       // - Detail row: Specify the enhanced dataset file
-      WidgetHelper.createNewDetailsLabel(parent, Messages.EnhanceDatasetWizardPage_Detail_EnhancedDataset,
-            NUM_COLUMN_IN_GROUP);
+      WidgetHelper.createNewDetailsLabel(parent, Messages.Label_SpecifyEnhData, NUM_COLUMN_IN_GROUP);
       // - File name
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationFile,
-            Messages.EnhanceDatasetWizardPage_Detail_EnhancedDataset, true);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_File, Messages.Label_SpecifyEnhData, true);
       this.enhancedDatasetDestFileNameText = createEnhancedDatasetDestFileNameText(parent);
       WidgetHelper.createNewBlankLabel(parent);
       // - Destination directory
-      WidgetHelper.createNewFieldLabel(parent, Messages.Label_DestinationDir,
-            "Leave blank to use current directory or specify an existing directory");
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_Dir, Messages.Tip_LeaveBlankToUseCurrDirOrSpecifyDir);
       this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(parent);
       // - Use original dataset directory check box
       WidgetHelper.createNewBlankLabel(parent);
       this.useOriginalDatasetDirButton = createUseOriginalDatasetDirButton(parent);
-      // - Enhanced dataset path - read only
-      WidgetHelper.createNewFieldLabel(parent, Messages.EnhanceDatasetWizardPage_Label_EnhancedDatasetPath,
-            Messages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
+      // - Path - read only
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_FilePath, Messages.Tip_Path);
       this.enhancedDatasetPathText = createEnhancedDatasetPathText(parent);
    }
 
@@ -152,14 +147,14 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
       };
       textButtonComposite.setValid(false);
-      textButtonComposite.setToolTipText(Messages.Detail_OriginalDataset);
+      textButtonComposite.setToolTipText(Messages.Tip_SrcData);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            "Please specify an existing file");
+            Messages.Err_FileNotExist);
       errorDecoration.show();
 
       // apply listeners
@@ -196,14 +191,14 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private Text createEnhancedDatasetDestFileNameText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
-      text.setToolTipText(Messages.EnhanceDatasetWizardPage_Detail_EnhancedDataset);
+      text.setToolTipText(Messages.Label_SpecifyEnhData);
       setValidEnhancedDatasetDestFileName(false);
 
       // apply layout
       GUI.GRID_DATA_DEFAULT.applyTo(text);
 
       // create decorations
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, Messages.Err_InvalidFile);
       errorDecoration.show();
 
       // apply listeners
@@ -247,7 +242,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       };
       textButtonComposite.setText(Properties.CURRENT_DIRECTORY);
       textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText("Leave blank to use current directory or specify an existing directory");
+      textButtonComposite.setToolTipText(Messages.Tip_LeaveBlankToUseCurrDirOrSpecifyDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
@@ -255,12 +250,13 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       // create decorations
       final Text textField = textButtonComposite.getTextField();
       final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textField,
-            "Leave blank to use current directory or specify an existing directory");
+            Messages.Tip_LeaveBlankToUseCurrDirOrSpecifyDir);
       infoDecoration.setShowOnlyOnFocus(true);
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(textField,
-            "Specified directory does not exist and will be automatically created");
+            Messages.Warn_DirNotExist);
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField, "Invalid directory");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textField,
+            Messages.Err_InvalidDir);
       errorDecoration.hide();
 
       // apply listeners
@@ -303,8 +299,8 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private Button createUseOriginalDatasetDirButton(final Composite parent) {
       final Button button = new Button(parent, SWT.CHECK);
-      button.setText(Messages.EnhanceDatasetWizardPage_UseOriginalDatasetDir);
-      button.setToolTipText(Messages.EnhanceDatasetWizardPage_UseOriginalDatasetDir);
+      button.setText(Messages.EnhDataWizPg_UseOriginalDataDir);
+      button.setToolTipText(Messages.EnhDataWizPg_UseOriginalDataDir);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(button);
@@ -336,16 +332,16 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private Text createEnhancedDatasetPathText(final Composite parent) {
       final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
-      text.setToolTipText(Messages.EnhanceDatasetWizardPage_Tip_EnhancedDataset);
+      text.setToolTipText(Messages.Tip_Path);
 
       // apply layout
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(text);
 
       // create decorations
       final ControlDecoration warningDecoration = WidgetHelper.createNewWarningDecoration(text,
-            "File already exists and would be overwritten");
+            Messages.Warn_FileAlreadyExist);
       warningDecoration.hide();
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, "Invalid file");
+      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(text, Messages.Err_InvalidFile);
       errorDecoration.hide();
 
       // apply listeners
@@ -380,25 +376,23 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private void createOptionalGroup(final Composite parent) {
       // Optional Arguments
-      addSection(parent, Messages.GroupLabel_OptionalArguments, NUM_COLUMN_IN_GROUP);
+      addSection(parent, Messages.Label_OptionalArg, NUM_COLUMN_IN_GROUP);
 
       // Ontology description file
-      WidgetHelper.createNewFieldLabel(parent, Messages.EnhanceDatasetWizardPage_Label_DescriptionFile,
-            Messages.EnhanceDatasetWizardPage_Detail_OntologyDesc);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_OntDescFile);
       this.ontologyDescriptionFileTBC = createNewOptionalFileTextButtonComposite(parent, NUM_COLUMN_IN_GROUP - 1);
 
       // Ontology association file
-      WidgetHelper.createNewFieldLabel(parent, Messages.EnhanceDatasetWizardPage_Label_AssociationFile,
-            Messages.EnhanceDatasetWizardPage_Detail_AssociationDesc);
+      WidgetHelper.createNewFieldLabel(parent, Messages.Label_OntAssoFile);
       this.ontologyAssociationFileTBC = createNewOptionalFileTextButtonComposite(parent, NUM_COLUMN_IN_GROUP - 1);
    }
 
    /**
-    * Gets the original dataset.
+    * Gets the input dataset.
     *
-    * @return the original dataset
+    * @return the input dataset
     */
-   public String getOriginalDataset() {
+   public String getInputDataset() {
       return getOriginalDatasetTBC().getText();
    }
 
@@ -469,7 +463,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     * Update enhanced dataset destination directory text.
     */
    private void updateEnhancedDatasetDestDirText() {
-      getEnhancedDatasetDestDirTBC().setText(Utility.extractDirectory(getOriginalDataset()));
+      getEnhancedDatasetDestDirTBC().setText(Utility.extractDirectory(getInputDataset()));
    }
 
    /**
@@ -581,7 +575,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
             && getOntologyAssociationFileTBC().isValid();
       setPageComplete(valid);
       if (!valid) {
-         setErrorMessage("Fix the errors to continue");
+         setErrorMessage(Messages.Err_FixErrToContinue);
       } else {
          setErrorMessage(null);
       }

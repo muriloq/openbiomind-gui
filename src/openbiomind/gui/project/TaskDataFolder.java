@@ -17,7 +17,7 @@ import java.util.Set;
  *
  * @author bsanghvi
  * @since Jun 30, 2008
- * @version Jul 26, 2008
+ * @version Aug 3, 2008
  */
 public class TaskDataFolder {
 
@@ -49,11 +49,22 @@ public class TaskDataFolder {
     * @param name the name of the folder
     */
    public TaskDataFolder(final String name) {
+      this(name, EMPTY, false);
+   }
+
+   /**
+    * Instantiates a new task data folder.
+    *
+    * @param name the name
+    * @param path the path
+    * @param linked the linked
+    */
+   public TaskDataFolder(final String name, final String path, final boolean linked) {
       setName(name);
+      setLinked(linked);
+      setPath(path);
       setTaskDataFolderSet(null);
       setTaskDataFileSet(null);
-      setLinked(false);
-      setPath(EMPTY);
    }
 
    /**

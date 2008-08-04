@@ -8,10 +8,7 @@
 package openbiomind.gui.data;
 
 import openbiomind.gui.common.Argument;
-import openbiomind.gui.project.TaskDataFile;
 import openbiomind.gui.project.TaskDataFolder;
-import openbiomind.gui.project.TaskDataProject;
-import openbiomind.gui.util.Utility;
 
 /**
  * The class EnhanceDatasetTaskData is used by the EnhanceDataset task. The syntax of this task is as follows:
@@ -22,7 +19,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public class EnhanceDatasetTaskData extends AbstractTaskData {
 
@@ -40,21 +37,21 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
    }
 
    /**
-    * Gets the original dataset (argument = <code>-d</code>).
+    * Gets the input dataset (argument = <code>-d</code>).
     *
-    * @return the original dataset
+    * @return the input dataset
     */
-   public String getOriginalDataset() {
+   public String getInputDataset() {
       return getPairedArgument().get(ARG_D.argument());
    }
 
    /**
-    * Sets the original dataset (argument = <code>-d</code>).
+    * Sets the input dataset (argument = <code>-d</code>).
     *
-    * @param originalDataset the original dataset
+    * @param inputDataset the input dataset
     */
-   public void setOriginalDataset(final String originalDataset) {
-      getPairedArgument().put(ARG_D.argument(), originalDataset);
+   public void setInputDataset(final String inputDataset) {
+      getPairedArgument().put(ARG_D.argument(), inputDataset);
    }
 
    /**
@@ -112,43 +109,25 @@ public class EnhanceDatasetTaskData extends AbstractTaskData {
    }
 
    /*
-    * @see openbiomind.gui.tasks.AbstractTaskData#createTaskDataProject()
+    * @see openbiomind.gui.data.AbstractTaskData#createInputFolder()
     */
    @Override
-   public TaskDataProject createTaskDataProject() {
-      final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createTaskDataFolder(ARG_D.friendlyName(), getOriginalDataset(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_E.friendlyName(), getEnhancedDataset(), true));
-      taskDataProject.add(createTaskDataFolder(ARG_ONTOLOGY_ASSOCIATION_FILE.friendlyName(),
-            getOntologyAssociationFile(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_ONTOLOGY_DESCRIPTION_FILE.friendlyName(),
-            getOntologyDescriptionFile(), false));
-      return taskDataProject;
+   protected TaskDataFolder createInputFolder() {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(Messages.Folder_In);
+      taskDataFolder.add(createTaskDataFile(getInputDataset(), true, false, Resources.TAB_EXTENSION));
+      taskDataFolder.add(createTaskDataFile(getOntologyDescriptionFile(), true, false, Resources.TAB_EXTENSION));
+      taskDataFolder.add(createTaskDataFile(getOntologyAssociationFile(), true, false, Resources.TAB_EXTENSION));
+      return taskDataFolder;
    }
 
-   /**
-    * Creates the task data folder.
-    *
-    * @param folderName the folder name
-    * @param filepath the file path
-    * @param autoOpen the auto open
-    *
-    * @return the task data folder
+   /*
+    * @see openbiomind.gui.data.AbstractTaskData#createOutputFolder()
     */
-   private TaskDataFolder createTaskDataFolder(final String folderName, final String filepath, final boolean autoOpen) {
-      if (Utility.isEmpty(filepath)) {
-         return null;
-      } else {
-         final TaskDataFile taskDataFile = new TaskDataFile();
-         taskDataFile.setPath(filepath);
-         taskDataFile.setLinked(true);
-         taskDataFile.setAutoOpen(autoOpen);
-
-         final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
-         taskDataFolder.add(taskDataFile);
-
-         return taskDataFolder;
-      }
+   @Override
+   protected TaskDataFolder createOutputFolder() {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(Messages.Folder_Out);
+      taskDataFolder.add(createTaskDataFile(getEnhancedDataset(), true, true, Resources.TAB_EXTENSION));
+      return taskDataFolder;
    }
 
 }

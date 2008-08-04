@@ -7,10 +7,7 @@
  */
 package openbiomind.gui.data;
 
-import openbiomind.gui.project.TaskDataFile;
 import openbiomind.gui.project.TaskDataFolder;
-import openbiomind.gui.project.TaskDataProject;
-import openbiomind.gui.util.Utility;
 
 /**
  * The class ClusterizeTaskData is used by the ClusterizeTaskData task. The syntax of this task is as follows:
@@ -21,7 +18,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 18, 2008
- * @version Jul 27, 2008
+ * @version Aug 3, 2008
  */
 public class ClusterizeTaskData extends AbstractTaskData {
 
@@ -92,39 +89,23 @@ public class ClusterizeTaskData extends AbstractTaskData {
    }
 
    /*
-    * @see openbiomind.gui.tasks.AbstractTaskData#createTaskDataProject()
+    * @see openbiomind.gui.data.AbstractTaskData#createInputFolder()
     */
    @Override
-   public TaskDataProject createTaskDataProject() {
-      final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createTaskDataFolder(ARG_D.friendlyName(), getClusteringDatasetFile(), false));
-      taskDataProject.add(createTaskDataFolder(ARG_O.friendlyName(), getOutputFile(), true));
-      return taskDataProject;
+   protected TaskDataFolder createInputFolder() {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(Messages.Folder_In);
+      taskDataFolder.add(createTaskDataFile(getClusteringDatasetFile(), true, false, Resources.TAB_EXTENSION));
+      return taskDataFolder;
    }
 
-   /**
-    * Creates the task data folder.
-    *
-    * @param folderName the folder name
-    * @param filepath the file path
-    * @param autoOpen the auto open
-    *
-    * @return the task data folder
+   /*
+    * @see openbiomind.gui.data.AbstractTaskData#createOutputFolder()
     */
-   private TaskDataFolder createTaskDataFolder(final String folderName, final String filepath, final boolean autoOpen) {
-      if (Utility.isEmpty(filepath)) {
-         return null;
-      } else {
-         final TaskDataFile taskDataFile = new TaskDataFile();
-         taskDataFile.setPath(filepath);
-         taskDataFile.setLinked(true);
-         taskDataFile.setAutoOpen(autoOpen);
-
-         final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
-         taskDataFolder.add(taskDataFile);
-
-         return taskDataFolder;
-      }
+   @Override
+   protected TaskDataFolder createOutputFolder() {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(Messages.Folder_Out);
+      taskDataFolder.add(createTaskDataFile(getOutputFile(), true, true, Resources.TXT_EXTENSION));
+      return taskDataFolder;
    }
 
 }

@@ -14,7 +14,7 @@ import static openbiomind.gui.common.Constants.EMPTY;
  *
  * @author bsanghvi
  * @since Jun 30, 2008
- * @version Jul 26, 2008
+ * @version Aug 3, 2008
  */
 public class TaskDataFile {
 
@@ -46,10 +46,23 @@ public class TaskDataFile {
     * @param name the name
     */
    public TaskDataFile(final String name) {
+      this(name, EMPTY, false, false);
+   }
+
+   /**
+    * Instantiates a new task data file.
+    *
+    * @param name the name
+    * @param path the path
+    * @param linked the linked
+    * @param autoOpen the auto open
+    */
+   public TaskDataFile(final String name, final String path, final boolean linked, final boolean autoOpen) {
       setName(name);
-      setPath(EMPTY);
-      setAutoOpen(false);
-      setLinked(false);
+      setPath(path);
+      setLinked(linked);
+      setAutoOpen(autoOpen);
+      setEditorId(null);
    }
 
    /**

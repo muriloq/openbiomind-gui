@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Display;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public interface Constants {
 
@@ -81,10 +81,13 @@ public interface Constants {
       /** The Constant specifying the name of Graphviz dot utility (value = <code>dot.</code>). */
       public static final String GRAPHVIZ_DOT_UTILITY_NAME = "dot" + DOT; //$NON-NLS-1$
 
+      /** The Constant specifying the properties file extension (value = <code>.properties</code>). */
+      public static final String PROPERTIES_EXTENSION = DOT + "properties"; //$NON-NLS-1$
+
       /**
        * The constant specifying the name of the pipeline properties file (value = <code>pipeline.properties</code>).
        */
-      public static final String PIPELINE_PROPERTIES_FILENAME = "pipeline" + DOT + "properties"; //$NON-NLS-1$ //$NON-NLS-2$
+      public static final String PIPELINE_PROPERTIES_FILENAME = "pipeline" + PROPERTIES_EXTENSION; //$NON-NLS-1$
 
       /** The Constant specifying the name of the execution file (value = <code>execution.log</code>). */
       public static final String EXECUTION_FILENAME = "execution" + DOT + "log"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -95,11 +98,17 @@ public interface Constants {
       /** The Constant specifying the tab file extension (value = <code>.tab</code>). */
       public static final String TAB_EXTENSION = DOT + "tab"; //$NON-NLS-1$
 
+      /** The Constant specifying the name of the graph.dot file (value = <code>graph.dot</code>). */
+      public static final String GRAPH_DOT_FILENAME = "graph" + DOT_EXTENSION; //$NON-NLS-1$
+
       /** The Constant specifying the txt file extension (value = <code>.txt</code>). */
       public static final String TXT_EXTENSION = DOT + "txt"; //$NON-NLS-1$
 
+      /** The Constant specifying the png file format (value = <code>png</code>). */
+      public static final String PNG_FORMAT = "png"; //$NON-NLS-1$
+
       /** The Constant specifying the png file extension (value = <code>.png</code>). */
-      public static final String PNG_EXTENSION = DOT + "png"; //$NON-NLS-1$
+      public static final String PNG_EXTENSION = DOT + PNG_FORMAT;
 
       /** The Constant specifying the string that test file name starts with (value = <code>test</code>). */
       public static final String TEST_FILE_STARTS_WITH = "test"; //$NON-NLS-1$

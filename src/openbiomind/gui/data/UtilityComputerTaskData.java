@@ -7,13 +7,8 @@
  */
 package openbiomind.gui.data;
 
-import java.io.File;
-
 import openbiomind.gui.common.Argument;
-import openbiomind.gui.project.TaskDataFile;
 import openbiomind.gui.project.TaskDataFolder;
-import openbiomind.gui.project.TaskDataProject;
-import openbiomind.gui.util.Utility;
 
 /**
  * The class UtilityComputerTaskData is used by the UtilityComputer task. The syntax of this task is as follows:
@@ -24,7 +19,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Jul 28, 2008
+ * @version Aug 3, 2008
  */
 public class UtilityComputerTaskData extends AbstractTaskData {
 
@@ -116,79 +111,24 @@ public class UtilityComputerTaskData extends AbstractTaskData {
    }
 
    /*
-    * @see openbiomind.gui.tasks.AbstractTaskData#createTaskDataProject()
+    * @see openbiomind.gui.data.AbstractTaskData#createInputFolder()
     */
    @Override
-   public TaskDataProject createTaskDataProject() {
-      final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
-      taskDataProject.add(createResultDirTaskDataFolder(ARG_R.friendlyName(), getMetaTaskResultDir()));
-      taskDataProject.add(createTaskDataFolder(ARG_O.friendlyName(), getOutputFile(), true));
-      taskDataProject.add(createTaskDataFolder(ARG_D.friendlyName(), getBaseDataset(), false));
-      return taskDataProject;
-   }
-
-   /**
-    * Creates the task data folder.
-    *
-    * @param folderName the folder name
-    * @param filepath the file path
-    * @param autoOpen the auto open
-    *
-    * @return the task data folder
-    */
-   private TaskDataFolder createTaskDataFolder(final String folderName, final String filepath, final boolean autoOpen) {
-      if (Utility.isEmpty(filepath)) {
-         return null;
-      } else {
-         final TaskDataFile taskDataFile = new TaskDataFile();
-         taskDataFile.setPath(filepath);
-         taskDataFile.setLinked(true);
-         taskDataFile.setAutoOpen(autoOpen);
-
-         final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
-         taskDataFolder.add(taskDataFile);
-
-         return taskDataFolder;
-      }
-   }
-
-   /**
-    * Creates the result directory task data folder.
-    *
-    * @param folderName the folder name
-    * @param folderPath the folder path
-    *
-    * @return the task data folder
-    */
-   private TaskDataFolder createResultDirTaskDataFolder(final String folderName, final String folderPath) {
-      final File directory = new File(folderPath);
-      final String directoryPath = directory.getAbsolutePath();
-      final TaskDataFolder taskDataFolder = new TaskDataFolder(folderName);
-      final String[] outFilesArray = Utility.listFileNames(directory, Resources.OUT_FILE_STARTS_WITH,
-            Resources.TXT_EXTENSION);
-
-      for (final String outFile : outFilesArray) {
-         taskDataFolder.add(createTaskDataFile(outFile, directoryPath));
-      }
-
+   protected TaskDataFolder createInputFolder() {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(Messages.Folder_In);
+      taskDataFolder.add(createTaskDataFile(getBaseDataset(), true, false, Resources.TAB_EXTENSION));
+      taskDataFolder.add(createTaskDataFolder(getMetaTaskResultDir(), true));
       return taskDataFolder;
    }
 
-   /**
-    * Creates the task data file.
-    *
-    * @param fileName the file name
-    * @param filePath the file path
-    * @param autoOpen the auto open
-    *
-    * @return the task data file
+   /*
+    * @see openbiomind.gui.data.AbstractTaskData#createOutputFolder()
     */
-   private TaskDataFile createTaskDataFile(final String fileName, final String filePath) {
-      final TaskDataFile taskDataFile = new TaskDataFile(fileName);
-      taskDataFile.setPath(filePath + File.separator + fileName);
-      taskDataFile.setLinked(true);
-      taskDataFile.setAutoOpen(false);
-      return taskDataFile;
+   @Override
+   protected TaskDataFolder createOutputFolder() {
+      final TaskDataFolder taskDataFolder = new TaskDataFolder(Messages.Folder_Out);
+      taskDataFolder.add(createTaskDataFile(getOutputFile(), true, true, Resources.TAB_EXTENSION));
+      return taskDataFolder;
    }
 
 }

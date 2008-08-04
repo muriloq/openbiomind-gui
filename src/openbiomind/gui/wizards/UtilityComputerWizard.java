@@ -29,7 +29,7 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
     * Instantiates a new utility computer wizard.
     */
    public UtilityComputerWizard() {
-      super(Messages.UtilityComputerWizard_Name);
+      super(Messages.UtilCompWiz_Name);
       this.utilityComputerTaskData = new UtilityComputerTaskData();
    }
 
@@ -77,8 +77,8 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
     */
    private UtilityComputerWizardPage getUtilityComputerWizardPage() {
       if (this.utilityComputerWizardPage == null) {
-         this.utilityComputerWizardPage = new UtilityComputerWizardPage(Messages.UtilityComputerWizard_Name,
-               Messages.UtilityComputerWizard_Description);
+         this.utilityComputerWizardPage = new UtilityComputerWizardPage(Messages.UtilCompWiz_Name,
+               Messages.UtilCompWiz_Desc);
       }
 
       return this.utilityComputerWizardPage;
