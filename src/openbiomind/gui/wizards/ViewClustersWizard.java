@@ -15,7 +15,7 @@ import openbiomind.gui.data.ViewClustersTaskData;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 28, 2008
+ * @version Aug 9, 2008
  */
 public class ViewClustersWizard extends AbstractTaskWizard {
 
@@ -46,7 +46,6 @@ public class ViewClustersWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
-      getViewClustersTaskData().setProjectName(getViewClustersWizardPage().getProjectName());
       getViewClustersTaskData().setClusteringDataset(getViewClustersWizardPage().getClusteringDataset());
       getViewClustersTaskData().setClusteringResult(getViewClustersWizardPage().getClusteringResult());
       getViewClustersTaskData().setImageFile(getViewClustersWizardPage().getImageFile());
@@ -57,8 +56,8 @@ public class ViewClustersWizard extends AbstractTaskWizard {
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
-   protected AbstractTaskData getTaskData() {
-      return getViewClustersTaskData();
+   protected AbstractTaskData[] getTaskData() {
+      return new AbstractTaskData[] { getViewClustersTaskData() };
    }
 
    /**
@@ -82,6 +81,14 @@ public class ViewClustersWizard extends AbstractTaskWizard {
       }
 
       return this.viewClustersWizardPage;
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    */
+   @Override
+   protected AbstractTaskWizardPage getWizardPage() {
+      return getViewClustersWizardPage();
    }
 
 }

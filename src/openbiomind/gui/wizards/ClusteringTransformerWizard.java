@@ -15,7 +15,7 @@ import openbiomind.gui.data.ClusteringTransformerTaskData;
  *
  * @author bsanghvi
  * @since Jul 13, 2008
- * @version Jul 28, 2008
+ * @version Aug 9, 2008
  */
 public class ClusteringTransformerWizard extends AbstractTaskWizard {
 
@@ -46,7 +46,6 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
-      getClusteringTransformerTaskData().setProjectName(getClusteringTransformerWizardPage().getProjectName());
       getClusteringTransformerTaskData().setDatasetFile(getClusteringTransformerWizardPage().getDatasetFile());
       getClusteringTransformerTaskData().setOutputFile(getClusteringTransformerWizardPage().getOutputFile());
       getClusteringTransformerTaskData().setTransform(getClusteringTransformerWizardPage().getTransform());
@@ -58,8 +57,8 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
-   protected AbstractTaskData getTaskData() {
-      return getClusteringTransformerTaskData();
+   protected AbstractTaskData[] getTaskData() {
+      return new AbstractTaskData[] { getClusteringTransformerTaskData() };
    }
 
    /**
@@ -83,6 +82,14 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
       }
 
       return this.clusteringTransformerWizardPage;
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    */
+   @Override
+   protected AbstractTaskWizardPage getWizardPage() {
+      return getClusteringTransformerWizardPage();
    }
 
 }

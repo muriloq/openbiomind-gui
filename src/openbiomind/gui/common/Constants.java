@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Display;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public interface Constants {
 
@@ -35,6 +35,9 @@ public interface Constants {
 
    /** The constant for space (value = <i>single blank space</i>). */
    public static final String SPACE = " "; //$NON-NLS-1$
+
+   /** The constant for tab (value = <i>single tab space</i>). */
+   public static final String TAB = "\t"; //$NON-NLS-1$
 
    /** The constant for hyphen (value = <code>-</code>). */
    public static final String HYPHEN = "-"; //$NON-NLS-1$
@@ -53,6 +56,9 @@ public interface Constants {
 
    /** The constant for specifying wild card for anything (value = <code>*</code>). */
    public static final String WILDCARD_ANY = "*"; //$NON-NLS-1$
+
+   /** The constant for prefix value that will be  put in the log file before output (value = <code>single tab space</code>). */
+   public static final String LOG_PREFIX = TAB; //$NON-NLS-1$
 
    /**
     * The class Resources.

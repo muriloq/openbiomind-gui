@@ -44,6 +44,7 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
@@ -52,15 +53,15 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
+   /** The Constant DELAY. */
+   private static final int DELAY = 1;
+
    /** The execution log file path. */
    private String executionLogFilePath = null;
-
-   /** The executed command. */
-   private String executedCommand = null;
 
    /**
     * Instantiates a new enhance dataset wizard.
@@ -83,7 +84,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     *
     * @return the task data
     */
-   protected abstract AbstractTaskData getTaskData();
+   protected abstract AbstractTaskData[] getTaskData();
 
    /*
     * @see org.eclipse.jface.wizard.Wizard#performFinish()
@@ -134,35 +135,60 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     */
    private void doFinish(final IProgressMonitor monitor) throws CoreException {
       final SubMonitor subMonitor = SubMonitor.convert(monitor, Messages.AbsTaskWiz_ExecTask, 100);
+      // prepare the task data
       subMonitor.subTask(Messages.AbsTaskWiz_PrepTaskData);
       prepareTaskData();
-      Console.info(getExecutedCommand());
-      subMonitor.worked(5);
+      subMonitor.worked(1);
 
+      // execute all the processes
       subMonitor.subTask(Messages.AbsTaskWiz_PrepProc);
-      final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(getTaskData());
-      subMonitor.worked(5);
-
+      final AbstractTaskData[] taskDataArray = getTaskData();
+      subMonitor.setWorkRemaining(40 + (56 * taskDataArray.length));
       PrintWriter executionLogWriter = null;
-
+      final TaskDataProject taskDataProject = new TaskDataProject(getWizardPage().getProjectName());
       try {
          executionLogWriter = new PrintWriter(getExecutionLogFilePath());
 
-         final Process process = taskProcessBuider.start();
-         executeTaskProcess(process, executionLogWriter, subMonitor.newChild(50, SubMonitor.SUPPRESS_SETTASKNAME));
+         for (final AbstractTaskData taskData : taskDataArray) {
+            final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(taskData);
 
-         subMonitor.setWorkRemaining(40);
-         processError(process.getErrorStream(), subMonitor.newChild(5, SubMonitor.SUPPRESS_SETTASKNAME));
-         subMonitor.setWorkRemaining(35);
-         if (process.exitValue() == 0) {
-            executeProcess(getPostSuccessfulExecutionProcess(), executionLogWriter, subMonitor.newChild(10,
-                  SubMonitor.SUPPRESS_SETTASKNAME));
-            subMonitor.setWorkRemaining(25);
-            if (!createProject(getTaskData().createTaskDataProject(), subMonitor.newChild(25,
-                  SubMonitor.SUPPRESS_SETTASKNAME))) {
-               throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID,
-                     Messages.Err_UnableToCreateProject));
+            // write the command at the top
+            final String executedCommand = taskData.toString();
+            Console.info(executedCommand);
+            executionLogWriter.println(executedCommand);
+            executionLogWriter.println(); // empty line
+            executionLogWriter.flush();
+            subMonitor.worked(1);
+
+            final Process process = taskProcessBuider.start();
+
+            // execute the process
+            executeTaskProcess(process, executionLogWriter, subMonitor.newChild(50, SubMonitor.SUPPRESS_SETTASKNAME));
+
+            // process the error, if any
+            processError(process.getErrorStream(), subMonitor.newChild(5, SubMonitor.SUPPRESS_SETTASKNAME));
+            if (process.exitValue() != 0) {
+               throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, NLS.bind(
+                     Messages.Err_TaskExecutionFailed, taskData.getTaskName())));
             }
+            taskDataProject.add(taskData.createTaskDataFolder());
+
+            // leave blanks before next command
+            executionLogWriter.println(); // empty line
+            executionLogWriter.println(); // empty line
+            executionLogWriter.flush();
+         }
+
+         // execute the post execution process
+         subMonitor.setWorkRemaining(30);
+         executeProcess(getPostSuccessfulExecutionProcess(), executionLogWriter, subMonitor.newChild(20,
+               SubMonitor.SUPPRESS_SETTASKNAME));
+
+         // create the project
+         subMonitor.setWorkRemaining(10);
+         if (!createProject(taskDataProject, subMonitor.newChild(10, SubMonitor.SUPPRESS_SETTASKNAME))) {
+            throw new CoreException(
+                  new Status(IStatus.ERROR, Application.PLUGIN_ID, Messages.Err_UnableToCreateProject));
          }
       } catch (final CoreException e) {
          throw e;
@@ -171,6 +197,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
       } finally {
          Utility.close(executionLogWriter);
       }
+
    }
 
    /**
@@ -197,17 +224,10 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
       boolean successfulExecution = false;
 
       if (process != null) {
-         final SubMonitor subMonitor = SubMonitor.convert(monitor);
-         subMonitor.setWorkRemaining(1000);
-
-         // write the command at the top
-         executionLogWriter.println(getExecutedCommand());
-         executionLogWriter.println(); // empty line
-         executionLogWriter.flush();
-         subMonitor.worked(1);
+         final SubMonitor subMonitor = SubMonitor.convert(monitor, 100);
 
          // read the command output and store it
-         successfulExecution = executeProcess(process, executionLogWriter, subMonitor.newChild(999,
+         successfulExecution = executeProcess(process, executionLogWriter, subMonitor.newChild(100,
                SubMonitor.SUPPRESS_SETTASKNAME));
       }
 
@@ -238,9 +258,14 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
             subMonitor.setWorkRemaining(10000);
             message = reader.nextLine();
             subMonitor.subTask(message);
-            executionLogWriter.println(message);
+            executionLogWriter.println(LOG_PREFIX + message);
             executionLogWriter.flush();
             subMonitor.worked(1);
+            try {
+               Thread.sleep(DELAY);
+            } catch (final InterruptedException e) {
+               Console.debug(e);
+            }
          }
 
          successfulExecution = true;
@@ -471,18 +496,6 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
    }
 
    /**
-    * Gets the executed command.
-    *
-    * @return the executed command
-    */
-   private String getExecutedCommand() {
-      if (this.executedCommand == null) {
-         this.executedCommand = getTaskData().toString();
-      }
-      return this.executedCommand;
-   }
-
-   /**
     * Gets the execution log file path.
     *
     * @return the execution log file path
@@ -498,5 +511,12 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
       return this.executionLogFilePath;
    }
+
+   /**
+    * Gets the project name.
+    *
+    * @return the project name
+    */
+   protected abstract AbstractTaskWizardPage getWizardPage();
 
 }

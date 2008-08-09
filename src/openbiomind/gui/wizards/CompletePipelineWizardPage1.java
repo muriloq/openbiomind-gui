@@ -19,7 +19,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Text;
 
 /**
@@ -27,7 +26,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 31, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -223,71 +222,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
       // Alternate property file
       WidgetHelper.createNewFieldLabel(parent, Messages.Label_PropFile, Messages.Tip_PropFile);
-      this.propertyFileTBC = createNewPropertyFileTextButtonComposite(parent);
-   }
-
-   /**
-    * Creates the new property file text button composite.
-    *
-    * @param parent the parent
-    *
-    * @return the text button composite
-    */
-   protected TextButtonComposite createNewPropertyFileTextButtonComposite(final Composite parent) {
-      final TextButtonComposite textButtonComposite = new TextButtonComposite(parent) {
-
-         private FileDialog fileDialog = null;
-
-         @Override
-         protected String buttonSelected() {
-            return getFileDialog().open();
-         }
-
-         private FileDialog getFileDialog() {
-            if (this.fileDialog == null) {
-               this.fileDialog = new FileDialog(getShell(), SWT.OPEN);
-               this.fileDialog.setFilterExtensions(new String[] { WILDCARD_ANY + Resources.PROPERTIES_EXTENSION });
-            }
-            return this.fileDialog;
-         }
-
-      };
-      textButtonComposite.setValid(true);
-      textButtonComposite.setToolTipText(Messages.Tip_LeaveBlankOrSpecifyPropertiesFile);
-
-      // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
-
-      // create decorations
-      final ControlDecoration infoDecoration = WidgetHelper.createNewInformationDecoration(textButtonComposite
-            .getTextField(), Messages.Tip_LeaveBlankOrSpecifyPropertiesFile);
-      infoDecoration.setShowOnlyOnFocus(true);
-      final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
-            Messages.Err_FileNotExist);
-      errorDecoration.hide();
-
-      // apply listeners
-      textButtonComposite.addModifyListenerOnTextField(new ModifyListener() {
-
-         @Override
-         public void modifyText(final ModifyEvent event) {
-            final String fileName = textButtonComposite.getText();
-            textButtonComposite.setValid(Utility.isEmptyOrExistingFile(fileName)
-                  && fileName.endsWith(Resources.PROPERTIES_EXTENSION));
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               infoDecoration.hideHover();
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
-            validatePage();
-         }
-
-      });
-
-      return textButtonComposite;
+      this.propertyFileTBC = createNewOptionalFileTextButtonComposite(parent, NUM_COLUMN_IN_GROUP - 1);
    }
 
    /**

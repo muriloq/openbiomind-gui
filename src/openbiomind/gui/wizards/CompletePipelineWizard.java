@@ -23,7 +23,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 31, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class CompletePipelineWizard extends AbstractTaskWizard {
 
@@ -59,7 +59,6 @@ public class CompletePipelineWizard extends AbstractTaskWizard {
    @Override
    protected void prepareTaskData() {
       // page 1
-      getCompletePipelineTaskData().setProjectName(getCompletePipelineWizardPage1().getProjectName());
       getCompletePipelineTaskData().setInputDataset(getCompletePipelineWizardPage1().getOriginalDatasetFilePath());
       getCompletePipelineTaskData().setOutputDirectory(getCompletePipelineWizardPage1().getOutputDirectory());
       getCompletePipelineTaskData().setTestDataset(getCompletePipelineWizardPage1().getTestDataset());
@@ -95,8 +94,8 @@ public class CompletePipelineWizard extends AbstractTaskWizard {
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
-   protected AbstractTaskData getTaskData() {
-      return getCompletePipelineTaskData();
+   protected AbstractTaskData[] getTaskData() {
+      return new AbstractTaskData[] { getCompletePipelineTaskData() };
    }
 
    /**
@@ -170,6 +169,14 @@ public class CompletePipelineWizard extends AbstractTaskWizard {
    @Override
    public boolean canFinish() {
       return (getCompletePipelineWizardPage1().isPageComplete() && getCompletePipelineWizardPage2().isPageComplete());
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    */
+   @Override
+   protected AbstractTaskWizardPage getWizardPage() {
+      return getCompletePipelineWizardPage1();
    }
 
 }

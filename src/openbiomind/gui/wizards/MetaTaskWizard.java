@@ -15,7 +15,7 @@ import openbiomind.gui.data.MetaTaskTaskData;
  *
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Jul 28, 2008
+ * @version Aug 9, 2008
  */
 public class MetaTaskWizard extends AbstractTaskWizard {
 
@@ -46,7 +46,6 @@ public class MetaTaskWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
-      getMetaTaskTaskData().setProjectName(getMetaTaskWizardPage().getProjectName());
       getMetaTaskTaskData().setDatasetDirectory(getMetaTaskWizardPage().getDatasetDirectoryPath());
       getMetaTaskTaskData().setOutputDirectory(getMetaTaskWizardPage().getOutputDirectory());
       getMetaTaskTaskData().setNumberOfTasks(getMetaTaskWizardPage().getNumberOfTasks());
@@ -59,8 +58,8 @@ public class MetaTaskWizard extends AbstractTaskWizard {
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
-   protected AbstractTaskData getTaskData() {
-      return getMetaTaskTaskData();
+   protected AbstractTaskData[] getTaskData() {
+      return new AbstractTaskData[] { getMetaTaskTaskData() };
    }
 
    /**
@@ -83,6 +82,14 @@ public class MetaTaskWizard extends AbstractTaskWizard {
       }
 
       return this.metaTaskWizardPage;
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    */
+   @Override
+   protected AbstractTaskWizardPage getWizardPage() {
+      return getMetaTaskWizardPage();
    }
 
 }

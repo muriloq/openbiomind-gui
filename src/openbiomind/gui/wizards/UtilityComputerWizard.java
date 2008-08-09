@@ -15,7 +15,7 @@ import openbiomind.gui.data.UtilityComputerTaskData;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Jul 28, 2008
+ * @version Aug 9, 2008
  */
 public class UtilityComputerWizard extends AbstractTaskWizard {
 
@@ -46,7 +46,6 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
-      getUtilityComputerTaskData().setProjectName(getUtilityComputerWizardPage().getProjectName());
       getUtilityComputerTaskData().setMetaTaskResultDir(getUtilityComputerWizardPage().getMetaTaskResultDir());
       getUtilityComputerTaskData().setOutputFile(getUtilityComputerWizardPage().getOutputFile());
       getUtilityComputerTaskData().setBaseDataset(getUtilityComputerWizardPage().getBaseDataset());
@@ -57,8 +56,8 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
-   protected AbstractTaskData getTaskData() {
-      return getUtilityComputerTaskData();
+   protected AbstractTaskData[] getTaskData() {
+      return new AbstractTaskData[] { getUtilityComputerTaskData() };
    }
 
    /**
@@ -82,6 +81,14 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
       }
 
       return this.utilityComputerWizardPage;
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    */
+   @Override
+   protected AbstractTaskWizardPage getWizardPage() {
+      return getUtilityComputerWizardPage();
    }
 
 }
