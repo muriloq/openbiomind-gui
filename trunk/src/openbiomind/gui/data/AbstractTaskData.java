@@ -13,7 +13,6 @@ import openbiomind.gui.common.Constants;
 import openbiomind.gui.common.PairedArgument;
 import openbiomind.gui.project.TaskDataFile;
 import openbiomind.gui.project.TaskDataFolder;
-import openbiomind.gui.project.TaskDataProject;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -21,15 +20,12 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /** The task name. */
    private String taskName = null;
-
-   /** The project name. */
-   private String projectName = null;
 
    /** The memory intensive operation flag. */
    private boolean memoryIntensive = false;
@@ -48,12 +44,12 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
    }
 
    /**
-    * Creates the task data project.
+    * Creates the task data folder.
     *
-    * @return the task data project
+    * @return the task data folder
     */
-   public TaskDataProject createTaskDataProject() {
-      final TaskDataProject taskDataProject = new TaskDataProject(getProjectName());
+   public TaskDataFolder createTaskDataFolder() {
+      final TaskDataFolder taskDataProject = new TaskDataFolder(getTaskName());
       taskDataProject.add(createInputFolder());
       taskDataProject.add(createOutputFolder());
       return taskDataProject;
@@ -102,24 +98,6 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
     */
    public void setTaskName(final String taskName) {
       this.taskName = taskName;
-   }
-
-   /**
-    * Gets the project name.
-    *
-    * @return the project name
-    */
-   public String getProjectName() {
-      return this.projectName;
-   }
-
-   /**
-    * Sets the project name.
-    *
-    * @param projectName the new project name
-    */
-   public void setProjectName(final String projectName) {
-      this.projectName = projectName;
    }
 
    /**
@@ -196,7 +174,6 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
          final AbstractTaskData otherTaskData = (AbstractTaskData) otherObject;
 
          if ((getTaskName() != null && getTaskName().equals(otherTaskData.getTaskName()))
-               && (getProjectName() != null && getProjectName().equals(otherTaskData.getProjectName()))
                && getPairedArgument().equals(otherTaskData.getPairedArgument())) {
             return true;
          }

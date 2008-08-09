@@ -15,7 +15,7 @@ import openbiomind.gui.data.EnhanceDatasetTaskData;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 28, 2008
+ * @version Aug 9, 2008
  */
 public class EnhanceDatasetWizard extends AbstractTaskWizard {
 
@@ -46,7 +46,6 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
-      getEnhanceDatasetTaskData().setProjectName(getEnhanceDatasetWizardPage().getProjectName());
       getEnhanceDatasetTaskData().setInputDataset(getEnhanceDatasetWizardPage().getInputDataset());
       getEnhanceDatasetTaskData().setEnhancedDataset(getEnhanceDatasetWizardPage().getEnhancedDataset());
       getEnhanceDatasetTaskData()
@@ -59,8 +58,8 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
-   protected AbstractTaskData getTaskData() {
-      return getEnhanceDatasetTaskData();
+   protected AbstractTaskData[] getTaskData() {
+      return new AbstractTaskData[] { getEnhanceDatasetTaskData() };
    }
 
    /**
@@ -84,6 +83,14 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
       }
 
       return this.enhanceDatasetWizardPage;
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    */
+   @Override
+   protected AbstractTaskWizardPage getWizardPage() {
+      return getEnhanceDatasetWizardPage();
    }
 
 }

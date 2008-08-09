@@ -15,7 +15,7 @@ import openbiomind.gui.data.DatasetTransformerTaskData;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 28, 2008
+ * @version Aug 9, 2008
  */
 public class DatasetTransformerWizard extends AbstractTaskWizard {
 
@@ -46,7 +46,6 @@ public class DatasetTransformerWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
-      getDatasetTransformerTaskData().setProjectName(getDatasetTransformerWizardPage().getProjectName());
       getDatasetTransformerTaskData().setInputDataset(getDatasetTransformerWizardPage().getInputDataset());
       getDatasetTransformerTaskData().setOutputDirectory(getDatasetTransformerWizardPage().getOutputDirectory());
       getDatasetTransformerTaskData().setTargetCategory(getDatasetTransformerWizardPage().getTargetCategory());
@@ -65,8 +64,8 @@ public class DatasetTransformerWizard extends AbstractTaskWizard {
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
-   protected AbstractTaskData getTaskData() {
-      return getDatasetTransformerTaskData();
+   protected AbstractTaskData[] getTaskData() {
+      return new AbstractTaskData[] { getDatasetTransformerTaskData() };
    }
 
    /**
@@ -90,6 +89,14 @@ public class DatasetTransformerWizard extends AbstractTaskWizard {
       }
 
       return this.datasetTransformerWizardPage;
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    */
+   @Override
+   protected AbstractTaskWizardPage getWizardPage() {
+      return getDatasetTransformerWizardPage();
    }
 
 }

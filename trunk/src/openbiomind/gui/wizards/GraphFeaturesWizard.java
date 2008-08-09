@@ -23,7 +23,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class GraphFeaturesWizard extends AbstractTaskWizard {
 
@@ -54,7 +54,6 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
-      getGraphFeaturesTaskData().setProjectName(getGraphFeaturesWizardPage().getProjectName());
       getGraphFeaturesTaskData().setHorizontalDataset(getGraphFeaturesWizardPage().getHorizontalDataset());
       getGraphFeaturesTaskData().setMobraDataset(getGraphFeaturesWizardPage().getMobraDataset());
       getGraphFeaturesTaskData().setUtilityFile(getGraphFeaturesWizardPage().getUtilityFile());
@@ -70,8 +69,8 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
-   protected AbstractTaskData getTaskData() {
-      return getGraphFeaturesTaskData();
+   protected AbstractTaskData[] getTaskData() {
+      return new AbstractTaskData[] { getGraphFeaturesTaskData() };
    }
 
    /**
@@ -95,6 +94,14 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
       }
 
       return this.graphFeaturesWizardPage;
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    */
+   @Override
+   protected AbstractTaskWizardPage getWizardPage() {
+      return getGraphFeaturesWizardPage();
    }
 
    /*

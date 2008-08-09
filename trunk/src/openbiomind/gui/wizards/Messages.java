@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 class Messages extends NLS {
 
@@ -95,6 +95,9 @@ class Messages extends NLS {
 
    /** Invalid file */
    public static String Err_InvalidFile;
+
+   /** Unable to complete the execution of {0} */
+   public static String Err_TaskExecutionFailed;
 
    /** Error occurred while creating project */
    public static String Err_UnableToCreateProject;
@@ -257,9 +260,6 @@ class Messages extends NLS {
 
    /** Leave blank or specify a valid file */
    public static String Tip_LeaveBlankOrSpecifyFile;
-
-   /** Leave blank or specify a valid properties file */
-   public static String Tip_LeaveBlankOrSpecifyPropertiesFile;
 
    /** Leave blank to use current directory or specify an existing directory */
    public static String Tip_LeaveBlankToUseCurrDirOrSpecifyDir;

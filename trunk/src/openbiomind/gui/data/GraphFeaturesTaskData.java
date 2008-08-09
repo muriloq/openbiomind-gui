@@ -215,7 +215,6 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
       outputFile.setEditorId(Properties.DEFAULT_TEXT_EDITOR_ID); // FIXME Temporary hack
       taskDataFolder.add(outputFile);
       final String imagePath = getGraphImagePath();
-      System.out.println("imagePath = " + imagePath);
       taskDataFolder.add(createTaskDataFile(Utility.extractFileName(imagePath), imagePath, false, true));
       return taskDataFolder;
    }

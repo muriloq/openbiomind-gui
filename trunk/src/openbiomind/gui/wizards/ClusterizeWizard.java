@@ -15,7 +15,7 @@ import openbiomind.gui.data.ClusterizeTaskData;
  *
  * @author bsanghvi
  * @since Jul 18, 2008
- * @version Jul 28, 2008
+ * @version Aug 9, 2008
  */
 public class ClusterizeWizard extends AbstractTaskWizard {
 
@@ -46,7 +46,6 @@ public class ClusterizeWizard extends AbstractTaskWizard {
     */
    @Override
    protected void prepareTaskData() {
-      getClusterizeTaskData().setProjectName(getClusterizeWizardPage().getProjectName());
       getClusterizeTaskData().setClusteringDatasetFile(getClusterizeWizardPage().getClusteringDatasetFile());
       getClusterizeTaskData().setOutputFile(getClusterizeWizardPage().getOutputFile());
       getClusterizeTaskData().setDatasetClusteringMetric(getClusterizeWizardPage().getDatasetClusteringMetric());
@@ -56,8 +55,8 @@ public class ClusterizeWizard extends AbstractTaskWizard {
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
-   protected AbstractTaskData getTaskData() {
-      return getClusterizeTaskData();
+   protected AbstractTaskData[] getTaskData() {
+      return new AbstractTaskData[] { getClusterizeTaskData() };
    }
 
    /**
@@ -80,6 +79,14 @@ public class ClusterizeWizard extends AbstractTaskWizard {
       }
 
       return this.clusterizeWizardPage;
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    */
+   @Override
+   protected AbstractTaskWizardPage getWizardPage() {
+      return getClusterizeWizardPage();
    }
 
 }
