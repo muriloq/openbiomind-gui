@@ -11,6 +11,7 @@ import java.io.File;
 
 import openbiomind.gui.common.TextButtonComposite;
 import openbiomind.gui.data.ClassificationMethodEnum;
+import openbiomind.gui.data.MetaTaskTaskData;
 import openbiomind.gui.data.ShuffleEnum;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
@@ -29,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -379,6 +380,21 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
       } else {
          setErrorMessage(null);
       }
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#prepareTaskData()
+    */
+   @Override
+   public MetaTaskTaskData prepareTaskData() {
+      final MetaTaskTaskData metaTaskTaskData = new MetaTaskTaskData();
+      metaTaskTaskData.setDatasetDirectory(getDatasetDirectoryPath());
+      metaTaskTaskData.setOutputDirectory(getOutputDirectory());
+      metaTaskTaskData.setNumberOfTasks(getNumberOfTasks());
+      metaTaskTaskData.setTargetCategory(getTargetCategory());
+      metaTaskTaskData.setClassficationMethod(getClassificationMethod());
+      metaTaskTaskData.setMetaTaskShuffling(getMetaTaskShuffling());
+      return metaTaskTaskData;
    }
 
 }

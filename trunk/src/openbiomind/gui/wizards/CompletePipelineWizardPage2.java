@@ -10,6 +10,7 @@ package openbiomind.gui.wizards;
 import openbiomind.gui.common.TextButtonComposite;
 import openbiomind.gui.data.ClassificationMethodEnum;
 import openbiomind.gui.data.ClusteringColorsEnum;
+import openbiomind.gui.data.CompletePipelineTaskData;
 import openbiomind.gui.data.DatasetClusteringMetricEnum;
 import openbiomind.gui.data.FeatureSelectionMethodEnum;
 import openbiomind.gui.data.ShuffleEnum;
@@ -29,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Aug 2, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -555,6 +556,31 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
       } else {
          setErrorMessage(null);
       }
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#prepareTaskData()
+    */
+   @Override
+   public CompletePipelineTaskData prepareTaskData() {
+      final CompletePipelineTaskData completePipelineTaskData = new CompletePipelineTaskData();
+      completePipelineTaskData.setMaximumCoOccurrenceEdges(getMaximumCoOccurrenceEdges());
+      completePipelineTaskData.setMaximumCoExpressionEdges(getMaximumCoExpressionEdges());
+      completePipelineTaskData.setTopUsefulFeatures(getTopUsefulFeatures());
+      completePipelineTaskData.setNumberOfFolds(getNumberOfFolds());
+      completePipelineTaskData.setNumberOfSelectedFeatures(getNumberOfSelectedFeatures());
+      completePipelineTaskData.setFeatureSelectionMethod(getFeatureSelectionMethod());
+      completePipelineTaskData.setOntologyDescriptionFile(getOntologyDescriptionFile());
+      completePipelineTaskData.setOntologyAssociationFile(getOntologyAssociationFile());
+      completePipelineTaskData.setNumberOfTasks(getNumberOfTasks());
+      completePipelineTaskData.setTargetCategory(getTargetCategory());
+      completePipelineTaskData.setClassficationMethod(getClassificationMethod());
+      completePipelineTaskData.setMetaTaskShuffling(getMetaTaskShuffling());
+      completePipelineTaskData.setDatasetClusteringMetric(getDatasetClusteringMetric());
+      completePipelineTaskData.setClusteringColors(getClusteringColors());
+      completePipelineTaskData.setIsFeatureSelected(getIsFeatureSelected());
+      completePipelineTaskData.setIsFolded(getIsFolded());
+      return completePipelineTaskData;
    }
 
 }

@@ -10,6 +10,7 @@ package openbiomind.gui.wizards;
 import java.io.File;
 
 import openbiomind.gui.common.TextButtonComposite;
+import openbiomind.gui.data.CompletePipelineTaskData;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
 
@@ -310,6 +311,19 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
       } else {
          setErrorMessage(null);
       }
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#prepareTaskData()
+    */
+   @Override
+   public CompletePipelineTaskData prepareTaskData() {
+      final CompletePipelineTaskData completePipelineTaskData = new CompletePipelineTaskData();
+      completePipelineTaskData.setInputDataset(getOriginalDatasetFilePath());
+      completePipelineTaskData.setOutputDirectory(getOutputDirectory());
+      completePipelineTaskData.setTestDataset(getTestDataset());
+      completePipelineTaskData.setPropertyFile(getPropertyFile());
+      return completePipelineTaskData;
    }
 
 }

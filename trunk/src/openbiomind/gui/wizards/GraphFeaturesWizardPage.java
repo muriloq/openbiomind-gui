@@ -10,6 +10,7 @@ package openbiomind.gui.wizards;
 import java.io.File;
 
 import openbiomind.gui.common.TextButtonComposite;
+import openbiomind.gui.data.GraphFeaturesTaskData;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
 
@@ -27,7 +28,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -642,6 +643,22 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
       } else {
          setErrorMessage(null);
       }
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#prepareTaskData()
+    */
+   @Override
+   public GraphFeaturesTaskData prepareTaskData() {
+      final GraphFeaturesTaskData graphFeaturesTaskData = new GraphFeaturesTaskData();
+      graphFeaturesTaskData.setHorizontalDataset(getHorizontalDataset());
+      graphFeaturesTaskData.setMobraDataset(getMobraDataset());
+      graphFeaturesTaskData.setUtilityFile(getUtilityFile());
+      graphFeaturesTaskData.setOutputFile(getOutputFile());
+      graphFeaturesTaskData.setMaximumCoOccurrenceEdges(getMaximumCoOccurrenceEdges());
+      graphFeaturesTaskData.setMaximumCoExpressionEdges(getMaximumCoExpressionEdges());
+      graphFeaturesTaskData.setTopUsefulFeatures(getTopUsefulFeatures());
+      return graphFeaturesTaskData;
    }
 
 }

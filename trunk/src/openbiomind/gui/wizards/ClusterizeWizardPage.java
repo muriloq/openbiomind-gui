@@ -10,6 +10,7 @@ package openbiomind.gui.wizards;
 import java.io.File;
 
 import openbiomind.gui.common.TextButtonComposite;
+import openbiomind.gui.data.ClusterizeTaskData;
 import openbiomind.gui.data.DatasetClusteringMetricEnum;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
@@ -28,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 18, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -484,6 +485,18 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
       } else {
          setErrorMessage(null);
       }
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#prepareTaskData()
+    */
+   @Override
+   public ClusterizeTaskData prepareTaskData() {
+      final ClusterizeTaskData clusterizeTaskData = new ClusterizeTaskData();
+      clusterizeTaskData.setClusteringDatasetFile(getClusteringDatasetFile());
+      clusterizeTaskData.setOutputFile(getOutputFile());
+      clusterizeTaskData.setDatasetClusteringMetric(getDatasetClusteringMetric());
+      return clusterizeTaskData;
    }
 
 }

@@ -10,6 +10,7 @@ package openbiomind.gui.wizards;
 import java.io.File;
 
 import openbiomind.gui.common.TextButtonComposite;
+import openbiomind.gui.data.EnhanceDatasetTaskData;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
 
@@ -29,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -579,6 +580,19 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       } else {
          setErrorMessage(null);
       }
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#prepareTaskData()
+    */
+   @Override
+   public EnhanceDatasetTaskData prepareTaskData() {
+      final EnhanceDatasetTaskData enhanceDatasetTaskData = new EnhanceDatasetTaskData();
+      enhanceDatasetTaskData.setInputDataset(getInputDataset());
+      enhanceDatasetTaskData.setEnhancedDataset(getEnhancedDataset());
+      enhanceDatasetTaskData.setOntologyDescriptionFile(getOntologyDescriptionFile());
+      enhanceDatasetTaskData.setOntologyAssociationFile(getOntologyAssociationFile());
+      return enhanceDatasetTaskData;
    }
 
 }

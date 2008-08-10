@@ -11,6 +11,7 @@ import java.io.File;
 
 import openbiomind.gui.common.TextButtonComposite;
 import openbiomind.gui.data.ClusteringColorsEnum;
+import openbiomind.gui.data.ViewClustersTaskData;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
 
@@ -28,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -553,6 +554,19 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
       } else {
          setErrorMessage(null);
       }
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#prepareTaskData()
+    */
+   @Override
+   public ViewClustersTaskData prepareTaskData() {
+      final ViewClustersTaskData viewClustersTaskData = new ViewClustersTaskData();
+      viewClustersTaskData.setClusteringDataset(getClusteringDataset());
+      viewClustersTaskData.setClusteringResult(getClusteringResult());
+      viewClustersTaskData.setImageFile(getImageFile());
+      viewClustersTaskData.setClusteringColors(getClusteringColors());
+      return viewClustersTaskData;
    }
 
 }

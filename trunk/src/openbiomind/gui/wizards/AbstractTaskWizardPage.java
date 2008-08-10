@@ -9,6 +9,7 @@ package openbiomind.gui.wizards;
 
 import openbiomind.gui.common.Constants;
 import openbiomind.gui.common.TextButtonComposite;
+import openbiomind.gui.data.AbstractTaskData;
 import openbiomind.gui.data.ClassificationMethodEnum;
 import openbiomind.gui.data.ClusteringColorsEnum;
 import openbiomind.gui.data.DatasetClusteringMetricEnum;
@@ -37,7 +38,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public abstract class AbstractTaskWizardPage extends WizardPage implements IWizardPage, Constants {
 
@@ -97,8 +98,8 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    public void createControl(final Composite parent) {
       setParent(parent);
 
-      // initially page is not complete
-      setPageComplete(false);
+      // initially page is complete
+      setPageComplete(true);
 
       // Required to avoid an error in the system
       setControl(getControl());
@@ -129,6 +130,52 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @return the composite
     */
    protected abstract Composite createBaseComposite(final Composite parent);
+
+   /*
+    * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+    */
+   @Override
+   public void setVisible(final boolean visible) {
+      if (visible) {
+         final IWizardPage previousPage = getPreviousPage();
+         System.out.println(previousPage);
+         final IWizardPage nextPage = getNextPage();
+         System.out.println(nextPage);
+         if (previousPage instanceof AbstractTaskWizardPage) {
+            getProjectNameText().setText(((AbstractTaskWizardPage) previousPage).getProjectNameText().getText());
+         } else {
+            if (nextPage instanceof AbstractTaskWizardPage) {
+               getProjectNameText().setText(((AbstractTaskWizardPage) nextPage).getProjectNameText().getText());
+            }
+         }
+
+         validatePage();
+      } else {
+         setPageComplete(true);
+      }
+      super.setVisible(visible);
+   }
+
+   /**
+    * Disable component.
+    *
+    * @param textButtonComposite the text button composite
+    * @param value the value
+    */
+   protected void disableComponent(final TextButtonComposite textButtonComposite, final String value) {
+      textButtonComposite.setEnabled(false);
+      textButtonComposite.setText(value);
+      textButtonComposite.setToolTipText(value);
+      textButtonComposite.setValid(true);
+   }
+
+   /*
+    * @see org.eclipse.jface.wizard.WizardPage#isCurrentPage()
+    */
+   @Override
+   public boolean isCurrentPage() {
+      return super.isCurrentPage();
+   }
 
    /**
     * Validate page.
@@ -270,16 +317,20 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            textButtonComposite.setValid(Utility.isEmptyOrExistingFile(textButtonComposite.getText()));
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               infoDecoration.hideHover();
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
+            if (textButtonComposite.isEnabled()) {
+               textButtonComposite.setValid(Utility.isEmptyOrExistingFile(textButtonComposite.getText()));
+               if (textButtonComposite.isValid()) {
+                  errorDecoration.hide();
+               } else {
+                  infoDecoration.hideHover();
+                  errorDecoration.show();
+                  errorDecoration.showHoverText(errorDecoration.getDescriptionText());
+               }
 
-            validatePage();
+               validatePage();
+            } else {
+               errorDecoration.hide();
+            }
          }
 
       });
@@ -609,5 +660,12 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
       return this.booleanValueArray;
    }
+
+   /**
+    * Prepare task data.
+    *
+    * @return the abstract task data
+    */
+   public abstract AbstractTaskData prepareTaskData();
 
 }
