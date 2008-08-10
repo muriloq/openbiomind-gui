@@ -19,9 +19,6 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
@@ -53,9 +50,6 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /** The enhanced dataset destination directory text button composite. */
    private TextButtonComposite enhancedDatasetDestDirTBC = null;
-
-   /** The use original dataset directory for enhanced dataset. */
-   private Button useOriginalDatasetDirButton = null;
 
    /** The enhanced dataset path text. */
    private Text enhancedDatasetPathText = null;
@@ -130,9 +124,6 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       // - Destination directory
       WidgetHelper.createNewFieldLabel(parent, Messages.Label_Dir, Messages.Tip_LeaveBlankToUseCurrDirOrSpecifyDir);
       this.enhancedDatasetDestDirTBC = createEnhancedDatasetDestDirTBC(parent);
-      // - Use original dataset directory check box
-      WidgetHelper.createNewBlankLabel(parent);
-      this.useOriginalDatasetDirButton = createUseOriginalDatasetDirButton(parent);
       // - Path - read only
       WidgetHelper.createNewFieldLabel(parent, Messages.Label_FilePath, Messages.Tip_Path);
       this.enhancedDatasetPathText = createEnhancedDatasetPathText(parent);
@@ -170,12 +161,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            textButtonComposite.setValid(Utility.fileExists(textButtonComposite.getText()));
-            handleErrorDecoration(errorDecoration, textButtonComposite.isValid());
-            if (useOriginalDatasetDir()) {
-               updateEnhancedDatasetDestDirText();
-            }
-            validatePage();
+            handleModifyText(textButtonComposite, errorDecoration, Utility.fileExists(textButtonComposite.getText()));
          }
 
       });
@@ -282,39 +268,6 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
       });
 
       return textButtonComposite;
-   }
-
-   /**
-    * Creates the use original dataset directory for enhanced dataset.
-    *
-    * @param parent the parent
-    *
-    * @return the button
-    */
-   private Button createUseOriginalDatasetDirButton(final Composite parent) {
-      final Button button = new Button(parent, SWT.CHECK);
-      button.setText(Messages.EnhDataWizPg_UseOriginalDataDir);
-      button.setToolTipText(Messages.EnhDataWizPg_UseOriginalDataDir);
-
-      // apply layout
-      GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(button);
-
-      // apply listeners
-      button.addSelectionListener(new SelectionAdapter() {
-
-         @Override
-         public void widgetSelected(final SelectionEvent event) {
-            if (button.getSelection()) {
-               getEnhancedDatasetDestDirTBC().setEnabled(false);
-               updateEnhancedDatasetDestDirText();
-            } else {
-               getEnhancedDatasetDestDirTBC().setEnabled(true);
-            }
-         }
-
-      });
-
-      return button;
    }
 
    /**
@@ -451,31 +404,6 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
     */
    private TextButtonComposite getEnhancedDatasetDestDirTBC() {
       return this.enhancedDatasetDestDirTBC;
-   }
-
-   /**
-    * Update enhanced dataset destination directory text.
-    */
-   private void updateEnhancedDatasetDestDirText() {
-      getEnhancedDatasetDestDirTBC().setText(Utility.extractDirectory(getInputDataset()));
-   }
-
-   /**
-    * Use original dataset directory for enhanced dataset.
-    *
-    * @return true, if successful
-    */
-   private boolean useOriginalDatasetDir() {
-      return getUseOriginalDatasetDirButton().getSelection();
-   }
-
-   /**
-    * Gets the use original dataset directory for enhanced dataset.
-    *
-    * @return the use original dataset directory for enhanced dataset
-    */
-   private Button getUseOriginalDatasetDirButton() {
-      return this.useOriginalDatasetDirButton;
    }
 
    /**

@@ -111,9 +111,6 @@ class Messages extends NLS {
    /** Enhance Dataset Task */
    public static String EnhDataWiz_Title;
 
-   /** Use the original dataset directory */
-   public static String EnhDataWizPg_UseOriginalDataDir;
-
    /** Specified directory already exists and files inside it may be overwritten */
    public static String Err_DirAlreadyExist;
 
@@ -195,10 +192,10 @@ class Messages extends NLS {
    /** Maximum co-occurrence edges */
    public static String Label_MaxCoOccEdge;
 
-   /** MetaTask result */
+   /** Meta Task result */
    public static String Label_MetaResultDir;
 
-   /** MetaTask shuffling */
+   /** Meta Task shuffling */
    public static String Label_MetaShuffling;
 
    /** MOBRA dataset */
