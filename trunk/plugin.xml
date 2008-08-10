@@ -15,7 +15,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="openbiomind.gui.Perspective"
-            icon="icons/perspective.gif"
+            icon="$nl$/icons/perspective.gif"
             id="openbiomind.gui.Perspective"
             name="%perspective.name.OpenBiomind">
          <description>
@@ -328,7 +328,7 @@
             </command>
             <command
                   commandId="openbiomind.gui.commands.OpenPipelineProperties"
-                  icon="icons/open_pipeline_properties.gif"
+                  icon="$nl$/icons/open_pipeline_properties.gif"
                   id="openbiomind.gui.menus.file.OpenPipelineProperties"
                   mnemonic="%command.mnemonic.OpenPipe"
                   style="push"
@@ -464,63 +464,63 @@
                mnemonic="%menu.mnemonic.Task">
             <command
                   commandId="openbiomind.gui.commands.EnhanceDataset"
-                  icon="icons/tasks/enhance_dataset.gif"
+                  icon="$nl$/icons/tasks/enhance_dataset.gif"
                   id="openbiomind.gui.menus.task.EnhanceDataset"
                   mnemonic="%command.mnemonic.EnhData"
                   style="push">
             </command>
             <command
                   commandId="openbiomind.gui.commands.DatasetTransformer"
-                  icon="icons/tasks/dataset_transformer.gif"
+                  icon="$nl$/icons/tasks/dataset_transformer.gif"
                   id="openbiomind.gui.menus.task.DatasetTransformer"
                   mnemonic="%command.mnemonic.DataTrans"
                   style="push">
             </command>
             <command
                   commandId="openbiomind.gui.commands.MetaTask"
-                  icon="icons/tasks/meta_task.gif"
+                  icon="$nl$/icons/tasks/meta_task.gif"
                   id="openbiomind.gui.menus.task.MetaTask"
                   mnemonic="%command.mnemonic.Meta"
                   style="push">
             </command>
             <command
                   commandId="openbiomind.gui.commands.UtilityComputer"
-                  icon="icons/tasks/utility_computer.gif"
+                  icon="$nl$/icons/tasks/utility_computer.gif"
                   id="openbiomind.gui.menus.task.UtilityComputer"
                   mnemonic="%command.mnemonic.UtilComp"
                   style="push">
             </command>
             <command
                   commandId="openbiomind.gui.commands.ClusteringTransformer"
-                  icon="icons/tasks/clustering_transformer.gif"
+                  icon="$nl$/icons/tasks/clustering_transformer.gif"
                   id="openbiomind.gui.toolbars.task.ClusteringTransformer"
                   mnemonic="%command.mnemonic.ClustTran"
                   style="push">
             </command>
             <command
                   commandId="openbiomind.gui.commands.Clusterize"
-                  icon="icons/tasks/clusterize.gif"
+                  icon="$nl$/icons/tasks/clusterize.gif"
                   id="openbiomind.gui.menus.task.Clusterize"
                   mnemonic="%command.mnemonic.Clust"
                   style="push">
             </command>
             <command
                   commandId="openbiomind.gui.commands.ViewClusters"
-                  icon="icons/tasks/view_clusters.gif"
+                  icon="$nl$/icons/tasks/view_clusters.gif"
                   id="openbiomind.gui.menus.task.ViewClusters.parent"
                   mnemonic="%command.mnemonic.ViewClust"
                   style="push">
             </command>
             <command
                   commandId="openbiomind.gui.commands.GraphFeatures"
-                  icon="icons/tasks/graph_features.gif"
+                  icon="$nl$/icons/tasks/graph_features.gif"
                   id="openbiomind.gui.menus.task.GraphFeatures"
                   mnemonic="%command.mnemonic.GraFeatures"
                   style="push">
             </command>
             <command
                   commandId="openbiomind.gui.commands.CompletePipeline"
-                  icon="icons/tasks/complete_pipeline.gif"
+                  icon="$nl$/icons/tasks/complete_pipeline.gif"
                   id="openbiomind.gui.menus.task.CompletePipeline"
                   mnemonic="%command.mnemonic.CompPipe"
                   style="push">
@@ -689,63 +689,63 @@
                id="openbiomind.gui.toolbars.Task">
             <command
                   commandId="openbiomind.gui.commands.EnhanceDataset"
-                  icon="icons/tasks/enhance_dataset.gif"
+                  icon="$nl$/icons/tasks/enhance_dataset.gif"
                   id="openbiomind.gui.toolbars.task.EnhanceDataset"
                   style="push"
                   tooltip="%command.tooltip.EnhData">
             </command>
             <command
                   commandId="openbiomind.gui.commands.DatasetTransformer"
-                  icon="icons/tasks/dataset_transformer.gif"
+                  icon="$nl$/icons/tasks/dataset_transformer.gif"
                   id="openbiomind.gui.toolbars.task.DatasetTransformer"
                   style="push"
                   tooltip="%command.tooltip.DataTran">
             </command>
             <command
                   commandId="openbiomind.gui.commands.MetaTask"
-                  icon="icons/tasks/meta_task.gif"
+                  icon="$nl$/icons/tasks/meta_task.gif"
                   id="openbiomind.gui.toolbars.task.MetaTask"
                   style="push"
                   tooltip="%command.tooltip.Meta">
             </command>
             <command
                   commandId="openbiomind.gui.commands.UtilityComputer"
-                  icon="icons/tasks/utility_computer.gif"
+                  icon="$nl$/icons/tasks/utility_computer.gif"
                   id="openbiomind.gui.toolbars.task.UtilityComputer"
                   style="push"
                   tooltip="%command.tooltip.UtilComp">
             </command>
             <command
                   commandId="openbiomind.gui.commands.ClusteringTransformer"
-                  icon="icons/tasks/clustering_transformer.gif"
+                  icon="$nl$/icons/tasks/clustering_transformer.gif"
                   id="openbiomind.gui.toolbars.task.ClusteringTransformer"
                   style="push"
                   tooltip="%command.tooltip.ClustTran">
             </command>
             <command
                   commandId="openbiomind.gui.commands.Clusterize"
-                  icon="icons/tasks/clusterize.gif"
+                  icon="$nl$/icons/tasks/clusterize.gif"
                   id="openbiomind.gui.toolbars.task.Clusterize"
                   style="push"
                   tooltip="%command.tooltip.Clust">
             </command>
             <command
                   commandId="openbiomind.gui.commands.ViewClusters"
-                  icon="icons/tasks/view_clusters.gif"
+                  icon="$nl$/icons/tasks/view_clusters.gif"
                   id="openbiomind.gui.toolbars.task.ViewClusters"
                   style="push"
                   tooltip="%command.tooltip.ViewClust">
             </command>
             <command
                   commandId="openbiomind.gui.commands.GraphFeatures"
-                  icon="icons/tasks/graph_features.gif"
+                  icon="$nl$/icons/tasks/graph_features.gif"
                   id="openbiomind.gui.toolbars.task.GraphFeatures"
                   style="push"
                   tooltip="%command.tooltip.GraFeatures">
             </command>
             <command
                   commandId="openbiomind.gui.commands.CompletePipeline"
-                  icon="icons/tasks/complete_pipeline.gif"
+                  icon="$nl$/icons/tasks/complete_pipeline.gif"
                   id="openbiomind.gui.toolbars.task.CompletePipeline"
                   style="push"
                   tooltip="%command.tooltip.CompPipe">
@@ -763,7 +763,7 @@
             allowMultiple="false"
             category="openbiomind.gui.views.category.OpenBiomind"
             class="org.eclipse.ui.navigator.CommonNavigator"
-            icon="icons/result_view.gif"
+            icon="$nl$/icons/result_view.gif"
             id="openbiomind.gui.views.Results"
             name="%view.name.Results"
             restorable="true">
@@ -819,7 +819,7 @@
             class="openbiomind.gui.editors.ImageEditor"
             default="true"
             extensions="png, PNG, gif, GIF, jpe, JPE, jpg, JPG, jpeg, JPEG"
-            icon="icons/image_editor.gif"
+            icon="$nl$/icons/image_editor.gif"
             id="openbiomind.gui.editors.ImageEditor"
             name="%editor.name.ImageEditor">
       </editor>
