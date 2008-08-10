@@ -182,6 +182,14 @@ public abstract class TextButtonComposite extends Composite implements Constants
       getTextField().setToolTipText(string);
    }
 
+   /*
+    * @see org.eclipse.swt.widgets.Composite#setFocus()
+    */
+   @Override
+   public boolean setFocus() {
+      return getTextField().setFocus();
+   }
+
    /**
     * Checks if is valid.
     *

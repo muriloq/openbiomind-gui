@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -68,6 +68,13 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /** The valid enhanced dataset file path. */
    private boolean validEnhancedDatasetFilePath = false;
+
+   /**
+    * Instantiates a new enhance dataset wizard page.
+    */
+   public EnhanceDatasetWizardPage() {
+      this(Messages.EnhDataWiz_Name, Messages.EnhDataWiz_Desc);
+   }
 
    /**
     * Instantiates a new enhance dataset wizard page.
@@ -164,17 +171,10 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
          @Override
          public void modifyText(final ModifyEvent event) {
             textButtonComposite.setValid(Utility.fileExists(textButtonComposite.getText()));
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
+            handleErrorDecoration(errorDecoration, textButtonComposite.isValid());
             if (useOriginalDatasetDir()) {
                updateEnhancedDatasetDestDirText();
             }
-
             validatePage();
          }
 
@@ -208,15 +208,8 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
          @Override
          public void modifyText(final ModifyEvent event) {
             setValidEnhancedDatasetDestFileName(!Utility.isEmpty(text.getText()));
-            if (isValidEnhancedDatasetDestFileName()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
+            handleErrorDecoration(errorDecoration, isValidEnhancedDatasetDestFileName());
             getEnhancedDatasetPathText().setText(getEnhancedDataset());
-
             validatePage();
          }
 

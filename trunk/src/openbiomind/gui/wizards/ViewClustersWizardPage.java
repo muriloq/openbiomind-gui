@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -72,7 +72,14 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
    private Combo clusteringColorsCombo = null;
 
    /**
-    * Instantiates a new utility computer wizard page.
+    * Instantiates a new view clusters wizard page.
+    */
+   public ViewClustersWizardPage() {
+      this(Messages.ViewClustWiz_Name, Messages.ViewClustWiz_Desc);
+   }
+
+   /**
+    * Instantiates a new view clusters wizard page.
     *
     * @param pageTitle the page title
     * @param pageDescription the page description
@@ -172,15 +179,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            textButtonComposite.setValid(Utility.fileExists(textButtonComposite.getText()));
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
-            validatePage();
+            handleModifyText(textButtonComposite, errorDecoration, Utility.fileExists(textButtonComposite.getText()));
          }
 
       });
@@ -213,15 +212,8 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
          @Override
          public void modifyText(final ModifyEvent event) {
             setValidImageFileDestFileName(!Utility.isEmpty(text.getText()));
-            if (isValidImageFileDestFileName()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
+            handleErrorDecoration(errorDecoration, isValidImageFileDestFileName());
             getImageFilePathText().setText(getImageFile());
-
             validatePage();
          }
 
@@ -538,6 +530,28 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
     */
    private Combo getClusteringColorsCombo() {
       return this.clusteringColorsCombo;
+   }
+
+   /*
+    * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+    */
+   @Override
+   public void setVisible(final boolean visible) {
+      if (visible) {
+         final IWizardPage previousPage1 = getPreviousPage();
+         if (previousPage1 instanceof ClusterizeWizardPage) {
+            disableComponent(getClusteringResultTBC(), ((ClusterizeWizardPage) previousPage1).getOutputFile());
+
+            final IWizardPage previousPage2 = previousPage1.getPreviousPage();
+            if (previousPage2 instanceof ClusteringTransformerWizardPage) {
+               disableComponent(getClusteringDatasetTBC(), ((ClusteringTransformerWizardPage) previousPage2).getDatasetFile());
+            }
+         } else if (previousPage1 instanceof ClusteringTransformerWizardPage) {
+            disableComponent(getClusteringDatasetTBC(), ((ClusteringTransformerWizardPage) previousPage1).getDatasetFile());
+         }
+      }
+
+      super.setVisible(visible);
    }
 
    /*

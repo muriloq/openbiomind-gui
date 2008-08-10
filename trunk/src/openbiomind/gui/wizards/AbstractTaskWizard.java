@@ -53,7 +53,7 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
@@ -80,6 +80,13 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     * @return the task data
     */
    protected abstract AbstractTaskData[] getTaskData();
+
+   /**
+    * Gets the first wizard page.
+    *
+    * @return the first wizard page
+    */
+   protected abstract AbstractTaskWizardPage getFirstWizardPage();
 
    /*
     * @see org.eclipse.jface.wizard.Wizard#performFinish()
@@ -134,7 +141,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
       // execute all the processes
       subMonitor.subTask(Messages.AbsTaskWiz_PrepProc);
       PrintWriter executionLogWriter = null;
-      final TaskDataProject taskDataProject = new TaskDataProject(getWizardPage().getProjectName());
+      final TaskDataProject taskDataProject = new TaskDataProject(getFirstWizardPage().getProjectName());
       try {
          executionLogWriter = new PrintWriter(getExecutionLogFilePath());
 
@@ -158,10 +165,8 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
                throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, NLS.bind(
                      Messages.Err_TaskExecutionFailed, taskData.getTaskName())));
             }
-            taskDataProject.add(taskData.createTaskDataFolder());
 
             // leave blanks before next command
-            executionLogWriter.println(); // empty line
             executionLogWriter.println(); // empty line
             executionLogWriter.flush();
          }
@@ -173,12 +178,14 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
          // create the project
          subMonitor.setWorkRemaining(10);
+         // need to do this in separate loop since post process may add more resources
+         for (final AbstractTaskData taskData : taskDataArray) {
+            taskDataProject.add(taskData.createTaskDataFolder());
+         }
          if (!createProject(taskDataProject, subMonitor.newChild(10, SubMonitor.SUPPRESS_SETTASKNAME))) {
             throw new CoreException(
                   new Status(IStatus.ERROR, Application.PLUGIN_ID, Messages.Err_UnableToCreateProject));
          }
-      } catch (final CoreException e) {
-         throw e;
       } catch (final IOException e) {
          throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, IStatus.OK, e.getMessage(), e));
       } finally {
@@ -498,12 +505,5 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
       return this.executionLogFilePath;
    }
-
-   /**
-    * Gets the project name.
-    *
-    * @return the project name
-    */
-   protected abstract AbstractTaskWizardPage getWizardPage();
 
 }

@@ -19,7 +19,7 @@ import openbiomind.gui.data.AbstractTaskData;
 public class ClusterizeWizard extends AbstractTaskWizard {
 
    /** The clusterize wizard page. */
-   private ClusterizeWizardPage clusterizeWizardPage = null;
+   private final ClusterizeWizardPage CLUSTERIZE_WIZ_PAGE = new ClusterizeWizardPage();
 
    /**
     * Instantiates a new clusterize wizard.
@@ -33,7 +33,7 @@ public class ClusterizeWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
-      addPage(getClusterizeWizardPage());
+      addPage(this.CLUSTERIZE_WIZ_PAGE);
    }
 
    /*
@@ -41,28 +41,15 @@ public class ClusterizeWizard extends AbstractTaskWizard {
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getClusterizeWizardPage().prepareTaskData() };
-   }
-
-   /**
-    * Gets the clusterize wizard page.
-    *
-    * @return the clusterize wizard page
-    */
-   private ClusterizeWizardPage getClusterizeWizardPage() {
-      if (this.clusterizeWizardPage == null) {
-         this.clusterizeWizardPage = new ClusterizeWizardPage(Messages.ClustWiz_Name, Messages.ClustWiz_Desc);
-      }
-
-      return this.clusterizeWizardPage;
+      return new AbstractTaskData[] { this.CLUSTERIZE_WIZ_PAGE.prepareTaskData() };
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getFirstWizardPage()
     */
    @Override
-   protected AbstractTaskWizardPage getWizardPage() {
-      return getClusterizeWizardPage();
+   protected AbstractTaskWizardPage getFirstWizardPage() {
+      return this.CLUSTERIZE_WIZ_PAGE;
    }
 
 }

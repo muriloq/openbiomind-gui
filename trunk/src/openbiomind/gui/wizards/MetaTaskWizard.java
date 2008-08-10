@@ -19,10 +19,10 @@ import openbiomind.gui.data.AbstractTaskData;
 public class MetaTaskWizard extends AbstractTaskWizard {
 
    /** The meta task wizard page. */
-   private MetaTaskWizardPage metaTaskWizardPage = null;
+   private final MetaTaskWizardPage META_TASK_WIZ_PAGE = new MetaTaskWizardPage();
 
    /**
-    * Instantiates a new enhance dataset wizard.
+    * Instantiates a new meta task wizard.
     */
    public MetaTaskWizard() {
       super(Messages.MetaWiz_Title);
@@ -33,7 +33,7 @@ public class MetaTaskWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
-      addPage(getMetaTaskWizardPage());
+      addPage(this.META_TASK_WIZ_PAGE);
    }
 
    /*
@@ -41,28 +41,15 @@ public class MetaTaskWizard extends AbstractTaskWizard {
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getMetaTaskWizardPage().prepareTaskData() };
-   }
-
-   /**
-    * Gets the meta task wizard page.
-    *
-    * @return the meta task wizard page
-    */
-   private MetaTaskWizardPage getMetaTaskWizardPage() {
-      if (this.metaTaskWizardPage == null) {
-         this.metaTaskWizardPage = new MetaTaskWizardPage(Messages.MetaWiz_Name, Messages.MetaWiz_Desc);
-      }
-
-      return this.metaTaskWizardPage;
+      return new AbstractTaskData[] { this.META_TASK_WIZ_PAGE.prepareTaskData() };
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getFirstWizardPage()
     */
    @Override
-   protected AbstractTaskWizardPage getWizardPage() {
-      return getMetaTaskWizardPage();
+   protected AbstractTaskWizardPage getFirstWizardPage() {
+      return this.META_TASK_WIZ_PAGE;
    }
 
 }

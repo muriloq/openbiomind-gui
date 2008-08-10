@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 13, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -72,6 +72,13 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /** The meta task result directory error decoration. */
    private ControlDecoration metaTaskResultDirErrorDecoration = null;
+
+   /**
+    * Instantiates a new clustering transformer wizard page.
+    */
+   public ClusteringTransformerWizardPage() {
+      this(Messages.ClustTransWiz_Name, Messages.ClustTransWiz_Desc);
+   }
 
    /**
     * Instantiates a new clustering transformer wizard page.
@@ -168,15 +175,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            textButtonComposite.setValid(Utility.fileExists(textButtonComposite.getText()));
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
-            validatePage();
+            handleModifyText(textButtonComposite, errorDecoration, Utility.fileExists(textButtonComposite.getText()));
          }
 
       });
@@ -230,15 +229,8 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
          @Override
          public void modifyText(final ModifyEvent event) {
             setValidOutputFileDestFileName(!Utility.isEmpty(text.getText()));
-            if (isValidOutputFileDestFileName()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
+            handleErrorDecoration(errorDecoration, isValidOutputFileDestFileName());
             getOutputFilePathText().setText(getOutputFile());
-
             validatePage();
          }
 

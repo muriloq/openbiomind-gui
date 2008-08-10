@@ -1,7 +1,7 @@
 /**
- * GraphFeaturesWizard.java
+ * MetaTaskToUtilityComputerToGraphFeaturesWizard.java
  *
- * The file GraphFeaturesWizard.java.
+ * The file MetaTaskToUtilityComputerToGraphFeaturesWizard.java.
  *
  * $Id$
  */
@@ -12,13 +12,19 @@ import openbiomind.gui.data.GraphFeaturesTaskData;
 import openbiomind.gui.main.GraphvizHelper;
 
 /**
- * The class GraphFeaturesWizard.
+ * The class MetaTaskToUtilityComputerToGraphFeaturesWizard.
  *
  * @author bsanghvi
- * @since Jul 20, 2008
+ * @since Aug 10, 2008
  * @version Aug 10, 2008
  */
-public class GraphFeaturesWizard extends AbstractTaskWizard {
+public class MetaTaskToUtilityComputerToGraphFeaturesWizard extends AbstractTaskWizard {
+
+   /** The meta task wizard page. */
+   private final MetaTaskWizardPage META_TASK_WIZ_PAGE = new MetaTaskWizardPage();
+
+   /** The utility computer wizard page. */
+   private final UtilityComputerWizardPage UTILITY_COMPUTER_WIZ_PAGE = new UtilityComputerWizardPage();
 
    /** The graph features wizard page. */
    private final GraphFeaturesWizardPage GRAPH_FEATURES_WIZ_PAGE = new GraphFeaturesWizardPage();
@@ -30,10 +36,10 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
    private GraphvizHelper graphvizHelper = null;
 
    /**
-    * Instantiates a new graph features wizard.
+    * Instantiates a new graph features from dataset transformer wizard.
     */
-   public GraphFeaturesWizard() {
-      super(Messages.GraFeatureWiz_Title);
+   public MetaTaskToUtilityComputerToGraphFeaturesWizard() {
+      super(Messages.Meta_UtilComp_GraFeature_Wiz_Title);
    }
 
    /*
@@ -41,6 +47,8 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
+      addPage(this.META_TASK_WIZ_PAGE);
+      addPage(this.UTILITY_COMPUTER_WIZ_PAGE);
       addPage(this.GRAPH_FEATURES_WIZ_PAGE);
    }
 
@@ -49,7 +57,15 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getGraphFeaturesTaskData() };
+      if (this.GRAPH_FEATURES_WIZ_PAGE.isCurrentPage()) {
+         return new AbstractTaskData[] { this.META_TASK_WIZ_PAGE.prepareTaskData(),
+               this.UTILITY_COMPUTER_WIZ_PAGE.prepareTaskData(), getGraphFeaturesTaskData() };
+      } else if (this.UTILITY_COMPUTER_WIZ_PAGE.isCurrentPage()) {
+         return new AbstractTaskData[] { this.META_TASK_WIZ_PAGE.prepareTaskData(),
+               this.UTILITY_COMPUTER_WIZ_PAGE.prepareTaskData() };
+      } else {
+         return new AbstractTaskData[] { this.META_TASK_WIZ_PAGE.prepareTaskData() };
+      }
    }
 
    /*
@@ -57,7 +73,7 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     */
    @Override
    protected AbstractTaskWizardPage getFirstWizardPage() {
-      return this.GRAPH_FEATURES_WIZ_PAGE;
+      return this.META_TASK_WIZ_PAGE;
    }
 
    /**

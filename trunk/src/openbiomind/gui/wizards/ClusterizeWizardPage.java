@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 18, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -61,6 +61,13 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
 
    /** The dataset clustering metric combo. */
    private Combo datasetClusteringMetricCombo = null;
+
+   /**
+    * Instantiates a new clusterize wizard page.
+    */
+   public ClusterizeWizardPage() {
+      this(Messages.ClustWiz_Name, Messages.ClustWiz_Desc);
+   }
 
    /**
     * Instantiates a new clusterize wizard page.
@@ -152,15 +159,8 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            textButtonComposite.setValid(Utility.fileExists(textButtonComposite.getText()));
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
-            validatePage();
+            handleModifyTextWhenEnabled(textButtonComposite, errorDecoration, Utility.fileExists(textButtonComposite
+                  .getText()));
          }
 
       });
@@ -193,15 +193,8 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
          @Override
          public void modifyText(final ModifyEvent event) {
             setValidOutputFileDestFileName(!Utility.isEmpty(text.getText()));
-            if (isValidOutputFileDestFileName()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
+            handleErrorDecoration(errorDecoration, isValidOutputFileDestFileName());
             getOutputFilePathText().setText(getOutputFile());
-
             validatePage();
          }
 
@@ -470,6 +463,22 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
     */
    private Combo getDatasetClusteringMetricCombo() {
       return this.datasetClusteringMetricCombo;
+   }
+
+   /*
+    * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+    */
+   @Override
+   public void setVisible(final boolean visible) {
+      if (visible) {
+         final IWizardPage previousPage = getPreviousPage();
+         if (previousPage instanceof ClusteringTransformerWizardPage) {
+            disableComponent(getClusteringDatasetFileTBC(), ((ClusteringTransformerWizardPage) previousPage)
+                  .getOutputFile());
+         }
+      }
+
+      super.setVisible(visible);
    }
 
    /*

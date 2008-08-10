@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class DatasetTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -70,6 +70,13 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /** The test dataset text button composite. */
    private TextButtonComposite testDatasetTBC = null;
+
+   /**
+    * Instantiates a new dataset transformer wizard page.
+    */
+   public DatasetTransformerWizardPage() {
+      this(Messages.DataTransWiz_Name, Messages.DataTransWiz_Desc);
+   }
 
    /**
     * Instantiates a new dataset transformer wizard page.
@@ -150,15 +157,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            textButtonComposite.setValid(Utility.fileExists(getInputDataset()));
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
-            validatePage();
+            handleModifyText(textButtonComposite, errorDecoration, Utility.fileExists(getInputDataset()));
          }
 
       });

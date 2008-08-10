@@ -14,12 +14,12 @@ import openbiomind.gui.data.AbstractTaskData;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class UtilityComputerWizard extends AbstractTaskWizard {
 
    /** The utility computer wizard page. */
-   private UtilityComputerWizardPage utilityComputerWizardPage = null;
+   private final UtilityComputerWizardPage UTILITY_COMPUTER_WIZ_PAGE = new UtilityComputerWizardPage();
 
    /**
     * Instantiates a new utility computer wizard.
@@ -33,7 +33,7 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
-      addPage(getUtilityComputerWizardPage());
+      addPage(this.UTILITY_COMPUTER_WIZ_PAGE);
    }
 
    /*
@@ -41,29 +41,15 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getUtilityComputerWizardPage().prepareTaskData() };
-   }
-
-   /**
-    * Gets the utility computer wizard page.
-    *
-    * @return the utility computer wizard page
-    */
-   private UtilityComputerWizardPage getUtilityComputerWizardPage() {
-      if (this.utilityComputerWizardPage == null) {
-         this.utilityComputerWizardPage = new UtilityComputerWizardPage(Messages.UtilCompWiz_Name,
-               Messages.UtilCompWiz_Desc);
-      }
-
-      return this.utilityComputerWizardPage;
+      return new AbstractTaskData[] { this.UTILITY_COMPUTER_WIZ_PAGE.prepareTaskData() };
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getFirstWizardPage()
     */
    @Override
-   protected AbstractTaskWizardPage getWizardPage() {
-      return getUtilityComputerWizardPage();
+   protected AbstractTaskWizardPage getFirstWizardPage() {
+      return this.UTILITY_COMPUTER_WIZ_PAGE;
    }
 
 }

@@ -14,12 +14,12 @@ import openbiomind.gui.data.AbstractTaskData;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class DatasetTransformerWizard extends AbstractTaskWizard {
 
    /** The dataset transformer wizard page. */
-   private DatasetTransformerWizardPage datasetTransformerWizardPage = null;
+   private final DatasetTransformerWizardPage DATASET_TRANSFORMER_WIZ_PAGE = new DatasetTransformerWizardPage();
 
    /**
     * Instantiates a new enhance dataset wizard.
@@ -33,7 +33,7 @@ public class DatasetTransformerWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
-      addPage(getDatasetTransformerWizardPage());
+      addPage(this.DATASET_TRANSFORMER_WIZ_PAGE);
    }
 
    /*
@@ -41,29 +41,15 @@ public class DatasetTransformerWizard extends AbstractTaskWizard {
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getDatasetTransformerWizardPage().prepareTaskData() };
-   }
-
-   /**
-    * Gets the dataset transformer wizard page.
-    *
-    * @return the dataset transformer wizard page
-    */
-   private DatasetTransformerWizardPage getDatasetTransformerWizardPage() {
-      if (this.datasetTransformerWizardPage == null) {
-         this.datasetTransformerWizardPage = new DatasetTransformerWizardPage(Messages.DataTransWiz_Name,
-               Messages.DataTransWiz_Desc);
-      }
-
-      return this.datasetTransformerWizardPage;
+      return new AbstractTaskData[] { this.DATASET_TRANSFORMER_WIZ_PAGE.prepareTaskData() };
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getFirstWizardPage()
     */
    @Override
-   protected AbstractTaskWizardPage getWizardPage() {
-      return getDatasetTransformerWizardPage();
+   protected AbstractTaskWizardPage getFirstWizardPage() {
+      return this.DATASET_TRANSFORMER_WIZ_PAGE;
    }
 
 }
