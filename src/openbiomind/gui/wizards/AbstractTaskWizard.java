@@ -58,7 +58,7 @@ import org.eclipse.ui.ide.IDE;
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /** The Constant DELAY. */
-   private static final int DELAY = 1;
+   private static final int DELAY = 5;
 
    /** The execution log file path. */
    private String executionLogFilePath = null;
@@ -75,11 +75,6 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
    }
 
    /**
-    * Prepare task data.
-    */
-   protected abstract void prepareTaskData();
-
-   /**
     * Gets the task data.
     *
     * @return the task data
@@ -91,9 +86,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     */
    @Override
    public boolean performFinish() {
-      /*
-       * create the process
-       */
+      // create the process
       final IRunnableWithProgress runnableWithProgress = new IRunnableWithProgress() {
 
          @Override
@@ -110,20 +103,20 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
       };
 
-      /*
-       * run the process
-       */
+      // run the process
+      boolean success = false;
       try {
          getContainer().run(false, false, runnableWithProgress);
+         success = true;
       } catch (final InterruptedException e) {
-         return false;
+         success = false;
       } catch (final InvocationTargetException e) {
          Console.debug(e);
          MessageDialog.openError(getShell(), Resources.ERROR, e.getTargetException().getMessage());
-         return false;
+         success = false;
       }
 
-      return true;
+      return success;
    }
 
    /**
@@ -134,16 +127,12 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
     * @throws CoreException the core exception
     */
    private void doFinish(final IProgressMonitor monitor) throws CoreException {
-      final SubMonitor subMonitor = SubMonitor.convert(monitor, Messages.AbsTaskWiz_ExecTask, 100);
-      // prepare the task data
-      subMonitor.subTask(Messages.AbsTaskWiz_PrepTaskData);
-      prepareTaskData();
-      subMonitor.worked(1);
+      final AbstractTaskData[] taskDataArray = getTaskData();
+      final SubMonitor subMonitor = SubMonitor.convert(monitor, Messages.AbsTaskWiz_ExecTask,
+            30 + (70 * taskDataArray.length));
 
       // execute all the processes
       subMonitor.subTask(Messages.AbsTaskWiz_PrepProc);
-      final AbstractTaskData[] taskDataArray = getTaskData();
-      subMonitor.setWorkRemaining(40 + (56 * taskDataArray.length));
       PrintWriter executionLogWriter = null;
       final TaskDataProject taskDataProject = new TaskDataProject(getWizardPage().getProjectName());
       try {
@@ -158,15 +147,13 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
             executionLogWriter.println(executedCommand);
             executionLogWriter.println(); // empty line
             executionLogWriter.flush();
-            subMonitor.worked(1);
-
-            final Process process = taskProcessBuider.start();
 
             // execute the process
-            executeTaskProcess(process, executionLogWriter, subMonitor.newChild(50, SubMonitor.SUPPRESS_SETTASKNAME));
+            final Process process = taskProcessBuider.start();
+            executeTaskProcess(process, executionLogWriter, subMonitor.newChild(60, SubMonitor.SUPPRESS_SETTASKNAME));
 
             // process the error, if any
-            processError(process.getErrorStream(), subMonitor.newChild(5, SubMonitor.SUPPRESS_SETTASKNAME));
+            processError(process.getErrorStream(), subMonitor.newChild(10, SubMonitor.SUPPRESS_SETTASKNAME));
             if (process.exitValue() != 0) {
                throw new CoreException(new Status(IStatus.ERROR, Application.PLUGIN_ID, NLS.bind(
                      Messages.Err_TaskExecutionFailed, taskData.getTaskName())));

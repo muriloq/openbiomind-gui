@@ -10,6 +10,7 @@ package openbiomind.gui.wizards;
 import java.io.File;
 
 import openbiomind.gui.common.TextButtonComposite;
+import openbiomind.gui.data.ClusteringTransformerTaskData;
 import openbiomind.gui.data.TransformEnum;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
@@ -30,7 +31,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 13, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -652,6 +653,20 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
       } else {
          setErrorMessage(null);
       }
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#prepareTaskData()
+    */
+   @Override
+   public ClusteringTransformerTaskData prepareTaskData() {
+      final ClusteringTransformerTaskData clusteringTransformerTaskData = new ClusteringTransformerTaskData();
+      clusteringTransformerTaskData.setDatasetFile(getDatasetFile());
+      clusteringTransformerTaskData.setOutputFile(getOutputFile());
+      clusteringTransformerTaskData.setTransform(getTransform());
+      clusteringTransformerTaskData.setMetaTaskResultDir(getMetaTaskResultDir());
+
+      return clusteringTransformerTaskData;
    }
 
 }

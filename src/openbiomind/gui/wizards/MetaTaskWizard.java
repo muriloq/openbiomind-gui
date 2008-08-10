@@ -8,7 +8,6 @@
 package openbiomind.gui.wizards;
 
 import openbiomind.gui.data.AbstractTaskData;
-import openbiomind.gui.data.MetaTaskTaskData;
 
 /**
  * The class MetaTaskWizard.
@@ -19,9 +18,6 @@ import openbiomind.gui.data.MetaTaskTaskData;
  */
 public class MetaTaskWizard extends AbstractTaskWizard {
 
-   /** The meta task task data. */
-   private MetaTaskTaskData metaTaskTaskData = null;
-
    /** The meta task wizard page. */
    private MetaTaskWizardPage metaTaskWizardPage = null;
 
@@ -29,8 +25,7 @@ public class MetaTaskWizard extends AbstractTaskWizard {
     * Instantiates a new enhance dataset wizard.
     */
    public MetaTaskWizard() {
-      super(Messages.MetaWiz_Name);
-      this.metaTaskTaskData = new MetaTaskTaskData();
+      super(Messages.MetaWiz_Title);
    }
 
    /*
@@ -42,33 +37,11 @@ public class MetaTaskWizard extends AbstractTaskWizard {
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#prepareTaskData()
-    */
-   @Override
-   protected void prepareTaskData() {
-      getMetaTaskTaskData().setDatasetDirectory(getMetaTaskWizardPage().getDatasetDirectoryPath());
-      getMetaTaskTaskData().setOutputDirectory(getMetaTaskWizardPage().getOutputDirectory());
-      getMetaTaskTaskData().setNumberOfTasks(getMetaTaskWizardPage().getNumberOfTasks());
-      getMetaTaskTaskData().setTargetCategory(getMetaTaskWizardPage().getTargetCategory());
-      getMetaTaskTaskData().setClassficationMethod(getMetaTaskWizardPage().getClassificationMethod());
-      getMetaTaskTaskData().setMetaTaskShuffling(getMetaTaskWizardPage().getMetaTaskShuffling());
-   }
-
-   /*
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getMetaTaskTaskData() };
-   }
-
-   /**
-    * Gets the meta task task data.
-    *
-    * @return the meta task task data
-    */
-   private MetaTaskTaskData getMetaTaskTaskData() {
-      return this.metaTaskTaskData;
+      return new AbstractTaskData[] { getMetaTaskWizardPage().prepareTaskData() };
    }
 
    /**

@@ -8,7 +8,6 @@
 package openbiomind.gui.wizards;
 
 import openbiomind.gui.data.AbstractTaskData;
-import openbiomind.gui.data.ViewClustersTaskData;
 
 /**
  * The class ViewClustersWizard.
@@ -19,9 +18,6 @@ import openbiomind.gui.data.ViewClustersTaskData;
  */
 public class ViewClustersWizard extends AbstractTaskWizard {
 
-   /** The view clusters task data. */
-   private ViewClustersTaskData viewClustersTaskData = null;
-
    /** The view clusters wizard page. */
    private ViewClustersWizardPage viewClustersWizardPage = null;
 
@@ -29,8 +25,7 @@ public class ViewClustersWizard extends AbstractTaskWizard {
     * Instantiates a new utility computer wizard.
     */
    public ViewClustersWizard() {
-      super(Messages.ViewClustWiz_Name);
-      this.viewClustersTaskData = new ViewClustersTaskData();
+      super(Messages.ViewClustWiz_Title);
    }
 
    /*
@@ -42,31 +37,11 @@ public class ViewClustersWizard extends AbstractTaskWizard {
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#prepareTaskData()
-    */
-   @Override
-   protected void prepareTaskData() {
-      getViewClustersTaskData().setClusteringDataset(getViewClustersWizardPage().getClusteringDataset());
-      getViewClustersTaskData().setClusteringResult(getViewClustersWizardPage().getClusteringResult());
-      getViewClustersTaskData().setImageFile(getViewClustersWizardPage().getImageFile());
-      getViewClustersTaskData().setClusteringColors(getViewClustersWizardPage().getClusteringColors());
-   }
-
-   /*
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getViewClustersTaskData() };
-   }
-
-   /**
-    * Gets the view clusters task data.
-    *
-    * @return the view clusters task data
-    */
-   private ViewClustersTaskData getViewClustersTaskData() {
-      return this.viewClustersTaskData;
+      return new AbstractTaskData[] { getViewClustersWizardPage().prepareTaskData() };
    }
 
    /**

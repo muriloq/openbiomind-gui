@@ -27,14 +27,14 @@ class Messages extends NLS {
    /** Preparing process... */
    public static String AbsTaskWiz_PrepProc;
 
-   /** Preparing task data... */
-   public static String AbsTaskWiz_PrepTaskData;
-
    /** Use this task to run clustering-related data transforms */
    public static String ClustTransWiz_Desc;
 
    /** Clustering Transformer */
    public static String ClustTransWiz_Name;
+
+   /** Clustering Transformer */
+   public static String ClustTransWiz_Title;
 
    /** Use this task for clustering data */
    public static String ClustWiz_Desc;
@@ -42,8 +42,8 @@ class Messages extends NLS {
    /** Clusterize */
    public static String ClustWiz_Name;
 
-   /** Complete Pipeline Task */
-   public static String CompPipeWiz_Name;
+   /** Clusterize */
+   public static String ClustWiz_Title;
 
    /** Use this task to perform all the tasks together */
    public static String CompPipeWiz_P1_Desc;
@@ -57,11 +57,17 @@ class Messages extends NLS {
    /** Complete Pipeline Task */
    public static String CompPipeWiz_P2_Name;
 
+   /** Complete Pipeline Task */
+   public static String CompPipeWiz_Title;
+
    /** Use this task to fold a dataset */
    public static String DataTransWiz_Desc;
 
    /** Dataset Transformer Task */
    public static String DataTransWiz_Name;
+
+   /** Dataset Transformer Task */
+   public static String DataTransWiz_Title;
 
    /** Select one of these */
    public static String Detail_SelectOne;
@@ -71,6 +77,9 @@ class Messages extends NLS {
 
    /** Enhance Dataset Task */
    public static String EnhDataWiz_Name;
+
+   /** Enhance Dataset Task */
+   public static String EnhDataWiz_Title;
 
    /** Use the original dataset directory */
    public static String EnhDataWizPg_UseOriginalDataDir;
@@ -107,6 +116,9 @@ class Messages extends NLS {
 
    /** Graph Features */
    public static String GraFeatureWiz_Name;
+
+   /** Graph Features */
+   public static String GraFeatureWiz_Title;
 
    /** Time will be appended at end of name to make it unique */
    public static String Info_ProjName;
@@ -228,6 +240,9 @@ class Messages extends NLS {
    /** Meta Task */
    public static String MetaWiz_Name;
 
+   /** Meta Task */
+   public static String MetaWiz_Title;
+
    /** Select the base dataset file */
    public static String Tip_BaseData;
 
@@ -291,17 +306,26 @@ class Messages extends NLS {
    /** Select the result of Utility Computer */
    public static String Tip_UtilFile;
 
+   /** Meta Task > Utility Computer Task */
+   public static String UtilCompMetaWiz_Title;
+
    /** Use this task to compute feature utilities */
    public static String UtilCompWiz_Desc;
 
    /** Utility Computer Task */
    public static String UtilCompWiz_Name;
 
+   /** Utility Computer Task */
+   public static String UtilCompWiz_Title;
+
    /** Use this task for cluster visualization */
    public static String ViewClustWiz_Desc;
 
    /** View Clusters */
    public static String ViewClustWiz_Name;
+
+   /** View Clusters */
+   public static String ViewClustWiz_Title;
 
    /** Specified directory does not exist and will be automatically created */
    public static String Warn_DirNotExist;

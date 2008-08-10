@@ -10,6 +10,7 @@ package openbiomind.gui.wizards;
 import java.io.File;
 
 import openbiomind.gui.common.TextButtonComposite;
+import openbiomind.gui.data.DatasetTransformerTaskData;
 import openbiomind.gui.data.FeatureSelectionMethodEnum;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
@@ -31,7 +32,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class DatasetTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -515,6 +516,25 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
       } else {
          setErrorMessage(null);
       }
+   }
+
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#prepareTaskData()
+    */
+   @Override
+   public DatasetTransformerTaskData prepareTaskData() {
+      final DatasetTransformerTaskData datasetTransformerTaskData = new DatasetTransformerTaskData();
+      datasetTransformerTaskData.setInputDataset(getInputDataset());
+      datasetTransformerTaskData.setOutputDirectory(getOutputDirectory());
+      datasetTransformerTaskData.setTargetCategory(getTargetCategory());
+      if (specifiedNumberOfFolds()) {
+         datasetTransformerTaskData.setNumberOfFolds(getNumberOfFolds());
+      } else if (specifiedTestDataset()) {
+         datasetTransformerTaskData.setTestDataset(getTestDataset());
+      }
+      datasetTransformerTaskData.setNumberOfSelectedFeatures(getNumberOfSelectedFeatures());
+      datasetTransformerTaskData.setFeatureSelectionMethod(getFeatureSelectionMethod());
+      return datasetTransformerTaskData;
    }
 
 }

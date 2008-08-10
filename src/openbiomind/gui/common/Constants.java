@@ -58,7 +58,7 @@ public interface Constants {
    public static final String WILDCARD_ANY = "*"; //$NON-NLS-1$
 
    /** The constant for prefix value that will be  put in the log file before output (value = <code>single tab space</code>). */
-   public static final String LOG_PREFIX = TAB; //$NON-NLS-1$
+   public static final String LOG_PREFIX = TAB;
 
    /**
     * The class Resources.

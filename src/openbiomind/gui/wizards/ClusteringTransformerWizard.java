@@ -8,7 +8,6 @@
 package openbiomind.gui.wizards;
 
 import openbiomind.gui.data.AbstractTaskData;
-import openbiomind.gui.data.ClusteringTransformerTaskData;
 
 /**
  * The class ClusteringTransformerWizard.
@@ -19,9 +18,6 @@ import openbiomind.gui.data.ClusteringTransformerTaskData;
  */
 public class ClusteringTransformerWizard extends AbstractTaskWizard {
 
-   /** The clustering transformer task data. */
-   private ClusteringTransformerTaskData clusteringTransformerTaskData = null;
-
    /** The clustering transformer wizard page. */
    private ClusteringTransformerWizardPage clusteringTransformerWizardPage = null;
 
@@ -29,8 +25,7 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
     * Instantiates a new clustering transformer wizard.
     */
    public ClusteringTransformerWizard() {
-      super(Messages.ClustTransWiz_Name);
-      this.clusteringTransformerTaskData = new ClusteringTransformerTaskData();
+      super(Messages.ClustTransWiz_Title);
    }
 
    /*
@@ -42,32 +37,11 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#prepareTaskData()
-    */
-   @Override
-   protected void prepareTaskData() {
-      getClusteringTransformerTaskData().setDatasetFile(getClusteringTransformerWizardPage().getDatasetFile());
-      getClusteringTransformerTaskData().setOutputFile(getClusteringTransformerWizardPage().getOutputFile());
-      getClusteringTransformerTaskData().setTransform(getClusteringTransformerWizardPage().getTransform());
-      getClusteringTransformerTaskData().setMetaTaskResultDir(
-            getClusteringTransformerWizardPage().getMetaTaskResultDir());
-   }
-
-   /*
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getClusteringTransformerTaskData() };
-   }
-
-   /**
-    * Gets the clustering transformer task data.
-    *
-    * @return the clustering transformer task data
-    */
-   private ClusteringTransformerTaskData getClusteringTransformerTaskData() {
-      return this.clusteringTransformerTaskData;
+      return new AbstractTaskData[] { getClusteringTransformerWizardPage().prepareTaskData() };
    }
 
    /**

@@ -8,7 +8,6 @@
 package openbiomind.gui.wizards;
 
 import openbiomind.gui.data.AbstractTaskData;
-import openbiomind.gui.data.ClusterizeTaskData;
 
 /**
  * The class ClusterizeWizard.
@@ -19,9 +18,6 @@ import openbiomind.gui.data.ClusterizeTaskData;
  */
 public class ClusterizeWizard extends AbstractTaskWizard {
 
-   /** The clusterize task data. */
-   private ClusterizeTaskData clusterizeTaskData = null;
-
    /** The clusterize wizard page. */
    private ClusterizeWizardPage clusterizeWizardPage = null;
 
@@ -29,8 +25,7 @@ public class ClusterizeWizard extends AbstractTaskWizard {
     * Instantiates a new clusterize wizard.
     */
    public ClusterizeWizard() {
-      super(Messages.ClustWiz_Name);
-      this.clusterizeTaskData = new ClusterizeTaskData();
+      super(Messages.ClustWiz_Title);
    }
 
    /*
@@ -42,30 +37,11 @@ public class ClusterizeWizard extends AbstractTaskWizard {
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#prepareTaskData()
-    */
-   @Override
-   protected void prepareTaskData() {
-      getClusterizeTaskData().setClusteringDatasetFile(getClusterizeWizardPage().getClusteringDatasetFile());
-      getClusterizeTaskData().setOutputFile(getClusterizeWizardPage().getOutputFile());
-      getClusterizeTaskData().setDatasetClusteringMetric(getClusterizeWizardPage().getDatasetClusteringMetric());
-   }
-
-   /*
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getClusterizeTaskData() };
-   }
-
-   /**
-    * Gets the clusterize task data.
-    *
-    * @return the clusterize task data
-    */
-   private ClusterizeTaskData getClusterizeTaskData() {
-      return this.clusterizeTaskData;
+      return new AbstractTaskData[] { getClusterizeWizardPage().prepareTaskData() };
    }
 
    /**

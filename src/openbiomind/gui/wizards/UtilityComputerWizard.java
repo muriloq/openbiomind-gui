@@ -8,7 +8,6 @@
 package openbiomind.gui.wizards;
 
 import openbiomind.gui.data.AbstractTaskData;
-import openbiomind.gui.data.UtilityComputerTaskData;
 
 /**
  * The class UtilityComputerWizard.
@@ -19,9 +18,6 @@ import openbiomind.gui.data.UtilityComputerTaskData;
  */
 public class UtilityComputerWizard extends AbstractTaskWizard {
 
-   /** The utility computer task data. */
-   private UtilityComputerTaskData utilityComputerTaskData = null;
-
    /** The utility computer wizard page. */
    private UtilityComputerWizardPage utilityComputerWizardPage = null;
 
@@ -29,8 +25,7 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
     * Instantiates a new utility computer wizard.
     */
    public UtilityComputerWizard() {
-      super(Messages.UtilCompWiz_Name);
-      this.utilityComputerTaskData = new UtilityComputerTaskData();
+      super(Messages.UtilCompWiz_Title);
    }
 
    /*
@@ -42,31 +37,11 @@ public class UtilityComputerWizard extends AbstractTaskWizard {
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#prepareTaskData()
-    */
-   @Override
-   protected void prepareTaskData() {
-      getUtilityComputerTaskData().setMetaTaskResultDir(getUtilityComputerWizardPage().getMetaTaskResultDir());
-      getUtilityComputerTaskData().setOutputFile(getUtilityComputerWizardPage().getOutputFile());
-      getUtilityComputerTaskData().setBaseDataset(getUtilityComputerWizardPage().getBaseDataset());
-      getUtilityComputerTaskData().setTargetCategory(getUtilityComputerWizardPage().getTargetCategory());
-   }
-
-   /*
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getUtilityComputerTaskData() };
-   }
-
-   /**
-    * Gets the utility computer task data.
-    *
-    * @return the utility computer task data
-    */
-   private UtilityComputerTaskData getUtilityComputerTaskData() {
-      return this.utilityComputerTaskData;
+      return new AbstractTaskData[] { getUtilityComputerWizardPage().prepareTaskData() };
    }
 
    /**

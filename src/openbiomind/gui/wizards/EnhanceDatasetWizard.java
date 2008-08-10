@@ -8,7 +8,6 @@
 package openbiomind.gui.wizards;
 
 import openbiomind.gui.data.AbstractTaskData;
-import openbiomind.gui.data.EnhanceDatasetTaskData;
 
 /**
  * The class EnhanceDatasetWizard.
@@ -19,9 +18,6 @@ import openbiomind.gui.data.EnhanceDatasetTaskData;
  */
 public class EnhanceDatasetWizard extends AbstractTaskWizard {
 
-   /** The enhance dataset task data. */
-   private EnhanceDatasetTaskData enhanceDatasetTaskData = null;
-
    /** The enhance dataset wizard page. */
    private EnhanceDatasetWizardPage enhanceDatasetWizardPage = null;
 
@@ -29,8 +25,7 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     * Instantiates a new enhance dataset wizard.
     */
    public EnhanceDatasetWizard() {
-      super(Messages.EnhDataWiz_Name);
-      this.enhanceDatasetTaskData = new EnhanceDatasetTaskData();
+      super(Messages.EnhDataWiz_Title);
    }
 
    /*
@@ -42,33 +37,11 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#prepareTaskData()
-    */
-   @Override
-   protected void prepareTaskData() {
-      getEnhanceDatasetTaskData().setInputDataset(getEnhanceDatasetWizardPage().getInputDataset());
-      getEnhanceDatasetTaskData().setEnhancedDataset(getEnhanceDatasetWizardPage().getEnhancedDataset());
-      getEnhanceDatasetTaskData()
-            .setOntologyDescriptionFile(getEnhanceDatasetWizardPage().getOntologyDescriptionFile());
-      getEnhanceDatasetTaskData()
-            .setOntologyAssociationFile(getEnhanceDatasetWizardPage().getOntologyAssociationFile());
-   }
-
-   /*
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getEnhanceDatasetTaskData() };
-   }
-
-   /**
-    * Gets the enhance dataset task data.
-    *
-    * @return the enhance dataset task data
-    */
-   private EnhanceDatasetTaskData getEnhanceDatasetTaskData() {
-      return this.enhanceDatasetTaskData;
+      return new AbstractTaskData[] { getEnhanceDatasetWizardPage().prepareTaskData() };
    }
 
    /**

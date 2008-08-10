@@ -27,21 +27,20 @@ import openbiomind.gui.util.Utility;
  */
 public class CompletePipelineWizard extends AbstractTaskWizard {
 
-   /** The complete pipeline task data. */
-   private CompletePipelineTaskData completePipelineTaskData = null;
-
    /** The complete pipeline wizard page 1. */
    private CompletePipelineWizardPage1 completePipelineWizardPage1 = null;
 
    /** The complete pipeline wizard page 2. */
    private CompletePipelineWizardPage2 completePipelineWizardPage2 = null;
 
+   /** The image path. */
+   private String imagePath = null;
+
    /**
     * Instantiates a new complete pipeline wizard.
     */
    public CompletePipelineWizard() {
-      super(Messages.CompPipeWiz_Name);
-      this.completePipelineTaskData = new CompletePipelineTaskData();
+      super(Messages.CompPipeWiz_Title);
    }
 
    /*
@@ -54,57 +53,26 @@ public class CompletePipelineWizard extends AbstractTaskWizard {
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#prepareTaskData()
-    */
-   @Override
-   protected void prepareTaskData() {
-      // page 1
-      getCompletePipelineTaskData().setInputDataset(getCompletePipelineWizardPage1().getOriginalDatasetFilePath());
-      getCompletePipelineTaskData().setOutputDirectory(getCompletePipelineWizardPage1().getOutputDirectory());
-      getCompletePipelineTaskData().setTestDataset(getCompletePipelineWizardPage1().getTestDataset());
-      getCompletePipelineTaskData().setPropertyFile(getCompletePipelineWizardPage1().getPropertyFile());
-
-      // page 2
-      getCompletePipelineTaskData().setMaximumCoOccurrenceEdges(
-            getCompletePipelineWizardPage2().getMaximumCoOccurrenceEdges());
-      getCompletePipelineTaskData().setMaximumCoExpressionEdges(
-            getCompletePipelineWizardPage2().getMaximumCoExpressionEdges());
-      getCompletePipelineTaskData().setTopUsefulFeatures(getCompletePipelineWizardPage2().getTopUsefulFeatures());
-      getCompletePipelineTaskData().setNumberOfFolds(getCompletePipelineWizardPage2().getNumberOfFolds());
-      getCompletePipelineTaskData().setNumberOfSelectedFeatures(
-            getCompletePipelineWizardPage2().getNumberOfSelectedFeatures());
-      getCompletePipelineTaskData().setFeatureSelectionMethod(
-            getCompletePipelineWizardPage2().getFeatureSelectionMethod());
-      getCompletePipelineTaskData().setOntologyDescriptionFile(
-            getCompletePipelineWizardPage2().getOntologyDescriptionFile());
-      getCompletePipelineTaskData().setOntologyAssociationFile(
-            getCompletePipelineWizardPage2().getOntologyAssociationFile());
-      getCompletePipelineTaskData().setNumberOfTasks(getCompletePipelineWizardPage2().getNumberOfTasks());
-      getCompletePipelineTaskData().setTargetCategory(getCompletePipelineWizardPage2().getTargetCategory());
-      getCompletePipelineTaskData().setClassficationMethod(getCompletePipelineWizardPage2().getClassificationMethod());
-      getCompletePipelineTaskData().setMetaTaskShuffling(getCompletePipelineWizardPage2().getMetaTaskShuffling());
-      getCompletePipelineTaskData().setDatasetClusteringMetric(
-            getCompletePipelineWizardPage2().getDatasetClusteringMetric());
-      getCompletePipelineTaskData().setClusteringColors(getCompletePipelineWizardPage2().getClusteringColors());
-      getCompletePipelineTaskData().setIsFeatureSelected(getCompletePipelineWizardPage2().getIsFeatureSelected());
-      getCompletePipelineTaskData().setIsFolded(getCompletePipelineWizardPage2().getIsFolded());
-   }
-
-   /*
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getTaskData()
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getCompletePipelineTaskData() };
-   }
+      final CompletePipelineTaskData page1TaskData = getCompletePipelineWizardPage1().prepareTaskData();
 
-   /**
-    * Gets the complete pipeline task data.
-    *
-    * @return the complete pipeline task data
-    */
-   private CompletePipelineTaskData getCompletePipelineTaskData() {
-      return this.completePipelineTaskData;
+      final CompletePipelineTaskData completePipelineTaskData;
+      if (getCompletePipelineWizardPage2().isCurrentPage()) {
+         final CompletePipelineTaskData page2TaskData = getCompletePipelineWizardPage2().prepareTaskData();
+         page2TaskData.setInputDataset(page1TaskData.getInputDataset());
+         page2TaskData.setOutputDirectory(page1TaskData.getOutputDirectory());
+         page2TaskData.setTestDataset(page1TaskData.getTestDataset());
+         page2TaskData.setPropertyFile(page1TaskData.getPropertyFile());
+         completePipelineTaskData = page2TaskData;
+      } else {
+         completePipelineTaskData = page1TaskData;
+      }
+      completePipelineTaskData.setGraphImagePath(getImagePath());
+
+      return new AbstractTaskData[] { completePipelineTaskData };
    }
 
    /**
@@ -134,6 +102,24 @@ public class CompletePipelineWizard extends AbstractTaskWizard {
       return this.completePipelineWizardPage2;
    }
 
+   /**
+    * Gets the image path.
+    *
+    * @return the image path
+    */
+   private String getImagePath() {
+      return this.imagePath;
+   }
+
+   /**
+    * Sets the image path.
+    *
+    * @param imagePath the new image path
+    */
+   private void setImagePath(final String imagePath) {
+      this.imagePath = imagePath;
+   }
+
    /*
     * @see openbiomind.gui.wizards.AbstractTaskWizard#getPostSuccessfulExecutionProcess()
     */
@@ -145,12 +131,11 @@ public class CompletePipelineWizard extends AbstractTaskWizard {
                + Resources.GRAPH_DOT_FILENAME;
 
          try {
-            final String imagePath = File.createTempFile(
-                  Utility.extractFileName(sourceDotPath) + DOT + outputFormat + DOT, EMPTY).getAbsolutePath();
+            setImagePath(File.createTempFile(Utility.extractFileName(sourceDotPath) + DOT + outputFormat + DOT, EMPTY)
+                  .getAbsolutePath());
 
-            getCompletePipelineTaskData().setGraphImagePath(imagePath);
-
-            final List<String> dotCommandList = GraphvizHelper.createDotCommand(sourceDotPath, imagePath, outputFormat);
+            final List<String> dotCommandList = GraphvizHelper.createDotCommand(sourceDotPath, getImagePath(),
+                  outputFormat);
             if (dotCommandList != null) {
                return (new ProcessBuilder(dotCommandList)).start();
             }
@@ -161,14 +146,6 @@ public class CompletePipelineWizard extends AbstractTaskWizard {
 
       Console.info(Messages.Err_GraphvizDotUtility);
       return super.getPostSuccessfulExecutionProcess();
-   }
-
-   /*
-    * @see org.eclipse.jface.wizard.Wizard#canFinish()
-    */
-   @Override
-   public boolean canFinish() {
-      return (getCompletePipelineWizardPage1().isPageComplete() && getCompletePipelineWizardPage2().isPageComplete());
    }
 
    /*

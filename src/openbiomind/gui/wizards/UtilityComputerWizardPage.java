@@ -10,6 +10,7 @@ package openbiomind.gui.wizards;
 import java.io.File;
 
 import openbiomind.gui.common.TextButtonComposite;
+import openbiomind.gui.data.UtilityComputerTaskData;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
 
@@ -27,7 +28,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Aug 3, 2008
+ * @version Aug 9, 2008
  */
 public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -148,7 +149,6 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       GUI.GRID_DATA_FILL_H_GRAB_H.copy().span(NUM_COLUMN_IN_GROUP - 1, 1).applyTo(textButtonComposite);
 
       // create decorations
-      // TODO Update to identify that the folder must contain train and test tab files
       final ControlDecoration errorDecoration = WidgetHelper.createNewErrorDecoration(textButtonComposite,
             Messages.Err_InvalidDir);
       errorDecoration.show();
@@ -158,18 +158,22 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            final File directory = new File(getMetaTaskResultDir());
-            textButtonComposite
-                  .setValid(Utility.directoryExists(directory)
-                        && Utility.listFileNames(directory, Resources.OUT_FILE_STARTS_WITH, Resources.TXT_EXTENSION).length > 0);
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
+            if (textButtonComposite.isEnabled()) {
+               final File directory = new File(getMetaTaskResultDir());
+               textButtonComposite
+                     .setValid(Utility.directoryExists(directory)
+                           && Utility.listFileNames(directory, Resources.OUT_FILE_STARTS_WITH, Resources.TXT_EXTENSION).length > 0);
+               if (textButtonComposite.isValid()) {
+                  errorDecoration.hide();
+               } else {
+                  errorDecoration.show();
+                  errorDecoration.showHoverText(errorDecoration.getDescriptionText());
+               }
 
-            validatePage();
+               validatePage();
+            } else {
+               errorDecoration.hide();
+            }
          }
 
       });
@@ -548,6 +552,21 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    }
 
    /*
+    * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+    */
+   @Override
+   public void setVisible(final boolean visible) {
+      if (visible) {
+         final IWizardPage previousPage = getPreviousPage();
+         if (previousPage instanceof MetaTaskWizardPage) {
+            disableComponent(getMetaTaskResultDirTBC(), ((MetaTaskWizardPage) previousPage).getOutputDirectory());
+         }
+      }
+
+      super.setVisible(visible);
+   }
+
+   /*
     * @see openbiomind.gui.wizards.AbstractTaskWizardPage#validatePage()
     */
    @Override
@@ -563,4 +582,16 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
       }
    }
 
+   /*
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#prepareTaskData()
+    */
+   @Override
+   public UtilityComputerTaskData prepareTaskData() {
+      final UtilityComputerTaskData utilityComputerTaskData = new UtilityComputerTaskData();
+      utilityComputerTaskData.setMetaTaskResultDir(getMetaTaskResultDir());
+      utilityComputerTaskData.setOutputFile(getOutputFile());
+      utilityComputerTaskData.setBaseDataset(getBaseDataset());
+      utilityComputerTaskData.setTargetCategory(getTargetCategory());
+      return utilityComputerTaskData;
+   }
 }
