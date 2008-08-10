@@ -35,7 +35,7 @@
          </property>
          <property
                name="aboutText"
-               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0A;Version: 0.0.10.20080803&#x0A;Development build&#x0A;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
+               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0A;Version: 0.0.11.20080810&#x0A;Development build&#x0A;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
          </property>
          <property
                name="aboutImage"
@@ -66,67 +66,169 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
+            defaultHandler="openbiomind.gui.handlers.OpenPipelineProperties"
+            description="Open pipeline.properties"
             id="openbiomind.gui.commands.OpenPipelineProperties"
             name="Open pipeline.properties">
       </command>
       <category
+            description="Category for all the tasks"
             id="openbiomind.gui.commands.category.Tasks"
             name="Tasks">
       </category>
       <command
             categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.EnhanceDatasetTaskHandler"
+            description="Enhance Dataset"
             id="openbiomind.gui.commands.EnhanceDataset"
             name="Enhance Dataset">
       </command>
       <command
             categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.DatasetTransformerTaskHandler"
+            description="Dataset Transformer"
             id="openbiomind.gui.commands.DatasetTransformer"
             name="Dataset Transformer">
       </command>
       <command
             categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.MetaTaskTaskHandler"
+            description="Meta Task"
             id="openbiomind.gui.commands.MetaTask"
             name="Meta Task">
       </command>
       <command
             categoryId="openbiomind.gui.commands.category.Tasks"
-            id="openbiomind.gui.commands.MetaTaskToUtilityComputer"
-            name="Meta Task To Utility Computer">
-      </command>
-      <command
-            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.UtilityComputerTaskHandler"
+            description="Utility Computer"
             id="openbiomind.gui.commands.UtilityComputer"
             name="Utility Computer">
       </command>
       <command
             categoryId="openbiomind.gui.commands.category.Tasks"
-            id="openbiomind.gui.commands.UtilityComputerFromMetaTask"
-            name="Utility Computer From Meta Task">
-      </command>
-      <command
-            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.ClusteringTransformerTaskHandler"
+            description="Clustering Transformer"
             id="openbiomind.gui.commands.ClusteringTransformer"
             name="Clustering Transformer">
       </command>
       <command
             categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.ClusterizeTaskHandler"
+            description="Clusterize"
             id="openbiomind.gui.commands.Clusterize"
             name="Clusterize">
       </command>
       <command
             categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.ViewClustersTaskHandler"
+            description="View Clusters"
             id="openbiomind.gui.commands.ViewClusters"
             name="View Clusters">
       </command>
       <command
             categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.GraphFeaturesTaskHandler"
+            description="Graph Features"
             id="openbiomind.gui.commands.GraphFeatures"
             name="Graph Features">
       </command>
       <command
             categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.CompletePipelineTaskHandler"
+            description="Complete Pipeline"
             id="openbiomind.gui.commands.CompletePipeline"
             name="Complete Pipeline">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.DatasetTransformerToMetaTaskTaskHandler"
+            description="Dataset Transformer &gt; Meta Task"
+            id="openbiomind.gui.commands.DatasetTransformerToMetaTask"
+            name="Dataset Transformer &gt; Meta Task">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.DatasetTransformerToUtilityComputerTaskHandler"
+            description="Dataset Transformer &gt; Utility Computer"
+            id="openbiomind.gui.commands.DatasetTransformerToUtilityComputer"
+            name="Dataset Transformer &gt; Utility Computer">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.DatasetTransformerToMetaTaskToUtilityComputerTaskHandler"
+            description="Dataset Transformer &gt; Meta Task &gt; Utility Computer"
+            id="openbiomind.gui.commands.DatasetTransformerToMetaTaskToUtilityComputer"
+            name="Dataset Transformer &gt; Meta Task &gt; Utility Computer">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.DatasetTransformerToUtilityComputerToGraphFeaturesTaskHandler"
+            description="Dataset Transformer &gt; Utility Computer &gt; Graph Features"
+            id="openbiomind.gui.commands.DatasetTransformerToUtilityComputerToGraphFeatures"
+            name="Dataset Transformer &gt; Utility Computer &gt; Graph Features">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.DatasetTransformerToMetaTaskToUtilityComputerToGraphFeaturesTaskHandler"
+            description="Dataset Transformer &gt; Meta Task &gt; Utility Computer &gt; Graph Features"
+            id="openbiomind.gui.commands.DatasetTransformerToMetaTaskToUtilityComputerToGraphFeatures"
+            name="Dataset Transformer &gt; Meta Task &gt; Utility Computer &gt; Graph Features">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.MetaTaskToUtilityComputerTaskHandler"
+            description="Meta Task &gt; Utility Computer"
+            id="openbiomind.gui.commands.MetaTaskToUtilityComputer"
+            name="Meta Task &gt; Utility Computer">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.MetaTaskToUtilityComputerToGraphFeaturesTaskHandler"
+            description="Meta Task &gt; Utility Computer &gt; Graph Features"
+            id="openbiomind.gui.commands.MetaTaskToUtilityComputerToGraphFeatures"
+            name="Meta Task &gt; Utility Computer &gt; Graph Features">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.UtilityComputerToGraphFeaturesTaskHandler"
+            description="Utility Computer &gt; Graph Features"
+            id="openbiomind.gui.commands.UtilityComputerToGraphFeatures"
+            name="Utility Computer &gt; Graph Features">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.ClusteringTransformerToClusterizeTaskHandler"
+            description="Clustering Transformer &gt; Clusterize"
+            id="openbiomind.gui.commands.ClusteringTransformerToClusterize"
+            name="Clustering Transformer &gt; Clusterize">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.ClusteringTransformerToViewClustersTaskHandler"
+            description="Clustering Transformer &gt; View Clusters"
+            id="openbiomind.gui.commands.ClusteringTransformerToViewClusters"
+            name="Clustering Transformer &gt; View Clusters">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.ClusteringTransformerToGraphFeaturesTaskHandler"
+            description="Clustering Transformer &gt; Graph Features"
+            id="openbiomind.gui.commands.ClusteringTransformerToGraphFeatures"
+            name="Clustering Transformer &gt; Graph Features">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.ClusteringTransformerToClusterizeToViewClustersTaskHandler"
+            description="Clustering Transformer &gt; Clusterize &gt; View Clusters"
+            id="openbiomind.gui.commands.ClusteringTransformerToClusterizeToViewClusters"
+            name="Clustering Transformer &gt; Clusterize &gt; View Clusters">
+      </command>
+      <command
+            categoryId="openbiomind.gui.commands.category.Tasks"
+            defaultHandler="openbiomind.gui.handlers.ClusterizeToViewClustersTaskHandler"
+            description="Clusterize &gt; View Clusters"
+            id="openbiomind.gui.commands.ClusterizeToViewClusters"
+            name="Clusterize &gt; View Clusters">
       </command>
       <category
             id="openbiomind.gui.commands.category.MenuHyperlinks"
@@ -135,12 +237,14 @@
       <command
             categoryId="openbiomind.gui.commands.category.MenuHyperlinks"
             defaultHandler="openbiomind.gui.handlers.VisitOpenBiomindHandler"
+            description="Visit OpenBiomind"
             id="openbiomind.gui.commands.VisitOpenBiomind"
             name="Visit OpenBiomind">
       </command>
       <command
             categoryId="openbiomind.gui.commands.category.MenuHyperlinks"
             defaultHandler="openbiomind.gui.handlers.VisitOpenBiomindGUIHandler"
+            description="Visit OpenBiomind-GUI"
             id="openbiomind.gui.commands.VisitOpenBiomindGUI"
             name="Visit OpenBiomind-GUI">
       </command>
@@ -207,57 +311,6 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M2+9">
       </key>
-   </extension>
-   <extension
-         point="org.eclipse.ui.handlers">
-      <handler
-            class="openbiomind.gui.handlers.OpenPipelineProperties"
-            commandId="openbiomind.gui.commands.OpenPipelineProperties">
-      </handler>
-      <handler
-            class="openbiomind.gui.handlers.EnhanceDatasetTaskHandler"
-            commandId="openbiomind.gui.commands.EnhanceDataset">
-      </handler>
-      <handler
-            class="openbiomind.gui.handlers.DatasetTransformerTaskHandler"
-            commandId="openbiomind.gui.commands.DatasetTransformer">
-      </handler>
-      <handler
-            class="openbiomind.gui.handlers.MetaTaskTaskHandler"
-            commandId="openbiomind.gui.commands.MetaTask">
-      </handler>
-      <handler
-            class="openbiomind.gui.handlers.UtilityComputerFromMetaTaskTaskHandler"
-            commandId="openbiomind.gui.commands.MetaTaskToUtilityComputer">
-      </handler>
-      <handler
-            class="openbiomind.gui.handlers.UtilityComputerTaskHandler"
-            commandId="openbiomind.gui.commands.UtilityComputer">
-      </handler>
-      <handler
-            class="openbiomind.gui.handlers.UtilityComputerFromMetaTaskTaskHandler"
-            commandId="openbiomind.gui.commands.UtilityComputerFromMetaTask">
-      </handler>
-      <handler
-            class="openbiomind.gui.handlers.ClusteringTransformerTaskHandler"
-            commandId="openbiomind.gui.commands.ClusteringTransformer">
-      </handler>
-      <handler
-            class="openbiomind.gui.handlers.ClusterizeTaskHandler"
-            commandId="openbiomind.gui.commands.Clusterize">
-      </handler>
-      <handler
-            class="openbiomind.gui.handlers.ViewClustersTaskHandler"
-            commandId="openbiomind.gui.commands.ViewClusters">
-      </handler>
-      <handler
-            class="openbiomind.gui.handlers.GraphFeaturesTaskHandler"
-            commandId="openbiomind.gui.commands.GraphFeatures">
-      </handler>
-      <handler
-            class="openbiomind.gui.handlers.CompletePipelineTaskHandler"
-            commandId="openbiomind.gui.commands.CompletePipeline">
-      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -417,52 +470,33 @@
                   style="push">
             </command>
             <command
+                  commandId="openbiomind.gui.commands.CompletePipeline"
+                  icon="icons/tasks/complete_pipeline.gif"
+                  id="openbiomind.gui.menus.task.CompletePipeline"
+                  mnemonic="P"
+                  style="push">
+            </command>
+            <command
                   commandId="openbiomind.gui.commands.DatasetTransformer"
                   icon="icons/tasks/dataset_transformer.gif"
                   id="openbiomind.gui.menus.task.DatasetTransformer"
                   mnemonic="D"
                   style="push">
             </command>
-            <menu
+            <command
+                  commandId="openbiomind.gui.commands.MetaTask"
                   icon="icons/tasks/meta_task.gif"
-                  id="openbiomind.gui.menus.task.MetaTask.parent"
-                  label="Meta Task"
-                  mnemonic="M">
-               <command
-                     commandId="openbiomind.gui.commands.MetaTask"
-                     icon="icons/tasks/meta_task.gif"
-                     id="openbiomind.gui.menus.task.MetaTask"
-                     mnemonic="M"
-                     style="push">
-               </command>
-               <command
-                     commandId="openbiomind.gui.commands.MetaTaskToUtilityComputer"
-                     id="openbiomind.gui.menus.task.MetaTaskToUtilityComputer"
-                     label="to Utility Computer"
-                     mnemonic="U"
-                     style="push">
-               </command>
-            </menu>
-            <menu
+                  id="openbiomind.gui.menus.task.MetaTask"
+                  mnemonic="M"
+                  style="push">
+            </command>
+            <command
+                  commandId="openbiomind.gui.commands.UtilityComputer"
                   icon="icons/tasks/utility_computer.gif"
-                  id="openbiomind.gui.menus.task.UtilityComputer.parent"
-                  label="Utility Computer"
-                  mnemonic="U">
-               <command
-                     commandId="openbiomind.gui.commands.UtilityComputer"
-                     icon="icons/tasks/utility_computer.gif"
-                     id="openbiomind.gui.menus.task.UtilityComputer"
-                     mnemonic="U"
-                     style="push">
-               </command>
-               <command
-                     commandId="openbiomind.gui.commands.UtilityComputerFromMetaTask"
-                     id="openbiomind.gui.menus.task.UtilityComputerFromMetaTask"
-                     label="from Meta Task"
-                     mnemonic="M"
-                     style="push">
-               </command>
-            </menu>
+                  id="openbiomind.gui.menus.task.UtilityComputer"
+                  mnemonic="U"
+                  style="push">
+            </command>
             <command
                   commandId="openbiomind.gui.commands.ClusteringTransformer"
                   icon="icons/tasks/clustering_transformer.gif"
@@ -479,8 +513,8 @@
             </command>
             <command
                   commandId="openbiomind.gui.commands.ViewClusters"
-                  icon="icons/tasks/dataset_transformer.gif"
-                  id="openbiomind.gui.menus.task.DatasetTransformer"
+                  icon="icons/tasks/view_clusters.gif"
+                  id="openbiomind.gui.menus.task.ViewClusters.parent"
                   mnemonic="V"
                   style="push">
             </command>
@@ -491,13 +525,76 @@
                   mnemonic="G"
                   style="push">
             </command>
-            <command
-                  commandId="openbiomind.gui.commands.CompletePipeline"
-                  icon="icons/tasks/complete_pipeline.gif"
-                  id="openbiomind.gui.menus.task.CompletePipeline"
-                  mnemonic="P"
-                  style="push">
-            </command>
+            <menu
+                  id="openbiomind.gui.menus.task.submenu.Advanced"
+                  label="Advanced"
+                  mnemonic="A">
+               <command
+                     commandId="openbiomind.gui.commands.DatasetTransformerToMetaTask"
+                     id="openbiomind.gui.menus.task.DatasetTransformerToMetaTask"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.DatasetTransformerToUtilityComputer"
+                     id="openbiomind.gui.menus.task.DatasetTransformerToUtilityComputer"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.DatasetTransformerToMetaTaskToUtilityComputer"
+                     id="openbiomind.gui.menus.task.DatasetTransformerToMetaTaskToUtilityComputer"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.DatasetTransformerToUtilityComputerToGraphFeatures"
+                     id="openbiomind.gui.menus.task.DatasetTransformerToUtilityComputerToGraphFeatures"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.DatasetTransformerToMetaTaskToUtilityComputerToGraphFeatures"
+                     id="openbiomind.gui.menus.task.DatasetTransformerToMetaTaskToUtilityComputerToGraphFeatures"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.MetaTaskToUtilityComputer"
+                     id="openbiomind.gui.menus.task.MetaTaskToUtilityComputer"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.MetaTaskToUtilityComputerToGraphFeatures"
+                     id="openbiomind.gui.menus.task.MetaTaskToUtilityComputerToGraphFeatures"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.UtilityComputerToGraphFeatures"
+                     id="openbiomind.gui.menus.task.UtilityComputerToGraphFeatures"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.ClusteringTransformerToClusterize"
+                     id="openbiomind.gui.menus.task.ClusteringTransformerToClusterize"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.ClusteringTransformerToViewClusters"
+                     id="openbiomind.gui.menus.task.ClusteringTransformerToViewClusters"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.ClusteringTransformerToGraphFeatures"
+                     id="openbiomind.gui.menus.task.ClusteringTransformerToGraphFeatures"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.ClusteringTransformerToClusterizeToViewClusters"
+                     id="openbiomind.gui.menus.task.ClusteringTransformerToClusterizeToViewClusters"
+                     style="push">
+               </command>
+               <command
+                     commandId="openbiomind.gui.commands.ClusterizeToViewClusters"
+                     id="openbiomind.gui.menus.task.ClusterizeToViewClusters"
+                     style="push">
+               </command>
+            </menu>
          </menu>
          <menu
                id="openbiomind.gui.menus.Window"

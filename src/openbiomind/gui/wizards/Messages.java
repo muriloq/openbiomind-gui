@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  *
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 class Messages extends NLS {
 
@@ -26,6 +26,21 @@ class Messages extends NLS {
 
    /** Preparing process... */
    public static String AbsTaskWiz_PrepProc;
+
+   /** Clusterize > View Clusters */
+   public static String Clust_ViewClust_Wiz_Title;
+
+   /** Clustering Transformer > Clusterize > View Clusters */
+   public static String ClustTrans_Clust_ViewClust_Wiz_Title;
+
+   /** Clustering Transformer > Clusterize */
+   public static String ClustTrans_Clust_Wiz_Title;
+
+   /** Clustering Transformer > Graph Features */
+   public static String ClustTrans_GraFeature_Wiz_Title;
+
+   /** Clustering Transformer > View Clusters */
+   public static String ClustTrans_ViewClust_Wiz_Title;
 
    /** Use this task to run clustering-related data transforms */
    public static String ClustTransWiz_Desc;
@@ -60,6 +75,21 @@ class Messages extends NLS {
    /** Complete Pipeline Task */
    public static String CompPipeWiz_Title;
 
+   /** Dataset Transformer > Meta Task > Utility Computer > Graph Features */
+   public static String DataTrans_Meta_UtilComp_GraFeature_Wiz_Title;
+
+   /** Dataset Transformer > Meta Task > Utility Computer */
+   public static String DataTrans_Meta_UtilComp_Wiz_Title;
+
+   /** Dataset Transformer > Meta Task */
+   public static String DataTrans_Meta_Wiz_Title;
+
+   /** Dataset Transformer > Utility Computer > Graph Features */
+   public static String DataTrans_UtilComp_GraFeature_Wiz_Title;
+
+   /** Dataset Transformer > Utility Computer */
+   public static String DataTrans_UtilComp_Wiz_Title;
+
    /** Use this task to fold a dataset */
    public static String DataTransWiz_Desc;
 
@@ -92,9 +122,6 @@ class Messages extends NLS {
 
    /** Fix the errors to continue */
    public static String Err_FixErrToContinue;
-
-   /** Set Graphviz dot utility in Preferences to automatically convert dot files to images */
-   public static String Err_GraphvizDotUtility;
 
    /** Invalid directory (required argument transform is MUTIC or MOBRA) */
    public static String Err_InvalidDir;
@@ -234,6 +261,12 @@ class Messages extends NLS {
    /** Utility file */
    public static String Label_UtilFile;
 
+   /** Meta Task > Utility Computer > Graph Features */
+   public static String Meta_UtilComp_GraFeature_Wiz_Title;
+
+   /** Meta Task > Utility Computer */
+   public static String Meta_UtilComp_Wiz_Title;
+
    /** Perform Meta Task */
    public static String MetaWiz_Desc;
 
@@ -306,16 +339,16 @@ class Messages extends NLS {
    /** Select the result of Utility Computer */
    public static String Tip_UtilFile;
 
-   /** Meta Task > Utility Computer Task */
-   public static String UtilCompMetaWiz_Title;
+   /** Utility Computer > Graph Features */
+   public static String UtilComp_GraFeature_Wiz_Title;
 
    /** Use this task to compute feature utilities */
    public static String UtilCompWiz_Desc;
 
-   /** Utility Computer Task */
+   /** Utility Computer */
    public static String UtilCompWiz_Name;
 
-   /** Utility Computer Task */
+   /** Utility Computer */
    public static String UtilCompWiz_Title;
 
    /** Use this task for cluster visualization */

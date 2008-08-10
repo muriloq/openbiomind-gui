@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -63,6 +63,13 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /** The target category combo. */
    private Combo targetCategoryCombo = null;
+
+   /**
+    * Instantiates a new utility computer wizard page.
+    */
+   public UtilityComputerWizardPage() {
+      this(Messages.UtilCompWiz_Name, Messages.UtilCompWiz_Desc);
+   }
 
    /**
     * Instantiates a new utility computer wizard page.
@@ -158,22 +165,10 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            if (textButtonComposite.isEnabled()) {
-               final File directory = new File(getMetaTaskResultDir());
-               textButtonComposite
-                     .setValid(Utility.directoryExists(directory)
-                           && Utility.listFileNames(directory, Resources.OUT_FILE_STARTS_WITH, Resources.TXT_EXTENSION).length > 0);
-               if (textButtonComposite.isValid()) {
-                  errorDecoration.hide();
-               } else {
-                  errorDecoration.show();
-                  errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-               }
-
-               validatePage();
-            } else {
-               errorDecoration.hide();
-            }
+            final File directory = new File(getMetaTaskResultDir());
+            final boolean valid = Utility.directoryExists(directory)
+                  && Utility.listFileNames(directory, Resources.OUT_FILE_STARTS_WITH, Resources.TXT_EXTENSION).length > 0;
+            handleModifyTextWhenEnabled(textButtonComposite, errorDecoration, valid);
          }
 
       });
@@ -213,15 +208,8 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            textButtonComposite.setValid(Utility.fileExists(textButtonComposite.getText()));
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
-            validatePage();
+            handleModifyTextWhenEnabled(textButtonComposite, errorDecoration, Utility.fileExists(textButtonComposite
+                  .getText()));
          }
 
       });
@@ -254,15 +242,8 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
          @Override
          public void modifyText(final ModifyEvent event) {
             setValidOutputFileDestFileName(!Utility.isEmpty(text.getText()));
-            if (isValidOutputFileDestFileName()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
+            handleErrorDecoration(errorDecoration, isValidOutputFileDestFileName());
             getOutputFilePathText().setText(getOutputFile());
-
             validatePage();
          }
 
@@ -557,9 +538,16 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    @Override
    public void setVisible(final boolean visible) {
       if (visible) {
-         final IWizardPage previousPage = getPreviousPage();
-         if (previousPage instanceof MetaTaskWizardPage) {
-            disableComponent(getMetaTaskResultDirTBC(), ((MetaTaskWizardPage) previousPage).getOutputDirectory());
+         final IWizardPage previousPage1 = getPreviousPage();
+         if (previousPage1 instanceof MetaTaskWizardPage) {
+            disableComponent(getMetaTaskResultDirTBC(), ((MetaTaskWizardPage) previousPage1).getOutputDirectory());
+
+            final IWizardPage previousPage2 = previousPage1.getPreviousPage();
+            if (previousPage2 instanceof DatasetTransformerWizardPage) {
+               disableComponent(getBaseDatasetTBC(), ((DatasetTransformerWizardPage) previousPage2).getInputDataset());
+            }
+         } else if (previousPage1 instanceof DatasetTransformerWizardPage) {
+            disableComponent(getBaseDatasetTBC(), ((DatasetTransformerWizardPage) previousPage1).getInputDataset());
          }
       }
 

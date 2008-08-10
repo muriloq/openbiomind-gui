@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 31, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -52,7 +52,14 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
    private TextButtonComposite propertyFileTBC = null;
 
    /**
-    * Instantiates a new dataset transformer wizard page.
+    * Instantiates a new complete pipeline wizard page 1.
+    */
+   public CompletePipelineWizardPage1() {
+      this(Messages.CompPipeWiz_P1_Name, Messages.CompPipeWiz_P1_Desc);
+   }
+
+   /**
+    * Instantiates a new complete pipeline wizard page 1.
     *
     * @param pageTitle the page title
     * @param pageDescription the page description
@@ -130,15 +137,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            textButtonComposite.setValid(Utility.fileExists(getOriginalDatasetFilePath()));
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
-            validatePage();
+            handleModifyText(textButtonComposite, errorDecoration, Utility.fileExists(getOriginalDatasetFilePath()));
          }
 
       });

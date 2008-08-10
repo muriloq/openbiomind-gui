@@ -14,12 +14,12 @@ import openbiomind.gui.data.AbstractTaskData;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class EnhanceDatasetWizard extends AbstractTaskWizard {
 
    /** The enhance dataset wizard page. */
-   private EnhanceDatasetWizardPage enhanceDatasetWizardPage = null;
+   private final EnhanceDatasetWizardPage ENHANCE_DATASET_WIZ_PAGE = new EnhanceDatasetWizardPage();
 
    /**
     * Instantiates a new enhance dataset wizard.
@@ -33,7 +33,7 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
-      addPage(getEnhanceDatasetWizardPage());
+      addPage(this.ENHANCE_DATASET_WIZ_PAGE);
    }
 
    /*
@@ -41,29 +41,15 @@ public class EnhanceDatasetWizard extends AbstractTaskWizard {
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getEnhanceDatasetWizardPage().prepareTaskData() };
-   }
-
-   /**
-    * Gets the enhance dataset wizard page.
-    *
-    * @return the enhance dataset wizard page
-    */
-   private EnhanceDatasetWizardPage getEnhanceDatasetWizardPage() {
-      if (this.enhanceDatasetWizardPage == null) {
-         this.enhanceDatasetWizardPage = new EnhanceDatasetWizardPage(Messages.EnhDataWiz_Name,
-               Messages.EnhDataWiz_Desc);
-      }
-
-      return this.enhanceDatasetWizardPage;
+      return new AbstractTaskData[] { this.ENHANCE_DATASET_WIZ_PAGE.prepareTaskData() };
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getFirstWizardPage()
     */
    @Override
-   protected AbstractTaskWizardPage getWizardPage() {
-      return getEnhanceDatasetWizardPage();
+   protected AbstractTaskWizardPage getFirstWizardPage() {
+      return this.ENHANCE_DATASET_WIZ_PAGE;
    }
 
 }

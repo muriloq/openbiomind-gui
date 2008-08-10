@@ -14,12 +14,12 @@ import openbiomind.gui.data.AbstractTaskData;
  *
  * @author bsanghvi
  * @since Jul 13, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class ClusteringTransformerWizard extends AbstractTaskWizard {
 
    /** The clustering transformer wizard page. */
-   private ClusteringTransformerWizardPage clusteringTransformerWizardPage = null;
+   private final ClusteringTransformerWizardPage CLUSTERING_TRANSFORMER_WIZ_PAGE = new ClusteringTransformerWizardPage();
 
    /**
     * Instantiates a new clustering transformer wizard.
@@ -33,7 +33,7 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
-      addPage(getClusteringTransformerWizardPage());
+      addPage(this.CLUSTERING_TRANSFORMER_WIZ_PAGE);
    }
 
    /*
@@ -41,29 +41,15 @@ public class ClusteringTransformerWizard extends AbstractTaskWizard {
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getClusteringTransformerWizardPage().prepareTaskData() };
-   }
-
-   /**
-    * Gets the clustering transformer wizard page.
-    *
-    * @return the clustering transformer wizard page
-    */
-   private ClusteringTransformerWizardPage getClusteringTransformerWizardPage() {
-      if (this.clusteringTransformerWizardPage == null) {
-         this.clusteringTransformerWizardPage = new ClusteringTransformerWizardPage(Messages.ClustTransWiz_Name,
-               Messages.ClustTransWiz_Desc);
-      }
-
-      return this.clusteringTransformerWizardPage;
+      return new AbstractTaskData[] { this.CLUSTERING_TRANSFORMER_WIZ_PAGE.prepareTaskData() };
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getFirstWizardPage()
     */
    @Override
-   protected AbstractTaskWizardPage getWizardPage() {
-      return getClusteringTransformerWizardPage();
+   protected AbstractTaskWizardPage getFirstWizardPage() {
+      return this.CLUSTERING_TRANSFORMER_WIZ_PAGE;
    }
 
 }

@@ -1,7 +1,7 @@
 /**
- * GraphFeaturesWizard.java
+ * DatasetTransformerToMetaTaskToUtilityComputerToGraphFeaturesWizard.java
  *
- * The file GraphFeaturesWizard.java.
+ * The file DatasetTransformerToMetaTaskToUtilityComputerToGraphFeaturesWizard.java.
  *
  * $Id$
  */
@@ -12,13 +12,22 @@ import openbiomind.gui.data.GraphFeaturesTaskData;
 import openbiomind.gui.main.GraphvizHelper;
 
 /**
- * The class GraphFeaturesWizard.
+ * The class DatasetTransformerToMetaTaskToUtilityComputerToGraphFeaturesWizard.
  *
  * @author bsanghvi
- * @since Jul 20, 2008
+ * @since Aug 10, 2008
  * @version Aug 10, 2008
  */
-public class GraphFeaturesWizard extends AbstractTaskWizard {
+public class DatasetTransformerToMetaTaskToUtilityComputerToGraphFeaturesWizard extends AbstractTaskWizard {
+
+   /** The dataset transformer wizard page. */
+   private final DatasetTransformerWizardPage DATASET_TRANSFORMER_WIZ_PAGE = new DatasetTransformerWizardPage();
+
+   /** The meta task wizard page. */
+   private final MetaTaskWizardPage META_TASK_WIZ_PAGE = new MetaTaskWizardPage();
+
+   /** The utility computer wizard page. */
+   private final UtilityComputerWizardPage UTILITY_COMPUTER_WIZ_PAGE = new UtilityComputerWizardPage();
 
    /** The graph features wizard page. */
    private final GraphFeaturesWizardPage GRAPH_FEATURES_WIZ_PAGE = new GraphFeaturesWizardPage();
@@ -30,10 +39,10 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
    private GraphvizHelper graphvizHelper = null;
 
    /**
-    * Instantiates a new graph features wizard.
+    * Instantiates a new graph features from dataset transformer wizard.
     */
-   public GraphFeaturesWizard() {
-      super(Messages.GraFeatureWiz_Title);
+   public DatasetTransformerToMetaTaskToUtilityComputerToGraphFeaturesWizard() {
+      super(Messages.DataTrans_Meta_UtilComp_GraFeature_Wiz_Title);
    }
 
    /*
@@ -41,6 +50,9 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
+      addPage(this.DATASET_TRANSFORMER_WIZ_PAGE);
+      addPage(this.META_TASK_WIZ_PAGE);
+      addPage(this.UTILITY_COMPUTER_WIZ_PAGE);
       addPage(this.GRAPH_FEATURES_WIZ_PAGE);
    }
 
@@ -49,7 +61,19 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getGraphFeaturesTaskData() };
+      if (this.GRAPH_FEATURES_WIZ_PAGE.isCurrentPage()) {
+         return new AbstractTaskData[] { this.DATASET_TRANSFORMER_WIZ_PAGE.prepareTaskData(),
+               this.META_TASK_WIZ_PAGE.prepareTaskData(), this.UTILITY_COMPUTER_WIZ_PAGE.prepareTaskData(),
+               getGraphFeaturesTaskData() };
+      } else if (this.UTILITY_COMPUTER_WIZ_PAGE.isCurrentPage()) {
+         return new AbstractTaskData[] { this.DATASET_TRANSFORMER_WIZ_PAGE.prepareTaskData(),
+               this.META_TASK_WIZ_PAGE.prepareTaskData(), this.UTILITY_COMPUTER_WIZ_PAGE.prepareTaskData() };
+      } else if (this.META_TASK_WIZ_PAGE.isCurrentPage()) {
+         return new AbstractTaskData[] { this.DATASET_TRANSFORMER_WIZ_PAGE.prepareTaskData(),
+               this.META_TASK_WIZ_PAGE.prepareTaskData() };
+      } else {
+         return new AbstractTaskData[] { this.DATASET_TRANSFORMER_WIZ_PAGE.prepareTaskData() };
+      }
    }
 
    /*
@@ -57,7 +81,7 @@ public class GraphFeaturesWizard extends AbstractTaskWizard {
     */
    @Override
    protected AbstractTaskWizardPage getFirstWizardPage() {
-      return this.GRAPH_FEATURES_WIZ_PAGE;
+      return this.DATASET_TRANSFORMER_WIZ_PAGE;
    }
 
    /**

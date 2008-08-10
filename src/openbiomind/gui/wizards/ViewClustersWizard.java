@@ -14,12 +14,12 @@ import openbiomind.gui.data.AbstractTaskData;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class ViewClustersWizard extends AbstractTaskWizard {
 
    /** The view clusters wizard page. */
-   private ViewClustersWizardPage viewClustersWizardPage = null;
+   private final ViewClustersWizardPage VIEW_CLUSTERS_WIZ_PAGE = new ViewClustersWizardPage();
 
    /**
     * Instantiates a new utility computer wizard.
@@ -33,7 +33,7 @@ public class ViewClustersWizard extends AbstractTaskWizard {
     */
    @Override
    public void addPages() {
-      addPage(getViewClustersWizardPage());
+      addPage(this.VIEW_CLUSTERS_WIZ_PAGE);
    }
 
    /*
@@ -41,29 +41,15 @@ public class ViewClustersWizard extends AbstractTaskWizard {
     */
    @Override
    protected AbstractTaskData[] getTaskData() {
-      return new AbstractTaskData[] { getViewClustersWizardPage().prepareTaskData() };
-   }
-
-   /**
-    * Gets the view clusters wizard page.
-    *
-    * @return the view clusters wizard page
-    */
-   private ViewClustersWizardPage getViewClustersWizardPage() {
-      if (this.viewClustersWizardPage == null) {
-         this.viewClustersWizardPage = new ViewClustersWizardPage(Messages.ViewClustWiz_Name,
-               Messages.ViewClustWiz_Desc);
-      }
-
-      return this.viewClustersWizardPage;
+      return new AbstractTaskData[] { this.VIEW_CLUSTERS_WIZ_PAGE.prepareTaskData() };
    }
 
    /*
-    * @see openbiomind.gui.wizards.AbstractTaskWizard#getWizardPage()
+    * @see openbiomind.gui.wizards.AbstractTaskWizard#getFirstWizardPage()
     */
    @Override
-   protected AbstractTaskWizardPage getWizardPage() {
-      return getViewClustersWizardPage();
+   protected AbstractTaskWizardPage getFirstWizardPage() {
+      return this.VIEW_CLUSTERS_WIZ_PAGE;
    }
 
 }

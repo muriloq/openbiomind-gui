@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Aug 2, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -91,7 +91,14 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
    private Combo isFoldedCombo = null;
 
    /**
-    * Instantiates a new dataset transformer wizard page.
+    * Instantiates a new complete pipeline wizard page 2.
+    */
+   public CompletePipelineWizardPage2() {
+      this(Messages.CompPipeWiz_P2_Name, NLS.bind(Messages.CompPipeWiz_P2_Desc, Preference.getPipelinePropertiesPath()));
+   }
+
+   /**
+    * Instantiates a new complete pipeline wizard page 2.
     *
     * @param pageTitle the page title
     * @param pageDescription the page description
@@ -113,9 +120,6 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
       // add components
       createGroup(composite);
-
-      // this page is complete by default as it is optional
-      setPageComplete(true);
 
       return composite;
    }
@@ -538,6 +542,8 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
             }
             setDescription(NLS.bind(Messages.CompPipeWiz_P2_Desc, propertyFile));
          }
+
+         getOntologyDescriptionFileTBC().setFocus();
       }
 
       super.setVisible(visible);

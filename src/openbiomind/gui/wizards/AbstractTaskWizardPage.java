@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public abstract class AbstractTaskWizardPage extends WizardPage implements IWizardPage, Constants {
 
@@ -137,22 +137,30 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    @Override
    public void setVisible(final boolean visible) {
       if (visible) {
-         final IWizardPage previousPage = getPreviousPage();
-         System.out.println(previousPage);
-         final IWizardPage nextPage = getNextPage();
-         System.out.println(nextPage);
-         if (previousPage instanceof AbstractTaskWizardPage) {
-            getProjectNameText().setText(((AbstractTaskWizardPage) previousPage).getProjectNameText().getText());
-         } else {
-            if (nextPage instanceof AbstractTaskWizardPage) {
-               getProjectNameText().setText(((AbstractTaskWizardPage) nextPage).getProjectNameText().getText());
+         if (getProjectNameText() != null) {
+            final IWizardPage previousPage = getPreviousPage();
+            Text nameText = null;
+            if (previousPage instanceof AbstractTaskWizardPage) {
+               nameText = ((AbstractTaskWizardPage) previousPage).getProjectNameText();
+            } else {
+               final IWizardPage nextPage = getNextPage();
+               if (nextPage instanceof AbstractTaskWizardPage) {
+                  nameText = ((AbstractTaskWizardPage) nextPage).getProjectNameText();
+               }
             }
+
+            if (nameText != null) {
+               getProjectNameText().setText(nameText.getText());
+            }
+
+            getProjectNameText().setFocus();
          }
 
          validatePage();
       } else {
          setPageComplete(true);
       }
+
       super.setVisible(visible);
    }
 
@@ -317,19 +325,10 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            if (textButtonComposite.isEnabled()) {
-               textButtonComposite.setValid(Utility.isEmptyOrExistingFile(textButtonComposite.getText()));
-               if (textButtonComposite.isValid()) {
-                  errorDecoration.hide();
-               } else {
-                  infoDecoration.hideHover();
-                  errorDecoration.show();
-                  errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-               }
-
-               validatePage();
-            } else {
-               errorDecoration.hide();
+            handleModifyText(textButtonComposite, errorDecoration, Utility.isEmptyOrExistingFile(textButtonComposite
+                  .getText()));
+            if (!textButtonComposite.isValid()) {
+               infoDecoration.hideHover();
             }
          }
 
@@ -490,6 +489,51 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
       infoDecoration.setShowOnlyOnFocus(true);
 
       return text;
+   }
+
+   /**
+    * Handle modify text when enabled.
+    *
+    * @param textButtonComposite the text button composite
+    * @param errorDecoration the error decoration
+    * @param valid the valid
+    */
+   protected void handleModifyTextWhenEnabled(final TextButtonComposite textButtonComposite,
+         final ControlDecoration errorDecoration, final boolean valid) {
+      if (textButtonComposite.isEnabled()) {
+         handleModifyText(textButtonComposite, errorDecoration, valid);
+      } else {
+         errorDecoration.hide();
+      }
+   }
+
+   /**
+    * Handle modify text.
+    *
+    * @param textButtonComposite the text button composite
+    * @param errorDecoration the error decoration
+    * @param valid the valid
+    */
+   protected void handleModifyText(final TextButtonComposite textButtonComposite,
+         final ControlDecoration errorDecoration, final boolean valid) {
+      textButtonComposite.setValid(valid);
+      handleErrorDecoration(errorDecoration, valid);
+      validatePage();
+   }
+
+   /**
+    * Handle error decoration.
+    *
+    * @param errorDecoration the error decoration
+    * @param valid the valid
+    */
+   protected void handleErrorDecoration(final ControlDecoration errorDecoration, final boolean valid) {
+      if (valid) {
+         errorDecoration.hide();
+      } else {
+         errorDecoration.show();
+         errorDecoration.showHoverText(errorDecoration.getDescriptionText());
+      }
    }
 
    /**

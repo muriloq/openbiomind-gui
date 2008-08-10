@@ -11,6 +11,7 @@ import java.io.File;
 
 import openbiomind.gui.common.TextButtonComposite;
 import openbiomind.gui.data.GraphFeaturesTaskData;
+import openbiomind.gui.data.TransformEnum;
 import openbiomind.gui.util.Utility;
 import openbiomind.gui.util.WidgetHelper;
 
@@ -28,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -80,7 +81,14 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
    private Text topUsefulFeaturesText = null;
 
    /**
-    * Instantiates a new utility computer wizard page.
+    * Instantiates a new graph features wizard page.
+    */
+   public GraphFeaturesWizardPage() {
+      this(Messages.GraFeatureWiz_Name, Messages.GraFeatureWiz_Desc);
+   }
+
+   /**
+    * Instantiates a new graph features wizard page.
     *
     * @param pageTitle the page title
     * @param pageDescription the page description
@@ -185,15 +193,8 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            textButtonComposite.setValid(Utility.fileExists(textButtonComposite.getText()));
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
-            validatePage();
+            GraphFeaturesWizardPage.this.handleModifyTextWhenEnabled(textButtonComposite, errorDecoration, Utility
+                  .fileExists(textButtonComposite.getText()));
          }
 
       });
@@ -226,15 +227,8 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
          @Override
          public void modifyText(final ModifyEvent event) {
             setValidOutputFileDestFileName(!Utility.isEmpty(text.getText()));
-            if (isValidOutputFileDestFileName()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
+            handleErrorDecoration(errorDecoration, isValidOutputFileDestFileName());
             getOutputFilePathText().setText(getOutputFile());
-
             validatePage();
          }
 
@@ -627,6 +621,30 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
     */
    private Text getTopUsefulFeaturesText() {
       return this.topUsefulFeaturesText;
+   }
+
+   /*
+    * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+    */
+   @Override
+   public void setVisible(final boolean visible) {
+      if (visible) {
+         final IWizardPage previousPage = getPreviousPage();
+         if (previousPage instanceof UtilityComputerWizardPage) {
+            disableComponent(getUtilityFileTBC(), ((UtilityComputerWizardPage) previousPage).getOutputFile());
+         } else if (previousPage instanceof ClusteringTransformerWizardPage) {
+            final ClusteringTransformerWizardPage clusteringTransformerWizardPage = (ClusteringTransformerWizardPage) previousPage;
+            final TransformEnum transform = clusteringTransformerWizardPage.getTransform();
+            final String outputFile = clusteringTransformerWizardPage.getOutputFile();
+            if (transform == TransformEnum.HORIZONTAL) {
+               disableComponent(getHorizontalDatasetTBC(), outputFile);
+            } else if (transform == TransformEnum.MOBRA) {
+               disableComponent(getMobraDatasetTBC(), outputFile);
+            }
+         }
+      }
+
+      super.setVisible(visible);
    }
 
    /*

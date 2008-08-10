@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Aug 9, 2008
+ * @version Aug 10, 2008
  */
 public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
@@ -59,6 +59,13 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /** The meta task shuffling combo. */
    private Combo metaTaskShufflingCombo = null;
+
+   /**
+    * Instantiates a new meta task wizard page.
+    */
+   public MetaTaskWizardPage() {
+      this(Messages.MetaWiz_Name, Messages.MetaWiz_Desc);
+   }
 
    /**
     * Instantiates a new meta task wizard page.
@@ -142,18 +149,10 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
          @Override
          public void modifyText(final ModifyEvent event) {
             final File directory = new File(getDatasetDirectoryPath());
-            textButtonComposite
-                  .setValid(Utility.directoryExists(directory)
-                        && Utility.listFileNames(directory, Resources.TRAIN_FILE_STARTS_WITH, Resources.TAB_EXTENSION).length > 0
-                        && Utility.listFileNames(directory, Resources.TEST_FILE_STARTS_WITH, Resources.TAB_EXTENSION).length > 0);
-            if (textButtonComposite.isValid()) {
-               errorDecoration.hide();
-            } else {
-               errorDecoration.show();
-               errorDecoration.showHoverText(errorDecoration.getDescriptionText());
-            }
-
-            validatePage();
+            final boolean valid = Utility.directoryExists(directory)
+                  && Utility.listFileNames(directory, Resources.TRAIN_FILE_STARTS_WITH, Resources.TAB_EXTENSION).length > 0
+                  && Utility.listFileNames(directory, Resources.TEST_FILE_STARTS_WITH, Resources.TAB_EXTENSION).length > 0;
+            handleModifyTextWhenEnabled(textButtonComposite, errorDecoration, valid);
          }
 
       });
@@ -365,6 +364,22 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
     */
    private Combo getMetaTaskShufflingCombo() {
       return this.metaTaskShufflingCombo;
+   }
+
+   /*
+    * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+    */
+   @Override
+   public void setVisible(final boolean visible) {
+      if (visible) {
+         final IWizardPage previousPage = getPreviousPage();
+         if (previousPage instanceof DatasetTransformerWizardPage) {
+            disableComponent(getDatasetDirectoryTBC(), ((DatasetTransformerWizardPage) previousPage)
+                  .getOutputDirectory());
+         }
+      }
+
+      super.setVisible(visible);
    }
 
    /*
