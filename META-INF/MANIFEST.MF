@@ -7,15 +7,65 @@ Bundle-Activator: openbiomind.gui.Activator
 Bundle-Vendor: %Bundle-Vendor.OpenBiomind
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.ui.views.log;bundle-version="1.0.0",
- org.eclipse.ui.console;bundle-version="3.3.0",
  org.eclipse.core.filesystem;bundle-version="1.2.0",
+ org.eclipse.core.resources;bundle-version="3.4.0",
+ org.eclipse.ui.ide;bundle-version="3.4.0",
+ org.eclipse.ui.console;bundle-version="3.3.0",
  org.eclipse.ui.navigator;bundle-version="3.3.100",
  org.eclipse.ui.navigator.resources;bundle-version="3.3.100",
- org.eclipse.ui.ide;bundle-version="3.4.0",
  org.eclipse.ui.editors;bundle-version="3.4.0",
- org.eclipse.core.resources;bundle-version="3.4.0",
+ org.eclipse.ui.views.log;bundle-version="1.0.0",
  org.eclipse.jface.text
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
+Export-Package: openbiomind.gui;
+  uses:="org.eclipse.jface.action,
+   org.eclipse.core.runtime,
+   org.eclipse.jface.resource,
+   org.eclipse.ui.application,
+   org.eclipse.ui,
+   org.eclipse.ui.plugin,
+   org.eclipse.equinox.app,
+   org.osgi.framework",
+ openbiomind.gui.common;
+  uses:="org.eclipse.jface.layout,
+   openbiomind.gui.data,
+   org.eclipse.swt.events,
+   org.eclipse.swt.graphics,
+   org.eclipse.swt.widgets",
+ openbiomind.gui.console;uses:="org.eclipse.swt.graphics,openbiomind.gui.common",
+ openbiomind.gui.data;uses:="org.eclipse.osgi.util,openbiomind.gui.project,openbiomind.gui.common",
+ openbiomind.gui.editors;
+  uses:="org.eclipse.osgi.util,
+   org.eclipse.core.runtime,
+   org.eclipse.ui,
+   org.eclipse.ui.part,
+   org.eclipse.swt.widgets",
+ openbiomind.gui.handlers;
+  uses:="org.eclipse.osgi.util,
+   openbiomind.gui.wizards,
+   openbiomind.gui.common,
+   org.eclipse.core.commands,
+   org.eclipse.swt.widgets",
+ openbiomind.gui.main;uses:="org.eclipse.osgi.util,openbiomind.gui.data,openbiomind.gui.common",
+ openbiomind.gui.preferences;
+  uses:="org.eclipse.osgi.util,
+   org.eclipse.jface.preference,
+   org.eclipse.ui,
+   org.eclipse.jface.util,
+   openbiomind.gui.common,
+   org.eclipse.core.runtime.preferences",
+ openbiomind.gui.project,
+ openbiomind.gui.util;
+  uses:="org.eclipse.swt.graphics,
+   openbiomind.gui.common,
+   org.eclipse.swt.widgets,
+   org.eclipse.jface.fieldassist",
+ openbiomind.gui.wizards;
+  uses:="org.eclipse.jface.wizard,
+   org.eclipse.osgi.util,
+   openbiomind.gui.data,
+   openbiomind.gui.common,
+   org.eclipse.swt.widgets,
+   org.eclipse.jface.fieldassist"
