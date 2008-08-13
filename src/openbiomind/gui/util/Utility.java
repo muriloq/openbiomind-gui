@@ -20,7 +20,7 @@ import openbiomind.gui.console.Console;
  *
  * @author bsanghvi
  * @since Jun 14, 2008
- * @version Jul 24, 2008
+ * @version Aug 13, 2008
  */
 public final class Utility implements Constants {
 
@@ -189,7 +189,8 @@ public final class Utility implements Constants {
          return EMPTY;
       }
       final String name = extractFullName(filePath);
-      return name.substring(0, name.lastIndexOf(DOT));
+      final int lastIndexOfDot = name.lastIndexOf(DOT); // to remove the extension
+      return (lastIndexOfDot > -1 ? name.substring(0, lastIndexOfDot) : name);
    }
 
    /**

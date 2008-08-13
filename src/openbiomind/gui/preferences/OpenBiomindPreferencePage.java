@@ -27,7 +27,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  *
  * @author bsanghvi
  * @since Jun 9, 2008
- * @version Jul 28, 2008
+ * @version Aug 13, 2008
  */
 public class OpenBiomindPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage, Constants {
 
@@ -88,9 +88,21 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
       // Graphviz dot utility
       setGraphvizDotUtilityFileFieldEditor(createNewFileFieldEditor(Preference.GRAPHVIZ_DOT_UTILITY,
             Messages.OpenBiomindPrefPage_Label_GraphvizDotUtil, new String[] { Resources.GRAPHVIZ_DOT_UTILITY_NAME
-                  + WILDCARD_ANY }, true, Messages.OpenBiomindPrefPage_Err_GraphvizDotUtil));
+                  + FILE_FILTER_SEPARATOR + Resources.GRAPHVIZ_DOT_UTILITY_NAME + DOT + WILDCARD_ANY }, true,
+            Messages.OpenBiomindPrefPage_Err_GraphvizDotUtil));
       addField(getGraphvizDotUtilityFileFieldEditor());
       setGraphvizDotUtilityValid(Preference.isGraphvizDotUtilityPreferenceValid());
+   }
+
+   /*
+    * @see org.eclipse.jface.preference.FieldEditorPreferencePage#setVisible(boolean)
+    */
+   @Override
+   public void setVisible(boolean visible) {
+      if (visible) {
+         validate();
+      }
+      super.setVisible(visible);
    }
 
    /**
@@ -121,56 +133,38 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
    @Override
    public void propertyChange(final PropertyChangeEvent event) {
       super.propertyChange(event);
-
       final Object eventSource = event.getSource();
       if (eventSource instanceof FileFieldEditor) {
          final FileFieldEditor fileFieldEditor = (FileFieldEditor) eventSource;
          final String preferenceName = fileFieldEditor.getPreferenceName();
          final String value = fileFieldEditor.getStringValue();
-
-         boolean valid = false;
          if (Preference.OPENBIOMIND_JAR.equals(preferenceName)) {
             setOpenBiomindJarValid(Preference.isOpenBiomindJarPreferenceValid(value));
-            if (isOpenBiomindJarValid()) {
-               // check if some other error message must be shown
-               if (!isPipelinePropertiesValid()) {
-                  getPipelinePropertiesFileFieldEditor().showErrorMessage();
-               } else if (!isGraphvizDotUtilityValid()) {
-                  getGraphvizDotUtilityFileFieldEditor().showErrorMessage();
-               } else {
-                  valid = true;
-               }
-            }
          } else if (Preference.PIPELINE_PROPERTIES.equals(preferenceName)) {
             setPipelinePropertiesValid(Preference.isPipelinePropertiesPreferenceValid(value));
-            if (isPipelinePropertiesValid()) {
-               // check if some other error message must be shown
-               if (!isOpenBiomindJarValid()) {
-                  getOpenBiomindJarFileFieldEditor().showErrorMessage();
-               } else if (!isGraphvizDotUtilityValid()) {
-                  getGraphvizDotUtilityFileFieldEditor().showErrorMessage();
-               } else {
-                  valid = true;
-               }
-            }
          } else if (Preference.GRAPHVIZ_DOT_UTILITY.equals(preferenceName)) {
             setGraphvizDotUtilityValid(Preference.isGraphvizDotUtilityPreferenceValid(value));
-            if (isGraphvizDotUtilityValid()) {
-               // check if some other error message must be shown
-               if (!isOpenBiomindJarValid()) {
-                  getOpenBiomindJarFileFieldEditor().showErrorMessage();
-               } else if (!isPipelinePropertiesValid()) {
-                  getPipelinePropertiesFileFieldEditor().showErrorMessage();
-               } else {
-                  valid = true;
-               }
-            }
-         } else {
-            return; // do nothing
          }
-
-         setValid(valid);
       }
+
+      validate();
+   }
+
+   /**
+    * Validate.
+    */
+   private void validate() {
+      boolean valid = false;
+      if (!isOpenBiomindJarValid()) {
+         getOpenBiomindJarFileFieldEditor().showErrorMessage();
+      } else if (!isPipelinePropertiesValid()) {
+         getPipelinePropertiesFileFieldEditor().showErrorMessage();
+      } else if (!isGraphvizDotUtilityValid()) {
+         getGraphvizDotUtilityFileFieldEditor().showErrorMessage();
+      } else {
+         valid = true;
+      }
+      setValid(valid);
    }
 
    /**

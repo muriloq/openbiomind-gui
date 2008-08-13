@@ -7,10 +7,13 @@
  */
 package openbiomind.gui.main;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import openbiomind.gui.common.Constants;
 import openbiomind.gui.console.Console;
@@ -22,7 +25,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jul 25, 2008
- * @version Aug 10, 2008
+ * @version Aug 13, 2008
  */
 public class GraphvizHelper {
 
@@ -31,6 +34,12 @@ public class GraphvizHelper {
 
    /** The argument <code>-o</code> for specifying the output file path. */
    private static final String ARG_O = Constants.HYPHEN + "o"; //$NON-NLS-1$
+
+   /** The argument <code>-V</code> for reading version information and verifying the dot utility. */
+   private static final String ARG_V = Constants.HYPHEN + "V"; //$NON-NLS-1$
+
+   /** If a dot command is valid, then the first line of its output on execution with -V option must start with this. */
+   private static final String DOT_GRAPHVIZ_MATCH_KEY = "dot - Graphviz"; //$NON-NLS-1$
 
    /** The output formal of the image is {@link openbiomind.gui.common.Constants.Resources#PNG_FORMAT}. */
    private static final String OUTPUT_FORMAT = Constants.Resources.PNG_FORMAT;
@@ -65,12 +74,10 @@ public class GraphvizHelper {
             commandList.add(getSourceFilePath());
             commandList.add(ARG_O + getOutputFilePath());
 
-            if (commandList != null) {
-               try {
-                  return (new ProcessBuilder(commandList)).start();
-               } catch (final IOException e) {
-                  Console.debug(e);
-               }
+            try {
+               return (new ProcessBuilder(commandList)).start();
+            } catch (final IOException e) {
+               Console.debug(e);
             }
          }
       } else {
@@ -109,6 +116,40 @@ public class GraphvizHelper {
     */
    private String getSourceFilePath() {
       return this.sourceFilePath;
+   }
+
+   /**
+    * Validate dot command.
+    *
+    * @param command the command
+    *
+    * @return true, if successful
+    */
+   public static boolean validateDotCommand(final String command) {
+      // prepare process
+      final List<String> commandList = new ArrayList<String>();
+      commandList.add(command);
+      commandList.add(ARG_V);
+      final ProcessBuilder processBuilder = new ProcessBuilder(commandList);
+      processBuilder.redirectErrorStream(true);
+      Process process = null;
+      try {
+         process = processBuilder.start();
+      } catch (final IOException e) {
+         Console.debug(e);
+      }
+
+      // verify the first line of the output of the execution
+      boolean valid = false;
+      if (process != null) {
+         final Scanner reader = new Scanner(new BufferedReader(new InputStreamReader(process.getInputStream())));
+         if (reader.hasNextLine()) {
+            final String message = reader.nextLine();
+            valid = (!Utility.isEmpty(message) && message.startsWith(DOT_GRAPHVIZ_MATCH_KEY));
+         }
+         process.destroy();
+      }
+      return valid;
    }
 
 }
