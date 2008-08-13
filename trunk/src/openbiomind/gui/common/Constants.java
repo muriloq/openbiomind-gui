@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Display;
  *
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Aug 9, 2008
+ * @version Aug 13, 2008
  */
 public interface Constants {
 
@@ -54,10 +54,19 @@ public interface Constants {
    /** The constant that separates label from field (value = <code>:</code>). */
    public static final String LABEL_SEPARATOR = ":"; //$NON-NLS-1$
 
+   /**
+    * The constant that is used to separate file extensions in
+    * {@link org.eclipse.swt.widgets.FileDialog#setFilterExtensions(String[])} (value = <code>; </code>).
+    */
+   public static final String FILE_FILTER_SEPARATOR = "; "; //$NON-NLS-1$
+
    /** The constant for specifying wild card for anything (value = <code>*</code>). */
    public static final String WILDCARD_ANY = "*"; //$NON-NLS-1$
 
-   /** The constant for prefix value that will be  put in the log file before output (value = <code>single tab space</code>). */
+   /**
+    * The constant for prefix value that will be put in the log file before output (value =
+    * <code>single tab space</code>).
+    */
    public static final String LOG_PREFIX = TAB;
 
    /**
@@ -85,7 +94,7 @@ public interface Constants {
       public static final String JAR_EXTENSION = DOT + "jar"; //$NON-NLS-1$
 
       /** The Constant specifying the name of Graphviz dot utility (value = <code>dot.</code>). */
-      public static final String GRAPHVIZ_DOT_UTILITY_NAME = "dot" + DOT; //$NON-NLS-1$
+      public static final String GRAPHVIZ_DOT_UTILITY_NAME = "dot"; //$NON-NLS-1$
 
       /** The Constant specifying the properties file extension (value = <code>.properties</code>). */
       public static final String PROPERTIES_EXTENSION = DOT + "properties"; //$NON-NLS-1$

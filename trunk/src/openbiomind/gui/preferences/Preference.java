@@ -9,6 +9,7 @@ package openbiomind.gui.preferences;
 
 import openbiomind.gui.Activator;
 import openbiomind.gui.common.Constants;
+import openbiomind.gui.main.GraphvizHelper;
 import openbiomind.gui.util.Utility;
 
 /**
@@ -16,7 +17,7 @@ import openbiomind.gui.util.Utility;
  *
  * @author bsanghvi
  * @since Jun 9, 2008
- * @version Jul 24, 2008
+ * @version Aug 13, 2008
  */
 public class Preference implements Constants {
 
@@ -145,8 +146,9 @@ public class Preference implements Constants {
     * @return true, if Graphviz dot utility preference is valid
     */
    public static boolean isGraphvizDotUtilityPreferenceValid(final String value) {
-      return (Utility.isEmpty(value) || (Utility.extractFullName(value.trim()).toLowerCase().startsWith(
-            Resources.GRAPHVIZ_DOT_UTILITY_NAME) && Utility.fileExists(value)));
+      return (Utility.isEmpty(value) || (Utility.fileExists(value)
+            && Resources.GRAPHVIZ_DOT_UTILITY_NAME.equals(Utility.extractFileName(value)) && GraphvizHelper
+            .validateDotCommand(value)));
    }
 
 }
