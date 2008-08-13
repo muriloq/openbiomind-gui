@@ -193,8 +193,8 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            GraphFeaturesWizardPage.this.handleModifyTextWhenEnabled(textButtonComposite, errorDecoration, Utility
-                  .fileExists(textButtonComposite.getText()));
+            handleModifyTextWhenEditable(textButtonComposite, errorDecoration, Utility.fileExists(textButtonComposite
+                  .getText()));
          }
 
       });

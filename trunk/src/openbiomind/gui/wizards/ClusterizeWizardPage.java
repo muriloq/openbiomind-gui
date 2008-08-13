@@ -159,7 +159,7 @@ public class ClusterizeWizardPage extends AbstractTaskWizardPage implements IWiz
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            handleModifyTextWhenEnabled(textButtonComposite, errorDecoration, Utility.fileExists(textButtonComposite
+            handleModifyTextWhenEditable(textButtonComposite, errorDecoration, Utility.fileExists(textButtonComposite
                   .getText()));
          }
 
