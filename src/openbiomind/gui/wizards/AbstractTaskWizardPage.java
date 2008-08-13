@@ -171,7 +171,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
     * @param value the value
     */
    protected void disableComponent(final TextButtonComposite textButtonComposite, final String value) {
-      textButtonComposite.setEnabled(false);
+      textButtonComposite.setEditable(false);
       textButtonComposite.setText(value);
       textButtonComposite.setToolTipText(value);
       textButtonComposite.setValid(true);
@@ -492,15 +492,15 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
    }
 
    /**
-    * Handle modify text when enabled.
+    * Handle modify text when editable.
     *
     * @param textButtonComposite the text button composite
     * @param errorDecoration the error decoration
     * @param valid the valid
     */
-   protected void handleModifyTextWhenEnabled(final TextButtonComposite textButtonComposite,
+   protected void handleModifyTextWhenEditable(final TextButtonComposite textButtonComposite,
          final ControlDecoration errorDecoration, final boolean valid) {
-      if (textButtonComposite.isEnabled()) {
+      if (textButtonComposite.isEditable()) {
          handleModifyText(textButtonComposite, errorDecoration, valid);
       } else {
          errorDecoration.hide();

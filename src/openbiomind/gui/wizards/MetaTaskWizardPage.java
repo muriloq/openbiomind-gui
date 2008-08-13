@@ -152,7 +152,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
             final boolean valid = Utility.directoryExists(directory)
                   && Utility.listFileNames(directory, Resources.TRAIN_FILE_STARTS_WITH, Resources.TAB_EXTENSION).length > 0
                   && Utility.listFileNames(directory, Resources.TEST_FILE_STARTS_WITH, Resources.TAB_EXTENSION).length > 0;
-            handleModifyTextWhenEnabled(textButtonComposite, errorDecoration, valid);
+            handleModifyTextWhenEditable(textButtonComposite, errorDecoration, valid);
          }
 
       });

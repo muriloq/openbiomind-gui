@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Jul 28, 2008
+ * @version Aug 13, 2008
  */
 public abstract class TextButtonComposite extends Composite implements Constants {
 
@@ -86,6 +86,17 @@ public abstract class TextButtonComposite extends Composite implements Constants
    }
 
    /**
+    * Removes the modify listener on text field.
+    *
+    * @param listener the listener
+    *
+    * @see org.eclipse.swt.widgets.Text#removeModifyListener(org.eclipse.swt.events.ModifyListener)
+    */
+   public void removeModifyListenerOnTextField(final ModifyListener listener) {
+      getTextField().removeModifyListener(listener);
+   }
+
+   /**
     * Adds the focus listener on text field.
     *
     * @param listener the listener
@@ -94,6 +105,17 @@ public abstract class TextButtonComposite extends Composite implements Constants
     */
    public void addFocusListenerOnTextField(final FocusListener listener) {
       getTextField().addFocusListener(listener);
+   }
+
+   /**
+    * Removes the focus listener on text field.
+    *
+    * @param listener the listener
+    *
+    * @see org.eclipse.swt.widgets.Control#removeFocusListener(org.eclipse.swt.events.FocusListener)
+    */
+   public void removeFocusListenerOnTextField(FocusListener listener) {
+      getTextField().removeFocusListener(listener);
    }
 
    /**
@@ -172,6 +194,25 @@ public abstract class TextButtonComposite extends Composite implements Constants
       super.setEnabled(enabled);
       getTextField().setEnabled(enabled);
       getActionButton().setEnabled(enabled);
+   }
+
+   /**
+    * Checks if the text field is editable.
+    *
+    * @return true, if is editable
+    */
+   public boolean isEditable() {
+      return getTextField().getEditable();
+   }
+
+   /**
+    * Sets the the text field as editable.
+    *
+    * @param editable the new editable
+    */
+   public void setEditable(final boolean editable) {
+      getTextField().setEditable(editable);
+      getActionButton().setEnabled(editable);
    }
 
    /*

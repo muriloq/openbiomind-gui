@@ -53,7 +53,7 @@ import org.eclipse.ui.ide.IDE;
  *
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 10, 2008
+ * @version Aug 13, 2008
  */
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
@@ -146,13 +146,15 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
          executionLogWriter = new PrintWriter(getExecutionLogFilePath());
 
          for (final AbstractTaskData taskData : taskDataArray) {
+            executionLogWriter.println(); // empty line
+            executionLogWriter.flush();
+
             final TaskProcessBuider taskProcessBuider = new TaskProcessBuider(taskData);
 
             // write the command at the top
             final String executedCommand = taskData.toString();
             Console.info(executedCommand);
             executionLogWriter.println(executedCommand);
-            executionLogWriter.println(); // empty line
             executionLogWriter.flush();
 
             // execute the process

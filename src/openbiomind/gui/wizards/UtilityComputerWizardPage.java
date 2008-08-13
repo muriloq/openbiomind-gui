@@ -168,7 +168,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
             final File directory = new File(getMetaTaskResultDir());
             final boolean valid = Utility.directoryExists(directory)
                   && Utility.listFileNames(directory, Resources.OUT_FILE_STARTS_WITH, Resources.TXT_EXTENSION).length > 0;
-            handleModifyTextWhenEnabled(textButtonComposite, errorDecoration, valid);
+            handleModifyTextWhenEditable(textButtonComposite, errorDecoration, valid);
          }
 
       });
@@ -208,7 +208,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
          @Override
          public void modifyText(final ModifyEvent event) {
-            handleModifyTextWhenEnabled(textButtonComposite, errorDecoration, Utility.fileExists(textButtonComposite
+            handleModifyTextWhenEditable(textButtonComposite, errorDecoration, Utility.fileExists(textButtonComposite
                   .getText()));
          }
 
