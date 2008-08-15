@@ -1,2 +1,15 @@
 #summary Read this before you start using the software
 #labels Phase-Support
+
+= Minimum System Requirements =
+ * [http://java.sun.com/javase/6/ Java SE 6]
+ * Supported platforms
+   * linux (gtk/x86)
+   * linux (gtk/x86_64)
+   * macosx (carbon/ppc)
+   * macosx (carbon/x86) 
+   * win32 (win32/x86)
+   * win32 (win32/x86_64)
+ * [http://code.google.com/p/openbiomind/ OpenBiomind]
+== Optional Requirements ==
+ * [http://www.graphviz.org/ Graphviz] (only *dot* utility is required)
