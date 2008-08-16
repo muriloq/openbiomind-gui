@@ -114,7 +114,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
     *
     * @see org.eclipse.swt.widgets.Control#removeFocusListener(org.eclipse.swt.events.FocusListener)
     */
-   public void removeFocusListenerOnTextField(FocusListener listener) {
+   public void removeFocusListenerOnTextField(final FocusListener listener) {
       getTextField().removeFocusListener(listener);
    }
 

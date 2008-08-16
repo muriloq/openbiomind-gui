@@ -98,7 +98,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
     * @see org.eclipse.jface.preference.FieldEditorPreferencePage#setVisible(boolean)
     */
    @Override
-   public void setVisible(boolean visible) {
+   public void setVisible(final boolean visible) {
       if (visible) {
          validate();
       }
