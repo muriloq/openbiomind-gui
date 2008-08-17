@@ -1,10 +1,11 @@
 ################################################################################
 # $Id$
 ################################################################################
-#  This file contains messages used in the openbiomind.gui.main package.
+#  This file contains customized properties.
 #  Author  : bsanghvi
-#  Created : Aug 10, 2008
+#  Created : Aug 16, 2008
 #  Version : Aug 17, 2008
 ################################################################################
 
-Err_GraphvizDotUtility=Set Graphviz dot utility in Preferences to automatically convert dot files to images
+eclipse.preferences.version=1
+org.eclipse.ltk.core.refactoring.enable.project.refactoring.history=true

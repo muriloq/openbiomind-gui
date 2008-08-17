@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- $Id$ -->
+<!-- ======================================================================
+      This is the .classpath file for OpenBiomind-GUI.
+      Author  : bsanghvi
+      Created : May 26, 2008
+      Version : Aug 17, 2008
+     ====================================================================== -->
+
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>

@@ -1,0 +1,25 @@
+################################################################################
+# $Id$
+################################################################################
+#  This file contains customized properties for AnyEdit plugin.
+#  Author  : bsanghvi
+#  Created : Aug 16, 2008
+#  Version : Aug 17, 2008
+################################################################################
+#  Visit AnyEdit at http://andrei.gmxhome.de/anyedit/
+################################################################################
+
+activeContentFilterList=*.makefile,makefile,*.Makefile,Makefile,Makefile.*,*.mk,MANIFEST.MF
+convertActionOnSaave=AnyEdit.CnvrtTabToSpaces
+eclipse.preferences.version=1
+inActiveContentFilterList=
+javaTabWidthForJava=true
+org.eclipse.jdt.ui.editor.tab.width=3
+projectPropsEnabled=true
+removeTrailingSpaces=true
+replaceAllSpaces=true
+replaceAllTabs=true
+saveAndAddLine=false
+saveAndConvert=false
+saveAndTrim=true
+useModulo4Tabs=true

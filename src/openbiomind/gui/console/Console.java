@@ -20,7 +20,7 @@ import org.eclipse.ui.console.MessageConsoleStream;
 
 /**
  * The class Console.
- *
+ * 
  * @author bsanghvi
  * @since Jun 8, 2008
  * @version Jul 27, 2008
@@ -64,16 +64,14 @@ public class Console implements Constants {
 
    /**
     * Write.
-    *
+    * 
     * @param message the message
     * @param color the color
     */
    public static void write(final String message, final Color color) {
       Display.getDefault().asyncExec(new Runnable() {
 
-         /*
-          * @see java.lang.Runnable#run()
-          */
+         @Override
          public void run() {
             final MessageConsoleStream stream = Console.console.newMessageStream();
             stream.setColor(color);
@@ -85,16 +83,14 @@ public class Console implements Constants {
 
    /**
     * Write.
-    *
+    * 
     * @param e the e
     * @param color the color
     */
    private static void write(final Throwable e, final Color color) {
       Display.getDefault().asyncExec(new Runnable() {
 
-         /*
-          * @see java.lang.Runnable#run()
-          */
+         @Override
          public void run() {
             final MessageConsoleStream stream = Console.console.newMessageStream();
             stream.setColor(color);
@@ -106,7 +102,7 @@ public class Console implements Constants {
 
    /**
     * Output.
-    *
+    * 
     * @param message the message
     */
    public static void output(final String message) {
@@ -115,7 +111,7 @@ public class Console implements Constants {
 
    /**
     * Error.
-    *
+    * 
     * @param message the message
     */
    public static void error(final String message) {
@@ -124,7 +120,7 @@ public class Console implements Constants {
 
    /**
     * Error.
-    *
+    * 
     * @param e the e
     */
    public static void error(final Throwable e) {
@@ -133,7 +129,7 @@ public class Console implements Constants {
 
    /**
     * Error.
-    *
+    * 
     * @param message the message
     * @param e the e
     */
@@ -144,7 +140,7 @@ public class Console implements Constants {
 
    /**
     * Warn.
-    *
+    * 
     * @param message the message
     */
    public static void warn(final String message) {
@@ -153,7 +149,7 @@ public class Console implements Constants {
 
    /**
     * Info.
-    *
+    * 
     * @param message the message
     */
    public static void info(final String message) {
@@ -162,7 +158,7 @@ public class Console implements Constants {
 
    /**
     * Debug.
-    *
+    * 
     * @param message the message
     */
    public static void debug(final String message) {
@@ -173,7 +169,7 @@ public class Console implements Constants {
 
    /**
     * Debug.
-    *
+    * 
     * @param e the e
     */
    public static void debug(final Throwable e) {
@@ -184,7 +180,7 @@ public class Console implements Constants {
 
    /**
     * Checks if is debug.
-    *
+    * 
     * @return the debug
     */
    private static boolean isDebug() {
@@ -193,7 +189,7 @@ public class Console implements Constants {
 
    /**
     * Sets the debug.
-    *
+    * 
     * @param debug the debug to set
     */
    private static void setDebug(final boolean debug) {

@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- $Id$ -->
+<!-- ======================================================================
+      This is the .project file for OpenBiomind-GUI.
+      Author  : bsanghvi
+      Created : May 26, 2008
+      Version : Aug 17, 2008
+     ====================================================================== -->
+
 <projectDescription>
 	<name>OpenBiomind-GUI</name>
-	<comment></comment>
+	<comment>GUI for OpenBiomind</comment>
 	<projects>
 	</projects>
 	<buildSpec>

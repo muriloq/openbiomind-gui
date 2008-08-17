@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * The final class Constants contains various constant definitions.
- *
+ * 
  * @author bsanghvi
  * @since Jun 12, 2008
  * @version Aug 13, 2008
@@ -71,7 +71,7 @@ public interface Constants {
 
    /**
     * The class Resources.
-    *
+    * 
     * @author bsanghvi
     * @since Jun 26, 2008
     * @version Jul 6, 2008
@@ -144,7 +144,7 @@ public interface Constants {
 
    /**
     * The class Properties.
-    *
+    * 
     * @author bsanghvi
     * @since Jun 26, 2008
     * @version Jun 26, 2008
@@ -176,12 +176,13 @@ public interface Constants {
 
    /**
     * The class Colors.
-    *
+    * 
     * @author bsanghvi
     * @since Jun 26, 2008
     * @version Jun 26, 2008
     */
    public final class Colors {
+
       /** The Constant COLOR_SYSTEM_OUT. */
       public static final Color SYSTEM_OUT;
 
@@ -237,6 +238,10 @@ public interface Constants {
 
    /**
     * The class GUI.
+    * 
+    * @author bsanghvi
+    * @since Jun 26, 2008
+    * @version Aug 18, 2008
     */
    public final class GUI {
 

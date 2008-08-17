@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
+
+<!-- $Id$ -->
+<!-- ======================================================================
+      This is the plugin file for OpenBiomind-GUI.
+      Author  : bsanghvi
+      Created : May 26, 2008
+      Version : Aug 17, 2008
+     ====================================================================== -->
+
 <plugin>
 
    <extension
@@ -28,14 +37,14 @@
          point="org.eclipse.core.runtime.products">
       <product
             application="openbiomind.gui.application"
-            name="%product.name.OpenBiomindGUI">
+            name="OpenBiomind-GUI">
          <property
                name="appName"
                value="OpenBiomind-GUI">
          </property>
          <property
                name="aboutText"
-               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0D;&#x0A;Version: 0.0.12.20080813&#x0D;&#x0A;Development build&#x0D;&#x0A;&#x0D;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
+               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0A;Version: 0.0.12.20080813&#x0A;Development build&#x0A;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
          </property>
          <property
                name="aboutImage"
