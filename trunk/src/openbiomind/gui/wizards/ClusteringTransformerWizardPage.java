@@ -1,10 +1,28 @@
-/**
- * ClusteringTransformerWizardPage.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file ClusteringTransformerWizardPage.java.
+ *  This file (ClusteringTransformerWizardPage.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.wizards;
 
 import java.io.File;
@@ -28,16 +46,14 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * The class ClusteringTransformerWizardPage.
- *
+ * 
  * @author bsanghvi
  * @since Jul 13, 2008
- * @version Aug 10, 2008
+ * @version Aug 18, 2008
  */
 public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
-   /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.ClusteringTransformerWizardPage</code>).
-    */
+   /** The constant for page name (value = <code>openbiomind.gui.wizards.ClusteringTransformerWizardPage</code>). */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.ClusteringTransformerWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
@@ -82,7 +98,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Instantiates a new clustering transformer wizard page.
-    *
+    * 
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
@@ -111,7 +127,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Creates the required group.
-    *
+    * 
     * @param parent the parent
     */
    private void createRequiredGroup(final Composite parent) {
@@ -145,9 +161,9 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Creates the dataset text file button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createDatasetFileTBC(final Composite parent) {
@@ -185,9 +201,9 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Creates the transform combo.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the combo
     */
    private Combo createTransformCombo(final Composite parent) {
@@ -206,9 +222,9 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Creates the output file destination file text.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text
     */
    private Text createOutputFileDestFileText(final Composite parent) {
@@ -241,9 +257,9 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Creates the output file destination directory text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createOutputFileDestDirTBC(final Composite parent) {
@@ -307,9 +323,9 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the output file path text. This method uses {@link #getOutputFile()}.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the output file path text
     */
    private Text createOutputFilePathText(final Composite parent) {
@@ -353,7 +369,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Creates the optional group.
-    *
+    * 
     * @param parent the parent
     */
    private void createOptionalGroup(final Composite parent) {
@@ -367,9 +383,9 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Creates the meta task result directory text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createMetaTaskResultDirTBC(final Composite parent) {
@@ -410,7 +426,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the dataset file.
-    *
+    * 
     * @return the dataset file
     */
    public String getDatasetFile() {
@@ -419,7 +435,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the base dataset text button composite.
-    *
+    * 
     * @return the base dataset text button composite
     */
    private TextButtonComposite getDatasetFileTBC() {
@@ -428,7 +444,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the output file destination file.
-    *
+    * 
     * @return the output file destination file
     */
    private String getOutputFileDestFileName() {
@@ -437,7 +453,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the output file destination file text.
-    *
+    * 
     * @return the output file destination file text
     */
    private Text getOutputFileDestFileText() {
@@ -446,7 +462,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Checks if is valid output file destination file name.
-    *
+    * 
     * @return true, if checks if is valid output file destination file name
     */
    private boolean isValidOutputFileDestFileName() {
@@ -455,7 +471,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Sets the valid output file destination file name.
-    *
+    * 
     * @param validOutputFileDestFileName the valid output file destination file name
     */
    private void setValidOutputFileDestFileName(final boolean validOutputFileDestFileName) {
@@ -464,7 +480,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the output file destination directory path.
-    *
+    * 
     * @return the output file destination directory
     */
    private String getOutputFileDestDirPath() {
@@ -473,7 +489,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the output file destination directory text button composite.
-    *
+    * 
     * @return the output file destination directory text button composite
     */
    private TextButtonComposite getOutputFileDestDirTBC() {
@@ -482,7 +498,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the output file.
-    *
+    * 
     * @return the output file
     */
    public String getOutputFile() {
@@ -499,7 +515,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the output file path text.
-    *
+    * 
     * @return the outputFilePathText
     */
    private Text getOutputFilePathText() {
@@ -508,7 +524,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Checks if is valid output file path.
-    *
+    * 
     * @return the validOutputFilePath
     */
    private boolean isValidOutputFilePath() {
@@ -517,7 +533,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Sets the valid output file path.
-    *
+    * 
     * @param validOutputFilePath the valid output file path
     */
    private void setValidOutputFilePath(final boolean validOutputFilePath) {
@@ -526,7 +542,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the transform.
-    *
+    * 
     * @return the transform
     */
    public TransformEnum getTransform() {
@@ -535,7 +551,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the transform combo.
-    *
+    * 
     * @return the transform combo
     */
    private Combo getTransformCombo() {
@@ -544,7 +560,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the transform array.
-    *
+    * 
     * @return the transform array
     */
    private String[] getTransformArray() {
@@ -558,7 +574,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the meta task result directory.
-    *
+    * 
     * @return the meta task result directory
     */
    public String getMetaTaskResultDir() {
@@ -567,7 +583,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets meta task the result directory text button composite.
-    *
+    * 
     * @return the meta task result directory text button composite
     */
    private TextButtonComposite getMetaTaskResultDirTBC() {
@@ -576,7 +592,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Gets the meta task result directory error decoration.
-    *
+    * 
     * @return the meta task result directory error decoration
     */
    private ControlDecoration getMetaTaskResultDirErrorDecoration() {
@@ -585,7 +601,7 @@ public class ClusteringTransformerWizardPage extends AbstractTaskWizardPage impl
 
    /**
     * Sets the meta task result directory error decoration.
-    *
+    * 
     * @param metaTaskResultDirErrorDecoration the new meta task result directory error decoration
     */
    private void setMetaTaskResultDirErrorDecoration(final ControlDecoration metaTaskResultDirErrorDecoration) {

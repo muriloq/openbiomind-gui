@@ -1,10 +1,28 @@
-/**
- * VisitOpenBiomindHandler.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file VisitOpenBiomindHandler.java is used to open OpenBiomind homepage in external browser.
+ *  This file (VisitOpenBiomindHandler.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.handlers;
 
 import openbiomind.gui.common.Constants;
@@ -19,10 +37,10 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
  * The class VisitOpenBiomindHandler is used to open OpenBiomind home page in external browser.
- *
+ * 
  * @author bsanghvi
  * @since Jul 4, 2008
- * @version Jul 28, 2008
+ * @version Aug 18, 2008
  */
 public class VisitOpenBiomindHandler extends AbstractHandler implements Constants {
 

@@ -1,10 +1,28 @@
-/**
- * Preference.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file Preference.java.
+ *  This file (Preference.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.preferences;
 
 import openbiomind.gui.Activator;
@@ -14,10 +32,10 @@ import openbiomind.gui.util.Utility;
 
 /**
  * The class Preference methods to access the plug-in preferences. It also contains constant definitions.
- *
+ * 
  * @author bsanghvi
  * @since Jun 9, 2008
- * @version Aug 13, 2008
+ * @version Aug 18, 2008
  */
 public class Preference implements Constants {
 
@@ -32,7 +50,7 @@ public class Preference implements Constants {
 
    /**
     * Checks if all the set preferences are valid?
-    *
+    * 
     * @return true, if the set preferences are valid
     */
    public static boolean isRequiredPreferenceSet() {
@@ -41,7 +59,7 @@ public class Preference implements Constants {
 
    /**
     * Gets the OpenBiomind jar path.
-    *
+    * 
     * @return the OpenBiomind jar path
     */
    public static String getOpenBiomindJarPath() {
@@ -50,7 +68,7 @@ public class Preference implements Constants {
 
    /**
     * Checks if OpenBiomind jar preference is valid?
-    *
+    * 
     * @return true, if OpenBiomind jar preference is valid
     */
    public static boolean isOpenBiomindJarPreferenceValid() {
@@ -59,9 +77,9 @@ public class Preference implements Constants {
 
    /**
     * Checks if OpenBiomind jar preference is valid for the given value?
-    *
+    * 
     * @param value the value
-    *
+    * 
     * @return true, if OpenBiomind jar preference is valid
     */
    public static boolean isOpenBiomindJarPreferenceValid(final String value) {
@@ -71,7 +89,7 @@ public class Preference implements Constants {
 
    /**
     * Gets the pipeline properties path.
-    *
+    * 
     * @return the pipeline properties path
     */
    public static String getPipelinePropertiesPath() {
@@ -80,7 +98,7 @@ public class Preference implements Constants {
 
    /**
     * Gets the pipeline properties home.
-    *
+    * 
     * @return the pipeline properties home
     */
    public static String getPipelinePropertiesHome() {
@@ -91,7 +109,7 @@ public class Preference implements Constants {
 
    /**
     * Checks if pipeline.properties preference is valid?
-    *
+    * 
     * @return true, if pipeline.properties preference is valid
     */
    public static boolean isPipelinePropertiesPreferenceValid() {
@@ -100,9 +118,9 @@ public class Preference implements Constants {
 
    /**
     * Checks if pipeline.properties preference is valid for the given value?
-    *
+    * 
     * @param value the value
-    *
+    * 
     * @return true, if pipeline.properties preference is valid
     */
    public static boolean isPipelinePropertiesPreferenceValid(final String value) {
@@ -112,7 +130,7 @@ public class Preference implements Constants {
 
    /**
     * Gets the Graphviz dot utility path.
-    *
+    * 
     * @return the Graphviz dot utility path
     */
    public static String getGraphvizDotUtilityPath() {
@@ -121,7 +139,7 @@ public class Preference implements Constants {
 
    /**
     * Checks if the Graphviz dot utility preference is set?
-    *
+    * 
     * @return true, if Graphviz dot utility preference is set
     */
    public static boolean isGraphvizDotUtilityPreferenceSet() {
@@ -131,7 +149,7 @@ public class Preference implements Constants {
 
    /**
     * Checks if the Graphviz dot utility preference is valid?
-    *
+    * 
     * @return true, if Graphviz dot utility preference is valid
     */
    public static boolean isGraphvizDotUtilityPreferenceValid() {
@@ -140,9 +158,9 @@ public class Preference implements Constants {
 
    /**
     * Checks if the Graphviz dot utility preference is valid for the given value?
-    *
+    * 
     * @param value the value
-    *
+    * 
     * @return true, if Graphviz dot utility preference is valid
     */
    public static boolean isGraphvizDotUtilityPreferenceValid(final String value) {

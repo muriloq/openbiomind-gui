@@ -1,10 +1,28 @@
-/**
- * Activator.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file Activator.java.
+ *  This file (Activator.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -13,10 +31,10 @@ import org.osgi.framework.BundleContext;
 
 /**
  * The class Activator controls the plug-in life cycle.
- *
+ * 
  * @author bsanghvi
  * @since Jun 1, 2008
- * @version Jun 1, 2008
+ * @version Aug 18, 2008
  */
 public class Activator extends AbstractUIPlugin {
 
@@ -53,7 +71,7 @@ public class Activator extends AbstractUIPlugin {
 
    /**
     * Returns the shared instance.
-    *
+    * 
     * @return the shared instance
     */
    public static Activator getDefault() {
@@ -62,9 +80,9 @@ public class Activator extends AbstractUIPlugin {
 
    /**
     * Returns an image descriptor for the image file at the given plug-in relative path.
-    *
+    * 
     * @param path the path
-    *
+    * 
     * @return the image descriptor
     */
    public static ImageDescriptor getImageDescriptor(final String path) {

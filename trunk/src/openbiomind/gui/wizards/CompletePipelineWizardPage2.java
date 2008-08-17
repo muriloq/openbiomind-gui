@@ -1,10 +1,28 @@
-/**
- * CompletePipelineWizardPage2.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file CompletePipelineWizardPage2.java.
+ *  This file (CompletePipelineWizardPage2.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.wizards;
 
 import openbiomind.gui.common.TextButtonComposite;
@@ -27,16 +45,14 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * The class CompletePipelineWizardPage2.
- *
+ * 
  * @author bsanghvi
  * @since Aug 2, 2008
- * @version Aug 10, 2008
+ * @version Aug 18, 2008
  */
 public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implements IWizardPage {
 
-   /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.CompletePipelineWizardPage2</code>).
-    */
+   /** The constant for page name (value = <code>openbiomind.gui.wizards.CompletePipelineWizardPage2</code>). */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.CompletePipelineWizardPage2"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
@@ -99,7 +115,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Instantiates a new complete pipeline wizard page 2.
-    *
+    * 
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
@@ -126,7 +142,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Creates the required group.
-    *
+    * 
     * @param parent the parent
     */
    private void createGroup(final Composite parent) {
@@ -212,7 +228,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the ontology description file.
-    *
+    * 
     * @return the ontology description file
     */
    public String getOntologyDescriptionFile() {
@@ -221,7 +237,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the ontology description file text button composite.
-    *
+    * 
     * @return the ontology description file text button composite
     */
    private TextButtonComposite getOntologyDescriptionFileTBC() {
@@ -230,7 +246,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the ontology association file.
-    *
+    * 
     * @return the ontology association file
     */
    public String getOntologyAssociationFile() {
@@ -239,7 +255,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the ontology association file text button composite.
-    *
+    * 
     * @return the ontology association file text button composite
     */
    private TextButtonComposite getOntologyAssociationFileTBC() {
@@ -248,7 +264,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the target category.
-    *
+    * 
     * @return the target category
     */
    public String getTargetCategory() {
@@ -257,7 +273,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the target category combo.
-    *
+    * 
     * @return the target category combo
     */
    private Combo getTargetCategoryCombo() {
@@ -266,7 +282,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the number of folds.
-    *
+    * 
     * @return the number of folds
     */
    public Integer getNumberOfFolds() {
@@ -279,7 +295,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the number of folds text.
-    *
+    * 
     * @return the number of folds text
     */
    private Text getNumberOfFoldsText() {
@@ -288,7 +304,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the number of selected features.
-    *
+    * 
     * @return the number of selected features
     */
    public Integer getNumberOfSelectedFeatures() {
@@ -301,7 +317,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the enhanced dataset file path text.
-    *
+    * 
     * @return the enhancedDatasetFilePathText
     */
    private Text getNumberOfSelectedFeaturesText() {
@@ -310,7 +326,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the feature selection method.
-    *
+    * 
     * @return the feature selection method
     */
    public FeatureSelectionMethodEnum getFeatureSelectionMethod() {
@@ -320,7 +336,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the feature selection method combo.
-    *
+    * 
     * @return the feature selection method combo
     */
    private Combo getFeatureSelectionMethodCombo() {
@@ -329,7 +345,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the number of tasks.
-    *
+    * 
     * @return the number of tasks
     */
    public Integer getNumberOfTasks() {
@@ -342,7 +358,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the number of tasks text.
-    *
+    * 
     * @return the number of tasks
     */
    private Text getNumberOfTasksText() {
@@ -351,7 +367,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the classification method.
-    *
+    * 
     * @return the classification method
     */
    public ClassificationMethodEnum getClassificationMethod() {
@@ -361,7 +377,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the classification method combo.
-    *
+    * 
     * @return the classification method combo
     */
    private Combo getClassificationMethodCombo() {
@@ -370,7 +386,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the meta task shuffling.
-    *
+    * 
     * @return the meta task shuffling
     */
    public ShuffleEnum getMetaTaskShuffling() {
@@ -379,7 +395,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the meta task shuffling combo.
-    *
+    * 
     * @return the meta task shuffling combo
     */
    private Combo getMetaTaskShufflingCombo() {
@@ -388,7 +404,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the dataset clustering metric.
-    *
+    * 
     * @return the dataset clustering metric
     */
    public DatasetClusteringMetricEnum getDatasetClusteringMetric() {
@@ -398,7 +414,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the dataset clustering metric combo.
-    *
+    * 
     * @return the dataset clustering metric combo
     */
    private Combo getDatasetClusteringMetricCombo() {
@@ -407,7 +423,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the is feature selected.
-    *
+    * 
     * @return the is feature selected
     */
    public Boolean getIsFeatureSelected() {
@@ -417,7 +433,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the is feature selected combo.
-    *
+    * 
     * @return the is feature selected combo
     */
    private Combo getIsFeatureSelectedCombo() {
@@ -426,7 +442,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the is folded.
-    *
+    * 
     * @return the is folded
     */
    public Boolean getIsFolded() {
@@ -436,7 +452,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the is folded combo.
-    *
+    * 
     * @return the is folded combo
     */
    private Combo getIsFoldedCombo() {
@@ -445,7 +461,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the clustering colors.
-    *
+    * 
     * @return the clustering colors
     */
    public ClusteringColorsEnum getClusteringColors() {
@@ -454,7 +470,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the clustering colors combo.
-    *
+    * 
     * @return the clustering colors combo
     */
    private Combo getClusteringColorsCombo() {
@@ -463,7 +479,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the maximum co-occurrence edges.
-    *
+    * 
     * @return the maximum co-occurrence edges
     */
    public Integer getMaximumCoOccurrenceEdges() {
@@ -476,7 +492,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the maximum co-occurrence edges text.
-    *
+    * 
     * @return the maximum co-occurrence edges text
     */
    private Text getMaximumCoOccurrenceEdgesText() {
@@ -485,7 +501,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the maximum co-expression edges.
-    *
+    * 
     * @return the maximum co-expression edges
     */
    public Integer getMaximumCoExpressionEdges() {
@@ -498,7 +514,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the maximum co-expression edges text.
-    *
+    * 
     * @return the maximum co-expression edges text
     */
    private Text getMaximumCoExpressionEdgesText() {
@@ -507,7 +523,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the top useful features.
-    *
+    * 
     * @return the top useful features
     */
    public Integer getTopUsefulFeatures() {
@@ -520,7 +536,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the top useful features text.
-    *
+    * 
     * @return the top useful features text
     */
    private Text getTopUsefulFeaturesText() {
@@ -528,7 +544,7 @@ public class CompletePipelineWizardPage2 extends AbstractTaskWizardPage implemen
    }
 
    /*
-    * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#setVisible(boolean)
     */
    @Override
    public void setVisible(final boolean visible) {

@@ -1,10 +1,28 @@
-/**
- * DatasetTransformerWizardPage.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file DatasetTransformerWizardPage.java.
+ *  This file (DatasetTransformerWizardPage.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.wizards;
 
 import java.io.File;
@@ -29,16 +47,14 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * The class DatasetTransformerWizardPage.
- *
+ * 
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Aug 10, 2008
+ * @version Aug 18, 2008
  */
 public class DatasetTransformerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
-   /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.DatasetTransformerWizardPage</code>).
-    */
+   /** The constant for page name (value = <code>openbiomind.gui.wizards.DatasetTransformerWizardPage</code>). */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.DatasetTransformerWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
@@ -80,7 +96,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Instantiates a new dataset transformer wizard page.
-    *
+    * 
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
@@ -109,7 +125,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Creates the required group.
-    *
+    * 
     * @param parent the parent
     */
    private void createRequiredGroup(final Composite parent) {
@@ -127,9 +143,9 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Creates the original dataset text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createOriginalDatasetTBC(final Composite parent) {
@@ -167,9 +183,9 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Creates the output directory text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createOutputDirTBC(final Composite parent) {
@@ -229,7 +245,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Creates the optional group.
-    *
+    * 
     * @param parent the parent
     */
    private void createOptionalGroup(final Composite parent) {
@@ -267,9 +283,9 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Creates the number of folds button.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the button
     */
    private Button createNumberOfFoldsButton(final Composite parent) {
@@ -300,9 +316,9 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Creates the test dataset button.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the button
     */
    private Button createTestDatasetButton(final Composite parent) {
@@ -333,7 +349,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the input dataset file path.
-    *
+    * 
     * @return the input dataset file
     */
    public String getInputDataset() {
@@ -342,7 +358,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the original dataset text button composite.
-    *
+    * 
     * @return the original dataset text button composite
     */
    private TextButtonComposite getOriginalDatasetTBC() {
@@ -351,7 +367,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the output directory.
-    *
+    * 
     * @return the output directory
     */
    public String getOutputDirectory() {
@@ -360,7 +376,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the output directory text button composite.
-    *
+    * 
     * @return the output directory text button composite
     */
    private TextButtonComposite getOutputDirectoryTBC() {
@@ -369,7 +385,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the target category.
-    *
+    * 
     * @return the target category
     */
    public String getTargetCategory() {
@@ -378,7 +394,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the target category combo.
-    *
+    * 
     * @return the target category combo
     */
    private Combo getTargetCategoryCombo() {
@@ -387,7 +403,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the number of selected features.
-    *
+    * 
     * @return the number of selected features
     */
    public Integer getNumberOfSelectedFeatures() {
@@ -400,7 +416,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the enhanced dataset file path text.
-    *
+    * 
     * @return the enhancedDatasetFilePathText
     */
    private Text getNumberOfSelectedFeaturesText() {
@@ -409,7 +425,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the feature selection method.
-    *
+    * 
     * @return the feature selection method
     */
    public FeatureSelectionMethodEnum getFeatureSelectionMethod() {
@@ -419,7 +435,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the feature selection method combo.
-    *
+    * 
     * @return the feature selection method combo
     */
    private Combo getFeatureSelectionMethodCombo() {
@@ -428,7 +444,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Specified number of folds.
-    *
+    * 
     * @return true, if successful
     */
    public boolean specifiedNumberOfFolds() {
@@ -437,7 +453,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the number of folds button.
-    *
+    * 
     * @return the number of folds button
     */
    private Button getNumberOfFoldsButton() {
@@ -446,7 +462,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the number of folds.
-    *
+    * 
     * @return the number of folds
     */
    public Integer getNumberOfFolds() {
@@ -459,7 +475,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the number of folds text.
-    *
+    * 
     * @return the number of folds text
     */
    private Text getNumberOfFoldsText() {
@@ -468,7 +484,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Specified test dataset.
-    *
+    * 
     * @return true, if successful
     */
    public boolean specifiedTestDataset() {
@@ -477,7 +493,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the test dataset button.
-    *
+    * 
     * @return the test dataset button
     */
    private Button getTestDatasetButton() {
@@ -486,7 +502,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the test dataset.
-    *
+    * 
     * @return the test dataset
     */
    public String getTestDataset() {
@@ -495,7 +511,7 @@ public class DatasetTransformerWizardPage extends AbstractTaskWizardPage impleme
 
    /**
     * Gets the test dataset text button composite.
-    *
+    * 
     * @return the test dataset text button composite
     */
    private TextButtonComposite getTestDatasetTBC() {

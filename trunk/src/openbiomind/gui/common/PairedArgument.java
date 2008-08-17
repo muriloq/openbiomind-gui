@@ -1,10 +1,28 @@
-/**
- * PairedArgument.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file PairedArgument.java.
+ *  This file (PairedArgument.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.common;
 
 import java.util.ArrayList;
@@ -24,10 +42,10 @@ import openbiomind.gui.util.Utility;
 
 /**
  * The class PairedArgument.
- *
+ * 
  * @author bsanghvi
  * @since Jul 26, 2008
- * @version Jul 27, 2008
+ * @version Aug 18, 2008
  */
 public class PairedArgument {
 
@@ -43,12 +61,12 @@ public class PairedArgument {
 
    /**
     * Put object as string. Pass a null value to remove the key.
-    *
+    * 
     * @param key the key
     * @param value the value
-    *
+    * 
     * @return the string
-    *
+    * 
     * @see java.util.Map#put(java.lang.Object, java.lang.Object)
     */
    private String putObjectAsString(final String key, final Object value) {
@@ -57,11 +75,11 @@ public class PairedArgument {
 
    /**
     * Gets the value for the specified key.
-    *
+    * 
     * @param key the key
-    *
+    * 
     * @return the string
-    *
+    * 
     * @see java.util.Map#get(java.lang.Object)
     */
    public String get(final String key) {
@@ -70,10 +88,10 @@ public class PairedArgument {
 
    /**
     * Put a non-empty string value.
-    *
+    * 
     * @param key the key
     * @param value the value
-    *
+    * 
     * @return the string
     */
    public String put(final String key, final String value) {
@@ -82,9 +100,9 @@ public class PairedArgument {
 
    /**
     * Parses the boolean.
-    *
+    * 
     * @param value the value
-    *
+    * 
     * @return the boolean
     */
    private Boolean parseBoolean(final String value) {
@@ -93,9 +111,9 @@ public class PairedArgument {
 
    /**
     * Gets the Boolean value for the given <code>key</code> if available/possible, otherwise return <code>null</code>.
-    *
+    * 
     * @param key the key
-    *
+    * 
     * @return the Boolean value if possible, otherwise <code>null</code>
     */
    public Boolean getBoolean(final String key) {
@@ -104,10 +122,10 @@ public class PairedArgument {
 
    /**
     * Put.
-    *
+    * 
     * @param key the key
     * @param value the value
-    *
+    * 
     * @return the boolean
     */
    public Boolean put(final String key, final Boolean value) {
@@ -116,9 +134,9 @@ public class PairedArgument {
 
    /**
     * Gets the classification method enum.
-    *
+    * 
     * @param key the key
-    *
+    * 
     * @return the classification method enum
     */
    public ClassificationMethodEnum getClassificationMethodEnum(final String key) {
@@ -127,10 +145,10 @@ public class PairedArgument {
 
    /**
     * Put.
-    *
+    * 
     * @param key the key
     * @param value the value
-    *
+    * 
     * @return the classification method enum
     */
    public ClassificationMethodEnum put(final String key, final ClassificationMethodEnum value) {
@@ -139,9 +157,9 @@ public class PairedArgument {
 
    /**
     * Gets the clustering colors enum.
-    *
+    * 
     * @param key the key
-    *
+    * 
     * @return the clustering colors enum
     */
    public ClusteringColorsEnum getClusteringColorsEnum(final String key) {
@@ -150,10 +168,10 @@ public class PairedArgument {
 
    /**
     * Put.
-    *
+    * 
     * @param key the key
     * @param value the value
-    *
+    * 
     * @return the clustering colors enum
     */
    public ClusteringColorsEnum put(final String key, final ClusteringColorsEnum value) {
@@ -162,9 +180,9 @@ public class PairedArgument {
 
    /**
     * Gets the dataset clustering metric enum.
-    *
+    * 
     * @param key the key
-    *
+    * 
     * @return the dataset clustering metric enum
     */
    public DatasetClusteringMetricEnum getDatasetClusteringMetricEnum(final String key) {
@@ -173,10 +191,10 @@ public class PairedArgument {
 
    /**
     * Put.
-    *
+    * 
     * @param key the key
     * @param value the value
-    *
+    * 
     * @return the dataset clustering metric enum
     */
    public DatasetClusteringMetricEnum put(final String key, final DatasetClusteringMetricEnum value) {
@@ -185,9 +203,9 @@ public class PairedArgument {
 
    /**
     * Gets the feature selection method enum.
-    *
+    * 
     * @param key the key
-    *
+    * 
     * @return the feature selection method enum
     */
    public FeatureSelectionMethodEnum getFeatureSelectionMethodEnum(final String key) {
@@ -196,10 +214,10 @@ public class PairedArgument {
 
    /**
     * Put.
-    *
+    * 
     * @param key the key
     * @param value the value
-    *
+    * 
     * @return the feature selection method enum
     */
    public FeatureSelectionMethodEnum put(final String key, final FeatureSelectionMethodEnum value) {
@@ -208,9 +226,9 @@ public class PairedArgument {
 
    /**
     * Parses the integer.
-    *
+    * 
     * @param value the value
-    *
+    * 
     * @return the integer
     */
    private Integer parseInteger(final String value) {
@@ -227,9 +245,9 @@ public class PairedArgument {
 
    /**
     * Gets the Integer value for the given <code>key</code> if available/possible, otherwise return <code>null</code>.
-    *
+    * 
     * @param key the key
-    *
+    * 
     * @return the Integer value if possible, otherwise <code>null</code>
     */
    public Integer getInteger(final String key) {
@@ -238,10 +256,10 @@ public class PairedArgument {
 
    /**
     * Put.
-    *
+    * 
     * @param key the key
     * @param value the value
-    *
+    * 
     * @return the integer
     */
    public Integer put(final String key, final Integer value) {
@@ -250,9 +268,9 @@ public class PairedArgument {
 
    /**
     * Gets the shuffle enum.
-    *
+    * 
     * @param key the key
-    *
+    * 
     * @return the shuffle enum
     */
    public ShuffleEnum getShuffleEnum(final String key) {
@@ -261,10 +279,10 @@ public class PairedArgument {
 
    /**
     * Put.
-    *
+    * 
     * @param key the key
     * @param value the value
-    *
+    * 
     * @return the shuffle enum
     */
    public ShuffleEnum put(final String key, final ShuffleEnum value) {
@@ -273,9 +291,9 @@ public class PairedArgument {
 
    /**
     * Gets the transform enum.
-    *
+    * 
     * @param key the key
-    *
+    * 
     * @return the transform enum
     */
    public TransformEnum getTransformEnum(final String key) {
@@ -284,10 +302,10 @@ public class PairedArgument {
 
    /**
     * Put.
-    *
+    * 
     * @param key the key
     * @param value the value
-    *
+    * 
     * @return the transform enum
     */
    public TransformEnum put(final String key, final TransformEnum value) {
@@ -296,11 +314,11 @@ public class PairedArgument {
 
    /**
     * Removes the key.
-    *
+    * 
     * @param key the key
-    *
+    * 
     * @return the string
-    *
+    * 
     * @see java.util.Map#remove(java.lang.Object)
     */
    public String remove(final String key) {
@@ -311,9 +329,9 @@ public class PairedArgument {
     * This method converts the currently stored arguments into a list of the form
     * <code>[key1 value1, key2 value2, ...]</code>. Hence, the size of this list is same as the number of arguments
     * presently stored. To get on a list of all elements, use {@link #toList()}.
-    *
+    * 
     * @return the list of arguments
-    *
+    * 
     * @see #toList()
     */
    public List<String> toArgumentList() {
@@ -329,7 +347,7 @@ public class PairedArgument {
 
    /**
     * This returns a string of the form <code>key1 value1 key2 value2 ...</code>.
-    *
+    * 
     * @return the argument string
     */
    public String toArgumentString() {
@@ -345,9 +363,9 @@ public class PairedArgument {
     * This method converts the currently stored arguments into a list of the form
     * <code>[key1, value1, key2, value2, ...]</code>. Hence, the size of this list is twice the number of arguments
     * presently stored. To get a space separated list of arguments, use {@link #toArgumentList()}.
-    *
+    * 
     * @return the list of arguments
-    *
+    * 
     * @see #toArgumentList()
     */
    public List<String> toList() {
@@ -372,7 +390,7 @@ public class PairedArgument {
 
    /*
     * @see java.lang.Object#equals(java.lang.Object)
-    *
+    * 
     * @see java.util.Map#equals(java.lang.Object)
     */
    @Override
@@ -382,7 +400,7 @@ public class PairedArgument {
 
    /*
     * @see java.lang.Object#hashCode()
-    *
+    * 
     * @see java.util.Map#hashCode()
     */
    @Override

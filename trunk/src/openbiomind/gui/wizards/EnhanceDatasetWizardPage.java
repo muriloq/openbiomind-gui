@@ -1,10 +1,28 @@
-/**
- * EnhanceDatasetWizardPage.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file EnhanceDatasetWizardPage.java.
+ *  This file (EnhanceDatasetWizardPage.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.wizards;
 
 import java.io.File;
@@ -24,16 +42,14 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * The class EnhanceDatasetWizardPage.
- *
+ * 
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 10, 2008
+ * @version Aug 18, 2008
  */
 public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
-   /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.EnhanceDatasetWizardPage</code>).
-    */
+   /** The constant for page name (value = <code>openbiomind.gui.wizards.EnhanceDatasetWizardPage</code>). */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.EnhanceDatasetWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
@@ -72,7 +88,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Instantiates a new enhance dataset wizard page.
-    *
+    * 
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
@@ -101,7 +117,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Creates the required group.
-    *
+    * 
     * @param parent the parent
     */
    private void createRequiredGroup(final Composite parent) {
@@ -131,9 +147,9 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Creates the original dataset text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createOriginalDatasetTBC(final Composite parent) {
@@ -171,9 +187,9 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Creates the enhanced dataset destination file name text.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text
     */
    private Text createEnhancedDatasetDestFileNameText(final Composite parent) {
@@ -206,9 +222,9 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Creates the enhanced dataset destination directory text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createEnhancedDatasetDestDirTBC(final Composite parent) {
@@ -272,9 +288,9 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the enhanced dataset path text. This method uses {@link #getEnhancedDataset()}.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the enhanced dataset path text
     */
    private Text createEnhancedDatasetPathText(final Composite parent) {
@@ -318,7 +334,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Creates the optional group.
-    *
+    * 
     * @param parent the parent
     */
    private void createOptionalGroup(final Composite parent) {
@@ -336,7 +352,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the input dataset.
-    *
+    * 
     * @return the input dataset
     */
    public String getInputDataset() {
@@ -345,7 +361,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the original dataset text button composite.
-    *
+    * 
     * @return the original dataset text button composite
     */
    private TextButtonComposite getOriginalDatasetTBC() {
@@ -354,7 +370,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the enhanced dataset destination file name.
-    *
+    * 
     * @return the enhanced dataset destination file name
     */
    private String getEnhancedDatasetDestFileName() {
@@ -363,7 +379,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the enhanced dataset destination file name text.
-    *
+    * 
     * @return the enhanced dataset destination file name text
     */
    private Text getEnhancedDatasetDestFileNameText() {
@@ -372,7 +388,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Checks if is valid enhanced dataset destination file name.
-    *
+    * 
     * @return true, if checks if is valid enhanced dataset destination file name
     */
    private boolean isValidEnhancedDatasetDestFileName() {
@@ -381,7 +397,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Sets the valid enhanced dataset destination file name.
-    *
+    * 
     * @param validEnhancedDatasetDestFileName the valid enhanced dataset destination file name
     */
    private void setValidEnhancedDatasetDestFileName(final boolean validEnhancedDatasetDestFileName) {
@@ -390,7 +406,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the enhanced dataset destination directory path.
-    *
+    * 
     * @return the enhanced dataset destination directory
     */
    private String getEnhancedDatasetDestDirPath() {
@@ -399,7 +415,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the enhanced dataset destination directory text button composite.
-    *
+    * 
     * @return the enhanced dataset destination directory text button composite
     */
    private TextButtonComposite getEnhancedDatasetDestDirTBC() {
@@ -408,7 +424,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the enhanced dataset.
-    *
+    * 
     * @return the enhanced dataset
     */
    public String getEnhancedDataset() {
@@ -425,7 +441,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the enhanced dataset file path text.
-    *
+    * 
     * @return the enhancedDatasetPathText
     */
    private Text getEnhancedDatasetPathText() {
@@ -434,7 +450,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Checks if is valid enhanced dataset file path.
-    *
+    * 
     * @return the validEnhancedDatasetFilePath
     */
    private boolean isValidEnhancedDatasetFilePath() {
@@ -443,7 +459,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Sets the valid enhanced dataset file path.
-    *
+    * 
     * @param validEnhancedDatasetFilePath the validEnhancedDatasetFilePath to set
     */
    private void setValidEnhancedDatasetFilePath(final boolean validEnhancedDatasetFilePath) {
@@ -452,7 +468,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the ontology description file.
-    *
+    * 
     * @return the ontology description file
     */
    public String getOntologyDescriptionFile() {
@@ -461,7 +477,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the ontology description file text button composite.
-    *
+    * 
     * @return the ontology description file text button composite
     */
    private TextButtonComposite getOntologyDescriptionFileTBC() {
@@ -470,7 +486,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the ontology association file.
-    *
+    * 
     * @return the ontology association file
     */
    public String getOntologyAssociationFile() {
@@ -479,7 +495,7 @@ public class EnhanceDatasetWizardPage extends AbstractTaskWizardPage implements 
 
    /**
     * Gets the ontology association file text button composite.
-    *
+    * 
     * @return the ontology association file text button composite
     */
    private TextButtonComposite getOntologyAssociationFileTBC() {

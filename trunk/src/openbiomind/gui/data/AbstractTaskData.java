@@ -1,10 +1,28 @@
-/**
- * AbstractTaskData.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file AbstractTaskData.java.
+ *  This file (AbstractTaskData.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.data;
 
 import java.util.List;
@@ -17,10 +35,10 @@ import openbiomind.gui.util.Utility;
 
 /**
  * The class AbstractTaskData.
- *
+ * 
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Aug 9, 2008
+ * @version Aug 18, 2008
  */
 public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
@@ -35,7 +53,7 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Instantiates a new abstract task.
-    *
+    * 
     * @param taskName the task name
     */
    protected AbstractTaskData(final String taskName) {
@@ -45,7 +63,7 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Creates the task data folder.
-    *
+    * 
     * @return the task data folder
     */
    public TaskDataFolder createTaskDataFolder() {
@@ -57,21 +75,21 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Creates the input folder.
-    *
+    * 
     * @return the task data folder
     */
    protected abstract TaskDataFolder createInputFolder();
 
    /**
     * Creates the output folder.
-    *
+    * 
     * @return the task data folder
     */
    protected abstract TaskDataFolder createOutputFolder();
 
    /**
     * Gets the paired arguments.
-    *
+    * 
     * @return the paired arguments
     */
    protected PairedArgument getPairedArgument() {
@@ -80,7 +98,7 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Gets the task name.
-    *
+    * 
     * @return the taskName
     */
    public String getTaskName() {
@@ -93,7 +111,7 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Sets the task name.
-    *
+    * 
     * @param taskName the taskName to set
     */
    public void setTaskName(final String taskName) {
@@ -102,7 +120,7 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Checks if is memory intensive.
-    *
+    * 
     * @return true, if is memory intensive
     */
    public boolean isMemoryIntensive() {
@@ -111,7 +129,7 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Sets the memory intensive.
-    *
+    * 
     * @param memoryIntensive the new memory intensive
     */
    public void setMemoryIntensive(final boolean memoryIntensive) {
@@ -122,9 +140,9 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
     * This method converts the currently stored arguments into a list of the form
     * <code>[key1 value1, key2 value2, ...]</code>. Hence, the size of this list is same as the number of arguments
     * presently stored. To get on a list of all elements, use {@link #toList()}.
-    *
+    * 
     * @return the list of arguments
-    *
+    * 
     * @see #toList()
     * @see openbiomind.gui.common.PairedArgument#toArgumentList()
     */
@@ -134,9 +152,9 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * This returns a string of the form <code>key1 value1 key2 value2 ...</code>.
-    *
+    * 
     * @return the argument string
-    *
+    * 
     * @see openbiomind.gui.common.PairedArgument#toArgumentString()
     */
    public String toArgumentString() {
@@ -147,9 +165,9 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
     * This method converts the currently stored arguments into a list of the form
     * <code>[key1, value1, key2, value2, ...]</code>. Hence, the size of this list is twice the number of arguments
     * presently stored. To get a space separated list of arguments, use {@link #toArgumentList()}.
-    *
+    * 
     * @return the list of arguments
-    *
+    * 
     * @see #toArgumentList()
     * @see openbiomind.gui.common.PairedArgument#toList()
     */
@@ -184,12 +202,12 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Creates the task data file.
-    *
+    * 
     * @param fileName the file name
     * @param filePath the file path
     * @param linked the linked
     * @param autoOpen the auto open
-    *
+    * 
     * @return the task data file
     */
    protected TaskDataFile createTaskDataFile(final String fileName, final String filePath, final boolean linked,
@@ -200,11 +218,11 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Creates the task data file.
-    *
+    * 
     * @param filePath the file path
     * @param linked the linked
     * @param autoOpen the auto open
-    *
+    * 
     * @return the task data file
     */
    protected TaskDataFile createTaskDataFile(final String filePath, final boolean linked, final boolean autoOpen) {
@@ -213,12 +231,12 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Creates the task data file.
-    *
+    * 
     * @param filePath the file path
     * @param linked the linked
     * @param autoOpen the auto open
     * @param fileExtension the file extension
-    *
+    * 
     * @return the task data file
     */
    protected TaskDataFile createTaskDataFile(final String filePath, final boolean linked, final boolean autoOpen,
@@ -233,11 +251,11 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Creates the task data folder.
-    *
+    * 
     * @param folderName the folder name
     * @param folderPath the folder path
     * @param linked the linked
-    *
+    * 
     * @return the task data folder
     */
    protected TaskDataFolder createTaskDataFolder(final String folderName, final String folderPath, final boolean linked) {
@@ -248,10 +266,10 @@ public abstract class AbstractTaskData implements Constants, ConstantArguments {
 
    /**
     * Creates the task data folder.
-    *
+    * 
     * @param folderPath the folder path
     * @param linked the linked
-    *
+    * 
     * @return the task data folder
     */
    protected TaskDataFolder createTaskDataFolder(final String folderPath, final boolean linked) {

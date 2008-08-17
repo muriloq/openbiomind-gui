@@ -1,10 +1,28 @@
-/**
- * DatasetTransformerTaskData.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file DatasetTransformerTaskData.java.
+ *  This file (DatasetTransformerTaskData.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.data;
 
 import openbiomind.gui.common.Argument;
@@ -13,14 +31,14 @@ import openbiomind.gui.util.Utility;
 
 /**
  * The class DatasetTransformerTaskData is used by the DatasetTransformer task. The syntax of this task is as follows:
- *
+ * 
  * <pre>
  * task.DatasetTransformer &lt;-d dataset&gt; &lt;-o output directory&gt; [-targetCategory category] [-numberOfFolds folds|-testDataset test dataset] [-numberOfSelectedFeatures nf] [-featureSelectionMethod differentiation|SAM]
  * </pre>
- *
+ * 
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Aug 3, 2008
+ * @version Aug 18, 2008
  */
 public class DatasetTransformerTaskData extends AbstractTaskData {
 
@@ -39,7 +57,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Gets the input dataset (argument = <code>-d</code>).
-    *
+    * 
     * @return the input dataset
     */
    public String getInputDataset() {
@@ -48,7 +66,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Sets the input dataset (argument = <code>-d</code>).
-    *
+    * 
     * @param inputDataset the input dataset
     */
    public void setInputDataset(final String inputDataset) {
@@ -57,7 +75,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Gets the output directory (argument = <code>-o</code>).
-    *
+    * 
     * @return the output directory
     */
    public String getOutputDirectory() {
@@ -66,7 +84,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Sets the output directory (argument = <code>-o</code>).
-    *
+    * 
     * @param outputDirectory the output directory
     */
    public void setOutputDirectory(final String outputDirectory) {
@@ -75,7 +93,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Gets the target category (argument = <code>-targetCategory</code>).
-    *
+    * 
     * @return the target category
     */
    public String getTargetCategory() {
@@ -84,7 +102,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Sets the target category (argument = <code>-targetCategory</code>).
-    *
+    * 
     * @param targetCategory the target category
     */
    public void setTargetCategory(final String targetCategory) {
@@ -95,7 +113,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Gets the number of folds (argument = <code>-numberOfFolds</code>).
-    *
+    * 
     * @return the number of folds
     */
    public Integer getNumberOfFolds() {
@@ -105,7 +123,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
    /**
     * Sets the number of folds (argument = <code>-numberOfFolds</code>). Removes the argument <code>-testDataset</code>
     * if it is already set.
-    *
+    * 
     * @param numberOfFolds the number of folds
     */
    public void setNumberOfFolds(final Integer numberOfFolds) {
@@ -117,7 +135,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Gets the test dataset (argument = <code>-testDataset</code>).
-    *
+    * 
     * @return the test dataset
     */
    public String getTestDataset() {
@@ -127,7 +145,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
    /**
     * Sets the test dataset (argument = <code>-testDataset</code>). Removes the argument <code>-numberOfFolds</code> if
     * it is already set.
-    *
+    * 
     * @param testDataset the test dataset
     */
    public void setTestDataset(final String testDataset) {
@@ -139,7 +157,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Gets the number of selected features (argument = <code>-numberOfSelectedFeatures</code>).
-    *
+    * 
     * @return the number of selected features
     */
    public Integer getNumberOfSelectedFeatures() {
@@ -148,7 +166,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Sets the number of selected features (argument = <code>-numberOfSelectedFeatures</code>).
-    *
+    * 
     * @param numberOfSelectedFeatures the number of selected features
     */
    public void setNumberOfSelectedFeatures(final Integer numberOfSelectedFeatures) {
@@ -157,7 +175,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Gets the feature selection method (argument = <code>-featureSelectionMethod</code>).
-    *
+    * 
     * @return the ontology association file
     */
    public FeatureSelectionMethodEnum getFeatureSelectionMethod() {
@@ -166,7 +184,7 @@ public class DatasetTransformerTaskData extends AbstractTaskData {
 
    /**
     * Sets the feature selection method (argument = <code>-featureSelectionMethod</code>).
-    *
+    * 
     * @param featureSelectionMethod the feature selection method, must be one of
     * {@link FeatureSelectionMethodEnum#DIFFERENTIATION} or {@link FeatureSelectionMethodEnum#SAM}.
     */

@@ -1,10 +1,28 @@
-/**
- * OpenBiomindPreferencePage.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file OpenBiomindPreferencePage.java.
+ *  This file (OpenBiomindPreferencePage.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.preferences;
 
 import openbiomind.gui.Activator;
@@ -19,15 +37,15 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
  * The class OpenBiomindPreferencePage represents a preference page that is contributed to the Preferences dialog.
- *
+ * 
  * <p>
  * This page is used to modify preferences only. They are stored in the preference store that belongs to the main
  * plug-in class. That way, preferences can be accessed directly via the preference store.
  * </p>
- *
+ * 
  * @author bsanghvi
  * @since Jun 9, 2008
- * @version Aug 13, 2008
+ * @version Aug 18, 2008
  */
 public class OpenBiomindPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage, Constants {
 
@@ -107,13 +125,13 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Creates the new file field editor.
-    *
+    * 
     * @param preferenceName the preference name
     * @param labelText the label text
     * @param fileExtensions the file extensions
     * @param emptyStringAllowed the empty string allowed
     * @param errorMessage the error message
-    *
+    * 
     * @return the file field editor
     */
    private FileFieldEditor createNewFileFieldEditor(final String preferenceName, final String labelText,
@@ -127,8 +145,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
    }
 
    /*
-    * @see org.eclipse.jface.preference.FieldEditorPreferencePage#propertyChange(org.eclipse.jface.util
-    * .PropertyChangeEvent)
+    * @see FieldEditorPreferencePage#propertyChange(PropertyChangeEvent)
     */
    @Override
    public void propertyChange(final PropertyChangeEvent event) {
@@ -169,7 +186,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Gets the OpenBiomind jar file field editor.
-    *
+    * 
     * @return the OpenBiomind jar file field editor
     */
    private FileFieldEditor getOpenBiomindJarFileFieldEditor() {
@@ -178,7 +195,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Sets the OpenBiomind jar file field editor.
-    *
+    * 
     * @param openBiomindJarFileFieldEditor the new OpenBiomind jar file field editor
     */
    private void setOpenBiomindJarFileFieldEditor(final FileFieldEditor openBiomindJarFileFieldEditor) {
@@ -187,7 +204,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Checks if OpenBiomind jar preference is valid.
-    *
+    * 
     * @return true, if OpenBiomind jar preference is valid
     */
    private boolean isOpenBiomindJarValid() {
@@ -196,7 +213,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Sets the OpenBiomind jar valid.
-    *
+    * 
     * @param validOpenBiomindJar the new OpenBiomind jar preference valid
     */
    private void setOpenBiomindJarValid(final boolean validOpenBiomindJar) {
@@ -205,7 +222,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Gets the pipeline.properties file field editor.
-    *
+    * 
     * @return the pipeline.properties file field editor
     */
    private FileFieldEditor getPipelinePropertiesFileFieldEditor() {
@@ -214,7 +231,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Sets the pipeline.properties file field editor.
-    *
+    * 
     * @param pipelinePropertiesFileFieldEditor the new pipeline.properties file field editor
     */
    private void setPipelinePropertiesFileFieldEditor(final FileFieldEditor pipelinePropertiesFileFieldEditor) {
@@ -223,7 +240,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Checks if pipeline.properties preference is valid.
-    *
+    * 
     * @return true, if pipeline.properties preference is valid
     */
    private boolean isPipelinePropertiesValid() {
@@ -232,7 +249,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Sets the pipeline.properties preference valid.
-    *
+    * 
     * @param validPipelineProperties the new pipeline.properties valid
     */
    private void setPipelinePropertiesValid(final boolean validPipelineProperties) {
@@ -241,7 +258,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Gets the Graphviz dot utility file field editor.
-    *
+    * 
     * @return the Graphviz dot utility file field editor
     */
    private FileFieldEditor getGraphvizDotUtilityFileFieldEditor() {
@@ -250,7 +267,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Sets the Graphviz dot utility file field editor.
-    *
+    * 
     * @param graphvizDotUtilityFileFieldEditor the new Graphviz dot utility file field editor
     */
    private void setGraphvizDotUtilityFileFieldEditor(final FileFieldEditor graphvizDotUtilityFileFieldEditor) {
@@ -259,7 +276,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Checks if Graphviz dot utility preference is valid.
-    *
+    * 
     * @return true, if Graphviz dot utility preference is valid
     */
    private boolean isGraphvizDotUtilityValid() {
@@ -268,7 +285,7 @@ public class OpenBiomindPreferencePage extends FieldEditorPreferencePage impleme
 
    /**
     * Sets the Graphviz dot utility preference valid.
-    *
+    * 
     * @param validGraphvizDotUtility the new Graphviz dot utility valid
     */
    private void setGraphvizDotUtilityValid(final boolean validGraphvizDotUtility) {

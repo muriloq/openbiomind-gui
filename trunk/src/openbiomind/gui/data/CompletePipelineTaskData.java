@@ -1,10 +1,28 @@
-/**
- * CompletePipelineTaskData.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file CompletePipelineTaskData.java.
+ *  This file (CompletePipelineTaskData.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.data;
 
 import openbiomind.gui.common.Argument;
@@ -13,14 +31,14 @@ import openbiomind.gui.util.Utility;
 
 /**
  * The class CompletePipelineTaskData is used by the CompletePipeline task. The syntax of this task is as follows:
- *
+ * 
  * <pre>
  * task.CompletePipeline &lt;-d dataset&gt; &lt;-o output directory&gt; [-dt test dataset] [-p property file] [property options]
  * </pre>
- *
+ * 
  * @author bsanghvi
  * @since Jul 2, 2008
- * @version Jul 28, 2008
+ * @version Aug 18, 2008
  */
 public class CompletePipelineTaskData extends AbstractTaskData {
 
@@ -46,7 +64,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the input dataset (argument = <code>-d</code>).
-    *
+    * 
     * @return the input dataset
     */
    public String getInputDataset() {
@@ -55,7 +73,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the input dataset (argument = <code>-d</code>).
-    *
+    * 
     * @param inputDataset the input dataset
     */
    public void setInputDataset(final String inputDataset) {
@@ -64,7 +82,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the output directory (argument = <code>-o</code>).
-    *
+    * 
     * @return the output directory
     */
    public String getOutputDirectory() {
@@ -73,7 +91,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the output directory (argument = <code>-o</code>).
-    *
+    * 
     * @param outputDirectory the output directory
     */
    public void setOutputDirectory(final String outputDirectory) {
@@ -82,7 +100,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the test dataset (argument = <code>-dt</code>).
-    *
+    * 
     * @return the test dataset
     */
    public String getTestDataset() {
@@ -91,7 +109,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the test dataset (argument = <code>-dt</code>).
-    *
+    * 
     * @param testDataset the test dataset
     */
    public void setTestDataset(final String testDataset) {
@@ -100,7 +118,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the property file (argument = <code>-p</code>).
-    *
+    * 
     * @return the property file
     */
    public String getPropertyFile() {
@@ -109,7 +127,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the property file (argument = <code>-p</code>).
-    *
+    * 
     * @param propertyFile the property file
     */
    public void setPropertyFile(final String propertyFile) {
@@ -118,7 +136,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the graph image path.
-    *
+    * 
     * @return the graph image path
     */
    public String getGraphImagePath() {
@@ -127,7 +145,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the graph image path.
-    *
+    * 
     * @param graphImagePath the new graph image path
     */
    public void setGraphImagePath(final String graphImagePath) {
@@ -136,7 +154,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the number of top useful features (argument = <code>-topNUseful</code>).
-    *
+    * 
     * @return the top useful features
     */
    public Integer getTopUsefulFeatures() {
@@ -145,7 +163,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the number of top useful features (argument = <code>-topNUseful</code>).
-    *
+    * 
     * @param topUsefulFeatures the top useful features
     */
    public void setTopUsefulFeatures(final Integer topUsefulFeatures) {
@@ -154,7 +172,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the number of maximum co-occurrence edges (argument = <code>-topNCooc</code>).
-    *
+    * 
     * @return the maximum co-occurrence edges
     */
    public Integer getMaximumCoOccurrenceEdges() {
@@ -163,7 +181,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the number of maximum co-occurrence edges (argument = <code>-topNCooc</code>).
-    *
+    * 
     * @param maximumCoOccurrenceEdges the maximum co-occurrence edges
     */
    public void setMaximumCoOccurrenceEdges(final Integer maximumCoOccurrenceEdges) {
@@ -172,7 +190,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the number of maximum co-expression edges (argument = <code>-topNCoex</code>).
-    *
+    * 
     * @return the maximum co-expression edges
     */
    public Integer getMaximumCoExpressionEdges() {
@@ -181,7 +199,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the number of maximum co-expression edges (argument = <code>-topNCoex</code>).
-    *
+    * 
     * @param maximumCoExpressionEdges the maximum co-expression edges
     */
    public void setMaximumCoExpressionEdges(final Integer maximumCoExpressionEdges) {
@@ -190,7 +208,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the number of folds (argument = <code>-numberOfFolds</code>).
-    *
+    * 
     * @return the number of folds
     */
    public Integer getNumberOfFolds() {
@@ -199,7 +217,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the number of folds (argument = <code>-numberOfFolds</code>). if it is already set.
-    *
+    * 
     * @param numberOfFolds the number of folds
     */
    public void setNumberOfFolds(final Integer numberOfFolds) {
@@ -208,7 +226,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the number of selected features (argument = <code>-numberOfSelectedFeatures</code>).
-    *
+    * 
     * @return the number of selected features
     */
    public Integer getNumberOfSelectedFeatures() {
@@ -217,7 +235,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the number of selected features (argument = <code>-numberOfSelectedFeatures</code>).
-    *
+    * 
     * @param numberOfSelectedFeatures the number of selected features
     */
    public void setNumberOfSelectedFeatures(final Integer numberOfSelectedFeatures) {
@@ -226,7 +244,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the feature selection method (argument = <code>-featureSelectionMethod</code>).
-    *
+    * 
     * @return the ontology association file
     */
    public FeatureSelectionMethodEnum getFeatureSelectionMethod() {
@@ -235,7 +253,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the feature selection method (argument = <code>-featureSelectionMethod</code>).
-    *
+    * 
     * @param featureSelectionMethod the feature selection method, must be one of
     * {@link FeatureSelectionMethodEnum#DIFFERENTIATION} or {@link FeatureSelectionMethodEnum#SAM}.
     */
@@ -245,7 +263,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the ontology description file (argument = <code>-ontologyDescriptionFile</code>).
-    *
+    * 
     * @return the ontology description file
     */
    public String getOntologyDescriptionFile() {
@@ -254,7 +272,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the ontology description file (argument = <code>-ontologyDescriptionFile</code>).
-    *
+    * 
     * @param ontologyDescriptionFile the ontology description file
     */
    public void setOntologyDescriptionFile(final String ontologyDescriptionFile) {
@@ -263,7 +281,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the ontology association file (argument = <code>-ontologyAssociationFile</code>).
-    *
+    * 
     * @return the ontology association file
     */
    public String getOntologyAssociationFile() {
@@ -272,7 +290,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the ontology association file (argument = <code>-ontologyAssociationFile</code>).
-    *
+    * 
     * @param ontologyAssociationFile the ontology association file
     */
    public void setOntologyAssociationFile(final String ontologyAssociationFile) {
@@ -281,7 +299,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the number of tasks (argument = <code>-numberOfTasks</code>).
-    *
+    * 
     * @return the number of folds
     */
    public Integer getNumberOfTasks() {
@@ -290,7 +308,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the number of tasks (argument = <code>-numberOfTasks</code>).
-    *
+    * 
     * @param numberOfTasks the number of tasks
     */
    public void setNumberOfTasks(final Integer numberOfTasks) {
@@ -299,7 +317,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the target category (argument = <code>-targetCategory</code>).
-    *
+    * 
     * @return the target category
     */
    public String getTargetCategory() {
@@ -308,7 +326,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the target category (argument = <code>-targetCategory</code>).
-    *
+    * 
     * @param targetCategory the target category
     */
    public void setTargetCategory(final String targetCategory) {
@@ -317,7 +335,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the classification method (argument = <code>-classificationMethod</code>).
-    *
+    * 
     * @return the ontology association file
     */
    public ClassificationMethodEnum getClassificationMethod() {
@@ -326,7 +344,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the classification method (argument = <code>-classificationMethod</code>).
-    *
+    * 
     * @param featureSelectionMethod the feature selection method, must be one of {@link ClassificationMethodEnum}.
     */
    public void setClassficationMethod(final ClassificationMethodEnum featureSelectionMethod) {
@@ -335,9 +353,9 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the meta task shuffling.
-    *
+    * 
     * @return the meta task shuffling
-    *
+    * 
     * @see ShuffleEnum
     */
    public ShuffleEnum getMetaTaskShuffling() {
@@ -346,9 +364,9 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the meta task shuffling.
-    *
+    * 
     * @param metaTaskShuffling the meta task shuffling
-    *
+    * 
     * @see ShuffleEnum
     */
    public void setMetaTaskShuffling(final ShuffleEnum metaTaskShuffling) {
@@ -357,7 +375,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the dataset clustering metric (argument = <code>-datasetClusteringMetric</code>).
-    *
+    * 
     * @return the dataset clustering metric
     */
    public DatasetClusteringMetricEnum getDatasetClusteringMetric() {
@@ -366,7 +384,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the dataset clustering metric (argument = <code>-datasetClusteringMetric</code>).
-    *
+    * 
     * @param datasetClusteringMetric the dataset clustering metric
     */
    public void setDatasetClusteringMetric(final DatasetClusteringMetricEnum datasetClusteringMetric) {
@@ -375,7 +393,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the clustering colors (argument = <code>-targetCategory</code>).
-    *
+    * 
     * @return the clustering colors
     */
    public ClusteringColorsEnum getClusteringColors() {
@@ -384,7 +402,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the clustering colors (argument = <code>-targetCategory</code>).
-    *
+    * 
     * @param clusteringColors the clustering colors
     */
    public void setClusteringColors(final ClusteringColorsEnum clusteringColors) {
@@ -393,7 +411,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the isFeatureSelected (argument = <code>-isFeatureSelected</code>).
-    *
+    * 
     * @return the is feature selected
     */
    public Boolean getIsFeatureSelected() {
@@ -402,7 +420,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the isFeatureSelected (argument = <code>-isFeatureSelected</code>).
-    *
+    * 
     * @param isFeatureSelected the is feature selected
     */
    public void setIsFeatureSelected(final Boolean isFeatureSelected) {
@@ -411,7 +429,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Gets the isFolded (argument = <code>-isFolded</code>).
-    *
+    * 
     * @return the is feature selected
     */
    public Boolean getIsFolded() {
@@ -420,7 +438,7 @@ public class CompletePipelineTaskData extends AbstractTaskData {
 
    /**
     * Sets the isFolded (argument = <code>-isFolded</code>).
-    *
+    * 
     * @param isFolded the is folded
     */
    public void setIsFolded(final Boolean isFolded) {
