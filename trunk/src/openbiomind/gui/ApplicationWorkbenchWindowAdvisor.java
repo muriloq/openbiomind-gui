@@ -19,16 +19,22 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 /**
  * The class ApplicationWorkbenchWindowAdvisor.
- *
+ * 
  * @author bsanghvi
  * @since Jun 1, 2008
- * @version Jul 30, 2008
+ * @version Aug 16, 2008
  */
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
+   /** The constant for initial width of the window. */
+   private static final int WIDTH = 800;
+
+   /** The constant for initial height of the window. */
+   private static final int HEIGHT = 600;
+
    /**
     * Instantiates a new application workbench window advisor.
-    *
+    * 
     * @param configurer the configurer
     */
    public ApplicationWorkbenchWindowAdvisor(final IWorkbenchWindowConfigurer configurer) {
@@ -36,8 +42,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
    }
 
    /*
-    * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#createActionBarAdvisor(org.eclipse.ui.
-    * application.IActionBarConfigurer)
+    * @see WorkbenchWindowAdvisor#createActionBarAdvisor(IActionBarConfigurer)
     */
    @Override
    public ActionBarAdvisor createActionBarAdvisor(final IActionBarConfigurer configurer) {
@@ -50,20 +55,11 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
    @Override
    public void preWindowOpen() {
       final IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
-      configurer.setInitialSize(new Point(800, 600));
+      configurer.setInitialSize(new Point(WIDTH, HEIGHT));
       configurer.setShowMenuBar(true);
       configurer.setShowCoolBar(true);
       configurer.setShowStatusLine(true);
    }
-
-//   /*
-//    * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowOpen()
-//    */
-//   @Override
-//   public void postWindowOpen() {
-//      // NOTE To write to status line, use following
-//      // getWindowConfigurer().getActionBarConfigurer().getStatusLineManager().setMessage(...);
-//   }
 
    /*
     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#preWindowShellClose()
