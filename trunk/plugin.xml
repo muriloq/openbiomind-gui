@@ -3,10 +3,33 @@
 
 <!-- $Id$ -->
 <!-- ======================================================================
+      OpenBiomind-GUI: GUI for OpenBiomind
+      Copyright (C) 2008  Bhavesh Sanghvi
+
+      This file (plugin.xml) is part of OpenBiomind-GUI.
+
+      OpenBiomind-GUI is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 3 of the License, or
+      (at your option) any later version.
+
+      OpenBiomind-GUI is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU General Public License for more details.
+
+      You should have received a copy of the GNU General Public License
+      along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+
+      Please visit the following pages to contact the author(s):
+      Homepage: http://code.google.com/p/openbiomind-gui/
+      Mailing list: http://groups.google.com/group/openbiomind-gui/
+     ====================================================================== -->
+<!-- ======================================================================
       This is the plugin file for OpenBiomind-GUI.
       Author  : bsanghvi
       Created : May 26, 2008
-      Version : Aug 17, 2008
+      Version : Aug 18, 2008
      ====================================================================== -->
 
 <plugin>
@@ -44,7 +67,7 @@
          </property>
          <property
                name="aboutText"
-               value="OpenBiomind-GUI: GUI for OpenBiomind&#x0A;Version: 0.0.12.20080813&#x0A;Development build&#x0A;&#x0A;For latest releast please visit http://code.google.com/p/openbiomind-gui/ and http://code.google.com/p/openbiomind/.">
+               value="OpenBiomind-GUI: GUI for OpenBiomind  version 0.1.0.20080818 Beta&#x0A;Copyright (C) 2008  Bhavesh Sanghvi&#x0A;&#x0A;OpenBiomind-GUI is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&#x0A;&#x0A;OpenBiomind-GUI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.&#x0A;&#x0A;You should have received a copy of the GNU General Public License along with OpenBiomind-GUI.  If not, see &lt;http://www.gnu.org/licenses/&gt;.&#x0A;&#x0A;Please visit the following pages to contact the author(s):&#x0A;Homepage: http://code.google.com/p/openbiomind-gui/&#x0A;Mailing list: http://groups.google.com/group/openbiomind-gui/">
          </property>
          <property
                name="aboutImage"
