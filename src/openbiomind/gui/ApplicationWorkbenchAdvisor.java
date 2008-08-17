@@ -22,10 +22,10 @@ import org.osgi.framework.Bundle;
 
 /**
  * The class ApplicationWorkbenchAdvisor.
- *
+ * 
  * @author bsanghvi
  * @since Jun 1, 2008
- * @version Jun 1, 2008
+ * @version Jul 1, 2008
  */
 @SuppressWarnings("restriction")
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
@@ -34,8 +34,7 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
    private static final String PERSPECTIVE_ID = "openbiomind.gui.Perspective"; //$NON-NLS-1$
 
    /*
-    * @seeorg.eclipse.ui.application.WorkbenchAdvisor#createWorkbenchWindowAdvisor(org.eclipse.ui.application.
-    * IWorkbenchWindowConfigurer)
+    * @see WorkbenchAdvisor#createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer)
     */
    @Override
    public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(final IWorkbenchWindowConfigurer configurer) {
@@ -51,7 +50,7 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
    }
 
    /*
-    * @see org.eclipse.ui.application.WorkbenchAdvisor#initialize(org.eclipse.ui.application. IWorkbenchConfigurer)
+    * @see org.eclipse.ui.application.WorkbenchAdvisor#initialize(org.eclipse.ui.application.IWorkbenchConfigurer)
     */
    @Override
    public void initialize(final IWorkbenchConfigurer configurer) {
@@ -76,7 +75,7 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
     * Inits the workbench. Please refer <a
     * href="http://help.eclipse.org/ganymede/topic/org.eclipse.platform.doc.isv/guide/cnf_rcp.htm"
     * >/topic/org.eclipse.platform.doc.isv/guide/cnf_rcp.htm</a>.
-    *
+    * 
     * @param configurer the configurer
     */
    private void initWorkbench(final IWorkbenchConfigurer configurer) {
@@ -92,7 +91,7 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
    /**
     * Declare workbench image.
-    *
+    * 
     * @param workbenchConfigurer the workbench configurer
     * @param ideBundle the ide bundle
     * @param symbolicName the symbolic name
