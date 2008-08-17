@@ -1,10 +1,28 @@
-/**
- * Utility.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file Utility.java.
+ *  This file (Utility.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.util;
 
 import java.io.Closeable;
@@ -17,18 +35,18 @@ import openbiomind.gui.console.Console;
 
 /**
  * The class Utility.
- *
+ * 
  * @author bsanghvi
  * @since Jun 14, 2008
- * @version Aug 13, 2008
+ * @version Aug 18, 2008
  */
 public final class Utility implements Constants {
 
    /**
     * Checks if is the string empty.
-    *
+    * 
     * @param string the string
-    *
+    * 
     * @return true, if is empty
     */
    public static boolean isEmpty(final String string) {
@@ -37,9 +55,9 @@ public final class Utility implements Constants {
 
    /**
     * Checks if is empty or existing file.
-    *
+    * 
     * @param filePath the file path
-    *
+    * 
     * @return true, if is empty or existing file
     */
    public static boolean isEmptyOrExistingFile(final String filePath) {
@@ -48,9 +66,9 @@ public final class Utility implements Constants {
 
    /**
     * Specifies if a file or directory specified by pathname exists or not?.
-    *
+    * 
     * @param pathName the path name
-    *
+    * 
     * @return true, if successful
     */
    public static boolean exists(final String pathName) {
@@ -59,9 +77,9 @@ public final class Utility implements Constants {
 
    /**
     * File exists.
-    *
+    * 
     * @param pathname the pathname
-    *
+    * 
     * @return true, if successful
     */
    public static boolean fileExists(final String pathname) {
@@ -75,9 +93,9 @@ public final class Utility implements Constants {
 
    /**
     * Directory exists.
-    *
+    * 
     * @param pathname the pathname
-    *
+    * 
     * @return true, if successful
     */
    public static boolean directoryExists(final String pathname) {
@@ -91,9 +109,9 @@ public final class Utility implements Constants {
 
    /**
     * Directory exists.
-    *
+    * 
     * @param directory the directory
-    *
+    * 
     * @return true, if successful
     */
    public static boolean directoryExists(final File directory) {
@@ -102,9 +120,9 @@ public final class Utility implements Constants {
 
    /**
     * Checks if pathname can be a file or not?
-    *
+    * 
     * @param pathname the pathname
-    *
+    * 
     * @return true, if pathname can be a file
     */
    public static boolean isPossibleFile(final String pathname) {
@@ -113,9 +131,9 @@ public final class Utility implements Constants {
 
    /**
     * Checks if is possible file.
-    *
+    * 
     * @param file the file
-    *
+    * 
     * @return true, if is possible file
     */
    public static boolean isPossibleFile(final File file) {
@@ -124,9 +142,9 @@ public final class Utility implements Constants {
 
    /**
     * Checks if pathname can be a directory or not?
-    *
+    * 
     * @param pathname the pathname
-    *
+    * 
     * @return true, if pathname can be a directory
     */
    public static boolean isPossibleDirectory(final String pathname) {
@@ -135,9 +153,9 @@ public final class Utility implements Constants {
 
    /**
     * Checks if is possible directory.
-    *
+    * 
     * @param file the file
-    *
+    * 
     * @return true, if is possible directory
     */
    public static boolean isPossibleDirectory(final File file) {
@@ -147,9 +165,9 @@ public final class Utility implements Constants {
    /**
     * Extract directory. If the given <code>pathName</code> is a possible directory then it is returned. If it is a
     * file, then its parent is returned.
-    *
+    * 
     * @param pathName the path name
-    *
+    * 
     * @return the string
     */
    public static String extractDirectory(final String pathName) {
@@ -165,9 +183,9 @@ public final class Utility implements Constants {
 
    /**
     * Extract name of the file or the directory from the path. The file name includes extension.
-    *
+    * 
     * @param pathName the path name
-    *
+    * 
     * @return the string
     */
    public static String extractFullName(final String pathName) {
@@ -179,9 +197,9 @@ public final class Utility implements Constants {
 
    /**
     * Extract name of the file without the extension.
-    *
+    * 
     * @param filePath the file path
-    *
+    * 
     * @return the string
     */
    public static String extractFileName(final String filePath) {
@@ -196,11 +214,11 @@ public final class Utility implements Constants {
    /**
     * List the names of file in the given <code>directory</code> such that the names of the files begin with
     * <code>startsWith</code> and ends with <code>endsWith</code>.
-    *
+    * 
     * @param directory the directory
     * @param startsWith the starts with
     * @param endsWith the ends with
-    *
+    * 
     * @return the string[]
     */
    public static String[] listFileNames(final File directory, final String startsWith, final String endsWith) {
@@ -217,9 +235,9 @@ public final class Utility implements Constants {
 
    /**
     * Close the closeable resource.
-    *
+    * 
     * @param closeable the resource to be closed
-    *
+    * 
     * @return true, if no exception occurred while closing
     */
    public static boolean close(final Closeable closeable) {

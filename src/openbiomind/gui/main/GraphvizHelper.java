@@ -1,10 +1,28 @@
-/**
- * GraphvizHelper.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file GraphvizHelper.java.
+ *  This file (GraphvizHelper.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.main;
 
 import java.io.BufferedReader;
@@ -22,10 +40,10 @@ import openbiomind.gui.util.Utility;
 
 /**
  * The class GraphvizHelper.
- *
+ * 
  * @author bsanghvi
  * @since Jul 25, 2008
- * @version Aug 13, 2008
+ * @version Aug 18, 2008
  */
 public class GraphvizHelper {
 
@@ -52,7 +70,7 @@ public class GraphvizHelper {
 
    /**
     * Instantiates a new Graphviz helper.
-    *
+    * 
     * @param sourceFilePath the source file path
     */
    public GraphvizHelper(final String sourceFilePath) {
@@ -62,7 +80,7 @@ public class GraphvizHelper {
 
    /**
     * Creates the dot process.
-    *
+    * 
     * @return the process
     */
    public Process createDotProcess() {
@@ -89,7 +107,7 @@ public class GraphvizHelper {
 
    /**
     * Gets the output file path.
-    *
+    * 
     * @return the output file path
     */
    public String getOutputFilePath() {
@@ -111,7 +129,7 @@ public class GraphvizHelper {
 
    /**
     * Gets the source file path.
-    *
+    * 
     * @return the source file path
     */
    private String getSourceFilePath() {
@@ -120,9 +138,9 @@ public class GraphvizHelper {
 
    /**
     * Validate dot command.
-    *
+    * 
     * @param command the command
-    *
+    * 
     * @return true, if successful
     */
    public static boolean validateDotCommand(final String command) {

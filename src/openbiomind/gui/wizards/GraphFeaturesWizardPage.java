@@ -1,10 +1,28 @@
-/**
- * GraphFeaturesWizardPage.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file GraphFeaturesWizardPage.java.
+ *  This file (GraphFeaturesWizardPage.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.wizards;
 
 import java.io.File;
@@ -26,16 +44,14 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * The class GraphFeaturesWizardPage.
- *
+ * 
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Aug 10, 2008
+ * @version Aug 18, 2008
  */
 public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
-   /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.GraphFeaturesWizardPage</code>).
-    */
+   /** The constant for page name (value = <code>openbiomind.gui.wizards.GraphFeaturesWizardPage</code>). */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.GraphFeaturesWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
@@ -89,7 +105,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Instantiates a new graph features wizard page.
-    *
+    * 
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
@@ -118,7 +134,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Creates the required group.
-    *
+    * 
     * @param parent the parent
     */
    private void createRequiredGroup(final Composite parent) {
@@ -160,10 +176,10 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Creates the select file text button composite.
-    *
+    * 
     * @param parent the parent
     * @param tooltip the tool tip
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createSelectFileTBC(final Composite parent, final String tooltip) {
@@ -204,9 +220,9 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Creates the output file destination file text.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text
     */
    private Text createOutputFileDestFileText(final Composite parent) {
@@ -239,9 +255,9 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Creates the output file destination directory text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createOutputFileDestDirTBC(final Composite parent) {
@@ -305,9 +321,9 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the output file path text. This method uses {@link #getOutputFile()}.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the output file path text
     */
    private Text createOutputFilePathText(final Composite parent) {
@@ -351,7 +367,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Creates the optional group.
-    *
+    * 
     * @param parent the parent
     */
    private void createOptionalGroup(final Composite parent) {
@@ -376,7 +392,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the horizontal dataset.
-    *
+    * 
     * @return the horizontal dataset
     */
    public String getHorizontalDataset() {
@@ -385,7 +401,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the horizontal dataset text button composite.
-    *
+    * 
     * @return the horizontal dataset text button composite
     */
    private TextButtonComposite getHorizontalDatasetTBC() {
@@ -394,7 +410,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the MOBRA dataset.
-    *
+    * 
     * @return the MOBRA dataset
     */
    public String getMobraDataset() {
@@ -403,7 +419,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the MOBRA dataset text button composite.
-    *
+    * 
     * @return the MOBRA dataset text button composite
     */
    private TextButtonComposite getMobraDatasetTBC() {
@@ -412,7 +428,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the utility file.
-    *
+    * 
     * @return the utility file
     */
    public String getUtilityFile() {
@@ -421,7 +437,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the utility file text button composite.
-    *
+    * 
     * @return the utility file text button composite
     */
    private TextButtonComposite getUtilityFileTBC() {
@@ -430,7 +446,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the output file destination file.
-    *
+    * 
     * @return the output file destination file
     */
    private String getOutputFileDestFileName() {
@@ -439,7 +455,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the output file destination file text.
-    *
+    * 
     * @return the output file destination file text
     */
    private Text getOutputFileDestFileText() {
@@ -448,7 +464,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Checks if is valid output file destination file name.
-    *
+    * 
     * @return true, if is valid output file destination file name
     */
    private boolean isValidOutputFileDestFileName() {
@@ -457,7 +473,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Sets the valid output file destination file name.
-    *
+    * 
     * @param validOutputFileDestFileName the new valid output file destination file name
     */
    private void setValidOutputFileDestFileName(final boolean validOutputFileDestFileName) {
@@ -466,7 +482,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the output file destination directory path.
-    *
+    * 
     * @return the output file destination directory
     */
    private String getOutputFileDestDirPath() {
@@ -475,7 +491,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the output file destination extension.
-    *
+    * 
     * @return the output file destination extension
     */
    private String getOutputFileDestFileExt() {
@@ -484,7 +500,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the output file destination extension combo.
-    *
+    * 
     * @return the output file destination extension combo
     */
    private Combo getOutputFileDestExtCombo() {
@@ -493,7 +509,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the output file destination extension array.
-    *
+    * 
     * @return the output file destination extension array
     */
    private String[] getOutputFileDestExtArray() {
@@ -506,7 +522,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the output file destination directory text button composite.
-    *
+    * 
     * @return the output file destination directory text button composite
     */
    private TextButtonComposite getOutputFileDestDirTBC() {
@@ -515,7 +531,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the output file.
-    *
+    * 
     * @return the output file
     */
    public String getOutputFile() {
@@ -532,7 +548,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the output file path text.
-    *
+    * 
     * @return the output file path text
     */
    private Text getOutputFilePathText() {
@@ -541,7 +557,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Checks if is valid output file path.
-    *
+    * 
     * @return true, if is valid output file path
     */
    private boolean isValidOutputFilePath() {
@@ -550,7 +566,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Sets the valid output file path.
-    *
+    * 
     * @param validOutputFilePath the new valid output file path
     */
    private void setValidOutputFilePath(final boolean validOutputFilePath) {
@@ -559,7 +575,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the maximum co-occurrence edges.
-    *
+    * 
     * @return the maximum co-occurrence edges
     */
    public Integer getMaximumCoOccurrenceEdges() {
@@ -572,7 +588,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the maximum co-occurrence edges text.
-    *
+    * 
     * @return the maximum co-occurrence edges text
     */
    private Text getMaximumCoOccurrenceEdgesText() {
@@ -581,7 +597,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the maximum co-expression edges.
-    *
+    * 
     * @return the maximum co-expression edges
     */
    public Integer getMaximumCoExpressionEdges() {
@@ -594,7 +610,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the maximum co-expression edges text.
-    *
+    * 
     * @return the maximum co-expression edges text
     */
    private Text getMaximumCoExpressionEdgesText() {
@@ -603,7 +619,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the top useful features.
-    *
+    * 
     * @return the top useful features
     */
    public Integer getTopUsefulFeatures() {
@@ -616,7 +632,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
 
    /**
     * Gets the top useful features text.
-    *
+    * 
     * @return the top useful features text
     */
    private Text getTopUsefulFeaturesText() {
@@ -624,7 +640,7 @@ public class GraphFeaturesWizardPage extends AbstractTaskWizardPage implements I
    }
 
    /*
-    * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#setVisible(boolean)
     */
    @Override
    public void setVisible(final boolean visible) {

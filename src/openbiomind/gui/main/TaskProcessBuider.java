@@ -1,10 +1,28 @@
-/**
- * TaskProcessBuider.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file TaskProcessBuider.java.
+ *  This file (TaskProcessBuider.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.main;
 
 import java.io.File;
@@ -19,10 +37,10 @@ import openbiomind.gui.preferences.Preference;
 
 /**
  * The class TaskProcessBuider.
- *
+ * 
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Jul 27, 2008
+ * @version Aug 18, 2008
  */
 public class TaskProcessBuider implements Constants {
 
@@ -43,7 +61,7 @@ public class TaskProcessBuider implements Constants {
 
    /**
     * The Constructor.
-    *
+    * 
     * @param abstractTaskData the abstract task data
     */
    public TaskProcessBuider(final AbstractTaskData abstractTaskData) {
@@ -53,11 +71,11 @@ public class TaskProcessBuider implements Constants {
 
    /**
     * Start the process.
-    *
+    * 
     * @return the process
-    *
+    * 
     * @throws IOException Signals that an I/O exception has occurred.
-    *
+    * 
     * @see java.lang.ProcessBuilder#start()
     */
    public Process start() throws IOException {
@@ -85,7 +103,7 @@ public class TaskProcessBuider implements Constants {
 
    /**
     * Log command list.
-    *
+    * 
     * @param list the command list
     */
    private void logList(final List<String> list) {
@@ -98,7 +116,7 @@ public class TaskProcessBuider implements Constants {
 
    /**
     * Gets the classpath.
-    *
+    * 
     * @return the classpath
     */
    private String getClasspath() {

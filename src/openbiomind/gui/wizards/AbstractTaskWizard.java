@@ -1,10 +1,28 @@
-/**
- * AbstractTaskWizard.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file AbstractTaskWizard.java.
+ *  This file (AbstractTaskWizard.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.wizards;
 
 import java.io.BufferedReader;
@@ -50,10 +68,10 @@ import org.eclipse.ui.ide.IDE;
 
 /**
  * The class AbstractTaskWizard.
- *
+ * 
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 13, 2008
+ * @version Aug 18, 2008
  */
 public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
@@ -65,7 +83,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /**
     * Instantiates a new enhance dataset wizard.
-    *
+    * 
     * @param wizardTitle the wizard title
     */
    protected AbstractTaskWizard(final String wizardTitle) {
@@ -76,14 +94,14 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /**
     * Gets the task data.
-    *
+    * 
     * @return the task data
     */
    protected abstract AbstractTaskData[] getTaskData();
 
    /**
     * Gets the first wizard page.
-    *
+    * 
     * @return the first wizard page
     */
    protected abstract AbstractTaskWizardPage getFirstWizardPage();
@@ -128,9 +146,9 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /**
     * Do finish.
-    *
+    * 
     * @param monitor the monitor
-    *
+    * 
     * @throws CoreException the core exception
     */
    private void doFinish(final IProgressMonitor monitor) throws CoreException {
@@ -199,7 +217,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
    /**
     * Gets the post successful execution process. Override this method if you want to do some task after the command
     * execution and before project creation.
-    *
+    * 
     * @return the post successful execution process
     */
    protected Process getPostSuccessfulExecutionProcess() {
@@ -208,11 +226,11 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /**
     * Execute task.
-    *
+    * 
     * @param process the process
     * @param executionLogWriter the execution log writer
     * @param monitor the monitor
-    *
+    * 
     * @return true, if successful
     */
    private boolean executeTaskProcess(final Process process, final PrintWriter executionLogWriter,
@@ -232,11 +250,11 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /**
     * Execute process.
-    *
+    * 
     * @param process the process
     * @param executionLogWriter the execution log writer
     * @param monitor the monitor
-    *
+    * 
     * @return true, if successful
     */
    private boolean executeProcess(final Process process, final PrintWriter executionLogWriter,
@@ -276,10 +294,10 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /**
     * Process error.
-    *
+    * 
     * @param errorStream the error stream
     * @param monitor the monitor
-    *
+    * 
     * @return true, if successful
     */
    private boolean processError(final InputStream errorStream, final IProgressMonitor monitor) {
@@ -306,12 +324,12 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /**
     * Creates the project.
-    *
+    * 
     * @param taskDataProject the task data project
     * @param monitor the monitor
-    *
+    * 
     * @return true, if successful
-    *
+    * 
     * @throws CoreException the core exception
     */
    private boolean createProject(final TaskDataProject taskDataProject, final IProgressMonitor monitor)
@@ -360,11 +378,11 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /**
     * Creates the folder.
-    *
+    * 
     * @param taskDataFolder the task data folder
     * @param container the container
     * @param monitor the monitor
-    *
+    * 
     * @return true, if successful
     */
    private boolean createFolder(final TaskDataFolder taskDataFolder, final IContainer container,
@@ -422,11 +440,11 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /**
     * Creates the file.
-    *
+    * 
     * @param taskDataFile the task data file
     * @param container the container
     * @param monitor the monitor
-    *
+    * 
     * @return true, if successful
     */
    private boolean createFile(final TaskDataFile taskDataFile, final IContainer container,
@@ -493,7 +511,7 @@ public abstract class AbstractTaskWizard extends Wizard implements Constants {
 
    /**
     * Gets the execution log file path.
-    *
+    * 
     * @return the execution log file path
     */
    private String getExecutionLogFilePath() {

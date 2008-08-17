@@ -1,10 +1,28 @@
-/**
- * ImageEditor.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file ImageEditor.java.
+ *  This file (ImageEditor.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.editors;
 
 import java.io.File;
@@ -41,10 +59,10 @@ import org.eclipse.ui.part.EditorPart;
 
 /**
  * The class ImageEditor is used to open an editor that contains image.
- *
+ * 
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Jul 28, 2008
+ * @version Aug 18, 2008
  */
 public class ImageEditor extends EditorPart {
 
@@ -93,10 +111,10 @@ public class ImageEditor extends EditorPart {
 
    /**
     * Creates the image container.
-    *
+    * 
     * @param parent the parent
     * @param image the image
-    *
+    * 
     * @return the composite
     */
    private Composite createImageContainer(final Composite parent, final Image image) {
@@ -114,10 +132,10 @@ public class ImageEditor extends EditorPart {
 
    /**
     * Creates the new image canvas. <em>This method is based on Snippet 48 of Eclipse SWT Snippets.</em>
-    *
+    * 
     * @param parent the parent
     * @param image the image
-    *
+    * 
     * @return the canvas
     */
    private Canvas createNewImageCanvas(final Composite parent, final Image image) {
@@ -229,9 +247,9 @@ public class ImageEditor extends EditorPart {
 
    /**
     * Creates the error container.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the composite
     */
    private Composite createErrorContainer(final Composite parent) {
@@ -250,7 +268,7 @@ public class ImageEditor extends EditorPart {
 
    /**
     * Gets the container.
-    *
+    * 
     * @return the container
     */
    private Composite getContainer() {
@@ -259,7 +277,7 @@ public class ImageEditor extends EditorPart {
 
    /**
     * Gets the image.
-    *
+    * 
     * @return the image
     */
    private Image getImage() {
@@ -271,7 +289,7 @@ public class ImageEditor extends EditorPart {
 
    /**
     * Gets the image name.
-    *
+    * 
     * @return the image name
     */
    private String getImagePath() {

@@ -1,10 +1,28 @@
-/**
- * ViewClustersWizardPage.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file ViewClustersWizardPage.java.
+ *  This file (ViewClustersWizardPage.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.wizards;
 
 import java.io.File;
@@ -26,16 +44,14 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * The class ViewClustersWizardPage.
- *
+ * 
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Aug 10, 2008
+ * @version Aug 18, 2008
  */
 public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
-   /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.ViewClustersWizardPage</code>).
-    */
+   /** The constant for page name (value = <code>openbiomind.gui.wizards.ViewClustersWizardPage</code>). */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.ViewClustersWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
@@ -80,7 +96,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Instantiates a new view clusters wizard page.
-    *
+    * 
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
@@ -109,7 +125,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Creates the required group.
-    *
+    * 
     * @param parent the parent
     */
    private void createRequiredGroup(final Composite parent) {
@@ -146,10 +162,10 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Creates the select file text button composite.
-    *
+    * 
     * @param parent the parent
     * @param tooltip the tool tip
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createSelectFileTBC(final Composite parent, final String tooltip) {
@@ -189,9 +205,9 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Creates the image file destination file text.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text
     */
    private Text createImageFileDestFileText(final Composite parent) {
@@ -224,9 +240,9 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Creates the image file destination directory text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createImageFileDestDirTBC(final Composite parent) {
@@ -290,9 +306,9 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the image file path text. This method uses {@link #getImageFile()}.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the image file path text
     */
    private Text createImageFilePathText(final Composite parent) {
@@ -336,7 +352,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Creates the optional group.
-    *
+    * 
     * @param parent the parent
     */
    private void createOptionalGroup(final Composite parent) {
@@ -351,7 +367,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the clustering dataset.
-    *
+    * 
     * @return the clustering dataset
     */
    public String getClusteringDataset() {
@@ -360,7 +376,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the clustering dataset text button composite.
-    *
+    * 
     * @return the clustering dataset text button composite
     */
    private TextButtonComposite getClusteringDatasetTBC() {
@@ -369,7 +385,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the clustering result.
-    *
+    * 
     * @return the clustering result
     */
    public String getClusteringResult() {
@@ -378,7 +394,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the clustering result text button composite.
-    *
+    * 
     * @return the clustering result text button composite
     */
    private TextButtonComposite getClusteringResultTBC() {
@@ -387,7 +403,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the image file destination file.
-    *
+    * 
     * @return the image file destination file
     */
    private String getImageFileDestFileName() {
@@ -396,7 +412,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the image file destination file text.
-    *
+    * 
     * @return the image file destination file text
     */
    private Text getImageFileDestFileText() {
@@ -405,7 +421,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Checks if is valid image file destination file name.
-    *
+    * 
     * @return true, if is valid image file destination file name
     */
    private boolean isValidImageFileDestFileName() {
@@ -414,7 +430,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Sets the valid image file destination file name.
-    *
+    * 
     * @param validImageFileDestFileName the new valid image file destination file name
     */
    private void setValidImageFileDestFileName(final boolean validImageFileDestFileName) {
@@ -423,7 +439,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the image file destination directory path.
-    *
+    * 
     * @return the image file destination directory
     */
    private String getImageFileDestDirPath() {
@@ -432,7 +448,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the image file destination extension.
-    *
+    * 
     * @return the image file destination extension
     */
    private String getImageFileDestFileExt() {
@@ -441,7 +457,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the image file destination extension combo.
-    *
+    * 
     * @return the image file destination extension combo
     */
    private Combo getImageFileDestExtCombo() {
@@ -450,7 +466,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the image file destination extension array.
-    *
+    * 
     * @return the image file destination extension array
     */
    private String[] getImageFileDestExtArray() {
@@ -463,7 +479,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the image file destination directory text button composite.
-    *
+    * 
     * @return the image file destination directory text button composite
     */
    private TextButtonComposite getImageFileDestDirTBC() {
@@ -472,7 +488,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the image file.
-    *
+    * 
     * @return the image file
     */
    public String getImageFile() {
@@ -489,7 +505,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the image file path text.
-    *
+    * 
     * @return the image file path text
     */
    private Text getImageFilePathText() {
@@ -498,7 +514,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Checks if is valid image file path.
-    *
+    * 
     * @return true, if is valid image file path
     */
    private boolean isValidImageFilePath() {
@@ -507,7 +523,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Sets the valid image file path.
-    *
+    * 
     * @param validImageFilePath the new valid image file path
     */
    private void setValidImageFilePath(final boolean validImageFilePath) {
@@ -516,7 +532,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the clustering colors.
-    *
+    * 
     * @return the clustering colors
     */
    public ClusteringColorsEnum getClusteringColors() {
@@ -525,7 +541,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
    /**
     * Gets the clustering colors combo.
-    *
+    * 
     * @return the clustering colors combo
     */
    private Combo getClusteringColorsCombo() {
@@ -533,7 +549,7 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
    }
 
    /*
-    * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#setVisible(boolean)
     */
    @Override
    public void setVisible(final boolean visible) {
@@ -544,10 +560,12 @@ public class ViewClustersWizardPage extends AbstractTaskWizardPage implements IW
 
             final IWizardPage previousPage2 = previousPage1.getPreviousPage();
             if (previousPage2 instanceof ClusteringTransformerWizardPage) {
-               disableComponent(getClusteringDatasetTBC(), ((ClusteringTransformerWizardPage) previousPage2).getDatasetFile());
+               disableComponent(getClusteringDatasetTBC(), ((ClusteringTransformerWizardPage) previousPage2)
+                     .getDatasetFile());
             }
          } else if (previousPage1 instanceof ClusteringTransformerWizardPage) {
-            disableComponent(getClusteringDatasetTBC(), ((ClusteringTransformerWizardPage) previousPage1).getDatasetFile());
+            disableComponent(getClusteringDatasetTBC(), ((ClusteringTransformerWizardPage) previousPage1)
+                  .getDatasetFile());
          }
       }
 

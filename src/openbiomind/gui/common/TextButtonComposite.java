@@ -1,10 +1,28 @@
-/**
- * TextButtonComposite.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file TextButtonComposite.java.
+ *  This file (TextButtonComposite.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.common;
 
 import org.eclipse.swt.SWT;
@@ -18,10 +36,10 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * The class TextButtonComposite.
- *
+ * 
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 13, 2008
+ * @version Aug 18, 2008
  */
 public abstract class TextButtonComposite extends Composite implements Constants {
 
@@ -36,7 +54,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Instantiates a new textField actionButton composite.
-    *
+    * 
     * @param parent the parent
     */
    public TextButtonComposite(final Composite parent) {
@@ -60,9 +78,9 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Creates the text field.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text
     */
    private Text createTextField(final Composite parent) {
@@ -76,9 +94,9 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Adds the modify listener on text field.
-    *
+    * 
     * @param listener the listener
-    *
+    * 
     * @see org.eclipse.swt.widgets.Text#addModifyListener(org.eclipse.swt.events.ModifyListener)
     */
    public void addModifyListenerOnTextField(final ModifyListener listener) {
@@ -87,9 +105,9 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Removes the modify listener on text field.
-    *
+    * 
     * @param listener the listener
-    *
+    * 
     * @see org.eclipse.swt.widgets.Text#removeModifyListener(org.eclipse.swt.events.ModifyListener)
     */
    public void removeModifyListenerOnTextField(final ModifyListener listener) {
@@ -98,9 +116,9 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Adds the focus listener on text field.
-    *
+    * 
     * @param listener the listener
-    *
+    * 
     * @see org.eclipse.swt.widgets.Control#addFocusListener(org.eclipse.swt.events.FocusListener)
     */
    public void addFocusListenerOnTextField(final FocusListener listener) {
@@ -109,9 +127,9 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Removes the focus listener on text field.
-    *
+    * 
     * @param listener the listener
-    *
+    * 
     * @see org.eclipse.swt.widgets.Control#removeFocusListener(org.eclipse.swt.events.FocusListener)
     */
    public void removeFocusListenerOnTextField(final FocusListener listener) {
@@ -120,9 +138,9 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Creates the action button.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the button
     */
    private Button createActionButton(final Composite parent) {
@@ -152,7 +170,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Gets the textField.
-    *
+    * 
     * @return the textField
     */
    public Text getTextField() {
@@ -161,7 +179,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Gets the text.
-    *
+    * 
     * @return the text
     */
    public String getText() {
@@ -170,7 +188,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Sets the text.
-    *
+    * 
     * @param text the new text
     */
    public void setText(final String text) {
@@ -179,7 +197,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Gets the actionButton.
-    *
+    * 
     * @return the actionButton
     */
    public Button getActionButton() {
@@ -198,7 +216,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Checks if the text field is editable.
-    *
+    * 
     * @return true, if is editable
     */
    public boolean isEditable() {
@@ -207,7 +225,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Sets the the text field as editable.
-    *
+    * 
     * @param editable the new editable
     */
    public void setEditable(final boolean editable) {
@@ -233,7 +251,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Checks if is valid.
-    *
+    * 
     * @return the valid
     */
    public boolean isValid() {
@@ -242,7 +260,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Sets the valid.
-    *
+    * 
     * @param valid the valid to set
     */
    public void setValid(final boolean valid) {
@@ -251,7 +269,7 @@ public abstract class TextButtonComposite extends Composite implements Constants
 
    /**
     * Button selected.
-    *
+    * 
     * @return the string
     */
    protected abstract String buttonSelected();

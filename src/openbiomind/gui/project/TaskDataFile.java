@@ -1,20 +1,38 @@
-/**
- * TaskDataFile.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file TaskDataFile.java.
+ *  This file (TaskDataFile.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.project;
 
 import static openbiomind.gui.common.Constants.EMPTY;
 
 /**
  * The class TaskDataFile.
- *
+ * 
  * @author bsanghvi
  * @since Jun 30, 2008
- * @version Aug 3, 2008
+ * @version Aug 18, 2008
  */
 public class TaskDataFile {
 
@@ -42,7 +60,7 @@ public class TaskDataFile {
 
    /**
     * Instantiates a new task data file.
-    *
+    * 
     * @param name the name
     */
    public TaskDataFile(final String name) {
@@ -51,7 +69,7 @@ public class TaskDataFile {
 
    /**
     * Instantiates a new task data file.
-    *
+    * 
     * @param name the name
     * @param path the path
     * @param linked the linked
@@ -67,7 +85,7 @@ public class TaskDataFile {
 
    /**
     * Gets the name.
-    *
+    * 
     * @return the name
     */
    public String getName() {
@@ -76,7 +94,7 @@ public class TaskDataFile {
 
    /**
     * Sets the name.
-    *
+    * 
     * @param name the new name
     */
    public void setName(final String name) {
@@ -89,7 +107,7 @@ public class TaskDataFile {
 
    /**
     * Gets the path.
-    *
+    * 
     * @return the path
     */
    public String getPath() {
@@ -97,8 +115,8 @@ public class TaskDataFile {
    }
 
    /**
-    * Sets the path
-    *
+    * Sets the path.
+    * 
     * @param path the path to set
     */
    public void setPath(final String path) {
@@ -111,7 +129,7 @@ public class TaskDataFile {
 
    /**
     * Checks if the file must be linked.
-    *
+    * 
     * @return true, if is linked
     */
    public boolean isLinked() {
@@ -120,7 +138,7 @@ public class TaskDataFile {
 
    /**
     * Sets if the file must be linked.
-    *
+    * 
     * @param linked the new linked
     */
    public void setLinked(final boolean linked) {
@@ -129,7 +147,7 @@ public class TaskDataFile {
 
    /**
     * Checks if is auto open.
-    *
+    * 
     * @return the autoOpen
     */
    public boolean isAutoOpen() {
@@ -138,7 +156,7 @@ public class TaskDataFile {
 
    /**
     * Sets the auto open.
-    *
+    * 
     * @param autoOpen the autoOpen to set
     */
    public void setAutoOpen(final boolean autoOpen) {
@@ -147,7 +165,7 @@ public class TaskDataFile {
 
    /**
     * Gets the editor id.
-    *
+    * 
     * @return the editor id
     */
    public String getEditorId() {
@@ -156,7 +174,7 @@ public class TaskDataFile {
 
    /**
     * Sets the editor id.
-    *
+    * 
     * @param editorId the new editor id
     */
    public void setEditorId(final String editorId) {

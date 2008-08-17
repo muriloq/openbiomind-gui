@@ -1,10 +1,28 @@
-/**
- * MetaTaskWizardPage.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file MetaTaskWizardPage.java.
+ *  This file (MetaTaskWizardPage.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.wizards;
 
 import java.io.File;
@@ -27,16 +45,14 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * The class MetaTaskWizardPage.
- *
+ * 
  * @author bsanghvi
  * @since Jul 5, 2008
- * @version Aug 10, 2008
+ * @version Aug 18, 2008
  */
 public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
-   /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.MetaTaskWizardPage</code>).
-    */
+   /** The constant for page name (value = <code>openbiomind.gui.wizards.MetaTaskWizardPage</code>). */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.MetaTaskWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
@@ -69,7 +85,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Instantiates a new meta task wizard page.
-    *
+    * 
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
@@ -98,7 +114,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Creates the required group.
-    *
+    * 
     * @param parent the parent
     */
    private void createRequiredGroup(final Composite parent) {
@@ -117,9 +133,9 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Creates the dataset directory text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createDatasetDirectoryTBC(final Composite parent) {
@@ -162,9 +178,9 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Creates the output directory text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createOutputDirTBC(final Composite parent) {
@@ -224,7 +240,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Creates the optional group.
-    *
+    * 
     * @param parent the parent
     */
    private void createOptionalGroup(final Composite parent) {
@@ -255,7 +271,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the dataset directory path.
-    *
+    * 
     * @return the dataset directory path
     */
    public String getDatasetDirectoryPath() {
@@ -264,7 +280,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the dataset directory text button composite.
-    *
+    * 
     * @return the dataset directory text button composite
     */
    private TextButtonComposite getDatasetDirectoryTBC() {
@@ -273,7 +289,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the output directory.
-    *
+    * 
     * @return the output directory
     */
    public String getOutputDirectory() {
@@ -282,7 +298,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the output directory text button composite.
-    *
+    * 
     * @return the output directory text button composite
     */
    private TextButtonComposite getOutputDirectoryTBC() {
@@ -291,7 +307,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the number of tasks.
-    *
+    * 
     * @return the number of tasks
     */
    public Integer getNumberOfTasks() {
@@ -304,7 +320,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the number of tasks text.
-    *
+    * 
     * @return the number of tasks
     */
    private Text getNumberOfTasksText() {
@@ -313,7 +329,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the target category.
-    *
+    * 
     * @return the target category
     */
    public String getTargetCategory() {
@@ -322,7 +338,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the target category combo.
-    *
+    * 
     * @return the target category combo
     */
    private Combo getTargetCategoryCombo() {
@@ -331,7 +347,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the classification method.
-    *
+    * 
     * @return the classification method
     */
    public ClassificationMethodEnum getClassificationMethod() {
@@ -341,7 +357,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the classification method combo.
-    *
+    * 
     * @return the classification method combo
     */
    private Combo getClassificationMethodCombo() {
@@ -350,7 +366,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the meta task shuffling.
-    *
+    * 
     * @return the meta task shuffling
     */
    public ShuffleEnum getMetaTaskShuffling() {
@@ -359,7 +375,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
 
    /**
     * Gets the meta task shuffling combo.
-    *
+    * 
     * @return the meta task shuffling combo
     */
    private Combo getMetaTaskShufflingCombo() {
@@ -367,7 +383,7 @@ public class MetaTaskWizardPage extends AbstractTaskWizardPage implements IWizar
    }
 
    /*
-    * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#setVisible(boolean)
     */
    @Override
    public void setVisible(final boolean visible) {

@@ -1,10 +1,28 @@
-/**
- * Constants.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file Constants.java.
+ *  This file (Constants.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.common;
 
 import java.io.File;
@@ -26,7 +44,7 @@ import org.eclipse.swt.widgets.Display;
  * 
  * @author bsanghvi
  * @since Jun 12, 2008
- * @version Aug 13, 2008
+ * @version Aug 18, 2008
  */
 public interface Constants {
 
@@ -74,7 +92,7 @@ public interface Constants {
     * 
     * @author bsanghvi
     * @since Jun 26, 2008
-    * @version Jul 6, 2008
+    * @version Aug 18, 2008
     */
    public final class Resources {
 
@@ -99,9 +117,7 @@ public interface Constants {
       /** The Constant specifying the properties file extension (value = <code>.properties</code>). */
       public static final String PROPERTIES_EXTENSION = DOT + "properties"; //$NON-NLS-1$
 
-      /**
-       * The constant specifying the name of the pipeline properties file (value = <code>pipeline.properties</code>).
-       */
+      /** The constant specifying the name of the pipeline properties file (value = <code>pipeline.properties</code>). */
       public static final String PIPELINE_PROPERTIES_FILENAME = "pipeline" + PROPERTIES_EXTENSION; //$NON-NLS-1$
 
       /** The Constant specifying the name of the execution file (value = <code>execution.log</code>). */
@@ -147,7 +163,7 @@ public interface Constants {
     * 
     * @author bsanghvi
     * @since Jun 26, 2008
-    * @version Jun 26, 2008
+    * @version Aug 18, 2008
     */
    public final class Properties {
 
@@ -179,7 +195,7 @@ public interface Constants {
     * 
     * @author bsanghvi
     * @since Jun 26, 2008
-    * @version Jun 26, 2008
+    * @version Aug 18, 2008
     */
    public final class Colors {
 

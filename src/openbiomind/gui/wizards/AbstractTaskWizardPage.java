@@ -1,10 +1,28 @@
-/**
- * AbstractTaskWizardPage.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file AbstractTaskWizardPage.java.
+ *  This file (AbstractTaskWizardPage.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.wizards;
 
 import openbiomind.gui.common.Constants;
@@ -35,10 +53,10 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * The class AbstractTaskWizardPage.
- *
+ * 
  * @author bsanghvi
  * @since Jun 13, 2008
- * @version Aug 10, 2008
+ * @version Aug 18, 2008
  */
 public abstract class AbstractTaskWizardPage extends WizardPage implements IWizardPage, Constants {
 
@@ -80,7 +98,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Instantiates a new abstract task wizard page.
-    *
+    * 
     * @param pageName the page name
     * @param pageTitle the page title
     * @param syntax the syntax
@@ -107,11 +125,11 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Returns the top level control of this dialog page.
-    *
+    * 
     * Failing to override this method will result into AssertionFailedException.
-    *
+    * 
     * @return the control
-    *
+    * 
     * @see org.eclipse.jface.dialogs.DialogPage#getControl()
     */
    @Override
@@ -124,9 +142,9 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Creates the base composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the composite
     */
    protected abstract Composite createBaseComposite(final Composite parent);
@@ -166,7 +184,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Disable component.
-    *
+    * 
     * @param textButtonComposite the text button composite
     * @param value the value
     */
@@ -192,7 +210,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the parent.
-    *
+    * 
     * @return the parent
     */
    protected Composite getParent() {
@@ -201,7 +219,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Sets the parent.
-    *
+    * 
     * @param parent the parent to set
     */
    protected void setParent(final Composite parent) {
@@ -210,7 +228,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Adds the project information fields.
-    *
+    * 
     * @param parent the parent
     */
    protected void addProjectInformationFields(final Composite parent) {
@@ -221,7 +239,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Checks if is project information valid.
-    *
+    * 
     * @return true, if is project information valid
     */
    protected boolean isProjectInformationValid() {
@@ -230,9 +248,9 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Creates the project name text.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text
     */
    private Text createProjectNameText(final Composite parent) {
@@ -254,7 +272,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the project name.
-    *
+    * 
     * @return the project name
     */
    public String getProjectName() {
@@ -269,7 +287,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the project name text.
-    *
+    * 
     * @return the project name text
     */
    protected Text getProjectNameText() {
@@ -278,7 +296,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Adds the section.
-    *
+    * 
     * @param parent the parent
     * @param text the text
     * @param numOfColumns the number of columns
@@ -291,10 +309,10 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Creates the new optional file text button composite.
-    *
+    * 
     * @param parent the parent
     * @param numOfColumns the number of columns
-    *
+    * 
     * @return the text button composite
     */
    protected TextButtonComposite createNewOptionalFileTextButtonComposite(final Composite parent, final int numOfColumns) {
@@ -339,9 +357,9 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Creates the new number only text.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text
     */
    protected Text createNewNumberOnlyText(final Composite parent) {
@@ -383,10 +401,10 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Creates the default read only combo.
-    *
+    * 
     * @param parent the parent
     * @param items the items
-    *
+    * 
     * @return the combo
     */
    protected Combo createDefaultReadOnlyCombo(final Composite parent, final String[] items) {
@@ -395,11 +413,11 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Creates the default read only combo.
-    *
+    * 
     * @param parent the parent
     * @param items the items
     * @param fill the fill
-    *
+    * 
     * @return the combo
     */
    protected Combo createDefaultReadOnlyCombo(final Composite parent, final String[] items, final boolean fill) {
@@ -408,10 +426,10 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Creates the default drop down combo.
-    *
+    * 
     * @param parent the parent
     * @param items the items
-    *
+    * 
     * @return the combo
     */
    protected Combo createDefaultDropDownCombo(final Composite parent, final String[] items) {
@@ -420,11 +438,11 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Creates the default drop down combo.
-    *
+    * 
     * @param parent the parent
     * @param items the items
     * @param fill the fill
-    *
+    * 
     * @return the combo
     */
    protected Combo createDefaultDropDownCombo(final Composite parent, final String[] items, final boolean fill) {
@@ -433,13 +451,13 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Creates the default read only combo.
-    *
+    * 
     * @param parent the parent
     * @param style the style must be either {@link SWT#DROP_DOWN} or {@link SWT#READ_ONLY} or {@link SWT#SIMPLE}
     * @param tooltip the tool tip
     * @param items the items
     * @param fill the fill
-    *
+    * 
     * @return the combo
     */
    private Combo createDefaultCombo(final Composite parent, final int style, final String tooltip,
@@ -471,9 +489,9 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Creates the default text.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text
     */
    protected Text createDefaultText(final Composite parent) {
@@ -493,7 +511,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Handle modify text when editable.
-    *
+    * 
     * @param textButtonComposite the text button composite
     * @param errorDecoration the error decoration
     * @param valid the valid
@@ -509,7 +527,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Handle modify text.
-    *
+    * 
     * @param textButtonComposite the text button composite
     * @param errorDecoration the error decoration
     * @param valid the valid
@@ -523,7 +541,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Handle error decoration.
-    *
+    * 
     * @param errorDecoration the error decoration
     * @param valid the valid
     */
@@ -538,7 +556,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the directory dialog.
-    *
+    * 
     * @return the directoryDialog
     */
    protected DirectoryDialog getDirectoryDialog() {
@@ -551,7 +569,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the file dialog.
-    *
+    * 
     * @return the fileDialog
     */
    protected FileDialog getFileDialog() {
@@ -564,7 +582,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Show error or warning.
-    *
+    * 
     * @param errorDecoration the error decoration
     * @param warningDecoration the warning decoration
     * @param inError the in error
@@ -597,7 +615,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Show error or warning.
-    *
+    * 
     * @param inError the in error
     * @param errorDecoration the error decoration
     * @param inWarning the in warning
@@ -610,7 +628,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the target category array.
-    *
+    * 
     * @return the target category array
     */
    protected String[] getTargetCategoryArray() {
@@ -623,7 +641,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the feature selection method array.
-    *
+    * 
     * @return the feature selection method array
     */
    protected String[] getFeatureSelectionMethodArray() {
@@ -637,7 +655,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the classification method array.
-    *
+    * 
     * @return the classification method array
     */
    protected String[] getClassificationMethodArray() {
@@ -653,7 +671,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the meta task shuffling array.
-    *
+    * 
     * @return the meta task shuffling array
     */
    protected String[] getMetaTaskShufflingArray() {
@@ -666,7 +684,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the dataset clustering metric array.
-    *
+    * 
     * @return the dataset clustering metric array
     */
    protected String[] getDatasetClusteringMetricArray() {
@@ -680,7 +698,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the clustering colors array.
-    *
+    * 
     * @return the clustering colors array
     */
    protected String[] getClusteringColorsArray() {
@@ -694,7 +712,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Gets the boolean value array.
-    *
+    * 
     * @return the boolean value array
     */
    protected String[] getBooleanValueArray() {
@@ -707,7 +725,7 @@ public abstract class AbstractTaskWizardPage extends WizardPage implements IWiza
 
    /**
     * Prepare task data.
-    *
+    * 
     * @return the abstract task data
     */
    public abstract AbstractTaskData prepareTaskData();

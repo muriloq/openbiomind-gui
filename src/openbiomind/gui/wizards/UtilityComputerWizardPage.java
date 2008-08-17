@@ -1,10 +1,28 @@
-/**
- * UtilityComputerWizardPage.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file UtilityComputerWizardPage.java.
+ *  This file (UtilityComputerWizardPage.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.wizards;
 
 import java.io.File;
@@ -25,16 +43,14 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * The class UtilityComputerWizardPage.
- *
+ * 
  * @author bsanghvi
  * @since Jul 9, 2008
- * @version Aug 10, 2008
+ * @version Aug 18, 2008
  */
 public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements IWizardPage {
 
-   /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.UtilityComputerWizardPage</code>).
-    */
+   /** The constant for page name (value = <code>openbiomind.gui.wizards.UtilityComputerWizardPage</code>). */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.UtilityComputerWizardPage"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
@@ -73,7 +89,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Instantiates a new utility computer wizard page.
-    *
+    * 
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
@@ -102,7 +118,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Creates the required group.
-    *
+    * 
     * @param parent the parent
     */
    private void createRequiredGroup(final Composite parent) {
@@ -135,9 +151,9 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Creates the meta task result directory text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createMetaTaskResultDirTBC(final Composite parent) {
@@ -178,9 +194,9 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Creates the base dataset text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createBaseDatasetTBC(final Composite parent) {
@@ -219,9 +235,9 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Creates the output file destination file text.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text
     */
    private Text createOutputFileDestFileText(final Composite parent) {
@@ -254,9 +270,9 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Creates the output file destination directory text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createOutputFileDestDirTBC(final Composite parent) {
@@ -320,9 +336,9 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the output file path text. This method uses {@link #getOutputFile()}.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the output file path text
     */
    private Text createOutputFilePathText(final Composite parent) {
@@ -366,7 +382,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Creates the optional group.
-    *
+    * 
     * @param parent the parent
     */
    private void createOptionalGroup(final Composite parent) {
@@ -382,7 +398,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the meta task result directory.
-    *
+    * 
     * @return the result directory
     */
    public String getMetaTaskResultDir() {
@@ -391,7 +407,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the meta task result directory text button composite.
-    *
+    * 
     * @return the meta task result directory text button composite
     */
    private TextButtonComposite getMetaTaskResultDirTBC() {
@@ -400,7 +416,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the base dataset.
-    *
+    * 
     * @return the base dataset
     */
    public String getBaseDataset() {
@@ -409,7 +425,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the base dataset text button composite.
-    *
+    * 
     * @return the base dataset text button composite
     */
    private TextButtonComposite getBaseDatasetTBC() {
@@ -418,7 +434,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the output file destination file.
-    *
+    * 
     * @return the output file destination file
     */
    private String getOutputFileDestFileName() {
@@ -427,7 +443,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the output file destination file text.
-    *
+    * 
     * @return the output file destination file text
     */
    private Text getOutputFileDestFileText() {
@@ -436,7 +452,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Checks if is valid output file destination file name.
-    *
+    * 
     * @return true, if checks if is valid output file destination file name
     */
    private boolean isValidOutputFileDestFileName() {
@@ -445,7 +461,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Sets the valid output file destination file name.
-    *
+    * 
     * @param validOutputFileDestFileName the valid output file destination file name
     */
    private void setValidOutputFileDestFileName(final boolean validOutputFileDestFileName) {
@@ -454,7 +470,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the output file destination directory path.
-    *
+    * 
     * @return the output file destination directory
     */
    private String getOutputFileDestDirPath() {
@@ -463,7 +479,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the output file destination directory text button composite.
-    *
+    * 
     * @return the output file destination directory text button composite
     */
    private TextButtonComposite getOutputFileDestDirTBC() {
@@ -472,7 +488,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the output file.
-    *
+    * 
     * @return the output file
     */
    public String getOutputFile() {
@@ -489,7 +505,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the output file path text.
-    *
+    * 
     * @return the outputFilePathText
     */
    private Text getOutputFilePathText() {
@@ -498,7 +514,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Checks if is valid output file path.
-    *
+    * 
     * @return the validOutputFilePath
     */
    private boolean isValidOutputFilePath() {
@@ -507,7 +523,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Sets the valid output file path.
-    *
+    * 
     * @param validOutputFilePath the valid output file path
     */
    private void setValidOutputFilePath(final boolean validOutputFilePath) {
@@ -516,7 +532,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the target category.
-    *
+    * 
     * @return the target category
     */
    public String getTargetCategory() {
@@ -525,7 +541,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
 
    /**
     * Gets the target category combo.
-    *
+    * 
     * @return the target category combo
     */
    private Combo getTargetCategoryCombo() {
@@ -533,7 +549,7 @@ public class UtilityComputerWizardPage extends AbstractTaskWizardPage implements
    }
 
    /*
-    * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+    * @see openbiomind.gui.wizards.AbstractTaskWizardPage#setVisible(boolean)
     */
    @Override
    public void setVisible(final boolean visible) {

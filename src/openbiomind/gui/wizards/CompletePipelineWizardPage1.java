@@ -1,10 +1,28 @@
-/**
- * CompletePipelineWizardPage1.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file CompletePipelineWizardPage1.java.
+ *  This file (CompletePipelineWizardPage1.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.wizards;
 
 import java.io.File;
@@ -24,16 +42,14 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * The class CompletePipelineWizardPage1.
- *
+ * 
  * @author bsanghvi
  * @since Jul 31, 2008
- * @version Aug 10, 2008
+ * @version Aug 18, 2008
  */
 public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implements IWizardPage {
 
-   /**
-    * The constant for page name (value = <code>openbiomind.gui.wizards.CompletePipelineWizardPage1</code>).
-    */
+   /** The constant for page name (value = <code>openbiomind.gui.wizards.CompletePipelineWizardPage1</code>). */
    public static final String PAGE_NAME = "openbiomind.gui.wizards.CompletePipelineWizardPage1"; //$NON-NLS-1$
 
    /** The number of columns in various groups. */
@@ -60,7 +76,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Instantiates a new complete pipeline wizard page 1.
-    *
+    * 
     * @param pageTitle the page title
     * @param pageDescription the page description
     */
@@ -89,7 +105,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Creates the required group.
-    *
+    * 
     * @param parent the parent
     */
    private void createRequiredGroup(final Composite parent) {
@@ -107,9 +123,9 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Creates the original dataset text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createOriginalDatasetTBC(final Composite parent) {
@@ -147,9 +163,9 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Creates the output directory text button composite.
-    *
+    * 
     * @param parent the parent
-    *
+    * 
     * @return the text button composite
     */
    private TextButtonComposite createOutputDirTBC(final Composite parent) {
@@ -209,7 +225,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Creates the optional group.
-    *
+    * 
     * @param parent the parent
     */
    private void createOptionalGroup(final Composite parent) {
@@ -227,7 +243,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the original dataset file path.
-    *
+    * 
     * @return the original dataset file
     */
    public String getOriginalDatasetFilePath() {
@@ -236,7 +252,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the original dataset text button composite.
-    *
+    * 
     * @return the original dataset text button composite
     */
    private TextButtonComposite getOriginalDatasetTBC() {
@@ -245,7 +261,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the output directory.
-    *
+    * 
     * @return the output directory
     */
    public String getOutputDirectory() {
@@ -254,7 +270,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the output directory text button composite.
-    *
+    * 
     * @return the output directory text button composite
     */
    private TextButtonComposite getOutputDirectoryTBC() {
@@ -263,7 +279,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the test dataset.
-    *
+    * 
     * @return the test dataset
     */
    public String getTestDataset() {
@@ -272,7 +288,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the test dataset text button composite.
-    *
+    * 
     * @return the test dataset text button composite
     */
    private TextButtonComposite getTestDatasetTBC() {
@@ -281,7 +297,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the property file.
-    *
+    * 
     * @return the property file
     */
    public String getPropertyFile() {
@@ -290,7 +306,7 @@ public class CompletePipelineWizardPage1 extends AbstractTaskWizardPage implemen
 
    /**
     * Gets the property file text button composite.
-    *
+    * 
     * @return the property file text button composite
     */
    private TextButtonComposite getPropertyFileTBC() {

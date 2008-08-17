@@ -1,10 +1,28 @@
-/**
- * GraphFeaturesTaskData.java
+/* $Id$ */
+/*
+ *  OpenBiomind-GUI: GUI for OpenBiomind
+ *  Copyright (C) 2008  Bhavesh Sanghvi
  *
- * The file GraphFeaturesTaskData.java.
+ *  This file (GraphFeaturesTaskData.java) is part of OpenBiomind-GUI.
  *
- * $Id$
+ *  OpenBiomind-GUI is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  OpenBiomind-GUI is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with OpenBiomind-GUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Please visit the following pages to contact the author(s):
+ *  Homepage: http://code.google.com/p/openbiomind-gui/
+ *  Mailing list: http://groups.google.com/group/openbiomind-gui/
  */
+
 package openbiomind.gui.data;
 
 import openbiomind.gui.common.Argument;
@@ -14,20 +32,18 @@ import openbiomind.gui.util.Utility;
 
 /**
  * The class GraphFeaturesTaskData is used by the GraphFeatures task. The syntax of this task is as follows:
- *
+ * 
  * <pre>
  * task.GraphFeatures &lt;-h horizontal dataset&gt; &lt;-m mobra dataset&gt; &lt;-u utility file&gt; &lt;-o output file&gt; [-topNUseful nu] [-topNCooc max co-occurence edges] [-topNCoex max co-expression edges]
  * </pre>
- *
+ * 
  * @author bsanghvi
  * @since Jul 20, 2008
- * @version Aug 3, 2008
+ * @version Aug 18, 2008
  */
 public class GraphFeaturesTaskData extends AbstractTaskData {
 
-   /**
-    * Name of this task is <code>task.GraphFeatures</code>.
-    */
+   /** Name of this task is <code>task.GraphFeatures</code>. */
    private static final String TASK_NAME = "task.GraphFeatures"; //$NON-NLS-1$
 
    /** Argument <code>-h</code> for specifying the horizontal dataset. */
@@ -51,7 +67,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Gets the horizontal dataset (argument = <code>-d</code>).
-    *
+    * 
     * @return the horizontal dataset
     */
    public String getHorizontalDataset() {
@@ -60,7 +76,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Sets the horizontal dataset (argument = <code>-h</code>).
-    *
+    * 
     * @param horizontalDataset the horizontal dataset
     */
    public void setHorizontalDataset(final String horizontalDataset) {
@@ -69,7 +85,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Gets the MOBRA dataset (argument = <code>-m</code>).
-    *
+    * 
     * @return the MOBRA dataset
     */
    public String getMobraDataset() {
@@ -78,7 +94,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Sets the MOBRA dataset (argument = <code>-r</code>).
-    *
+    * 
     * @param mobraDataset the MOBRA dataset
     */
    public void setMobraDataset(final String mobraDataset) {
@@ -87,7 +103,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Gets the utility file (argument = <code>-u</code>).
-    *
+    * 
     * @return the utility file
     */
    public String getUtilityFile() {
@@ -96,7 +112,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Sets the utility file (argument = <code>-u</code>).
-    *
+    * 
     * @param utilityFile the new utility file
     */
    public void setUtilityFile(final String utilityFile) {
@@ -105,7 +121,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Gets the output file (argument = <code>-o</code>).
-    *
+    * 
     * @return the output file
     */
    public String getOutputFile() {
@@ -114,7 +130,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Sets the output file (argument = <code>-o</code>).
-    *
+    * 
     * @param outputFile the output file
     */
    public void setOutputFile(final String outputFile) {
@@ -123,7 +139,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Gets the number of top useful features (argument = <code>-topNUseful</code>).
-    *
+    * 
     * @return the top useful features
     */
    public Integer getTopUsefulFeatures() {
@@ -132,7 +148,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Sets the number of top useful features (argument = <code>-topNUseful</code>).
-    *
+    * 
     * @param topUsefulFeatures the top useful features
     */
    public void setTopUsefulFeatures(final Integer topUsefulFeatures) {
@@ -141,7 +157,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Gets the number of maximum co-occurrence edges (argument = <code>-topNCooc</code>).
-    *
+    * 
     * @return the maximum co-occurrence edges
     */
    public Integer getMaximumCoOccurrenceEdges() {
@@ -150,7 +166,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Sets the number of maximum co-occurrence edges (argument = <code>-topNCooc</code>).
-    *
+    * 
     * @param maximumCoOccurrenceEdges the maximum co-occurrence edges
     */
    public void setMaximumCoOccurrenceEdges(final Integer maximumCoOccurrenceEdges) {
@@ -159,7 +175,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Gets the number of maximum co-expression edges (argument = <code>-topNCoex</code>).
-    *
+    * 
     * @return the maximum co-expression edges
     */
    public Integer getMaximumCoExpressionEdges() {
@@ -168,7 +184,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Sets the number of maximum co-expression edges (argument = <code>-topNCoex</code>).
-    *
+    * 
     * @param maximumCoExpressionEdges the maximum co-expression edges
     */
    public void setMaximumCoExpressionEdges(final Integer maximumCoExpressionEdges) {
@@ -177,7 +193,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Gets the graph image path.
-    *
+    * 
     * @return the graph image path
     */
    public String getGraphImagePath() {
@@ -186,7 +202,7 @@ public class GraphFeaturesTaskData extends AbstractTaskData {
 
    /**
     * Sets the graph image path.
-    *
+    * 
     * @param graphImagePath the new graph image path
     */
    public void setGraphImagePath(final String graphImagePath) {
