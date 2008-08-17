@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.4"?>
 
-<product name="OpenBiomind-GUI" id="openbiomind.gui.product" application="openbiomind.gui.application" version="0.0.12.20080813" useFeatures="false">
+<!-- $Id$ -->
+<!-- ======================================================================
+      This product file is used to generate OpenBiomind-GUI releases.
+      Author  : bsanghvi
+      Created : Jun 22, 2008
+      Version : Aug 17, 2008
+     ====================================================================== -->
+
+<product name="OpenBiomind-GUI" id="openbiomind.gui.product" application="openbiomind.gui.application" version="0.1.0.20080818" useFeatures="false">
 
    <aboutInfo>
       <image path="/OpenBiomind-GUI/icons/alt_about.gif"/>
