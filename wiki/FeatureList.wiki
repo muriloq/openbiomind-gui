@@ -1,4 +1,6 @@
+#summary Lists the application feature
 #labels Featured,Phase-Support
+
 = First Beta Release: 0.1.0.20080818-Beta =
  * Allows you to execute all the basic tasks
    * [http://code.google.com/p/openbiomind/wiki/EnhanceDataset Enhance Dataset]
