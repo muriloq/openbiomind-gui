@@ -1,0 +1,36 @@
+#labels Featured,Phase-Support
+= First Beta Release: 0.1.0.20080818-Beta =
+ * Allows you to execute all the basic tasks
+   * Enhance Dataset
+   * Dataset Transformer
+   * Meta Task
+   * Utility Computer
+   * Clustering Transformer
+   * Clusterize
+   * View Clusters
+   * Graph Features
+   * Complete Pipeline
+ * Provides a facility to execute multiple tasks together through a single wizard by chaining them
+   * Dataset Transformer > Meta Task
+   * Dataset Transformer > Utility Computer
+   * Dataset Transformer > Meta Task > Utility Computer
+   * Dataset Transformer > Utility Computer > Graph Features
+   * Dataset Transformer > Meta Task > Utility Computer > Graph Features
+   * Meta Task > Utility Computer
+   * Meta Task > Utility Computer > Graph Features
+   * Utility Computer > Graph Features
+   * Clustering Transformer > Clusterize
+   * Clustering Transformer > View Clusters
+   * Clustering Transformer > Graph Features
+   * Clustering Transformer > Clusterize > View Clusters
+   * Clusterize > View Clusters
+ * Capable to automatically convert the generated !Graphviz {{{dot}}} files into images (user must separately install [http://www.graphviz.org/ Graphviz] and set the dot utility in the application preferences)
+ * Application is ready to be localized (application is internationalized, but no localizations are yet provided)
+ * Basic image viewer is available in the application
+ * Releases available for multiple platforms
+   * linux (gtk/x86)
+   * linux (gtk/x86_64)
+   * macosx (carbon/ppc)
+   * macosx (carbon/x86) 
+   * win32 (win32/x86)
+   * win32 (win32/x86_64)
