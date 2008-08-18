@@ -1,4 +1,4 @@
-#summary lists the details about the development environment
+#summary Lists the details about the development environment
 #labels Phase-Implementation
 
 = Requirements =
