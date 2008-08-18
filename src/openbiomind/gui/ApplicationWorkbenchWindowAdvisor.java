@@ -80,6 +80,15 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
    }
 
    /*
+    * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowOpen()
+    */
+   @Override
+   public void postWindowOpen() {
+      getWindowConfigurer().getActionBarConfigurer().getStatusLineManager().setMessage(
+            "OpenBiomind-GUI  Copyright (C) 2008  Bhavesh Sanghvi");//$NON-NLS-1$
+   }
+
+   /*
     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#preWindowShellClose()
     */
    @Override
