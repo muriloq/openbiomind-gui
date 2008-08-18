@@ -1,5 +1,5 @@
 #summary Read this before you start using the software
-#labels Phase-Support
+#labels Featured,Phase-Support,Phase-Deploy
 
 = Minimum System Requirements =
  * [http://java.sun.com/javase/6/ Java SE 6]
@@ -13,3 +13,13 @@
  * [http://code.google.com/p/openbiomind/ OpenBiomind]
 == Optional Requirements ==
  * [http://www.graphviz.org/ Graphviz] (only *dot* utility is required)
+
+= Before Executing any Task =
+Before you can actually execute any task using this GUI, you will need to visit [http://code.google.com/p/openbiomind/ OpenBiomind homepage] and download the latest release of the !OpenBiomind {{{jar}}}. You will also need the {{{pipeline.properties}}} file. The easiest way to get this is to download the !OpenBiomind extras available at the same location.
+
+Next, you must set these two files as the {{{Preferences}}} of the !OpenBiomind-GUI ({{{Window > Preferences > OpenBiomind}}}). Now, you are ready to execute the tasks.
+
+Optionally, if you wish the application to automatically convert the [http://www.graphviz.org/ Graphviz] {{{dot}}} files into images, you must separately download and install Graphviz from [http://www.graphviz.org/] and then set the {{{dot}}} utility in the preferences.
+
+= What Next? =
+[AboutGUI Learn about the GUI] or [FeatureList Read more about at the features]
