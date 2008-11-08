@@ -3,7 +3,7 @@
 
 = Introduction =
 This GUI is just a wrapper over the [http://code.google.com/p/openbiomind/ OpenBiomind]. It provides a convenient way of executing various tasks supported by !OpenBiomind. In addition, it also provides a few advanced options to chain multiple tasks together (please see the [FeatureList list of features] for details).
-Following is a brief description about the user interface. The interface primarily consists following two views in addition to the _main editor area_. If you every close these views and want to open them again, then you can do that by selecting {{{Show View}}} option from the {{{Window}}} menu.
+Following is a brief description about the user interface. The interface primarily consists following two views in addition to the _main editor area_. If you ever close these views and want to open them again, then you can do that by selecting {{{Show View}}} option from the {{{Window}}} menu.
 
 == Results ==
 This view shows all the results. Once a task is executed, a new folder for that task is created and it is shown in this view. This folder contains following items:
